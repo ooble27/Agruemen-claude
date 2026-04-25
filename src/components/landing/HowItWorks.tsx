@@ -1,108 +1,98 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import illustSelection from "@/assets/illust-selection.png";
-import illustAgriculture from "@/assets/illust-agriculture.png";
-import illustTracability from "@/assets/illust-tracability.png";
-import illustBio from "@/assets/illust-bio.png";
 
-const services = [
-  {
-    tag: "Sélection",
-    title: "Produits Triés sur le Volet",
-    desc: "Chaque produit est sélectionné directement auprès de nos producteurs partenaires pour garantir fraîcheur et qualité.",
-    image: illustSelection,
-  },
-  {
-    tag: "Agriculture",
-    title: "Agriculture Responsable",
-    desc: "Nous collaborons avec des producteurs qui pratiquent une agriculture respectueuse de la terre et des saisons.",
-    image: illustAgriculture,
-  },
-  {
-    tag: "Traçabilité",
-    title: "Du Champ à Votre Table",
-    desc: "Suivez le parcours de chaque produit, de la récolte jusqu'à votre porte, en toute transparence.",
-    image: illustTracability,
-  },
-  {
-    tag: "Bio & Local",
-    title: "Produits 100% Naturels",
-    desc: "Zéro pesticide, zéro intermédiaire. Des produits cultivés naturellement par nos partenaires locaux.",
-    image: illustBio,
-  },
+const categories = [
+  { label: "Fruits",     emoji: "🍋", bg: "#FEF9C3", color: "#713F12" },
+  { label: "Légumes",    emoji: "🥦", bg: "#DCFCE7", color: "#14532D" },
+  { label: "Céréales",   emoji: "🌾", bg: "#FEF3C7", color: "#78350F" },
+  { label: "Bio & Local",emoji: "🌿", bg: "#D1FAE5", color: "#064E3B" },
+  { label: "Épices",     emoji: "🌶️", bg: "#FEE2E2", color: "#7F1D1D" },
+  { label: "Racines",    emoji: "🥕", bg: "#FFEDD5", color: "#7C2D12" },
+  { label: "Volaille",   emoji: "🐔", bg: "#F3E8FF", color: "#4A044E" },
+  { label: "Laitier",    emoji: "🥛", bg: "#E0F2FE", color: "#0C4A6E" },
 ];
 
 const HowItWorks = () => {
   return (
-    <section className="px-4 md:px-8 max-w-[1200px] mx-auto py-20 md:py-32">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-        >
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-headline font-extrabold tracking-[-0.03em] leading-[1.05]">
-            Notre Solution Agricole
-            <br />
-            <span className="text-on-surface-variant">Booste la Qualité</span>
-          </h2>
-        </motion.div>
+    <section id="categories" className="bg-background py-20 md:py-28">
+      <div className="mx-auto max-w-[1200px] px-4 md:px-8">
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="max-w-sm"
-        >
-          <p className="text-sm text-on-surface-variant font-body leading-relaxed mb-4">
-            Découvrez nos catégories les plus populaires et les plus demandées par nos clients.
-          </p>
-          <Link
-            to="/marche"
-            className="inline-flex items-center gap-2 bg-primary/10 text-primary px-5 py-2.5 rounded-full text-sm font-headline font-bold hover:bg-primary/20 transition-colors"
-          >
-            Voir Tout
-            <span className="material-symbols-outlined text-base">arrow_forward</span>
-          </Link>
-        </motion.div>
-      </div>
-
-      {/* Services grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
-        {services.map((service, i) => (
+        {/* Header */}
+        <div className="mb-12 flex flex-col gap-6 md:mb-16 md:flex-row md:items-end md:justify-between">
           <motion.div
-            key={service.tag}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: i * 0.1, duration: 0.6 }}
-            className="group"
+            transition={{ duration: 0.6 }}
           >
-            <div className="aspect-[4/3] rounded-2xl overflow-hidden mb-4 bg-primary/5 flex items-center justify-center p-4">
-              <img
-                src={service.image}
-                alt={service.title}
-                className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 drop-shadow-md"
-                loading="lazy"
-                width={400}
-                height={300}
-              />
-            </div>
-            <span className="inline-block text-[11px] font-headline font-bold tracking-[0.15em] uppercase text-primary mb-2">
-              {service.tag}
+            <span className="mb-4 block font-headline text-xs font-bold uppercase tracking-[0.2em] text-on-surface-variant">
+              Pour tous les goûts
             </span>
-            <h3 className="text-base font-headline font-bold mb-1">{service.title}</h3>
-            <p className="text-xs text-on-surface-variant font-body leading-relaxed">
-              {service.desc}
-            </p>
+            <h2 className="font-headline text-3xl font-extrabold leading-[1.05] tracking-[-0.03em] text-foreground md:text-5xl lg:text-6xl">
+              La manière la plus simple<br />
+              <span className="text-on-surface-variant">d'acheter frais.</span>
+            </h2>
           </motion.div>
-        ))}
-      </div>
 
-      <div className="mt-20 md:mt-28 h-px bg-outline-variant" />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="shrink-0"
+          >
+            <Link
+              to="/marche"
+              className="inline-flex items-center gap-2 rounded-md bg-foreground px-6 py-3 font-headline text-sm font-bold text-white transition-opacity hover:opacity-90"
+            >
+              Voir tout le marché
+              <span className="material-symbols-outlined text-base">arrow_forward</span>
+            </Link>
+          </motion.div>
+        </div>
+
+        {/* Category chips */}
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 md:gap-4">
+          {categories.map((cat, i) => (
+            <motion.div
+              key={cat.label}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.07, duration: 0.4 }}
+            >
+              <Link
+                to="/marche"
+                className="flex items-center gap-3 rounded-xl p-4 transition-all hover:scale-[1.03] hover:opacity-90 active:scale-[0.97] md:p-5"
+                style={{ backgroundColor: cat.bg }}
+              >
+                <span className="text-2xl md:text-3xl">{cat.emoji}</span>
+                <span
+                  className="font-headline text-sm font-bold md:text-base"
+                  style={{ color: cat.color }}
+                >
+                  {cat.label}
+                </span>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Footer note */}
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="mt-8 text-center font-body text-sm text-on-surface-variant"
+        >
+          Achetez facilement pour tous vos besoins, 100% naturel.{" "}
+          <Link to="/marche" className="font-bold text-foreground underline underline-offset-2">
+            Découvrir maintenant →
+          </Link>
+        </motion.p>
+
+      </div>
     </section>
   );
 };
