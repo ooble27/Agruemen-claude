@@ -25,7 +25,7 @@ const ProductCard = ({ product, onAddToCart, formatPrice, index = 0 }: ProductCa
     transition={{ delay: Math.min(index * 0.04, 0.4), duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
   >
     <Link to={`/produit/${product.id}`} className="block group">
-      <div className="relative aspect-square rounded-xl overflow-hidden bg-surface-container mb-2">
+      <div className="relative aspect-square rounded-md overflow-hidden bg-surface-container mb-2">
         {product.image_url ? (
           <img
             alt={product.name}
@@ -51,7 +51,7 @@ const ProductCard = ({ product, onAddToCart, formatPrice, index = 0 }: ProductCa
           whileTap={{ scale: 0.85 }}
           onClick={(e) => onAddToCart(product, e)}
           disabled={product.stock <= 0}
-          className="absolute bottom-2 right-2 w-8 h-8 rounded-lg bg-surface-container-lowest/95 backdrop-blur-sm border border-border/20 flex items-center justify-center transition-shadow hover:shadow-md disabled:opacity-30"
+          className="absolute bottom-2 right-2 w-8 h-8 rounded-md bg-surface-container-lowest/95 backdrop-blur-sm border border-border/20 flex items-center justify-center transition-shadow hover:shadow-md disabled:opacity-30"
         >
           <span className="material-symbols-outlined text-foreground text-base">add</span>
         </motion.button>

@@ -89,7 +89,7 @@ const Navbar = () => {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 6, scale: 0.98 }}
                     transition={{ duration: 0.15, ease: "easeOut" }}
-                    className="absolute left-0 top-full mt-2 bg-card rounded-xl border border-border/60 shadow-[0_18px_44px_hsl(var(--foreground)/0.14)] overflow-hidden z-50"
+                    className="absolute left-0 top-full mt-2 bg-card rounded-md border border-border/60 shadow-[0_18px_44px_hsl(var(--foreground)/0.14)] overflow-hidden z-50"
                     style={{ width: "520px" }}
                     onMouseEnter={handleMarcheEnter}
                     onMouseLeave={handleMarcheLeave}
@@ -190,7 +190,7 @@ const Navbar = () => {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 4, scale: 0.97 }}
                       transition={{ duration: 0.12 }}
-                      className="absolute right-0 top-full mt-2 w-80 bg-card rounded-xl border border-border/60 shadow-[0_12px_36px_rgba(0,0,0,0.14)] overflow-hidden z-50"
+                      className="absolute right-0 top-full mt-2 w-80 bg-card rounded-md border border-border/60 shadow-[0_12px_36px_rgba(0,0,0,0.14)] overflow-hidden z-50"
                     >
                       <div className="px-4 py-3 border-b border-border/20 flex items-center justify-between">
                         <span className="font-headline text-sm font-extrabold">Notifications</span>
@@ -267,7 +267,7 @@ const Navbar = () => {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 4, scale: 0.97 }}
                         transition={{ duration: 0.12 }}
-                        className="absolute right-0 top-full mt-2 w-52 bg-card rounded-xl border border-border/60 shadow-[0_12px_36px_rgba(0,0,0,0.14)] overflow-hidden z-50"
+                        className="absolute right-0 top-full mt-2 w-52 bg-card rounded-md border border-border/60 shadow-[0_12px_36px_rgba(0,0,0,0.14)] overflow-hidden z-50"
                       >
                         <div className="px-4 py-3 border-b border-border/20">
                           <div className="text-sm font-semibold text-foreground truncate">{user.email}</div>
@@ -302,10 +302,10 @@ const Navbar = () => {
                 </div>
               ) : (
                 <>
-                  <Link to="/auth" className="px-3.5 py-2 rounded-lg text-[13px] font-medium text-on-surface-variant hover:text-foreground hover:bg-surface-container/50 transition-colors">
+                  <Link to="/auth" className="px-3.5 py-2 rounded-md text-[13px] font-medium text-on-surface-variant hover:text-foreground hover:bg-surface-container/50 transition-colors">
                     Connexion
                   </Link>
-                  <Link to="/auth" className="px-4 py-2 rounded-full bg-foreground text-white text-[13px] font-semibold hover:opacity-90 transition-opacity">
+                  <Link to="/auth" className="px-4 py-2 rounded-md bg-foreground text-white text-[13px] font-semibold hover:opacity-90 transition-opacity">
                     Commencer
                   </Link>
                 </>
@@ -407,10 +407,10 @@ const Navbar = () => {
                     </button>
                   ) : (
                     <div className="flex flex-col gap-2">
-                      <Link to="/auth" onClick={() => setMobileOpen(false)} className="flex items-center justify-center py-3 rounded-xl text-[13px] font-semibold text-on-surface-variant hover:bg-surface-container/50 transition-colors border border-border/30">
+                      <Link to="/auth" onClick={() => setMobileOpen(false)} className="flex items-center justify-center py-3 rounded-md text-[13px] font-semibold text-on-surface-variant hover:bg-surface-container/50 transition-colors border border-border/30">
                         Connexion
                       </Link>
-                      <Link to="/auth" onClick={() => setMobileOpen(false)} className="flex items-center justify-center py-3 rounded-lg bg-foreground text-white text-[13px] font-semibold hover:opacity-90 transition-opacity">
+                      <Link to="/auth" onClick={() => setMobileOpen(false)} className="flex items-center justify-center py-3 rounded-md bg-foreground text-white text-[13px] font-semibold hover:opacity-90 transition-opacity">
                         Commencer gratuitement
                       </Link>
                     </div>

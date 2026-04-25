@@ -45,39 +45,65 @@ const Auth = () => {
     <div className="min-h-screen flex">
 
       {/* Left: Visual panel — desktop only */}
-      <div className="hidden lg:flex lg:w-[46%] relative overflow-hidden">
-        <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/55 to-black/85" />
-        <div className="relative z-10 flex flex-col justify-between p-12 w-full h-full">
+      <div className="hidden lg:flex lg:w-[46%] relative overflow-hidden bg-[#0b1c0d]">
+        {/* Decorative orbs */}
+        <div className="absolute -top-32 -right-32 w-[480px] h-[480px] rounded-full bg-emerald-700/25 blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-24 -left-24 w-[380px] h-[380px] rounded-full bg-emerald-900/35 blur-3xl pointer-events-none" />
+        <div className="absolute top-1/2 left-1/3 w-48 h-48 rounded-full bg-lime-800/20 blur-2xl pointer-events-none" />
 
+        {/* Dot grid pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.06] pointer-events-none"
+          style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "28px 28px" }}
+        />
+
+        {/* Thin diagonal lines accent */}
+        <div
+          className="absolute inset-0 opacity-[0.04] pointer-events-none"
+          style={{ backgroundImage: "repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%)", backgroundSize: "24px 24px" }}
+        />
+
+        {/* Big decorative leaf icon */}
+        <div className="absolute bottom-16 right-10 opacity-[0.07] pointer-events-none select-none">
+          <span className="material-symbols-outlined text-white" style={{ fontSize: "240px", fontVariationSettings: "'FILL' 1" }}>eco</span>
+        </div>
+
+        <div className="relative z-10 flex flex-col justify-between p-12 w-full h-full">
           <Link to="/" className="font-headline font-extrabold text-2xl text-white tracking-tighter">
             Agrumen
           </Link>
 
           <div>
+            <div className="inline-flex items-center gap-2 bg-white/10 rounded-md px-3 py-1.5 mb-6">
+              <span className="material-symbols-outlined text-emerald-400 text-[14px]">fiber_manual_record</span>
+              <span className="font-headline text-[11px] font-bold text-white/80 uppercase tracking-widest">Plateforme agricole</span>
+            </div>
             <h2 className="font-headline font-extrabold text-5xl text-white tracking-tighter leading-[0.92] mb-5">
               Du champ<br />à votre table.
             </h2>
-            <p className="font-body text-white/65 text-base leading-relaxed max-w-xs mb-10">
+            <p className="font-body text-white/55 text-base leading-relaxed max-w-xs mb-10">
               Produits frais, locaux et sans intermédiaires. Rejoignez la communauté Agrumen.
             </p>
-            <div className="space-y-3.5">
+            <div className="space-y-3">
               {[
-                { icon: "eco", label: "100% produits locaux" },
-                { icon: "verified", label: "Agriculteurs vérifiés" },
-                { icon: "local_shipping", label: "Livraison le jour même" },
+                { icon: "eco", label: "100% produits locaux", sub: "Directement des producteurs" },
+                { icon: "verified", label: "Agriculteurs vérifiés", sub: "Qualité garantie" },
+                { icon: "local_shipping", label: "Livraison le jour même", sub: "Partout à Dakar" },
               ].map(f => (
-                <div key={f.icon} className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-md bg-white/15 flex items-center justify-center shrink-0">
-                    <span className="material-symbols-outlined text-white text-[17px]">{f.icon}</span>
+                <div key={f.icon} className="flex items-center gap-3.5">
+                  <div className="w-9 h-9 rounded-md bg-white/10 border border-white/10 flex items-center justify-center shrink-0">
+                    <span className="material-symbols-outlined text-emerald-400 text-[18px]" style={{ fontVariationSettings: "'FILL' 1" }}>{f.icon}</span>
                   </div>
-                  <span className="font-headline text-sm font-semibold text-white/90">{f.label}</span>
+                  <div>
+                    <p className="font-headline text-sm font-bold text-white/90">{f.label}</p>
+                    <p className="font-body text-[11px] text-white/40">{f.sub}</p>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
 
-          <p className="font-body text-[11px] text-white/25">© 2025 Agrumen · Dakar, Sénégal</p>
+          <p className="font-body text-[11px] text-white/20">© 2025 Agrumen · Dakar, Sénégal</p>
         </div>
       </div>
 
