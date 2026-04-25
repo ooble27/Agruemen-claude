@@ -18,19 +18,19 @@ const TrustBar = () => {
   const doubled = [...products, ...products];
 
   return (
-    <section className="bg-white">
+    <section className="bg-white/60 backdrop-blur-sm">
 
-      {/* Marquee divider */}
-      <div className="relative flex overflow-hidden border-y border-border/40 py-3.5">
-        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-20 bg-gradient-to-r from-white to-transparent" />
-        <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-20 bg-gradient-to-l from-white to-transparent" />
+      {/* Marquee */}
+      <div className="relative flex overflow-hidden border-y border-black/8 bg-black/[0.02] py-3.5">
+        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-20 bg-gradient-to-r from-white/60 to-transparent" />
+        <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-20 bg-gradient-to-l from-white/60 to-transparent" />
         <div className="flex animate-marquee gap-8 pr-8 will-change-transform">
           {doubled.map((product, i) => (
             <span
               key={i}
               className="flex shrink-0 items-center gap-2.5 font-headline text-[11px] font-bold uppercase tracking-[0.2em] text-on-surface-variant"
             >
-              <span className="h-1 w-1 shrink-0 rounded-full bg-foreground/40" />
+              <span className="h-1 w-1 shrink-0 rounded-full bg-foreground/30" />
               {product}
             </span>
           ))}
@@ -39,7 +39,7 @@ const TrustBar = () => {
 
       {/* Stats */}
       <div className="mx-auto max-w-[1200px] px-4 py-20 md:px-8">
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-0">
+        <div className="grid grid-cols-2 gap-10 md:grid-cols-4 md:gap-0">
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -48,7 +48,7 @@ const TrustBar = () => {
               viewport={{ once: true }}
               transition={{ delay: i * 0.1, duration: 0.5 }}
               className={`flex flex-col gap-1 md:px-8 ${
-                i < stats.length - 1 ? "md:border-r md:border-border/40" : ""
+                i < stats.length - 1 ? "md:border-r md:border-black/10" : ""
               }`}
             >
               <span className="font-headline text-4xl font-black tracking-[-0.04em] text-foreground md:text-5xl">

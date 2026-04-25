@@ -18,7 +18,16 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="relative min-h-screen bg-white">
+      {/* Global dot grid — fixed so it shows through all transparent sections */}
+      <div
+        className="pointer-events-none fixed inset-0 z-0"
+        style={{
+          backgroundImage: "radial-gradient(circle, #dde3ec 1px, transparent 1px)",
+          backgroundSize: "28px 28px",
+        }}
+      />
+      <div className="relative z-[1]">
       <LandingNavbar />
       <main>
         <HeroSection />
@@ -30,6 +39,7 @@ const Index = () => {
         <FinalCTA />
       </main>
       <Footer />
+      </div>
     </div>
   );
 };

@@ -24,7 +24,7 @@ const steps = [
 
 const HowItWorks = () => {
   return (
-    <section id="comment" className="bg-white py-20 md:py-28">
+    <section id="comment" className="py-20 md:py-28">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
 
         {/* Header */}
@@ -35,7 +35,7 @@ const HowItWorks = () => {
           transition={{ duration: 0.5 }}
           className="mb-14 md:mb-20"
         >
-          <span className="mb-3 block font-headline text-xs font-bold uppercase tracking-[0.2em] text-on-surface-variant">
+          <span className="mb-3 block font-headline text-xs font-bold uppercase tracking-[0.22em] text-on-surface-variant">
             Simple comme bonjour
           </span>
           <h2 className="font-headline text-3xl font-extrabold tracking-[-0.03em] text-foreground md:text-5xl lg:text-6xl">
@@ -45,7 +45,7 @@ const HowItWorks = () => {
         </motion.div>
 
         {/* Steps */}
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5">
           {steps.map((step, i) => (
             <motion.div
               key={step.n}
@@ -53,18 +53,14 @@ const HowItWorks = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.15, duration: 0.55 }}
-              className="relative rounded-2xl border border-border/40 bg-[#f8f8f6] p-7"
+              className="relative overflow-hidden rounded-2xl border border-black/8 bg-white/80 p-7 backdrop-blur-sm"
             >
-              {/* Step number — watermark */}
-              <span className="pointer-events-none absolute right-6 top-5 select-none font-headline text-6xl font-black text-foreground/[0.05]">
+              <span className="pointer-events-none absolute right-5 top-4 select-none font-headline text-[5rem] font-black leading-none text-foreground/[0.05]">
                 {step.n}
               </span>
-
-              {/* Icon */}
               <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-md bg-foreground">
                 <span className="material-symbols-outlined text-xl text-white">{step.icon}</span>
               </div>
-
               <h3 className="mb-2 font-headline text-lg font-bold text-foreground">{step.title}</h3>
               <p className="font-body text-sm leading-relaxed text-on-surface-variant">{step.desc}</p>
             </motion.div>
@@ -81,7 +77,7 @@ const HowItWorks = () => {
         >
           <Link
             to="/auth"
-            className="flex items-center gap-2 rounded-md border border-border/50 bg-white px-7 py-3.5 font-headline text-sm font-bold text-foreground transition-colors hover:border-foreground/30 hover:bg-surface-container/20"
+            className="flex items-center gap-2 rounded-md border border-black/15 bg-white/80 px-7 py-3.5 font-headline text-sm font-bold text-foreground backdrop-blur-sm transition-colors hover:border-black/30"
           >
             Créer un compte gratuitement
             <span className="material-symbols-outlined text-base">arrow_forward</span>
