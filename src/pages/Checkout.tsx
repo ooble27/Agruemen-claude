@@ -115,7 +115,7 @@ const Checkout = () => {
     <div className="min-h-screen bg-surface-container-lowest">
       <Navbar />
 
-      <main className="pt-16 pb-32 md:pb-12">
+      <main className="pb-32 md:pb-12" style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 80px)" }}>
         <div className="mx-auto max-w-screen-xl px-4 md:px-8 lg:px-16">
 
           {/* Header */}
@@ -309,17 +309,17 @@ const Checkout = () => {
                               </button>
                             </div>
                           ) : (
-                            <div className="flex gap-2">
+                            <div className="flex flex-col xs:flex-row gap-2">
                               <input
                                 value={promoInput}
                                 onChange={e => { setPromoInput(e.target.value); setPromoError(""); }}
                                 onKeyDown={e => e.key === "Enter" && applyPromo()}
                                 placeholder="Ex: AGRUMEN10"
-                                className="flex-1 rounded-md border border-border/40 bg-white px-3.5 py-2.5 font-headline text-sm font-bold uppercase tracking-widest outline-none transition-all placeholder:text-on-surface-variant/40 placeholder:normal-case focus:border-foreground focus:ring-2 focus:ring-foreground/10"
+                                className="flex-1 rounded-md border border-border/40 bg-white px-3.5 py-3 font-headline text-sm font-bold uppercase tracking-widest outline-none transition-all placeholder:text-on-surface-variant/40 placeholder:normal-case focus:border-foreground focus:ring-2 focus:ring-foreground/10"
                               />
                               <button
                                 onClick={applyPromo}
-                                className="px-4 py-2.5 rounded-md bg-foreground text-white font-headline text-sm font-bold hover:opacity-90 transition-opacity"
+                                className="w-full xs:w-auto px-5 py-3 rounded-md bg-foreground text-white font-headline text-sm font-bold hover:opacity-90 transition-opacity whitespace-nowrap"
                               >
                                 Appliquer
                               </button>
@@ -530,7 +530,7 @@ const Checkout = () => {
         </div>
 
         {/* Mobile sticky bar */}
-        <div className="fixed bottom-16 left-0 right-0 z-40 border-t border-border/30 bg-white/90 px-4 py-3 backdrop-blur-xl lg:hidden safe-area-bottom">
+        <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-border/30 bg-white/90 px-4 backdrop-blur-xl lg:hidden" style={{ paddingTop: "12px", paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 12px)" }}>
           <div className="flex items-center justify-between">
             <div>
               <p className="font-body text-xs text-on-surface-variant">{items.length} article{items.length > 1 ? "s" : ""}</p>

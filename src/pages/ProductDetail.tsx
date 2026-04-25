@@ -281,7 +281,7 @@ const ProductDetail = () => {
         <div className="md:hidden pb-24">
           {/* Floating header */}
           <div className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3 safe-area-top">
-            <button onClick={() => navigate(-1)} className="w-10 h-10 rounded-full bg-background/80 backdrop-blur-md flex items-center justify-center shadow-lg border border-border/10">
+            <button onClick={() => navigate("/marche")} className="w-10 h-10 rounded-full bg-background/80 backdrop-blur-md flex items-center justify-center shadow-lg border border-border/10">
               <span className="material-symbols-outlined text-foreground text-xl">arrow_back</span>
             </button>
             <button className="w-10 h-10 rounded-full bg-background/80 backdrop-blur-md flex items-center justify-center shadow-lg border border-border/10">

@@ -53,7 +53,7 @@ const App = () => (
             <WishlistProvider>
               <CartProvider>
                 <Toaster />
-                <Sonner />
+                <Sonner position="top-center" offset="72px" />
                 <CartDrawer />
                 <BottomNav />
                 <AnimatedRoutes />

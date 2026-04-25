@@ -71,7 +71,7 @@ const Navbar = () => {
               <button
                 className={`flex items-center gap-1 px-3.5 py-2 rounded-md text-[13px] font-bold transition-all duration-150 ${
                   isActive("/marche") || marcheOpen
-                    ? "text-primary-container-foreground bg-primary-container/20"
+                    ? "text-foreground bg-foreground/8"
                     : "text-on-surface-variant hover:text-foreground hover:bg-surface-container/50"
                 }`}
                 onClick={() => setMarcheOpen(!marcheOpen)}
@@ -143,7 +143,7 @@ const Navbar = () => {
                 to={accountPath}
                 className={`px-3.5 py-2 rounded-md text-[13px] font-bold transition-all duration-150 ${
                   isActive("/mon-compte") || isActive("/admin")
-                    ? "text-primary-container-foreground bg-primary-container/20"
+                    ? "text-foreground bg-foreground/8"
                     : "text-on-surface-variant hover:text-foreground hover:bg-surface-container/50"
                 }`}
               >
@@ -156,7 +156,7 @@ const Navbar = () => {
                 to="/admin"
                 className={`px-3.5 py-2 rounded-md text-[13px] font-bold transition-all duration-150 ${
                   isActive("/admin")
-                    ? "text-primary-container-foreground bg-primary-container/20"
+                    ? "text-foreground bg-foreground/8"
                     : "text-on-surface-variant hover:text-foreground hover:bg-surface-container/50"
                 }`}
               >
@@ -238,7 +238,7 @@ const Navbar = () => {
             >
               <span className="material-symbols-outlined text-xl">shopping_bag</span>
               {totalItems > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 w-[18px] h-[18px] bg-primary text-primary-foreground text-[9px] font-bold rounded-full flex items-center justify-center">
+                <span className="absolute -top-0.5 -right-0.5 w-[18px] h-[18px] bg-foreground text-white text-[9px] font-bold rounded-full flex items-center justify-center">
                   {totalItems}
                 </span>
               )}
@@ -252,7 +252,7 @@ const Navbar = () => {
                     onClick={() => setProfileOpen(!profileOpen)}
                     className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-on-surface-variant hover:text-foreground hover:bg-surface-container/50 transition-colors"
                   >
-                    <div className="w-7 h-7 rounded-lg bg-primary-container flex items-center justify-center text-primary-container-foreground text-xs font-bold">
+                    <div className="w-7 h-7 rounded-md bg-foreground flex items-center justify-center text-white text-xs font-bold">
                       {(user.email || "U").charAt(0).toUpperCase()}
                     </div>
                     <span className="material-symbols-outlined text-[15px] transition-transform duration-200" style={{ transform: profileOpen ? "rotate(180deg)" : "none" }}>
@@ -345,7 +345,7 @@ const Navbar = () => {
               <div className="flex flex-col px-5 py-4 gap-0.5 max-h-[80vh] overflow-y-auto">
                 {user && (
                   <div className="flex items-center gap-3 px-3 py-3 mb-2 bg-surface-container/40 rounded-lg">
-                    <div className="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-primary-container-foreground font-bold">
+                    <div className="w-10 h-10 rounded-md bg-foreground flex items-center justify-center text-white font-bold">
                       {(user.email || "U").charAt(0).toUpperCase()}
                     </div>
                     <div className="min-w-0">

@@ -27,8 +27,8 @@ const CartDrawer = () => {
           className="px-6 pb-4 border-b border-border"
           style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 1.5rem)" }}
         >
-          <div className="flex items-center gap-3">
-            <SheetTitle className="font-headline font-extrabold text-2xl tracking-tight flex items-center gap-2 flex-1">
+          <div className="flex items-center gap-2">
+            <SheetTitle className="font-headline font-extrabold text-xl tracking-tight flex items-center gap-2 flex-1">
               <span className="material-symbols-outlined text-foreground">shopping_bag</span>
               Mon Panier
             </SheetTitle>
@@ -41,10 +41,16 @@ const CartDrawer = () => {
                   onClick={clearCart}
                   className="p-1.5 rounded-md text-on-surface-variant hover:text-destructive hover:bg-surface-container transition-colors shrink-0"
                 >
-                  <span className="material-symbols-outlined text-xl">delete</span>
+                  <span className="material-symbols-outlined text-[20px]">delete</span>
                 </button>
               </>
             )}
+            <button
+              onClick={() => setIsOpen(false)}
+              className="p-1.5 rounded-md text-on-surface-variant hover:bg-surface-container transition-colors shrink-0"
+            >
+              <span className="material-symbols-outlined text-[20px]">close</span>
+            </button>
           </div>
         </SheetHeader>
 
