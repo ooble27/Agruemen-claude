@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import heroBg from "@/assets/hero-bg.jpg";
@@ -12,7 +12,7 @@ const Auth = () => {
   const [fullName, setFullName] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const { signUp, signIn, isAdmin } = useAuth();
+  const { signUp, signIn } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -34,143 +34,222 @@ const Auth = () => {
     }
   };
 
+  const switchMode = (login: boolean) => {
+    setIsLogin(login);
+    setEmail("");
+    setPassword("");
+    setFullName("");
+  };
+
   return (
-    <div className="min-h-screen bg-background flex flex-col md:flex-row">
-      {/* Left visual panel */}
-      <div className="hidden md:flex md:w-1/2 relative overflow-hidden">
+    <div className="min-h-screen flex">
+
+      {/* Left: Visual panel — desktop only */}
+      <div className="hidden lg:flex lg:w-[46%] relative overflow-hidden">
         <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-primary/30" />
-        <div className="relative z-10 flex flex-col justify-between p-12 w-full">
-          <Link to="/" className="text-3xl font-headline font-extrabold text-white tracking-tighter">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/55 to-black/85" />
+        <div className="relative z-10 flex flex-col justify-between p-12 w-full h-full">
+
+          <Link to="/" className="font-headline font-extrabold text-2xl text-white tracking-tighter">
             Agrumen
           </Link>
+
           <div>
-            <h2 className="text-4xl lg:text-5xl font-headline font-extrabold text-white tracking-tighter leading-[0.95] mb-4">
+            <h2 className="font-headline font-extrabold text-5xl text-white tracking-tighter leading-[0.92] mb-5">
               Du champ<br />à votre table.
             </h2>
-            <p className="text-white/60 text-lg font-body max-w-md">
+            <p className="font-body text-white/65 text-base leading-relaxed max-w-xs mb-10">
               Produits frais, locaux et sans intermédiaires. Rejoignez la communauté Agrumen.
             </p>
+            <div className="space-y-3.5">
+              {[
+                { icon: "eco", label: "100% produits locaux" },
+                { icon: "verified", label: "Agriculteurs vérifiés" },
+                { icon: "local_shipping", label: "Livraison le jour même" },
+              ].map(f => (
+                <div key={f.icon} className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-md bg-white/15 flex items-center justify-center shrink-0">
+                    <span className="material-symbols-outlined text-white text-[17px]">{f.icon}</span>
+                  </div>
+                  <span className="font-headline text-sm font-semibold text-white/90">{f.label}</span>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="flex items-center gap-6">
-            {["eco", "verified", "local_shipping"].map(icon => (
-              <div key={icon} className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-primary-container text-lg">{icon}</span>
-              </div>
-            ))}
-          </div>
+
+          <p className="font-body text-[11px] text-white/25">© 2025 Agrumen · Dakar, Sénégal</p>
         </div>
       </div>
 
-      {/* Right form panel */}
-      <div className="flex-1 flex flex-col min-h-screen">
-        <div className="md:hidden px-6 pt-6 pb-2 flex items-center justify-between">
-          <Link to="/" className="text-2xl font-headline font-extrabold text-foreground tracking-tighter">
+      {/* Right: Form panel */}
+      <div className="flex-1 flex flex-col bg-white">
+
+        {/* Mobile top bar */}
+        <div className="lg:hidden flex items-center justify-between px-6 pt-8 pb-4">
+          <Link to="/" className="font-headline font-extrabold text-xl text-foreground tracking-tighter">
             Agrumen
           </Link>
-          <Link to="/" className="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center">
-            <span className="material-symbols-outlined text-on-surface-variant">close</span>
+          <Link to="/" className="w-9 h-9 rounded-md bg-surface-container flex items-center justify-center">
+            <span className="material-symbols-outlined text-on-surface-variant text-[20px]">close</span>
           </Link>
         </div>
 
-        <div className="flex-1 flex items-center justify-center px-6 py-8">
+        <div className="flex-1 flex items-center justify-center px-6 py-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="w-full max-w-sm"
+            transition={{ duration: 0.4 }}
+            className="w-full max-w-md"
           >
-            <div className="mb-8">
-              <h1 className="text-2xl md:text-3xl font-headline font-extrabold tracking-tighter">
-                {isLogin ? "Bon retour !" : "Créer un compte"}
+
+            {/* Desktop logo */}
+            <div className="hidden lg:block mb-10">
+              <Link to="/" className="font-headline font-extrabold text-2xl text-foreground tracking-tighter">
+                Agrumen
+              </Link>
+            </div>
+
+            {/* Tab switcher */}
+            <div className="flex bg-surface-container rounded-md p-1 mb-8">
+              <button
+                type="button"
+                onClick={() => switchMode(true)}
+                className={`flex-1 py-2.5 rounded-md font-headline text-sm font-bold transition-all duration-200 ${
+                  isLogin
+                    ? "bg-foreground text-white shadow-sm"
+                    : "text-on-surface-variant hover:text-foreground"
+                }`}
+              >
+                Connexion
+              </button>
+              <button
+                type="button"
+                onClick={() => switchMode(false)}
+                className={`flex-1 py-2.5 rounded-md font-headline text-sm font-bold transition-all duration-200 ${
+                  !isLogin
+                    ? "bg-foreground text-white shadow-sm"
+                    : "text-on-surface-variant hover:text-foreground"
+                }`}
+              >
+                Créer un compte
+              </button>
+            </div>
+
+            {/* Title */}
+            <div className="mb-6">
+              <h1 className="font-headline font-extrabold text-2xl tracking-tighter">
+                {isLogin ? "Bon retour !" : "Rejoindre Agrumen"}
               </h1>
-              <p className="text-on-surface-variant text-sm mt-2 font-body">
-                {isLogin ? "Connectez-vous pour accéder au marché" : "Rejoignez la communauté Agrumen"}
+              <p className="font-body text-on-surface-variant text-sm mt-1">
+                {isLogin
+                  ? "Connectez-vous pour accéder au marché"
+                  : "Créez votre compte en quelques secondes"}
               </p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
-              {!isLogin && (
-                <div>
-                  <label className="text-xs font-headline font-bold text-on-surface-variant uppercase tracking-wider mb-1.5 block">
-                    Nom complet
-                  </label>
-                  <div className="relative">
-                    <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant/50 text-lg">person</span>
-                    <input
-                      type="text"
-                      value={fullName}
-                      onChange={(e) => setFullName(e.target.value)}
-                      className="w-full pl-11 pr-4 py-3.5 rounded-2xl bg-surface-container-lowest border border-border/30 font-body text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-all"
-                      placeholder="Prénom et Nom"
-                      required
-                    />
-                  </div>
-                </div>
-              )}
+
+              {/* Full name — register only */}
+              <AnimatePresence>
+                {!isLogin && (
+                  <motion.div
+                    key="fullname"
+                    initial={{ opacity: 0, height: 0, marginBottom: 0 }}
+                    animate={{ opacity: 1, height: "auto", marginBottom: 0 }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="overflow-hidden"
+                  >
+                    <label className="text-[11px] font-headline font-bold text-on-surface-variant uppercase tracking-widest mb-1.5 block">
+                      Nom complet
+                    </label>
+                    <div className="relative">
+                      <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant/50 text-[18px]">person</span>
+                      <input
+                        type="text"
+                        value={fullName}
+                        onChange={e => setFullName(e.target.value)}
+                        placeholder="Prénom et Nom"
+                        required={!isLogin}
+                        className="w-full pl-11 pr-4 py-3.5 rounded-md bg-surface-container-lowest border border-border/40 font-body text-sm outline-none focus:ring-2 focus:ring-foreground/10 focus:border-foreground/30 transition-all"
+                      />
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Email */}
               <div>
-                <label className="text-xs font-headline font-bold text-on-surface-variant uppercase tracking-wider mb-1.5 block">
+                <label className="text-[11px] font-headline font-bold text-on-surface-variant uppercase tracking-widest mb-1.5 block">
                   Email
                 </label>
                 <div className="relative">
-                  <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant/50 text-lg">mail</span>
+                  <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant/50 text-[18px]">mail</span>
                   <input
                     type="email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full pl-11 pr-4 py-3.5 rounded-2xl bg-surface-container-lowest border border-border/30 font-body text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-all"
+                    onChange={e => setEmail(e.target.value)}
                     placeholder="votre@email.com"
                     required
+                    className="w-full pl-11 pr-4 py-3.5 rounded-md bg-surface-container-lowest border border-border/40 font-body text-sm outline-none focus:ring-2 focus:ring-foreground/10 focus:border-foreground/30 transition-all"
                   />
                 </div>
               </div>
+
+              {/* Password */}
               <div>
-                <label className="text-xs font-headline font-bold text-on-surface-variant uppercase tracking-wider mb-1.5 block">
+                <label className="text-[11px] font-headline font-bold text-on-surface-variant uppercase tracking-widest mb-1.5 block">
                   Mot de passe
                 </label>
                 <div className="relative">
-                  <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant/50 text-lg">lock</span>
+                  <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant/50 text-[18px]">lock</span>
                   <input
                     type={showPassword ? "text" : "password"}
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full pl-11 pr-12 py-3.5 rounded-2xl bg-surface-container-lowest border border-border/30 font-body text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-all"
+                    onChange={e => setPassword(e.target.value)}
                     placeholder="••••••••"
                     required
                     minLength={6}
+                    className="w-full pl-11 pr-12 py-3.5 rounded-md bg-surface-container-lowest border border-border/40 font-body text-sm outline-none focus:ring-2 focus:ring-foreground/10 focus:border-foreground/30 transition-all"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant/50 hover:text-on-surface-variant"
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant/40 hover:text-on-surface-variant transition-colors"
                   >
-                    <span className="material-symbols-outlined text-lg">
+                    <span className="material-symbols-outlined text-[18px]">
                       {showPassword ? "visibility_off" : "visibility"}
                     </span>
                   </button>
                 </div>
               </div>
 
+              {/* Submit */}
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-primary text-primary-foreground py-4 rounded-full font-headline font-extrabold text-base hover:scale-[0.97] active:scale-95 transition-transform disabled:opacity-50 shadow-lg mt-2"
+                className="w-full bg-foreground text-white py-4 rounded-md font-headline font-extrabold text-base hover:opacity-90 active:scale-[0.98] transition-all disabled:opacity-50 mt-2 flex items-center justify-center gap-2"
               >
                 {loading ? (
-                  <span className="flex items-center justify-center gap-2">
-                    <span className="material-symbols-outlined animate-spin text-lg">progress_activity</span>
+                  <>
+                    <span className="material-symbols-outlined animate-spin text-[20px]">progress_activity</span>
                     Chargement...
-                  </span>
+                  </>
                 ) : isLogin ? "Se connecter" : "Créer mon compte"}
               </button>
             </form>
 
-            <p className="text-center text-sm text-on-surface-variant mt-8">
-              {isLogin ? "Pas encore de compte ?" : "Déjà un compte ?"}
-              <button onClick={() => setIsLogin(!isLogin)} className="text-primary font-bold ml-1 hover:underline">
-                {isLogin ? "S'inscrire" : "Se connecter"}
-              </button>
-            </p>
+            {/* Continue without account */}
+            <div className="mt-8 pt-6 border-t border-border/20 text-center">
+              <Link
+                to="/marche"
+                className="inline-flex items-center gap-1.5 font-headline text-sm font-semibold text-on-surface-variant hover:text-foreground transition-colors"
+              >
+                <span className="material-symbols-outlined text-[16px]">storefront</span>
+                Continuer sans compte
+              </Link>
+            </div>
+
           </motion.div>
         </div>
       </div>
