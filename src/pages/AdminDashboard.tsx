@@ -85,65 +85,61 @@ export default function AdminDashboard() {
         )}
       </AnimatePresence>
 
-      {/* ══════ FULL-WIDTH TOP HEADER ══════ */}
-      <header className="fixed top-0 left-0 right-0 h-16 bg-white border-b border-gray-100 z-50 flex items-center">
+      {/* ══════ TOP HEADER ══════ */}
+      <header className="fixed top-0 left-0 right-0 h-14 bg-white border-b border-gray-100 z-50 flex items-center px-4 gap-3">
 
-        {/* Logo zone — matches sidebar width */}
-        <div className="w-[230px] shrink-0 flex items-center gap-3 px-5 h-full border-r border-gray-100">
-          <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center shrink-0">
-            <span className="material-symbols-outlined text-white text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>eco</span>
+        {/* Mobile hamburger */}
+        <button onClick={() => setSidebarOpen(true)}
+          className="lg:hidden w-9 h-9 rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors shrink-0">
+          <span className="material-symbols-outlined text-gray-500 text-lg">menu</span>
+        </button>
+
+        {/* Desktop: breadcrumb zone aligned with sidebar */}
+        <div className="hidden lg:flex items-center gap-2 w-[220px] shrink-0">
+          <div className="flex items-center gap-1.5">
+            <div className="w-6 h-6 rounded-md bg-gray-900 flex items-center justify-center shrink-0">
+              <span className="material-symbols-outlined text-white text-[13px]" style={{ fontVariationSettings: "'FILL' 1" }}>grid_view</span>
+            </div>
+            <span className="font-headline font-bold text-gray-800 text-sm tracking-tight">Admin</span>
           </div>
-          <div className="min-w-0">
-            <p className="font-headline font-extrabold text-gray-900 text-sm tracking-tight leading-none">Agrumen</p>
-            <p className="font-body text-[10px] text-gray-400 mt-0.5">Admin</p>
-          </div>
-          <button onClick={() => setSidebarOpen(true)} className="ml-auto lg:hidden w-8 h-8 rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors">
-            <span className="material-symbols-outlined text-gray-500 text-lg">menu</span>
-          </button>
         </div>
 
-        {/* Search — center */}
-        <div className="flex-1 max-w-sm mx-6 hidden sm:block">
+        {/* Search bar */}
+        <div className="flex-1 max-w-md">
           <div className="relative">
-            <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-lg">search</span>
-            <input placeholder="Rechercher un produit..."
-              className="w-full pl-11 pr-4 py-2 rounded-xl bg-gray-100 border-none font-body text-sm outline-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all" />
+            <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-base">search</span>
+            <input placeholder="Rechercher..."
+              className="w-full pl-9 pr-4 py-2 rounded-lg bg-gray-100 border-none font-body text-sm outline-none focus:ring-2 focus:ring-gray-900/10 focus:bg-white transition-all" />
           </div>
         </div>
 
         {/* Right actions */}
-        <div className="ml-auto flex items-center gap-2 pr-6">
-          {stats.pending > 0 && (
-            <button onClick={() => setPage("orders")}
-              className="relative w-9 h-9 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center hover:bg-amber-100 transition-colors">
-              <span className="material-symbols-outlined text-amber-600 text-lg">notifications_active</span>
-              <span className="absolute -top-1 -right-1 w-4 h-4 bg-amber-500 rounded-full text-white text-[8px] flex items-center justify-center font-black leading-none">{stats.pending}</span>
-            </button>
-          )}
-          <button className="w-9 h-9 rounded-xl hover:bg-gray-100 flex items-center justify-center transition-colors">
+        <div className="ml-auto flex items-center gap-1">
+          <button onClick={() => setPage("orders")}
+            className="relative w-9 h-9 rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors">
             <span className="material-symbols-outlined text-gray-400 text-lg">notifications</span>
+            {stats.pending > 0 && (
+              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-amber-500 rounded-full" />
+            )}
           </button>
-          <button className="w-9 h-9 rounded-xl hover:bg-gray-100 flex items-center justify-center transition-colors">
-            <span className="material-symbols-outlined text-gray-400 text-lg">help_outline</span>
-          </button>
-          <div className="flex items-center gap-2.5 pl-3 border-l border-gray-200 ml-1">
-            <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center font-headline text-xs font-black text-white shrink-0">
+          <div className="w-px h-5 bg-gray-200 mx-1.5" />
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-gray-900 flex items-center justify-center font-headline text-xs font-black text-white shrink-0">
               {(user.email || "A")[0].toUpperCase()}
             </div>
             <div className="hidden md:block">
-              <p className="font-headline text-[12px] font-bold text-gray-800 leading-none">Administrateur</p>
-              <p className="font-body text-[10px] text-gray-400 mt-0.5">Agrumen</p>
+              <p className="font-headline text-[11px] font-bold text-gray-800 leading-none">Administrateur</p>
+              <p className="font-body text-[10px] text-gray-400 mt-0.5 truncate max-w-[100px]">{user.email?.split("@")[0]}</p>
             </div>
-            <span className="material-symbols-outlined text-gray-400 text-base hidden md:block">expand_more</span>
           </div>
         </div>
       </header>
 
       {/* ══════ BODY (below header) ══════ */}
-      <div className="flex flex-1 pt-16">
+      <div className="flex flex-1 pt-14">
 
         {/* ══════ SIDEBAR ══════ */}
-        <aside className={`fixed top-16 left-0 bottom-0 w-[230px] bg-white border-r border-gray-100 flex flex-col z-50 transition-transform duration-300 ease-out lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
+        <aside className={`fixed top-14 left-0 bottom-0 w-[230px] bg-white border-r border-gray-100 flex flex-col z-50 transition-transform duration-300 ease-out lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
 
           <nav className="flex-1 overflow-y-auto px-3 py-5 space-y-6">
             {NAV_SECTIONS.map(section => (
@@ -192,11 +188,12 @@ export default function AdminDashboard() {
 
           {/* Log out */}
           <div className="border-t border-gray-100 px-3 py-3">
-            <Link to="/"
-              className="flex items-center gap-3 px-4 py-2.5 rounded-xl font-headline text-[13px] font-semibold text-red-500 hover:bg-red-50 transition-all w-full">
+            <button
+              onClick={async () => { await supabase.auth.signOut(); navigate("/"); }}
+              className="flex items-center gap-3 px-4 py-2.5 rounded-lg font-headline text-[13px] font-semibold text-red-500 hover:bg-red-50 transition-all w-full">
               <span className="material-symbols-outlined text-[18px]">logout</span>
               Se déconnecter
-            </Link>
+            </button>
           </div>
         </aside>
 
@@ -679,6 +676,7 @@ const UNITS = ["le kg", "la pièce", "la botte", "le litre", "le sachet", "la bo
 const EMPTY = { name: "", price: "", unit: "le kg", stock: "", description: "", image_url: "", category_id: "", is_active: true };
 
 function ProductsPage() {
+  const { user } = useAuth();
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [view, setView] = useState<"grid" | "table">("grid");
@@ -724,9 +722,15 @@ function ProductsPage() {
 
   const handleImageUpload = async (file: File) => {
     setUploading(true);
-    const path = `products/${Date.now()}.${file.name.split(".").pop()}`;
+    const ext = file.name.split(".").pop();
+    const uid = user?.id ?? "admin";
+    const path = `${uid}/${Date.now()}.${ext}`;
     const { error } = await supabase.storage.from("product-images").upload(path, file, { upsert: true });
-    if (error) { toast.error("Erreur upload image"); setUploading(false); return; }
+    if (error) {
+      toast.error("Upload échoué : " + error.message);
+      setUploading(false);
+      return;
+    }
     const { data } = supabase.storage.from("product-images").getPublicUrl(path);
     f("image_url", data.publicUrl);
     toast.success("Image uploadée !");
