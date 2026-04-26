@@ -62,8 +62,8 @@ const ValuesSection = () => {
         <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-24 bg-gradient-to-r from-[#0a0a0a] to-transparent" />
         <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-24 bg-gradient-to-l from-[#0a0a0a] to-transparent" />
         <div
-          className="flex gap-3 will-change-transform"
-          style={{ animation: "marquee 25s linear infinite" }}
+          className="flex animate-marquee gap-3 will-change-transform"
+          style={{ animationDuration: "25s" }}
         >
           {row1.map((cat, i) => (
             <Chip key={`r1-${i}`} cat={cat} />
@@ -76,8 +76,8 @@ const ValuesSection = () => {
         <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-24 bg-gradient-to-r from-[#0a0a0a] to-transparent" />
         <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-24 bg-gradient-to-l from-[#0a0a0a] to-transparent" />
         <div
-          className="flex gap-3 will-change-transform"
-          style={{ animation: "marquee-reverse 25s linear infinite" }}
+          className="flex animate-marquee-reverse gap-3 will-change-transform"
+          style={{ animationDuration: "25s" }}
         >
           {row2.map((cat, i) => (
             <Chip key={`r2-${i}`} cat={cat} />
