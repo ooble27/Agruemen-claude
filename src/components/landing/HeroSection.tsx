@@ -14,7 +14,13 @@ const ROTATIONS = [-3, 2, -2, 3, -1, 2];
 
 const HeroSection = () => {
   return (
-    <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-4 pt-28 pb-0 lg:pb-14 text-center">
+    <section
+      className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-4 text-center"
+      style={{
+        paddingTop: "max(7rem, calc(5rem + env(safe-area-inset-top)))",
+        paddingBottom: "max(2rem, env(safe-area-inset-bottom))",
+      }}
+    >
 
       <div
         className="pointer-events-none absolute inset-0"
@@ -93,7 +99,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.55 }}
-          className="mt-10 flex items-end justify-center gap-1.5 sm:mt-14 sm:gap-3"
+          className="mt-10 flex items-end justify-center gap-1.5 sm:gap-3"
         >
           {PRODUCT_STRIP.map((img, i) => (
             <div
