@@ -73,11 +73,8 @@ export default function AdminDashboard() {
 
   if (loading || !user || !isAdmin) return null;
 
-  const allItems = NAV_SECTIONS.flatMap(s => s.items);
-  const currentLabel = allItems.find(i => i.page === page)?.label ?? "";
-
   return (
-    <div className="flex min-h-screen bg-[#F2F4F7]" style={{ fontFamily: "inherit" }}>
+    <div className="flex flex-col min-h-screen bg-[#F2F4F7]">
 
       {/* Mobile overlay */}
       <AnimatePresence>
@@ -87,128 +84,123 @@ export default function AdminDashboard() {
         )}
       </AnimatePresence>
 
-      {/* ══════ SIDEBAR (white) ══════ */}
-      <aside className={`fixed top-0 left-0 h-full w-[230px] bg-white border-r border-gray-100 flex flex-col z-50 transition-transform duration-300 ease-out lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
-        style={{ paddingTop: "env(safe-area-inset-top)" }}>
+      {/* ══════ FULL-WIDTH TOP HEADER ══════ */}
+      <header className="fixed top-0 left-0 right-0 h-16 bg-white border-b border-gray-100 z-50 flex items-center">
 
-        {/* Logo */}
-        <div className="flex items-center gap-3 px-5 py-5 border-b border-gray-100">
+        {/* Logo zone — matches sidebar width */}
+        <div className="w-[230px] shrink-0 flex items-center gap-3 px-5 h-full border-r border-gray-100">
           <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center shrink-0">
             <span className="material-symbols-outlined text-white text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>eco</span>
           </div>
-          <div>
+          <div className="min-w-0">
             <p className="font-headline font-extrabold text-gray-900 text-sm tracking-tight leading-none">Agrumen</p>
-            <p className="font-body text-[10px] text-gray-400 mt-0.5">Console Admin</p>
+            <p className="font-body text-[10px] text-gray-400 mt-0.5">Admin</p>
           </div>
-          <button onClick={() => setSidebarOpen(false)} className="ml-auto lg:hidden text-gray-400 hover:text-gray-600">
-            <span className="material-symbols-outlined text-lg">close</span>
+          <button onClick={() => setSidebarOpen(true)} className="ml-auto lg:hidden w-8 h-8 rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors">
+            <span className="material-symbols-outlined text-gray-500 text-lg">menu</span>
           </button>
         </div>
 
-        {/* Nav */}
-        <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-5">
-          {NAV_SECTIONS.map(section => (
-            <div key={section.label}>
-              <p className="px-3 mb-1.5 font-body text-[10px] font-semibold text-gray-400 uppercase tracking-[0.12em]">{section.label}</p>
-              <div className="space-y-0.5">
-                {section.items.map(item => {
-                  const active = page === item.page;
-                  return (
-                    <button key={item.page} onClick={() => { setPage(item.page); setSidebarOpen(false); }}
-                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-headline text-[13px] font-semibold transition-all duration-150 ${
-                        active ? "bg-primary text-white shadow-sm" : "text-gray-500 hover:text-gray-800 hover:bg-gray-100"
-                      }`}>
-                      <span className="material-symbols-outlined text-[18px]" style={active ? { fontVariationSettings: "'FILL' 1" } : {}}>{item.icon}</span>
-                      <span className="flex-1 text-left">{item.label}</span>
-                      {item.page === "orders" && stats.pending > 0 && (
-                        <span className={`text-[9px] font-black px-1.5 py-0.5 rounded-full min-w-[18px] text-center leading-none ${active ? "bg-white/25 text-white" : "bg-amber-100 text-amber-700"}`}>
-                          {stats.pending}
-                        </span>
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
-
-          {/* Platform links */}
-          <div>
-            <p className="px-3 mb-1.5 font-body text-[10px] font-semibold text-gray-400 uppercase tracking-[0.12em]">Plateforme</p>
-            <div className="space-y-0.5">
-              {[
-                { to: "/marche", icon: "storefront", label: "Voir le Marché" },
-                { to: "/", icon: "home", label: "Page d'accueil" },
-              ].map(l => (
-                <Link key={l.to} to={l.to}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl font-headline text-[13px] font-semibold text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-all">
-                  <span className="material-symbols-outlined text-[18px]">{l.icon}</span>
-                  {l.label}
-                  <span className="material-symbols-outlined text-[11px] ml-auto text-gray-300">open_in_new</span>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </nav>
-
-        {/* User footer */}
-        <div className="border-t border-gray-100 px-4 py-3.5">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center font-headline text-xs font-black text-primary shrink-0">
-              {(user.email || "A")[0].toUpperCase()}
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="font-headline text-[12px] font-bold text-gray-800 truncate leading-none">Administrateur</p>
-              <p className="font-body text-[10px] text-gray-400 truncate mt-0.5">{user.email}</p>
-            </div>
+        {/* Search — center */}
+        <div className="flex-1 max-w-sm mx-6 hidden sm:block">
+          <div className="relative">
+            <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-lg">search</span>
+            <input placeholder="Rechercher un produit..."
+              className="w-full pl-11 pr-4 py-2 rounded-xl bg-gray-100 border-none font-body text-sm outline-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all" />
           </div>
         </div>
-      </aside>
 
-      {/* ══════ MAIN ══════ */}
-      <div className="flex-1 flex flex-col lg:ml-[230px] min-h-screen">
-
-        {/* Header */}
-        <header className="bg-white border-b border-gray-100 sticky top-0 z-30" style={{ paddingTop: "env(safe-area-inset-top)" }}>
-          <div className="flex items-center gap-4 px-6 h-[60px]">
-            <button onClick={() => setSidebarOpen(true)} className="lg:hidden w-9 h-9 rounded-xl flex items-center justify-center hover:bg-gray-100 transition-colors">
-              <span className="material-symbols-outlined text-gray-500">menu</span>
+        {/* Right actions */}
+        <div className="ml-auto flex items-center gap-2 pr-6">
+          {stats.pending > 0 && (
+            <button onClick={() => setPage("orders")}
+              className="relative w-9 h-9 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center hover:bg-amber-100 transition-colors">
+              <span className="material-symbols-outlined text-amber-600 text-lg">notifications_active</span>
+              <span className="absolute -top-1 -right-1 w-4 h-4 bg-amber-500 rounded-full text-white text-[8px] flex items-center justify-center font-black leading-none">{stats.pending}</span>
             </button>
-
-            {/* Search */}
-            <div className="flex-1 max-w-sm hidden sm:block">
-              <div className="relative">
-                <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-lg">search</span>
-                <input placeholder="Rechercher..." className="w-full pl-11 pr-4 py-2 rounded-xl bg-gray-100 border-none font-body text-sm outline-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all" />
-              </div>
+          )}
+          <button className="w-9 h-9 rounded-xl hover:bg-gray-100 flex items-center justify-center transition-colors">
+            <span className="material-symbols-outlined text-gray-400 text-lg">notifications</span>
+          </button>
+          <button className="w-9 h-9 rounded-xl hover:bg-gray-100 flex items-center justify-center transition-colors">
+            <span className="material-symbols-outlined text-gray-400 text-lg">help_outline</span>
+          </button>
+          <div className="flex items-center gap-2.5 pl-3 border-l border-gray-200 ml-1">
+            <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center font-headline text-xs font-black text-white shrink-0">
+              {(user.email || "A")[0].toUpperCase()}
             </div>
-
-            <div className="ml-auto flex items-center gap-2">
-              {stats.pending > 0 && (
-                <button onClick={() => setPage("orders")}
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-50 border border-amber-200 text-amber-700 font-headline text-xs font-bold hover:bg-amber-100 transition-colors">
-                  <span className="material-symbols-outlined text-sm">notifications_active</span>
-                  {stats.pending} en attente
-                </button>
-              )}
-              <div className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center">
-                <span className="material-symbols-outlined text-primary text-lg">notifications</span>
-              </div>
-              <div className="flex items-center gap-2 pl-2 border-l border-gray-200">
-                <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center font-headline text-xs font-black text-white">
-                  {(user.email || "A")[0].toUpperCase()}
-                </div>
-                <div className="hidden md:block">
-                  <p className="font-headline text-xs font-bold text-gray-800 leading-none">Admin</p>
-                  <p className="font-body text-[10px] text-gray-400">Agrumen</p>
-                </div>
-              </div>
+            <div className="hidden md:block">
+              <p className="font-headline text-[12px] font-bold text-gray-800 leading-none">Administrateur</p>
+              <p className="font-body text-[10px] text-gray-400 mt-0.5">Agrumen</p>
             </div>
+            <span className="material-symbols-outlined text-gray-400 text-base hidden md:block">expand_more</span>
           </div>
-        </header>
+        </div>
+      </header>
 
-        {/* Page content */}
-        <main className="flex-1 p-5 md:p-7 max-w-[1400px] w-full mx-auto">
+      {/* ══════ BODY (below header) ══════ */}
+      <div className="flex flex-1 pt-16">
+
+        {/* ══════ SIDEBAR ══════ */}
+        <aside className={`fixed top-16 left-0 bottom-0 w-[230px] bg-white border-r border-gray-100 flex flex-col z-50 transition-transform duration-300 ease-out lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
+
+          <nav className="flex-1 overflow-y-auto px-3 py-5 space-y-6">
+            {NAV_SECTIONS.map(section => (
+              <div key={section.label}>
+                <p className="px-3 mb-2 font-body text-[10px] font-semibold text-gray-400 uppercase tracking-[0.12em]">{section.label}</p>
+                <div className="space-y-0.5">
+                  {section.items.map(item => {
+                    const active = page === item.page;
+                    return (
+                      <button key={item.page} onClick={() => { setPage(item.page); setSidebarOpen(false); }}
+                        className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl font-headline text-[13px] font-semibold transition-all duration-150 ${
+                          active ? "bg-primary text-white shadow-sm" : "text-gray-500 hover:text-gray-800 hover:bg-gray-100"
+                        }`}>
+                        <span className="material-symbols-outlined text-[18px]" style={active ? { fontVariationSettings: "'FILL' 1" } : {}}>{item.icon}</span>
+                        <span className="flex-1 text-left">{item.label}</span>
+                        {item.page === "orders" && stats.pending > 0 && (
+                          <span className={`text-[9px] font-black px-1.5 py-0.5 rounded-full min-w-[18px] text-center leading-none ${active ? "bg-white/30 text-white" : "bg-primary/10 text-primary"}`}>
+                            {stats.pending}
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+
+            {/* Plateforme */}
+            <div>
+              <p className="px-3 mb-2 font-body text-[10px] font-semibold text-gray-400 uppercase tracking-[0.12em]">Plateforme</p>
+              <div className="space-y-0.5">
+                {[
+                  { to: "/marche", icon: "storefront", label: "Voir le Marché" },
+                  { to: "/", icon: "home", label: "Accueil" },
+                ].map(l => (
+                  <Link key={l.to} to={l.to}
+                    className="flex items-center gap-3 px-4 py-2.5 rounded-xl font-headline text-[13px] font-semibold text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-all">
+                    <span className="material-symbols-outlined text-[18px]">{l.icon}</span>
+                    {l.label}
+                    <span className="material-symbols-outlined text-[11px] ml-auto text-gray-300">open_in_new</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </nav>
+
+          {/* Log out */}
+          <div className="border-t border-gray-100 px-3 py-3">
+            <Link to="/"
+              className="flex items-center gap-3 px-4 py-2.5 rounded-xl font-headline text-[13px] font-semibold text-red-500 hover:bg-red-50 transition-all w-full">
+              <span className="material-symbols-outlined text-[18px]">logout</span>
+              Se déconnecter
+            </Link>
+          </div>
+        </aside>
+
+        {/* ══════ MAIN CONTENT ══════ */}
+        <main className="flex-1 lg:ml-[230px] p-5 md:p-7 w-full">
           <AnimatePresence mode="wait">
             <motion.div key={page} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.12 }}>
               {page === "overview"   && <OverviewPage stats={stats} orders={orders} loadingOrders={loadingOrders} setPage={setPage} />}
@@ -240,6 +232,16 @@ function OverviewPage({ stats, orders, loadingOrders, setPage }: { stats: any; o
     };
   }), [orders]);
 
+  const monthlyData = useMemo(() => Array.from({ length: 8 }, (_, i) => {
+    const d = new Date(); d.setMonth(d.getMonth() - (7 - i));
+    const m = d.toISOString().slice(0, 7);
+    return {
+      label: d.toLocaleDateString("fr-FR", { month: "short" }),
+      profit: orders.filter(o => o.created_at.slice(0, 7) === m && o.status !== "cancelled").reduce((s, o) => s + o.total, 0),
+      loss: orders.filter(o => o.created_at.slice(0, 7) === m && o.status === "cancelled").reduce((s, o) => s + o.total, 0),
+    };
+  }), [orders]);
+
   const prevMonth = useMemo(() => {
     const d = new Date(); d.setMonth(d.getMonth() - 1);
     const m = d.toISOString().slice(0, 7);
@@ -264,46 +266,48 @@ function OverviewPage({ stats, orders, loadingOrders, setPage }: { stats: any; o
   };
 
   const kpis = [
-    { label: "Total Commandes",  value: stats.total,          prev: `Mois dernier : ${prevMonth.total}`,           icon: "receipt_long",   iconBg: "bg-sky-100 text-sky-500",     trend: trend(thisMonth.total, prevMonth.total) },
-    { label: "Nouveaux Acheteurs", value: "—",                prev: "Inscriptions ce mois",                         icon: "group",          iconBg: "bg-emerald-100 text-emerald-500", trend: null },
-    { label: "En attente",       value: stats.pending,        prev: "Commandes à traiter",                         icon: "schedule",       iconBg: "bg-amber-100 text-amber-500", trend: null },
-    { label: "Revenus Total",    value: fp(stats.revenue),    prev: `Mois dernier : ${fp(prevMonth.revenue)}`,     icon: "payments",       iconBg: "bg-primary/10 text-primary",  trend: trend(thisMonth.revenue, prevMonth.revenue) },
+    { label: "Total Commandes",    value: stats.total,       prev: `Mois dernier : ${prevMonth.total}`,        icon: "shopping_cart",  trend: trend(thisMonth.total, prevMonth.total) },
+    { label: "Nouveaux Acheteurs", value: "—",               prev: "Inscriptions ce mois",                     icon: "group",          trend: null },
+    { label: "En attente",         value: stats.pending,     prev: "Commandes à traiter",                      icon: "schedule",       trend: null },
+    { label: "Revenus Total",      value: fp(stats.revenue), prev: `Mois dernier : ${fp(prevMonth.revenue)}`,  icon: "payments",       trend: trend(thisMonth.revenue, prevMonth.revenue) },
   ];
 
   const maxRev = Math.max(...last7.map(d => d.rev), 1);
+  const maxRevBar = Math.max(maxRev, 30000);
+  const yLabels = ["30k", "25k", "20k", "15k", "10k", "5k", "0"];
+
+  const maxBarIdx = last7.reduce((best, d, i) => d.rev > last7[best].rev ? i : best, 0);
 
   return (
     <div className="space-y-6">
-      {/* Title row */}
+
+      {/* Page header */}
       <div className="flex items-center justify-between">
-        <div>
-          <h1 className="font-headline text-2xl font-extrabold tracking-tight text-gray-900">Vue d'ensemble</h1>
-          <p className="font-body text-sm text-gray-400 mt-0.5">{new Date().toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}</p>
+        <h1 className="font-headline text-2xl md:text-3xl font-extrabold tracking-tight text-gray-900">Vue d'ensemble</h1>
+        <div className="flex items-center gap-2 bg-white border border-gray-200 rounded-xl px-4 py-2.5 shadow-sm">
+          <span className="material-symbols-outlined text-gray-400 text-base">calendar_today</span>
+          <span className="font-body text-sm text-gray-600 hidden sm:block">
+            {new Date().toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}
+          </span>
+          <span className="material-symbols-outlined text-gray-400 text-base">expand_more</span>
         </div>
-        <button onClick={() => setPage("orders")}
-          className="hidden sm:flex items-center gap-2 px-4 py-2.5 rounded-xl border border-gray-200 bg-white font-headline text-sm font-bold text-gray-600 hover:border-primary hover:text-primary transition-all">
-          <span className="material-symbols-outlined text-[17px]">receipt_long</span>
-          Voir commandes
-        </button>
       </div>
 
-      {/* KPI Cards — Finexy style */}
+      {/* KPI Cards — plain icon, no colored badge */}
       <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
         {kpis.map((k, i) => (
           <motion.div key={k.label} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.07 }}
             className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm hover:shadow-md transition-shadow">
-            <div className="flex items-start justify-between mb-3">
+            <div className="flex items-start justify-between mb-4">
               <p className="font-body text-sm text-gray-500">{k.label}</p>
-              <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${k.iconBg}`}>
-                <span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>{k.icon}</span>
-              </div>
+              {/* Plain outline icon — no colored badge */}
+              <span className="material-symbols-outlined text-gray-300 text-2xl">{k.icon}</span>
             </div>
             <div className="flex items-end gap-2 mb-2">
-              <p className="font-headline text-2xl font-black text-gray-900 leading-none">{k.value}</p>
+              <p className="font-headline text-2xl md:text-3xl font-black text-gray-900 leading-none">{k.value}</p>
               {k.trend && (
                 <span className={`inline-flex items-center gap-0.5 text-[11px] font-headline font-bold px-1.5 py-0.5 rounded-lg mb-0.5 ${k.trend.up ? "bg-emerald-50 text-emerald-600" : "bg-red-50 text-red-600"}`}>
-                  <span className="material-symbols-outlined text-[12px]">{k.trend.up ? "arrow_upward" : "arrow_downward"}</span>
-                  {Math.abs(k.trend.pct)}%
+                  {k.trend.up ? "↑" : "↓"} {Math.abs(k.trend.pct)}%
                 </span>
               )}
             </div>
@@ -314,74 +318,101 @@ function OverviewPage({ stats, orders, loadingOrders, setPage }: { stats: any; o
 
       {/* Charts row */}
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-5">
-        {/* Revenue bar chart — Finexy style pill bars */}
+
+        {/* Revenue analytics — Finexy pill bar chart */}
         <div className="lg:col-span-3 bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
           <div className="flex items-center justify-between mb-6">
-            <div>
-              <h2 className="font-headline text-base font-extrabold text-gray-900">Revenus</h2>
-              <p className="font-body text-xs text-gray-400 mt-0.5">7 derniers jours</p>
-            </div>
-            <span className="font-headline text-sm font-bold text-primary bg-primary/8 px-3 py-1.5 rounded-xl">
-              {fp(last7.reduce((s, d) => s + d.rev, 0))}
-            </span>
+            <h2 className="font-headline text-base font-extrabold text-gray-900">Revenus analytiques</h2>
+            <button className="flex items-center gap-1.5 border border-gray-200 rounded-xl px-3 py-1.5 font-headline text-xs font-bold text-gray-600 hover:border-gray-300 transition-colors">
+              Cette semaine
+              <span className="material-symbols-outlined text-[14px]">expand_more</span>
+            </button>
           </div>
-          {/* Custom pill bar chart */}
-          <div className="flex items-end gap-2 h-44">
-            {last7.map((d, i) => {
-              const pct = (d.rev / maxRev) * 100;
-              const height = Math.max(pct * 1.6, d.rev > 0 ? 10 : 4);
-              return (
-                <div key={i} className="flex-1 flex flex-col items-center gap-2 group">
-                  {d.rev > 0 && (
-                    <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-gray-900 text-white text-[10px] font-headline font-bold px-2 py-1 rounded-lg whitespace-nowrap">
-                      {d.rev >= 1000 ? `${(d.rev / 1000).toFixed(1)}k` : d.rev} FCFA
+
+          {/* Y-axis + bars */}
+          <div className="flex gap-3">
+            {/* Y-axis labels */}
+            <div className="flex flex-col justify-between shrink-0 pb-6" style={{ height: 180 }}>
+              {yLabels.map(l => (
+                <span key={l} className="font-body text-[9px] text-gray-300 leading-none text-right">{l}</span>
+              ))}
+            </div>
+
+            {/* Bars */}
+            <div className="flex-1 flex items-end gap-2 pb-6 relative" style={{ height: 180 }}>
+              {/* Horizontal grid lines */}
+              <div className="absolute inset-0 pb-6 flex flex-col justify-between pointer-events-none">
+                {yLabels.map((_, i) => (
+                  <div key={i} className="w-full h-px bg-gray-100" />
+                ))}
+              </div>
+
+              {last7.map((d, i) => {
+                const pct = d.rev / maxRevBar;
+                const height = Math.max(pct * 130, d.rev > 0 ? 14 : 5);
+                const isHighest = i === maxBarIdx && d.rev > 0;
+                return (
+                  <div key={i} className="flex-1 flex flex-col items-center gap-2 group relative z-10">
+                    {/* Tooltip above highest bar */}
+                    {isHighest && (
+                      <div className="absolute z-20" style={{ bottom: `${height + 14}px` }}>
+                        <div className="bg-primary text-white text-[10px] font-headline font-bold px-2.5 py-1.5 rounded-xl whitespace-nowrap shadow-lg relative">
+                          {d.rev >= 1000 ? `${(d.rev / 1000).toFixed(0)}k` : d.rev} FCFA
+                          <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0"
+                            style={{ borderLeft: "5px solid transparent", borderRight: "5px solid transparent", borderTop: "5px solid hsl(var(--primary))" }} />
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Bar */}
+                    <div className="w-full flex items-end justify-center" style={{ height: 130 }}>
+                      <div
+                        className="relative w-full max-w-[44px] rounded-full overflow-hidden group-hover:opacity-80 transition-opacity cursor-pointer"
+                        style={{ height: `${height}px` }}>
+                        <div className="absolute inset-0 bg-primary" />
+                        <div className="absolute inset-0" style={{
+                          backgroundImage: "repeating-linear-gradient(-45deg, transparent, transparent 4px, rgba(255,255,255,0.18) 4px, rgba(255,255,255,0.18) 8px)"
+                        }} />
+                      </div>
                     </div>
-                  )}
-                  <div className="w-full flex items-end justify-center" style={{ height: 140 }}>
-                    <div
-                      className="w-full max-w-[40px] rounded-full transition-all duration-700 cursor-pointer group-hover:opacity-80"
-                      style={{
-                        height: `${height}px`,
-                        background: d.rev > 0 ? "hsl(var(--primary))" : "#E5E7EB",
-                      }}
-                    />
+                    <span className="font-body text-[10px] text-gray-400">{d.label}</span>
                   </div>
-                  <span className="font-body text-[10px] text-gray-400">{d.label}</span>
-                  {d.count > 0 && <span className="font-headline text-[9px] font-bold text-primary">{d.count}</span>}
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </div>
 
-        {/* Status donut / breakdown */}
+        {/* Total Income panel */}
         <div className="lg:col-span-2 bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
-          <h2 className="font-headline text-base font-extrabold text-gray-900 mb-1">Répartition</h2>
-          <p className="font-body text-xs text-gray-400 mb-5">{orders.length} commandes au total</p>
-          <div className="space-y-3.5">
-            {Object.entries(STATUS).map(([key, val]) => {
-              const count = orders.filter(o => o.status === key).length;
-              const pct = orders.length ? Math.round((count / orders.length) * 100) : 0;
-              return (
-                <div key={key}>
-                  <div className="flex items-center justify-between mb-1.5">
-                    <div className="flex items-center gap-2">
-                      <div className={`w-2 h-2 rounded-full ${val.dot}`} />
-                      <span className="font-body text-xs text-gray-600">{val.label}</span>
-                    </div>
-                    <span className="font-headline text-xs font-bold text-gray-700">{count} <span className="text-gray-300 font-normal">({pct}%)</span></span>
-                  </div>
-                  <div className="h-1.5 rounded-full bg-gray-100 overflow-hidden">
-                    <div className={`h-full rounded-full transition-all duration-700 ${val.bar}`} style={{ width: `${pct}%` }} />
-                  </div>
-                </div>
-              );
-            })}
+          <h2 className="font-headline text-base font-extrabold text-gray-900 mb-0.5">Revenu total</h2>
+          <p className="font-body text-xs text-gray-400 mb-4">Évolution du chiffre d'affaires sur 8 mois</p>
+          <div className="flex items-center gap-4 mb-4">
+            <div className="flex items-center gap-1.5">
+              <div className="w-2.5 h-2.5 rounded-full bg-primary" />
+              <span className="font-body text-xs text-gray-500">Revenus</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <div className="w-2.5 h-2.5 rounded-full bg-gray-800" />
+              <span className="font-body text-xs text-gray-500">Annulés</span>
+            </div>
           </div>
+          <ResponsiveContainer width="100%" height={130}>
+            <BarChart data={monthlyData} barSize={9} barGap={2} margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
+              <XAxis dataKey="label" tick={{ fontSize: 9, fill: "#9ca3af" }} axisLine={false} tickLine={false} />
+              <YAxis hide />
+              <Tooltip
+                contentStyle={{ background: "#fff", border: "1px solid #E5E7EB", borderRadius: 10, fontSize: 11 }}
+                formatter={(v: number, name: string) => [fp(v), name === "profit" ? "Revenus" : "Annulés"]}
+              />
+              <Bar dataKey="profit" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="loss" fill="#1a1a1a" radius={[4, 4, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
         </div>
       </div>
 
-      {/* Recent orders table — Finexy style */}
+      {/* Recent orders table — Finexy style with checkbox + Client */}
       <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
           <h2 className="font-headline text-base font-extrabold text-gray-900">Commandes récentes</h2>
@@ -390,12 +421,14 @@ function OverviewPage({ stats, orders, loadingOrders, setPage }: { stats: any; o
               <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-base">search</span>
               <input placeholder="Rechercher..." className="pl-9 pr-4 py-2 rounded-xl bg-gray-100 border-none font-body text-xs outline-none w-36 focus:w-48 transition-all" />
             </div>
-            <button onClick={() => setPage("orders")} className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-gray-200 font-headline text-xs font-bold text-gray-500 hover:border-gray-300 transition-colors">
-              <span className="material-symbols-outlined text-sm">filter_list</span>
-              Tout voir
+            <button onClick={() => setPage("orders")}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-gray-200 font-headline text-xs font-bold text-gray-500 hover:border-gray-300 transition-colors">
+              <span className="material-symbols-outlined text-sm">swap_vert</span>
+              Trier par
             </button>
           </div>
         </div>
+
         {loadingOrders ? (
           <div className="p-5 space-y-2">{[1,2,3,4].map(i => <div key={i} className="h-12 animate-pulse rounded-xl bg-gray-100" />)}</div>
         ) : orders.length === 0 ? (
@@ -407,12 +440,15 @@ function OverviewPage({ stats, orders, loadingOrders, setPage }: { stats: any; o
           <table className="w-full">
             <thead>
               <tr className="bg-gray-50 border-b border-gray-100">
-                <th className="text-left px-6 py-3 font-headline text-[10px] font-bold uppercase tracking-widest text-gray-400">N° Commande</th>
+                <th className="px-5 py-3 w-10">
+                  <input type="checkbox" className="rounded border-gray-300 w-3.5 h-3.5 cursor-pointer" />
+                </th>
+                <th className="text-left px-4 py-3 font-headline text-[10px] font-bold uppercase tracking-widest text-gray-400">N° Commande</th>
                 <th className="text-left px-4 py-3 font-headline text-[10px] font-bold uppercase tracking-widest text-gray-400 hidden sm:table-cell">Date</th>
-                <th className="text-left px-4 py-3 font-headline text-[10px] font-bold uppercase tracking-widest text-gray-400 hidden md:table-cell">Ville</th>
+                <th className="text-left px-4 py-3 font-headline text-[10px] font-bold uppercase tracking-widest text-gray-400 hidden md:table-cell">Client</th>
+                <th className="text-left px-4 py-3 font-headline text-[10px] font-bold uppercase tracking-widest text-gray-400 hidden lg:table-cell">Ville</th>
                 <th className="text-left px-4 py-3 font-headline text-[10px] font-bold uppercase tracking-widest text-gray-400">Statut</th>
-                <th className="text-left px-4 py-3 font-headline text-[10px] font-bold uppercase tracking-widest text-gray-400 hidden sm:table-cell">Paiement</th>
-                <th className="text-right px-6 py-3 font-headline text-[10px] font-bold uppercase tracking-widest text-gray-400">Total</th>
+                <th className="text-right px-5 py-3 font-headline text-[10px] font-bold uppercase tracking-widest text-gray-400">Total</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
@@ -420,25 +456,27 @@ function OverviewPage({ stats, orders, loadingOrders, setPage }: { stats: any; o
                 const st = STATUS[order.status as keyof typeof STATUS] ?? STATUS.pending;
                 return (
                   <tr key={order.id} className="hover:bg-gray-50/60 transition-colors">
-                    <td className="px-6 py-3.5">
-                      <div className="flex items-center gap-2">
-                        <div className={`w-2 h-2 rounded-full shrink-0 ${st.dot}`} />
-                        <span className="font-headline text-sm font-bold text-gray-800">#{order.id.slice(0, 8).toUpperCase()}</span>
-                      </div>
+                    <td className="px-5 py-3.5">
+                      <input type="checkbox" className="rounded border-gray-300 w-3.5 h-3.5 cursor-pointer" />
+                    </td>
+                    <td className="px-4 py-3.5">
+                      <span className="font-headline text-sm font-bold text-gray-800">#{order.id.slice(0, 8).toUpperCase()}</span>
                     </td>
                     <td className="px-4 py-3.5 hidden sm:table-cell">
                       <span className="font-body text-sm text-gray-500">{fd(order.created_at)}</span>
                     </td>
                     <td className="px-4 py-3.5 hidden md:table-cell">
+                      <span className="font-body text-sm text-gray-500">{order.phone ?? "—"}</span>
+                    </td>
+                    <td className="px-4 py-3.5 hidden lg:table-cell">
                       <span className="font-body text-sm text-gray-500">{order.shipping_city ?? "—"}</span>
                     </td>
                     <td className="px-4 py-3.5">
-                      <span className={`inline-flex items-center gap-1 text-[10px] font-headline font-bold px-2.5 py-1 rounded-lg border ${st.bg} ${st.color} ${st.border}`}>{st.label}</span>
+                      <span className={`inline-flex items-center text-[10px] font-headline font-bold px-2.5 py-1 rounded-full border ${st.bg} ${st.color} ${st.border}`}>
+                        {st.label}
+                      </span>
                     </td>
-                    <td className="px-4 py-3.5 hidden sm:table-cell">
-                      <span className="font-body text-xs text-gray-400 uppercase">{order.payment_method ?? "—"}</span>
-                    </td>
-                    <td className="px-6 py-3.5 text-right">
+                    <td className="px-5 py-3.5 text-right">
                       <span className="font-headline text-sm font-black text-primary">{fp(order.total)}</span>
                     </td>
                   </tr>
@@ -510,7 +548,6 @@ function OrdersPage({ orders, setOrders, loadingOrders }: { orders: Order[]; set
         </div>
       </div>
 
-      {/* Status tabs */}
       <div className="flex gap-1.5 overflow-x-auto pb-1 mb-5 scrollbar-hide">
         {[{ key: "all", label: "Toutes", count: orders.length }, ...Object.entries(STATUS).map(([k, v]) => ({ key: k, label: v.label, count: orders.filter(o => o.status === k).length }))].map(t => (
           <button key={t.key} onClick={() => setFilter(t.key)}
@@ -543,7 +580,7 @@ function OrdersPage({ orders, setOrders, loadingOrders }: { orders: Order[]; set
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2 mb-0.5">
                       <span className="font-headline text-sm font-black text-gray-800">#{order.id.slice(0, 8).toUpperCase()}</span>
-                      <span className={`text-[10px] font-bold font-headline border rounded-lg px-2 py-0.5 ${st.bg} ${st.color} ${st.border}`}>{st.label}</span>
+                      <span className={`text-[10px] font-bold font-headline border rounded-full px-2 py-0.5 ${st.bg} ${st.color} ${st.border}`}>{st.label}</span>
                     </div>
                     <p className="font-body text-xs text-gray-400 truncate">{order.shipping_city} · {order.phone} · {(order.payment_method || "").toUpperCase()}</p>
                     <p className="font-body text-[10px] text-gray-300">{fd(order.created_at)}</p>
@@ -555,12 +592,11 @@ function OrdersPage({ orders, setOrders, loadingOrders }: { orders: Order[]; set
           })}
         </div>
 
-        {/* Detail panel */}
         <div className="lg:col-span-2">
           <AnimatePresence mode="wait">
             {selected ? (
               <motion.div key={selected.id} initial={{ opacity: 0, x: 14 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0 }}
-                className="sticky top-20 bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                className="sticky top-24 bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
                 <div className="bg-gray-50 border-b border-gray-100 px-5 py-4 flex items-center justify-between">
                   <div>
                     <p className="font-headline text-sm font-extrabold text-gray-800">#{selected.id.slice(0, 8).toUpperCase()}</p>
@@ -578,8 +614,8 @@ function OrdersPage({ orders, setOrders, loadingOrders }: { orders: Order[]; set
                     { icon: "paid", label: "Total", value: fp(selected.total) },
                   ].map(row => (
                     <div key={row.label} className="flex items-start gap-3">
-                      <div className="w-8 h-8 shrink-0 rounded-xl bg-primary/8 flex items-center justify-center">
-                        <span className="material-symbols-outlined text-primary text-[15px]">{row.icon}</span>
+                      <div className="w-8 h-8 shrink-0 rounded-xl bg-gray-100 flex items-center justify-center">
+                        <span className="material-symbols-outlined text-gray-500 text-[15px]">{row.icon}</span>
                       </div>
                       <div>
                         <p className="font-headline text-[9px] font-bold uppercase tracking-wider text-gray-400">{row.label}</p>
@@ -588,7 +624,6 @@ function OrdersPage({ orders, setOrders, loadingOrders }: { orders: Order[]; set
                     </div>
                   ))}
 
-                  {/* Items */}
                   <div className="border-t border-gray-100 pt-4">
                     <p className="font-headline text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-3">Articles</p>
                     {loadingItems ? (
@@ -605,7 +640,6 @@ function OrdersPage({ orders, setOrders, loadingOrders }: { orders: Order[]; set
                     ))}
                   </div>
 
-                  {/* Status buttons */}
                   <div className="border-t border-gray-100 pt-4">
                     <p className="font-headline text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-3">Changer le statut</p>
                     <div className="grid grid-cols-2 gap-1.5">
@@ -730,11 +764,10 @@ function ProductsPage() {
           </button>
         </div>
         <div className="p-6 space-y-5">
-          {/* Image */}
           <div>
             <label className="block font-headline text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-3">Photo du produit</label>
             <div className="flex gap-4 items-start">
-              <div onClick={() => imgRef.current?.click()} className="w-24 h-24 rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 flex items-center justify-center shrink-0 cursor-pointer hover:border-primary hover:bg-primary/4 transition-all overflow-hidden">
+              <div onClick={() => imgRef.current?.click()} className="w-24 h-24 rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 flex items-center justify-center shrink-0 cursor-pointer hover:border-primary hover:bg-primary/5 transition-all overflow-hidden">
                 {form.image_url ? <img src={form.image_url} alt="" className="w-full h-full object-cover" /> : <span className="material-symbols-outlined text-3xl text-gray-300">add_photo_alternate</span>}
               </div>
               <div className="flex-1 space-y-2">
@@ -749,13 +782,11 @@ function ProductsPage() {
               </div>
             </div>
           </div>
-          {/* Name */}
           <div>
             <label className="block font-headline text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2">Nom <span className="text-red-500">*</span></label>
             <input type="text" value={form.name} onChange={e => f("name", e.target.value)} placeholder="Ex : Mangues Kent"
               className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 font-body text-sm outline-none focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/10 transition-all" />
           </div>
-          {/* Price/Stock/Unit */}
           <div className="grid grid-cols-3 gap-3">
             {[
               { label: "Prix FCFA *", key: "price", type: "number", placeholder: "1500" },
@@ -778,7 +809,6 @@ function ProductsPage() {
               </div>
             </div>
           </div>
-          {/* Category */}
           <div>
             <label className="block font-headline text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2">Catégorie</label>
             <div className="relative">
@@ -790,13 +820,11 @@ function ProductsPage() {
               <span className="material-symbols-outlined pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[14px] text-gray-400">expand_more</span>
             </div>
           </div>
-          {/* Description */}
           <div>
             <label className="block font-headline text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2">Description</label>
             <textarea value={form.description} onChange={e => f("description", e.target.value)} rows={3} placeholder="Description du produit..."
               className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 font-body text-sm outline-none focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/10 resize-none transition-all" />
           </div>
-          {/* Active */}
           <div className="flex items-center justify-between rounded-xl bg-gray-50 border border-gray-200 px-4 py-3">
             <div>
               <p className="font-headline text-sm font-bold text-gray-800">Produit visible</p>
@@ -1209,10 +1237,10 @@ function AnalyticsPage({ orders }: { orders: Order[] }) {
   }, [orders]);
 
   const kpis = [
-    { label: "Revenu total",      value: fp(active.reduce((s, o) => s + o.total, 0)), icon: "payments",       bg: "bg-emerald-100 text-emerald-600" },
-    { label: "Panier moyen",      value: fp(avgOrder),                                 icon: "shopping_cart",  bg: "bg-sky-100 text-sky-600" },
-    { label: "Taux livraison",    value: `${deliveryRate}%`,                           icon: "local_shipping", bg: "bg-blue-100 text-blue-600" },
-    { label: "Taux annulation",   value: `${cancelRate}%`,                             icon: "cancel",         bg: "bg-red-100 text-red-500" },
+    { label: "Revenu total",    value: fp(active.reduce((s, o) => s + o.total, 0)), icon: "payments",       iconBg: "bg-emerald-100 text-emerald-600" },
+    { label: "Panier moyen",    value: fp(avgOrder),                                 icon: "shopping_cart",  iconBg: "bg-sky-100 text-sky-600" },
+    { label: "Taux livraison",  value: `${deliveryRate}%`,                           icon: "local_shipping", iconBg: "bg-blue-100 text-blue-600" },
+    { label: "Taux annulation", value: `${cancelRate}%`,                             icon: "cancel",         iconBg: "bg-red-100 text-red-500" },
   ];
 
   return (
@@ -1226,16 +1254,15 @@ function AnalyticsPage({ orders }: { orders: Order[] }) {
         {kpis.map((k, i) => (
           <motion.div key={k.label} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}
             className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
-            <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-4 ${k.bg}`}>
-              <span className="material-symbols-outlined text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>{k.icon}</span>
+            <div className="flex items-start justify-between mb-4">
+              <p className="font-body text-sm text-gray-500">{k.label}</p>
+              <span className="material-symbols-outlined text-gray-300 text-2xl">{k.icon}</span>
             </div>
-            <p className="font-headline text-xl font-black text-gray-900">{k.value}</p>
-            <p className="font-body text-xs text-gray-400 mt-1">{k.label}</p>
+            <p className="font-headline text-2xl font-black text-gray-900">{k.value}</p>
           </motion.div>
         ))}
       </div>
 
-      {/* 30-day revenue */}
       <div className="bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
         <h2 className="font-headline text-base font-extrabold text-gray-900 mb-1">Revenus — 30 jours</h2>
         <p className="font-body text-xs text-gray-400 mb-5">Chiffre d'affaires quotidien hors annulations</p>
@@ -1257,7 +1284,6 @@ function AnalyticsPage({ orders }: { orders: Order[] }) {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        {/* Statuts */}
         <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
           <h2 className="font-headline text-sm font-extrabold text-gray-900 mb-1">Statuts</h2>
           <p className="font-body text-xs text-gray-400 mb-5">{orders.length} commandes</p>
@@ -1280,7 +1306,6 @@ function AnalyticsPage({ orders }: { orders: Order[] }) {
           </div>
         </div>
 
-        {/* Top villes */}
         <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
           <h2 className="font-headline text-sm font-extrabold text-gray-900 mb-1">Top villes</h2>
           <p className="font-body text-xs text-gray-400 mb-5">Commandes par localité</p>
@@ -1304,7 +1329,6 @@ function AnalyticsPage({ orders }: { orders: Order[] }) {
           )}
         </div>
 
-        {/* Commandes 7j bar chart */}
         <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
           <h2 className="font-headline text-sm font-extrabold text-gray-900 mb-1">Commandes</h2>
           <p className="font-body text-xs text-gray-400 mb-4">7 derniers jours</p>
@@ -1315,11 +1339,9 @@ function AnalyticsPage({ orders }: { orders: Order[] }) {
               <Bar dataKey="count" fill="hsl(var(--primary))" radius={[6, 6, 0, 0]} opacity={0.85} />
             </BarChart>
           </ResponsiveContainer>
-          <div className="mt-4 pt-4 border-t border-gray-100">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-sky-400" /><span className="font-body text-xs text-gray-500">Wave</span></div>
-              <div className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-orange-400" /><span className="font-body text-xs text-gray-500">Orange Money</span></div>
-            </div>
+          <div className="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
+            <div className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-sky-400" /><span className="font-body text-xs text-gray-500">Wave</span></div>
+            <div className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-orange-400" /><span className="font-body text-xs text-gray-500">Orange Money</span></div>
           </div>
         </div>
       </div>
