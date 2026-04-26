@@ -24,7 +24,7 @@ const steps = [
 
 const HowItWorks = () => {
   return (
-    <section id="comment" className="py-20 md:py-28">
+    <section id="comment" className="pt-8 pb-20 md:pt-12 md:pb-28">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
 
         {/* Header */}
