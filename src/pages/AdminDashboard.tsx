@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, AreaChart, Area, CartesianGrid } from "recharts";
+import { MOCK_PRODUCTS } from "@/data/marketplaceMocks";
 
 const ADMIN_EMAIL = "Mohalaval4@gmail.com";
 
@@ -153,13 +154,13 @@ export default function AdminDashboard() {
                     const active = page === item.page;
                     return (
                       <button key={item.page} onClick={() => { setPage(item.page); setSidebarOpen(false); }}
-                        className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl font-headline text-[13px] font-semibold transition-all duration-150 ${
-                          active ? "bg-primary text-white shadow-sm" : "text-gray-500 hover:text-gray-800 hover:bg-gray-100"
+                        className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg font-headline text-[13px] font-semibold transition-all duration-150 ${
+                          active ? "bg-gray-900 text-white shadow-sm" : "text-gray-500 hover:text-gray-800 hover:bg-gray-100"
                         }`}>
                         <span className="material-symbols-outlined text-[18px]" style={active ? { fontVariationSettings: "'FILL' 1" } : {}}>{item.icon}</span>
                         <span className="flex-1 text-left">{item.label}</span>
                         {item.page === "orders" && stats.pending > 0 && (
-                          <span className={`text-[9px] font-black px-1.5 py-0.5 rounded-full min-w-[18px] text-center leading-none ${active ? "bg-white/30 text-white" : "bg-primary/10 text-primary"}`}>
+                          <span className={`text-[9px] font-black px-1.5 py-0.5 rounded-full min-w-[18px] text-center leading-none ${active ? "bg-white/30 text-white" : "bg-gray-100 text-gray-700"}`}>
                             {stats.pending}
                           </span>
                         )}
@@ -356,10 +357,10 @@ function OverviewPage({ stats, orders, loadingOrders, setPage }: { stats: any; o
                     {/* Tooltip above highest bar */}
                     {isHighest && (
                       <div className="absolute z-20" style={{ bottom: `${height + 14}px` }}>
-                        <div className="bg-primary text-white text-[10px] font-headline font-bold px-2.5 py-1.5 rounded-xl whitespace-nowrap shadow-lg relative">
+                        <div className="bg-gray-900 text-white text-[10px] font-headline font-bold px-2.5 py-1.5 rounded-lg whitespace-nowrap shadow-lg relative">
                           {d.rev >= 1000 ? `${(d.rev / 1000).toFixed(0)}k` : d.rev} FCFA
                           <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0"
-                            style={{ borderLeft: "5px solid transparent", borderRight: "5px solid transparent", borderTop: "5px solid hsl(var(--primary))" }} />
+                            style={{ borderLeft: "5px solid transparent", borderRight: "5px solid transparent", borderTop: "5px solid #111827" }} />
                         </div>
                       </div>
                     )}
@@ -369,7 +370,7 @@ function OverviewPage({ stats, orders, loadingOrders, setPage }: { stats: any; o
                       <div
                         className="relative w-full max-w-[44px] rounded-full overflow-hidden group-hover:opacity-80 transition-opacity cursor-pointer"
                         style={{ height: `${height}px` }}>
-                        <div className="absolute inset-0 bg-primary" />
+                        <div className="absolute inset-0 bg-gray-900" />
                         <div className="absolute inset-0" style={{
                           backgroundImage: "repeating-linear-gradient(-45deg, transparent, transparent 4px, rgba(255,255,255,0.18) 4px, rgba(255,255,255,0.18) 8px)"
                         }} />
@@ -389,11 +390,11 @@ function OverviewPage({ stats, orders, loadingOrders, setPage }: { stats: any; o
           <p className="font-body text-xs text-gray-400 mb-4">Évolution du chiffre d'affaires sur 8 mois</p>
           <div className="flex items-center gap-4 mb-4">
             <div className="flex items-center gap-1.5">
-              <div className="w-2.5 h-2.5 rounded-full bg-primary" />
+              <div className="w-2.5 h-2.5 rounded-full bg-gray-900" />
               <span className="font-body text-xs text-gray-500">Revenus</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <div className="w-2.5 h-2.5 rounded-full bg-gray-800" />
+              <div className="w-2.5 h-2.5 rounded-full bg-gray-400" />
               <span className="font-body text-xs text-gray-500">Annulés</span>
             </div>
           </div>
@@ -405,8 +406,8 @@ function OverviewPage({ stats, orders, loadingOrders, setPage }: { stats: any; o
                 contentStyle={{ background: "#fff", border: "1px solid #E5E7EB", borderRadius: 10, fontSize: 11 }}
                 formatter={(v: number, name: string) => [fp(v), name === "profit" ? "Revenus" : "Annulés"]}
               />
-              <Bar dataKey="profit" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
-              <Bar dataKey="loss" fill="#1a1a1a" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="profit" fill="#111827" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="loss" fill="#9ca3af" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -551,8 +552,8 @@ function OrdersPage({ orders, setOrders, loadingOrders }: { orders: Order[]; set
       <div className="flex gap-1.5 overflow-x-auto pb-1 mb-5 scrollbar-hide">
         {[{ key: "all", label: "Toutes", count: orders.length }, ...Object.entries(STATUS).map(([k, v]) => ({ key: k, label: v.label, count: orders.filter(o => o.status === k).length }))].map(t => (
           <button key={t.key} onClick={() => setFilter(t.key)}
-            className={`shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl font-headline text-xs font-bold whitespace-nowrap transition-all ${
-              filter === t.key ? "bg-primary text-white shadow-sm" : "bg-white border border-gray-200 text-gray-500 hover:border-gray-300"
+            className={`shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg font-headline text-xs font-bold whitespace-nowrap transition-all ${
+              filter === t.key ? "bg-gray-900 text-white shadow-sm" : "bg-white border border-gray-200 text-gray-500 hover:border-gray-300"
             }`}>
             {t.label}
             {t.count > 0 && <span className={`text-[9px] font-black px-1.5 py-0.5 rounded-full ${filter === t.key ? "bg-white/25" : "bg-gray-100 text-gray-400"}`}>{t.count}</span>}
@@ -574,7 +575,7 @@ function OrdersPage({ orders, setOrders, loadingOrders }: { orders: Order[]; set
             const isSel = selected?.id === order.id;
             return (
               <button key={order.id} onClick={() => selectOrder(order)}
-                className={`w-full text-left rounded-xl border bg-white p-4 transition-all hover:shadow-md ${isSel ? "border-primary ring-2 ring-primary/15 shadow-md" : "border-gray-200 hover:border-gray-300"}`}>
+                className={`w-full text-left rounded-xl border bg-white p-4 transition-all hover:shadow-md ${isSel ? "border-gray-900 ring-2 ring-gray-900/10 shadow-md" : "border-gray-200 hover:border-gray-300"}`}>
                 <div className="flex items-center gap-3">
                   <div className={`w-2.5 h-2.5 rounded-full shrink-0 ${st.dot}`} />
                   <div className="min-w-0 flex-1">
@@ -678,7 +679,6 @@ const UNITS = ["le kg", "la pièce", "la botte", "le litre", "le sachet", "la bo
 const EMPTY = { name: "", price: "", unit: "le kg", stock: "", description: "", image_url: "", category_id: "", is_active: true };
 
 function ProductsPage() {
-  const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [view, setView] = useState<"grid" | "table">("grid");
@@ -692,16 +692,29 @@ function ProductsPage() {
   const [catFilter, setCatFilter] = useState("all");
   const imgRef = useRef<HTMLInputElement>(null);
 
+  const [dbProducts, setDbProducts] = useState<Product[]>([]);
+
   useEffect(() => {
     Promise.all([
       supabase.from("products").select("*, categories(name)").order("created_at", { ascending: false }),
       supabase.from("categories").select("*").order("name"),
     ]).then(([pr, cr]) => {
-      if (pr.data) setProducts(pr.data as Product[]);
+      if (pr.data) setDbProducts(pr.data as Product[]);
       if (cr.data) setCategories(cr.data);
       setLoading(false);
     });
   }, []);
+
+  const products = useMemo(() => {
+    const dbIds = new Set(dbProducts.map(p => p.id));
+    const mocks = MOCK_PRODUCTS.filter(m => !dbIds.has(m.id)).map(m => ({
+      ...m,
+      categories: m.categories ? { name: m.categories.name } : null,
+    } as Product));
+    return [...dbProducts, ...mocks];
+  }, [dbProducts]);
+
+  const isMock = (p: Product) => p.id.startsWith("m");
 
   const filtered = products.filter(p => (!search || p.name.toLowerCase().includes(search.toLowerCase())) && (catFilter === "all" || p.category_id === catFilter));
 
@@ -727,25 +740,25 @@ function ProductsPage() {
     if (editProduct) {
       const { error } = await supabase.from("products").update(payload).eq("id", editProduct.id);
       if (error) { toast.error("Erreur mise à jour"); }
-      else { const cat = categories.find(c => c.id === form.category_id); setProducts(prev => prev.map(p => p.id === editProduct.id ? { ...p, ...payload, categories: cat ? { name: cat.name } : null } : p)); toast.success("Produit mis à jour !"); setShowForm(false); }
+      else { const cat = categories.find(c => c.id === form.category_id); setDbProducts(prev => prev.map(p => p.id === editProduct.id ? { ...p, ...payload, categories: cat ? { name: cat.name } : null } : p)); toast.success("Produit mis à jour !"); setShowForm(false); }
     } else {
       const { data, error } = await supabase.from("products").insert(payload).select("*, categories(name)").single();
       if (error) { toast.error("Erreur création"); }
-      else { setProducts(prev => [data as Product, ...prev]); toast.success("Produit créé !"); setShowForm(false); }
+      else { setDbProducts(prev => [data as Product, ...prev]); toast.success("Produit créé !"); setShowForm(false); }
     }
     setSaving(false);
   };
 
   const toggleActive = async (id: string, current: boolean) => {
     await supabase.from("products").update({ is_active: !current }).eq("id", id);
-    setProducts(prev => prev.map(p => p.id === id ? { ...p, is_active: !current } : p));
+    setDbProducts(prev => prev.map(p => p.id === id ? { ...p, is_active: !current } : p));
     toast.success(current ? "Désactivé" : "Activé");
   };
 
   const handleDelete = async (id: string) => {
     const { error } = await supabase.from("products").delete().eq("id", id);
     if (error) { toast.error("Erreur suppression"); }
-    else { setProducts(prev => prev.filter(p => p.id !== id)); toast.success("Produit supprimé"); }
+    else { setDbProducts(prev => prev.filter(p => p.id !== id)); toast.success("Produit supprimé"); }
     setDeleteConfirm(null);
   };
 
@@ -838,7 +851,7 @@ function ProductsPage() {
           <div className="flex gap-3 pt-1">
             <button onClick={() => setShowForm(false)} className="flex-1 py-3 rounded-xl border border-gray-200 font-headline text-sm font-bold text-gray-500 hover:bg-gray-50 transition-colors">Annuler</button>
             <button onClick={handleSave} disabled={saving || !form.name || !form.price}
-              className="flex-1 py-3 rounded-xl bg-primary text-white font-headline text-sm font-bold hover:opacity-90 disabled:opacity-50 flex items-center justify-center gap-2 transition-opacity">
+              className="flex-1 py-3 rounded-lg bg-gray-900 text-white font-headline text-sm font-bold hover:bg-gray-800 disabled:opacity-50 flex items-center justify-center gap-2 transition-colors">
               {saving && <span className="material-symbols-outlined animate-spin text-base">progress_activity</span>}
               {saving ? "Enregistrement..." : editProduct ? "Mettre à jour" : "Créer le produit"}
             </button>
@@ -882,7 +895,7 @@ function ProductsPage() {
               </button>
             ))}
           </div>
-          <button onClick={openAdd} className="flex items-center gap-1.5 bg-primary text-white px-4 py-2.5 rounded-xl font-headline text-sm font-bold hover:opacity-90 transition-opacity shadow-sm">
+          <button onClick={openAdd} className="flex items-center gap-1.5 bg-gray-900 text-white px-4 py-2.5 rounded-lg font-headline text-sm font-bold hover:bg-gray-800 transition-colors shadow-sm">
             <span className="material-symbols-outlined text-[17px]">add</span>
             <span className="hidden sm:inline">Nouveau produit</span>
           </button>
@@ -896,10 +909,10 @@ function ProductsPage() {
             className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-gray-200 bg-white font-body text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all" />
         </div>
         <div className="flex gap-1.5 overflow-x-auto scrollbar-hide">
-          <button onClick={() => setCatFilter("all")} className={`shrink-0 px-3.5 py-2 rounded-xl font-headline text-xs font-bold transition-all ${catFilter === "all" ? "bg-primary text-white" : "bg-white border border-gray-200 text-gray-500"}`}>Tous</button>
+          <button onClick={() => setCatFilter("all")} className={`shrink-0 px-3.5 py-2 rounded-lg font-headline text-xs font-bold transition-all ${catFilter === "all" ? "bg-gray-900 text-white" : "bg-white border border-gray-200 text-gray-500"}`}>Tous</button>
           {categories.map(c => (
             <button key={c.id} onClick={() => setCatFilter(catFilter === c.id ? "all" : c.id)}
-              className={`shrink-0 px-3.5 py-2 rounded-xl font-headline text-xs font-bold transition-all ${catFilter === c.id ? "bg-primary text-white" : "bg-white border border-gray-200 text-gray-500 hover:border-gray-300"}`}>
+              className={`shrink-0 px-3.5 py-2 rounded-lg font-headline text-xs font-bold transition-all ${catFilter === c.id ? "bg-gray-900 text-white" : "bg-white border border-gray-200 text-gray-500 hover:border-gray-300"}`}>
               {c.name}
             </button>
           ))}
@@ -917,7 +930,7 @@ function ProductsPage() {
         <div className="bg-white rounded-xl border border-dashed border-gray-200 py-20 text-center">
           <span className="material-symbols-outlined text-5xl text-gray-200 block mb-3">inventory_2</span>
           <p className="font-headline font-bold text-gray-400 mb-1">{search ? "Aucun résultat" : "Aucun produit"}</p>
-          {!search && <button onClick={openAdd} className="mt-3 inline-flex items-center gap-1.5 bg-primary text-white px-5 py-2.5 rounded-xl font-headline text-sm font-bold hover:opacity-90">
+          {!search && <button onClick={openAdd} className="mt-3 inline-flex items-center gap-1.5 bg-gray-900 text-white px-5 py-2.5 rounded-lg font-headline text-sm font-bold hover:bg-gray-800 transition-colors">
             <span className="material-symbols-outlined text-base">add</span>Premier produit
           </button>}
         </div>
@@ -929,25 +942,32 @@ function ProductsPage() {
               <div className="relative aspect-square bg-gray-100">
                 <img src={p.image_url || "/placeholder.svg"} alt={p.name} className="w-full h-full object-cover" onError={e => { (e.target as HTMLImageElement).src = "/placeholder.svg"; }} />
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                  <button onClick={() => openEdit(p)} className="w-9 h-9 bg-white rounded-xl flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
-                    <span className="material-symbols-outlined text-gray-700 text-base">edit</span>
-                  </button>
-                  <button onClick={() => setDeleteConfirm(p.id)} className="w-9 h-9 bg-red-500 rounded-xl flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
-                    <span className="material-symbols-outlined text-white text-base">delete</span>
-                  </button>
+                  {!isMock(p) && <>
+                    <button onClick={() => openEdit(p)} className="w-9 h-9 bg-white rounded-xl flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
+                      <span className="material-symbols-outlined text-gray-700 text-base">edit</span>
+                    </button>
+                    <button onClick={() => setDeleteConfirm(p.id)} className="w-9 h-9 bg-red-500 rounded-xl flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
+                      <span className="material-symbols-outlined text-white text-base">delete</span>
+                    </button>
+                  </>}
                 </div>
-                {!p.is_active && <div className="absolute top-2 left-2 bg-black/70 text-white text-[9px] font-headline font-bold px-2 py-0.5 rounded-lg">Inactif</div>}
+                {isMock(p) && <div className="absolute top-2 left-2 bg-gray-800/80 text-white text-[9px] font-headline font-bold px-2 py-0.5 rounded-lg">Démo</div>}
+                {!isMock(p) && !p.is_active && <div className="absolute top-2 left-2 bg-black/70 text-white text-[9px] font-headline font-bold px-2 py-0.5 rounded-lg">Inactif</div>}
                 {(p.stock ?? 0) === 0 && <div className="absolute top-2 right-2 bg-red-500 text-white text-[9px] font-headline font-bold px-2 py-0.5 rounded-lg">Rupture</div>}
               </div>
               <div className="p-3">
                 <p className="font-headline text-[12px] font-bold text-gray-800 truncate">{p.name}</p>
                 <p className="font-body text-[10px] text-gray-400 truncate">{p.categories?.name ?? "—"}</p>
                 <div className="flex items-center justify-between mt-2">
-                  <p className="font-headline text-sm font-extrabold text-primary">{p.price.toLocaleString("fr-FR")}<span className="text-[9px] text-gray-400 font-normal ml-0.5">FCFA</span></p>
-                  <button onClick={() => toggleActive(p.id, p.is_active)}
-                    className={`text-[9px] font-headline font-bold px-2 py-0.5 rounded-lg border ${p.is_active ? "bg-emerald-50 text-emerald-700 border-emerald-200" : "bg-gray-50 text-gray-400 border-gray-200"}`}>
-                    {p.is_active ? "Actif" : "Off"}
-                  </button>
+                  <p className="font-headline text-sm font-extrabold text-gray-900">{p.price.toLocaleString("fr-FR")}<span className="text-[9px] text-gray-400 font-normal ml-0.5">FCFA</span></p>
+                  {isMock(p) ? (
+                    <span className="text-[9px] font-headline font-bold px-2 py-0.5 rounded-lg border bg-gray-50 text-gray-400 border-gray-200">Démo</span>
+                  ) : (
+                    <button onClick={() => toggleActive(p.id, p.is_active)}
+                      className={`text-[9px] font-headline font-bold px-2 py-0.5 rounded-lg border ${p.is_active ? "bg-emerald-50 text-emerald-700 border-emerald-200" : "bg-gray-50 text-gray-400 border-gray-200"}`}>
+                      {p.is_active ? "Actif" : "Off"}
+                    </button>
+                  )}
                 </div>
                 <div className="flex items-center gap-1 mt-1.5">
                   <div className="flex-1 h-1 rounded-full bg-gray-100 overflow-hidden">
@@ -985,13 +1005,19 @@ function ProductsPage() {
                     <span className={`inline-flex items-center rounded-lg px-2.5 py-1 font-headline text-[10px] font-bold border ${(p.stock ?? 0) === 0 ? "bg-red-50 text-red-600 border-red-100" : (p.stock ?? 0) < 10 ? "bg-amber-50 text-amber-700 border-amber-100" : "bg-emerald-50 text-emerald-700 border-emerald-100"}`}>{p.stock ?? 0}</span>
                   </td>
                   <td className="px-4 py-3.5">
-                    <button onClick={() => toggleActive(p.id, p.is_active)} className={`rounded-lg px-2.5 py-1 font-headline text-[10px] font-bold border transition-all ${p.is_active ? "bg-emerald-50 text-emerald-700 border-emerald-100" : "bg-gray-50 text-gray-400 border-gray-100"}`}>{p.is_active ? "Actif" : "Inactif"}</button>
+                    {isMock(p) ? (
+                      <span className="rounded-lg px-2.5 py-1 font-headline text-[10px] font-bold border bg-gray-50 text-gray-400 border-gray-100">Démo</span>
+                    ) : (
+                      <button onClick={() => toggleActive(p.id, p.is_active)} className={`rounded-lg px-2.5 py-1 font-headline text-[10px] font-bold border transition-all ${p.is_active ? "bg-emerald-50 text-emerald-700 border-emerald-100" : "bg-gray-50 text-gray-400 border-gray-100"}`}>{p.is_active ? "Actif" : "Inactif"}</button>
+                    )}
                   </td>
                   <td className="px-4 py-3.5">
-                    <div className="flex items-center gap-1 justify-end">
-                      <button onClick={() => openEdit(p)} className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition-colors"><span className="material-symbols-outlined text-[15px]">edit</span></button>
-                      <button onClick={() => setDeleteConfirm(p.id)} className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:bg-red-50 hover:text-red-500 transition-colors"><span className="material-symbols-outlined text-[15px]">delete</span></button>
-                    </div>
+                    {!isMock(p) && (
+                      <div className="flex items-center gap-1 justify-end">
+                        <button onClick={() => openEdit(p)} className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition-colors"><span className="material-symbols-outlined text-[15px]">edit</span></button>
+                        <button onClick={() => setDeleteConfirm(p.id)} className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:bg-red-50 hover:text-red-500 transition-colors"><span className="material-symbols-outlined text-[15px]">delete</span></button>
+                      </div>
+                    )}
                   </td>
                 </tr>
               ))}
@@ -1049,7 +1075,7 @@ function CategoriesPage() {
           <h1 className="font-headline text-2xl font-extrabold tracking-tight text-gray-900">Catégories</h1>
           <p className="font-body text-sm text-gray-400 mt-0.5">{categories.length} catégorie{categories.length !== 1 ? "s" : ""}</p>
         </div>
-        <button onClick={openAdd} className="flex items-center gap-1.5 bg-primary text-white px-4 py-2.5 rounded-xl font-headline text-sm font-bold hover:opacity-90 transition-opacity shadow-sm">
+        <button onClick={openAdd} className="flex items-center gap-1.5 bg-gray-900 text-white px-4 py-2.5 rounded-lg font-headline text-sm font-bold hover:bg-gray-800 transition-colors shadow-sm">
           <span className="material-symbols-outlined text-[17px]">add</span>
           Nouvelle catégorie
         </button>
@@ -1076,20 +1102,20 @@ function CategoriesPage() {
                   <div className="grid grid-cols-7 gap-1.5 mb-3">
                     {ICONS.map(ic => (
                       <button key={ic} onClick={() => setForm(f => ({ ...f, icon: ic }))}
-                        className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all ${form.icon === ic ? "bg-primary text-white" : "bg-gray-100 text-gray-500 hover:bg-gray-200"}`}>
+                        className={`w-9 h-9 rounded-lg flex items-center justify-center transition-all ${form.icon === ic ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-500 hover:bg-gray-200"}`}>
                         <span className="material-symbols-outlined text-lg" style={form.icon === ic ? { fontVariationSettings: "'FILL' 1" } : {}}>{ic}</span>
                       </button>
                     ))}
                   </div>
                 </div>
                 <div className="flex items-center gap-3 bg-gray-50 rounded-xl p-3">
-                  <span className="material-symbols-outlined text-primary text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>{form.icon || "category"}</span>
+                  <span className="material-symbols-outlined text-gray-700 text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>{form.icon || "category"}</span>
                   <p className="font-headline text-sm font-bold text-gray-700">{form.name || "Aperçu"}</p>
                 </div>
                 <div className="flex gap-3 pt-1">
                   <button onClick={() => setShowForm(false)} className="flex-1 py-3 rounded-xl border border-gray-200 font-headline text-sm font-bold text-gray-500 hover:bg-gray-50">Annuler</button>
                   <button onClick={handleSave} disabled={saving || !form.name}
-                    className="flex-1 py-3 rounded-xl bg-primary text-white font-headline text-sm font-bold hover:opacity-90 disabled:opacity-50 flex items-center justify-center gap-2">
+                    className="flex-1 py-3 rounded-lg bg-gray-900 text-white font-headline text-sm font-bold hover:bg-gray-800 disabled:opacity-50 flex items-center justify-center gap-2 transition-colors">
                     {saving && <span className="material-symbols-outlined animate-spin text-base">progress_activity</span>}
                     {editCat ? "Mettre à jour" : "Créer"}
                   </button>
@@ -1126,7 +1152,7 @@ function CategoriesPage() {
         <div className="bg-white rounded-xl border border-dashed border-gray-200 py-20 text-center">
           <span className="material-symbols-outlined text-5xl text-gray-200 block mb-3">category</span>
           <p className="font-headline font-bold text-gray-400 mb-3">Aucune catégorie</p>
-          <button onClick={openAdd} className="inline-flex items-center gap-1.5 bg-primary text-white px-5 py-2.5 rounded-xl font-headline text-sm font-bold"><span className="material-symbols-outlined text-base">add</span>Créer</button>
+          <button onClick={openAdd} className="inline-flex items-center gap-1.5 bg-gray-900 text-white px-5 py-2.5 rounded-lg font-headline text-sm font-bold hover:bg-gray-800 transition-colors"><span className="material-symbols-outlined text-base">add</span>Créer</button>
         </div>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4">
@@ -1134,11 +1160,11 @@ function CategoriesPage() {
             <motion.div key={cat.id} layout initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }}
               className="group bg-white rounded-xl border border-gray-200 p-5 flex flex-col items-center gap-3 hover:shadow-md hover:border-gray-300 transition-all">
               <div className="w-14 h-14 rounded-xl bg-primary/8 flex items-center justify-center">
-                <span className="material-symbols-outlined text-primary text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>{cat.icon || "category"}</span>
+                <span className="material-symbols-outlined text-gray-700 text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>{cat.icon || "category"}</span>
               </div>
               <p className="font-headline text-sm font-extrabold text-gray-800 text-center">{cat.name}</p>
               <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                <button onClick={() => openEdit(cat)} className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-primary hover:text-white transition-all"><span className="material-symbols-outlined text-[14px]">edit</span></button>
+                <button onClick={() => openEdit(cat)} className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-900 hover:text-white transition-all"><span className="material-symbols-outlined text-[14px]">edit</span></button>
                 <button onClick={() => setDeleteConfirm(cat.id)} className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-red-500 hover:text-white transition-all"><span className="material-symbols-outlined text-[14px]">delete</span></button>
               </div>
             </motion.div>
@@ -1270,15 +1296,15 @@ function AnalyticsPage({ orders }: { orders: Order[] }) {
           <AreaChart data={last30} margin={{ top: 4, right: 4, bottom: 0, left: 0 }}>
             <defs>
               <linearGradient id="ag" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.15} />
-                <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0} />
+                <stop offset="5%" stopColor="#111827" stopOpacity={0.12} />
+                <stop offset="95%" stopColor="#111827" stopOpacity={0} />
               </linearGradient>
             </defs>
             <XAxis dataKey="label" tick={{ fontSize: 9, fill: "#9ca3af" }} axisLine={false} tickLine={false} />
             <YAxis hide />
             <CartesianGrid strokeDasharray="3 3" stroke="#F3F4F6" />
             <Tooltip contentStyle={{ background: "#fff", border: "1px solid #E5E7EB", borderRadius: 10, fontSize: 11 }} formatter={(v: number) => [fp(v), "Revenu"]} />
-            <Area type="monotone" dataKey="rev" stroke="hsl(var(--primary))" strokeWidth={2.5} fill="url(#ag)" dot={false} />
+            <Area type="monotone" dataKey="rev" stroke="#111827" strokeWidth={2.5} fill="url(#ag)" dot={false} />
           </AreaChart>
         </ResponsiveContainer>
       </div>
@@ -1317,10 +1343,10 @@ function AnalyticsPage({ orders }: { orders: Order[] }) {
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-1">
                       <span className="font-headline text-xs font-bold text-gray-700 truncate">{c.city}</span>
-                      <span className="font-headline text-xs font-bold text-primary ml-2">{c.count}</span>
+                      <span className="font-headline text-xs font-bold text-gray-800 ml-2">{c.count}</span>
                     </div>
                     <div className="h-1.5 rounded-full bg-gray-100 overflow-hidden">
-                      <div className="h-full rounded-full bg-primary/60" style={{ width: `${(c.count / byCity[0].count) * 100}%`, transition: "width 0.7s" }} />
+                      <div className="h-full rounded-full bg-gray-600" style={{ width: `${(c.count / byCity[0].count) * 100}%`, transition: "width 0.7s" }} />
                     </div>
                   </div>
                 </div>
@@ -1336,7 +1362,7 @@ function AnalyticsPage({ orders }: { orders: Order[] }) {
             <BarChart data={last7} margin={{ top: 0, right: 0, bottom: 0, left: 0 }} barSize={24}>
               <XAxis dataKey="label" tick={{ fontSize: 9, fill: "#9ca3af" }} axisLine={false} tickLine={false} />
               <Tooltip contentStyle={{ background: "#fff", border: "1px solid #E5E7EB", borderRadius: 8, fontSize: 11 }} formatter={(v: number) => [v, "Commandes"]} />
-              <Bar dataKey="count" fill="hsl(var(--primary))" radius={[6, 6, 0, 0]} opacity={0.85} />
+              <Bar dataKey="count" fill="#111827" radius={[6, 6, 0, 0]} opacity={0.85} />
             </BarChart>
           </ResponsiveContainer>
           <div className="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
