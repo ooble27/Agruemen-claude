@@ -19,10 +19,11 @@ const LandingNavbar = () => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
       className="fixed top-0 z-[60] w-full"
+      style={{ paddingTop: "env(safe-area-inset-top)" }}
     >
-      <div className="mx-4 mt-3 md:mx-8">
+      <div className="mx-4 mt-4 md:mx-8">
         <div
-          className={`mx-auto flex max-w-[1200px] items-center justify-between rounded-md border px-4 py-2 transition-all duration-300 md:px-6 ${
+          className={`mx-auto flex max-w-[1200px] items-center justify-between rounded-md border px-5 py-3 transition-all duration-300 md:px-8 ${
             scrolled
               ? "border-border/70 bg-background/95 shadow-md backdrop-blur-xl"
               : "border-border/40 bg-background/80 shadow-sm backdrop-blur-md"
@@ -52,7 +53,7 @@ const LandingNavbar = () => {
             {user ? (
               <Link
                 to={isAdmin ? "/admin" : "/mon-compte"}
-                className="rounded-md bg-foreground px-5 py-2 font-headline text-[13px] font-bold text-white transition-colors hover:opacity-90"
+                className="rounded-md bg-foreground px-5 py-2.5 font-headline text-[13px] font-bold text-white transition-colors hover:opacity-90"
               >
                 Mon Compte
               </Link>
@@ -60,13 +61,13 @@ const LandingNavbar = () => {
               <>
                 <Link
                   to="/auth"
-                  className="hidden px-4 py-2 font-headline text-[13px] font-medium text-on-surface-variant transition-colors hover:text-foreground sm:block"
+                  className="hidden px-4 py-2.5 font-headline text-[13px] font-medium text-on-surface-variant transition-colors hover:text-foreground sm:block"
                 >
                   Connexion
                 </Link>
                 <Link
                   to="/auth"
-                  className="rounded-md bg-foreground px-5 py-2 font-headline text-[13px] font-bold text-white transition-colors hover:opacity-90"
+                  className="rounded-md bg-foreground px-5 py-2.5 font-headline text-[13px] font-bold text-white transition-colors hover:opacity-90"
                 >
                   Commencer
                 </Link>
