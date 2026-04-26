@@ -86,8 +86,7 @@ export default function AdminDashboard() {
       </AnimatePresence>
 
       {/* ══════ SIDEBAR — floating card ══════ */}
-      <div className={`fixed top-0 left-0 bottom-0 z-50 w-[250px] lg:w-[236px] transition-transform duration-300 ease-out lg:p-3 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}>
-      <aside className="h-full w-full bg-white flex flex-col overflow-hidden lg:rounded-xl lg:shadow-md lg:border lg:border-gray-100">
+      <aside className={`fixed z-50 bg-white flex flex-col overflow-hidden transition-transform duration-300 ease-out top-0 left-0 bottom-0 w-[250px] lg:top-3 lg:left-3 lg:bottom-3 lg:w-[216px] lg:rounded-xl lg:border lg:border-gray-200 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}>
         {/* Brand */}
         <div className="flex items-center gap-2.5 px-4 h-14 border-b border-gray-100 shrink-0">
           <div className="w-7 h-7 rounded-lg bg-gray-900 flex items-center justify-center shrink-0">
@@ -98,7 +97,7 @@ export default function AdminDashboard() {
             <p className="font-body text-[9px] text-gray-400 mt-0.5">Admin Panel</p>
           </div>
           <button onClick={() => setSidebarOpen(false)}
-            className="ml-auto lg:hidden w-7 h-7 rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors">
+            className="ml-auto lg:hidden w-7 h-7 rounded-lg flex items-center justify-center transition-colors">
             <span className="material-symbols-outlined text-gray-400 text-base">close</span>
           </button>
         </div>
@@ -113,7 +112,7 @@ export default function AdminDashboard() {
                   return (
                     <button key={item.page} onClick={() => { setPage(item.page); setSidebarOpen(false); }}
                       className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg font-headline text-[12.5px] font-semibold transition-all duration-150 ${
-                        active ? "bg-gray-900 text-white" : "text-gray-500 hover:text-gray-800 hover:bg-gray-50"
+                        active ? "bg-gray-900 text-white" : "text-gray-500"
                       }`}>
                       <span className="material-symbols-outlined text-[17px]" style={active ? { fontVariationSettings: "'FILL' 1" } : {}}>{item.icon}</span>
                       <span className="flex-1 text-left">{item.label}</span>
@@ -137,7 +136,7 @@ export default function AdminDashboard() {
                 { to: "/", icon: "home", label: "Accueil" },
               ].map(l => (
                 <Link key={l.to} to={l.to}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg font-headline text-[12.5px] font-semibold text-gray-400 hover:text-gray-700 hover:bg-gray-50 transition-all">
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg font-headline text-[12.5px] font-semibold text-gray-400 transition-all">
                   <span className="material-symbols-outlined text-[17px]">{l.icon}</span>
                   {l.label}
                   <span className="material-symbols-outlined text-[10px] ml-auto text-gray-300">open_in_new</span>
@@ -149,22 +148,21 @@ export default function AdminDashboard() {
 
         <div className="px-2.5 pb-4 shrink-0">
           <button onClick={async () => { await supabase.auth.signOut(); navigate("/"); }}
-            className="flex items-center gap-3 px-3 py-2.5 rounded-lg font-headline text-[12.5px] font-semibold text-red-500 hover:bg-red-50 transition-all w-full">
+            className="flex items-center gap-3 px-3 py-2.5 rounded-lg font-headline text-[12.5px] font-semibold text-red-500 transition-all w-full">
             <span className="material-symbols-outlined text-[17px]">logout</span>
             Se déconnecter
           </button>
         </div>
       </aside>
-      </div>
 
       {/* ══════ MAIN AREA (header + content) ══════ */}
-      <div className="lg:ml-[236px] flex flex-col min-h-screen p-3 gap-3">
+      <div className="lg:ml-[231px] flex flex-col min-h-screen p-3 gap-3">
 
         {/* ══════ HEADER — floating card ══════ */}
-        <header className="sticky top-3 z-40 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center h-14 px-4 gap-3 shrink-0">
+        <header className="sticky top-3 z-40 bg-white rounded-xl border border-gray-200 flex items-center h-14 px-4 gap-3 shrink-0">
 
           <button onClick={() => setSidebarOpen(true)}
-            className="lg:hidden w-9 h-9 rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors shrink-0">
+            className="lg:hidden w-9 h-9 rounded-lg flex items-center justify-center transition-colors shrink-0">
             <span className="material-symbols-outlined text-gray-500 text-lg">menu</span>
           </button>
 
@@ -178,7 +176,7 @@ export default function AdminDashboard() {
 
           <div className="ml-auto flex items-center gap-1.5">
             <button onClick={() => setPage("orders")}
-              className="relative w-9 h-9 rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors">
+              className="relative w-9 h-9 rounded-lg flex items-center justify-center transition-colors">
               <span className="material-symbols-outlined text-gray-400 text-lg">notifications</span>
               {stats.pending > 0 && (
                 <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-amber-500 rounded-full" />
@@ -282,7 +280,7 @@ function OverviewPage({ stats, orders, loadingOrders, setPage }: { stats: any; o
       {/* Page header */}
       <div className="flex items-center justify-between">
         <h1 className="font-headline text-2xl md:text-3xl font-extrabold tracking-tight text-gray-900">Vue d'ensemble</h1>
-        <div className="flex items-center gap-2 bg-white border border-gray-200 rounded-xl px-4 py-2.5 shadow-sm">
+        <div className="flex items-center gap-2 bg-white border border-gray-200 rounded-xl px-4 py-2.5">
           <span className="material-symbols-outlined text-gray-400 text-base">calendar_today</span>
           <span className="font-body text-sm text-gray-600 hidden sm:block">
             {new Date().toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}
@@ -295,7 +293,7 @@ function OverviewPage({ stats, orders, loadingOrders, setPage }: { stats: any; o
       <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
         {kpis.map((k, i) => (
           <motion.div key={k.label} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.07 }}
-            className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm hover:shadow-md transition-shadow">
+            className="bg-white rounded-xl border border-gray-100 p-5">
             <div className="flex items-start justify-between mb-4">
               <p className="font-body text-sm text-gray-500">{k.label}</p>
               {/* Plain outline icon — no colored badge */}
@@ -318,10 +316,10 @@ function OverviewPage({ stats, orders, loadingOrders, setPage }: { stats: any; o
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-5">
 
         {/* Revenue analytics — Finexy pill bar chart */}
-        <div className="lg:col-span-3 bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
+        <div className="lg:col-span-3 bg-white rounded-xl border border-gray-100 p-6">
           <div className="flex items-center justify-between mb-6">
             <h2 className="font-headline text-base font-extrabold text-gray-900">Revenus analytiques</h2>
-            <button className="flex items-center gap-1.5 border border-gray-200 rounded-xl px-3 py-1.5 font-headline text-xs font-bold text-gray-600 hover:border-gray-300 transition-colors">
+            <button className="flex items-center gap-1.5 border border-gray-200 rounded-xl px-3 py-1.5 font-headline text-xs font-bold text-gray-600 transition-colors">
               Cette semaine
               <span className="material-symbols-outlined text-[14px]">expand_more</span>
             </button>
@@ -354,7 +352,7 @@ function OverviewPage({ stats, orders, loadingOrders, setPage }: { stats: any; o
                     {/* Tooltip above highest bar */}
                     {isHighest && (
                       <div className="absolute z-20" style={{ bottom: `${height + 14}px` }}>
-                        <div className="bg-gray-900 text-white text-[10px] font-headline font-bold px-2.5 py-1.5 rounded-lg whitespace-nowrap shadow-lg relative">
+                        <div className="bg-gray-900 text-white text-[10px] font-headline font-bold px-2.5 py-1.5 rounded-lg whitespace-nowrap relative">
                           {d.rev >= 1000 ? `${(d.rev / 1000).toFixed(0)}k` : d.rev} FCFA
                           <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0"
                             style={{ borderLeft: "5px solid transparent", borderRight: "5px solid transparent", borderTop: "5px solid #111827" }} />
@@ -365,7 +363,7 @@ function OverviewPage({ stats, orders, loadingOrders, setPage }: { stats: any; o
                     {/* Bar */}
                     <div className="w-full flex items-end justify-center" style={{ height: 130 }}>
                       <div
-                        className="relative w-full max-w-[44px] rounded-full overflow-hidden group-hover:opacity-80 transition-opacity cursor-pointer"
+                        className="relative w-full max-w-[44px] rounded-full overflow-hidden"
                         style={{ height: `${height}px` }}>
                         <div className="absolute inset-0 bg-gray-900" />
                         <div className="absolute inset-0" style={{
@@ -382,7 +380,7 @@ function OverviewPage({ stats, orders, loadingOrders, setPage }: { stats: any; o
         </div>
 
         {/* Total Income panel */}
-        <div className="lg:col-span-2 bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
+        <div className="lg:col-span-2 bg-white rounded-xl border border-gray-100 p-6">
           <h2 className="font-headline text-base font-extrabold text-gray-900 mb-0.5">Revenu total</h2>
           <p className="font-body text-xs text-gray-400 mb-4">Évolution du chiffre d'affaires sur 8 mois</p>
           <div className="flex items-center gap-4 mb-4">
@@ -411,7 +409,7 @@ function OverviewPage({ stats, orders, loadingOrders, setPage }: { stats: any; o
       </div>
 
       {/* Recent orders table — Finexy style with checkbox + Client */}
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
           <h2 className="font-headline text-base font-extrabold text-gray-900">Commandes récentes</h2>
           <div className="flex items-center gap-3">
@@ -420,7 +418,7 @@ function OverviewPage({ stats, orders, loadingOrders, setPage }: { stats: any; o
               <input placeholder="Rechercher..." className="pl-9 pr-4 py-2 rounded-xl bg-gray-100 border-none font-body text-xs outline-none w-36 focus:w-48 transition-all" />
             </div>
             <button onClick={() => setPage("orders")}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-gray-200 font-headline text-xs font-bold text-gray-500 hover:border-gray-300 transition-colors">
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-gray-200 font-headline text-xs font-bold text-gray-500 transition-colors">
               <span className="material-symbols-outlined text-sm">swap_vert</span>
               Trier par
             </button>
@@ -453,7 +451,7 @@ function OverviewPage({ stats, orders, loadingOrders, setPage }: { stats: any; o
               {orders.slice(0, 8).map(order => {
                 const st = STATUS[order.status as keyof typeof STATUS] ?? STATUS.pending;
                 return (
-                  <tr key={order.id} className="hover:bg-gray-50/60 transition-colors">
+                  <tr key={order.id} className="">
                     <td className="px-5 py-3.5">
                       <input type="checkbox" className="rounded border-gray-300 w-3.5 h-3.5 cursor-pointer" />
                     </td>
@@ -550,7 +548,7 @@ function OrdersPage({ orders, setOrders, loadingOrders }: { orders: Order[]; set
         {[{ key: "all", label: "Toutes", count: orders.length }, ...Object.entries(STATUS).map(([k, v]) => ({ key: k, label: v.label, count: orders.filter(o => o.status === k).length }))].map(t => (
           <button key={t.key} onClick={() => setFilter(t.key)}
             className={`shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg font-headline text-xs font-bold whitespace-nowrap transition-all ${
-              filter === t.key ? "bg-gray-900 text-white shadow-sm" : "bg-white border border-gray-200 text-gray-500 hover:border-gray-300"
+              filter === t.key ? "bg-gray-900 text-white" : "bg-white border border-gray-200 text-gray-500"
             }`}>
             {t.label}
             {t.count > 0 && <span className={`text-[9px] font-black px-1.5 py-0.5 rounded-full ${filter === t.key ? "bg-white/25" : "bg-gray-100 text-gray-400"}`}>{t.count}</span>}
@@ -572,7 +570,7 @@ function OrdersPage({ orders, setOrders, loadingOrders }: { orders: Order[]; set
             const isSel = selected?.id === order.id;
             return (
               <button key={order.id} onClick={() => selectOrder(order)}
-                className={`w-full text-left rounded-xl border bg-white p-4 transition-all hover:shadow-md ${isSel ? "border-gray-900 ring-2 ring-gray-900/10 shadow-md" : "border-gray-200 hover:border-gray-300"}`}>
+                className={`w-full text-left rounded-xl border bg-white p-4 transition-all ${isSel ? "border-gray-900 ring-2 ring-gray-900/10" : "border-gray-200"}`}>
                 <div className="flex items-center gap-3">
                   <div className={`w-2.5 h-2.5 rounded-full shrink-0 ${st.dot}`} />
                   <div className="min-w-0 flex-1">
@@ -594,13 +592,13 @@ function OrdersPage({ orders, setOrders, loadingOrders }: { orders: Order[]; set
           <AnimatePresence mode="wait">
             {selected ? (
               <motion.div key={selected.id} initial={{ opacity: 0, x: 14 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0 }}
-                className="sticky top-24 bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                className="sticky top-24 bg-white rounded-xl border border-gray-200 overflow-hidden">
                 <div className="bg-gray-50 border-b border-gray-100 px-5 py-4 flex items-center justify-between">
                   <div>
                     <p className="font-headline text-sm font-extrabold text-gray-800">#{selected.id.slice(0, 8).toUpperCase()}</p>
                     <p className="font-body text-xs text-gray-400">{fd(selected.created_at)}</p>
                   </div>
-                  <button onClick={() => { setSelected(null); setOrderItems([]); }} className="w-8 h-8 rounded-xl hover:bg-gray-200 flex items-center justify-center transition-colors">
+                  <button onClick={() => { setSelected(null); setOrderItems([]); }} className="w-8 h-8 rounded-xl flex items-center justify-center transition-colors">
                     <span className="material-symbols-outlined text-gray-400 text-base">close</span>
                   </button>
                 </div>
@@ -645,7 +643,7 @@ function OrdersPage({ orders, setOrders, loadingOrders }: { orders: Order[]; set
                         <button key={key} disabled={selected.status === key || updatingId === selected.id}
                           onClick={() => updateStatus(selected.id, key)}
                           className={`flex items-center gap-1.5 rounded-xl border px-3 py-2 font-headline text-[11px] font-bold transition-all ${
-                            selected.status === key ? `${val.bg} ${val.color} ${val.border}` : "border-gray-200 bg-white text-gray-500 hover:border-gray-300 disabled:opacity-40"
+                            selected.status === key ? `${val.bg} ${val.color} ${val.border}` : "border-gray-200 bg-white text-gray-500 disabled:opacity-40"
                           }`}>
                           <span className="material-symbols-outlined text-[13px]">{updatingId === selected.id ? "progress_activity" : val.icon}</span>
                           {val.label}
@@ -778,13 +776,13 @@ function ProductsPage() {
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
       className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setShowForm(false)}>
       <motion.div initial={{ opacity: 0, scale: 0.95, y: 12 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }}
-        onClick={e => e.stopPropagation()} className="w-full max-w-lg max-h-[90vh] overflow-y-auto bg-white rounded-xl shadow-2xl border border-gray-100">
+        onClick={e => e.stopPropagation()} className="w-full max-w-lg max-h-[90vh] overflow-y-auto bg-white rounded-xl border border-gray-100">
         <div className="sticky top-0 bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between z-10">
           <div>
             <h2 className="font-headline text-base font-extrabold text-gray-900">{editProduct ? "Modifier le produit" : "Nouveau produit"}</h2>
             <p className="font-body text-xs text-gray-400">{editProduct ? "Modifier les informations" : "Remplissez les champs"}</p>
           </div>
-          <button onClick={() => setShowForm(false)} className="w-9 h-9 rounded-xl hover:bg-gray-100 flex items-center justify-center transition-colors">
+          <button onClick={() => setShowForm(false)} className="w-9 h-9 rounded-xl flex items-center justify-center transition-colors">
             <span className="material-symbols-outlined text-gray-400 text-lg">close</span>
           </button>
         </div>
@@ -792,14 +790,14 @@ function ProductsPage() {
           <div>
             <label className="block font-headline text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-3">Photo du produit</label>
             <div className="flex gap-4 items-start">
-              <div onClick={() => imgRef.current?.click()} className="w-24 h-24 rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 flex items-center justify-center shrink-0 cursor-pointer hover:border-primary hover:bg-primary/5 transition-all overflow-hidden">
+              <div onClick={() => imgRef.current?.click()} className="w-24 h-24 rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 flex items-center justify-center shrink-0 cursor-pointer transition-all overflow-hidden">
                 {form.image_url ? <img src={form.image_url} alt="" className="w-full h-full object-cover" /> : <span className="material-symbols-outlined text-3xl text-gray-300">add_photo_alternate</span>}
               </div>
               <div className="flex-1 space-y-2">
                 <input type="text" placeholder="URL de l'image" value={form.image_url} onChange={e => f("image_url", e.target.value)}
                   className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 font-body text-sm outline-none focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/10 transition-all" />
                 <button type="button" onClick={() => imgRef.current?.click()} disabled={uploading}
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-gray-100 text-gray-600 font-headline text-xs font-bold hover:bg-gray-200 disabled:opacity-50 transition-colors">
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-gray-100 text-gray-600 font-headline text-xs font-bold disabled:opacity-50 transition-colors">
                   <span className="material-symbols-outlined text-sm">{uploading ? "progress_activity" : "upload"}</span>
                   {uploading ? "Upload..." : "Télécharger"}
                 </button>
@@ -857,13 +855,13 @@ function ProductsPage() {
             </div>
             <button type="button" onClick={() => f("is_active", !form.is_active)}
               className={`relative w-12 h-6 rounded-full transition-colors duration-200 ${form.is_active ? "bg-primary" : "bg-gray-300"}`}>
-              <div className={`absolute top-1 w-4 h-4 rounded-full bg-white shadow-md transition-all duration-200 ${form.is_active ? "left-7" : "left-1"}`} />
+              <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all duration-200 ${form.is_active ? "left-7" : "left-1"}`} />
             </button>
           </div>
           <div className="flex gap-3 pt-1">
-            <button onClick={() => setShowForm(false)} className="flex-1 py-3 rounded-xl border border-gray-200 font-headline text-sm font-bold text-gray-500 hover:bg-gray-50 transition-colors">Annuler</button>
+            <button onClick={() => setShowForm(false)} className="flex-1 py-3 rounded-xl border border-gray-200 font-headline text-sm font-bold text-gray-500 transition-colors">Annuler</button>
             <button onClick={handleSave} disabled={saving || !form.name || !form.price}
-              className="flex-1 py-3 rounded-lg bg-gray-900 text-white font-headline text-sm font-bold hover:bg-gray-800 disabled:opacity-50 flex items-center justify-center gap-2 transition-colors">
+              className="flex-1 py-3 rounded-lg bg-gray-900 text-white font-headline text-sm font-bold disabled:opacity-50 flex items-center justify-center gap-2 transition-colors">
               {saving && <span className="material-symbols-outlined animate-spin text-base">progress_activity</span>}
               {saving ? "Enregistrement..." : editProduct ? "Mettre à jour" : "Créer le produit"}
             </button>
@@ -877,7 +875,7 @@ function ProductsPage() {
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
       className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setDeleteConfirm(null)}>
       <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}
-        onClick={e => e.stopPropagation()} className="bg-white rounded-xl shadow-2xl p-6 w-80 text-center">
+        onClick={e => e.stopPropagation()} className="bg-white rounded-xl p-6 w-80 text-center">
         <div className="w-14 h-14 rounded-xl bg-red-50 border border-red-100 flex items-center justify-center mx-auto mb-4">
           <span className="material-symbols-outlined text-red-500 text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>delete</span>
         </div>
@@ -885,7 +883,7 @@ function ProductsPage() {
         <p className="font-body text-sm text-gray-400 mb-6">Cette action est irréversible.</p>
         <div className="flex gap-3">
           <button onClick={() => setDeleteConfirm(null)} className="flex-1 py-2.5 rounded-xl border border-gray-200 font-headline text-sm font-bold text-gray-500">Annuler</button>
-          <button onClick={() => handleDelete(deleteConfirm!)} className="flex-1 py-2.5 rounded-xl bg-red-500 text-white font-headline text-sm font-bold hover:bg-red-600 transition-colors">Supprimer</button>
+          <button onClick={() => handleDelete(deleteConfirm!)} className="flex-1 py-2.5 rounded-xl bg-red-500 text-white font-headline text-sm font-bold transition-colors">Supprimer</button>
         </div>
       </motion.div>
     </motion.div>
@@ -902,12 +900,12 @@ function ProductsPage() {
           <div className="hidden sm:flex items-center bg-white border border-gray-200 rounded-xl p-1 gap-1">
             {(["grid", "table"] as const).map(v => (
               <button key={v} onClick={() => setView(v)}
-                className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all ${view === v ? "bg-gray-900 text-white" : "text-gray-400 hover:text-gray-600"}`}>
+                className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all ${view === v ? "bg-gray-900 text-white" : "text-gray-400"}`}>
                 <span className="material-symbols-outlined text-[17px]">{v === "grid" ? "grid_view" : "table_rows"}</span>
               </button>
             ))}
           </div>
-          <button onClick={openAdd} className="flex items-center gap-1.5 bg-gray-900 text-white px-4 py-2.5 rounded-lg font-headline text-sm font-bold hover:bg-gray-800 transition-colors shadow-sm">
+          <button onClick={openAdd} className="flex items-center gap-1.5 bg-gray-900 text-white px-4 py-2.5 rounded-lg font-headline text-sm font-bold transition-colors">
             <span className="material-symbols-outlined text-[17px]">add</span>
             <span className="hidden sm:inline">Nouveau produit</span>
           </button>
@@ -924,7 +922,7 @@ function ProductsPage() {
           <button onClick={() => setCatFilter("all")} className={`shrink-0 px-3.5 py-2 rounded-lg font-headline text-xs font-bold transition-all ${catFilter === "all" ? "bg-gray-900 text-white" : "bg-white border border-gray-200 text-gray-500"}`}>Tous</button>
           {categories.map(c => (
             <button key={c.id} onClick={() => setCatFilter(catFilter === c.id ? "all" : c.id)}
-              className={`shrink-0 px-3.5 py-2 rounded-lg font-headline text-xs font-bold transition-all ${catFilter === c.id ? "bg-gray-900 text-white" : "bg-white border border-gray-200 text-gray-500 hover:border-gray-300"}`}>
+              className={`shrink-0 px-3.5 py-2 rounded-lg font-headline text-xs font-bold transition-all ${catFilter === c.id ? "bg-gray-900 text-white" : "bg-white border border-gray-200 text-gray-500"}`}>
               {c.name}
             </button>
           ))}
@@ -942,7 +940,7 @@ function ProductsPage() {
         <div className="bg-white rounded-xl border border-dashed border-gray-200 py-20 text-center">
           <span className="material-symbols-outlined text-5xl text-gray-200 block mb-3">inventory_2</span>
           <p className="font-headline font-bold text-gray-400 mb-1">{search ? "Aucun résultat" : "Aucun produit"}</p>
-          {!search && <button onClick={openAdd} className="mt-3 inline-flex items-center gap-1.5 bg-gray-900 text-white px-5 py-2.5 rounded-lg font-headline text-sm font-bold hover:bg-gray-800 transition-colors">
+          {!search && <button onClick={openAdd} className="mt-3 inline-flex items-center gap-1.5 bg-gray-900 text-white px-5 py-2.5 rounded-lg font-headline text-sm font-bold transition-colors">
             <span className="material-symbols-outlined text-base">add</span>Premier produit
           </button>}
         </div>
@@ -950,19 +948,19 @@ function ProductsPage() {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4">
           {filtered.map(p => (
             <motion.div key={p.id} layout initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }}
-              className="group bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-all hover:border-gray-300">
+              className="group bg-white rounded-xl border border-gray-200 overflow-hidden transition-all">
               <div className="relative aspect-square bg-gray-100">
                 <img src={p.image_url || "/placeholder.svg"} alt={p.name} className="w-full h-full object-cover" onError={e => { (e.target as HTMLImageElement).src = "/placeholder.svg"; }} />
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                  {!isMock(p) && <>
-                    <button onClick={() => openEdit(p)} className="w-9 h-9 bg-white rounded-xl flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
-                      <span className="material-symbols-outlined text-gray-700 text-base">edit</span>
+                {!isMock(p) && (
+                  <div className="absolute bottom-2 right-2 flex items-center gap-1">
+                    <button onClick={() => openEdit(p)} className="w-7 h-7 bg-white rounded-lg flex items-center justify-center">
+                      <span className="material-symbols-outlined text-gray-700 text-sm">edit</span>
                     </button>
-                    <button onClick={() => setDeleteConfirm(p.id)} className="w-9 h-9 bg-red-500 rounded-xl flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
-                      <span className="material-symbols-outlined text-white text-base">delete</span>
+                    <button onClick={() => setDeleteConfirm(p.id)} className="w-7 h-7 bg-red-500 rounded-lg flex items-center justify-center">
+                      <span className="material-symbols-outlined text-white text-sm">delete</span>
                     </button>
-                  </>}
-                </div>
+                  </div>
+                )}
                 {isMock(p) && <div className="absolute top-2 left-2 bg-gray-800/80 text-white text-[9px] font-headline font-bold px-2 py-0.5 rounded-lg">Démo</div>}
                 {!isMock(p) && !p.is_active && <div className="absolute top-2 left-2 bg-black/70 text-white text-[9px] font-headline font-bold px-2 py-0.5 rounded-lg">Inactif</div>}
                 {(p.stock ?? 0) === 0 && <div className="absolute top-2 right-2 bg-red-500 text-white text-[9px] font-headline font-bold px-2 py-0.5 rounded-lg">Rupture</div>}
@@ -993,7 +991,7 @@ function ProductsPage() {
           ))}
         </div>
       ) : (
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
           <table className="w-full">
             <thead>
               <tr className="border-b border-gray-100 bg-gray-50">
@@ -1004,7 +1002,7 @@ function ProductsPage() {
             </thead>
             <tbody className="divide-y divide-gray-50">
               {filtered.map(p => (
-                <tr key={p.id} className="hover:bg-gray-50/60 transition-colors">
+                <tr key={p.id} className="">
                   <td className="px-5 py-3.5">
                     <div className="flex items-center gap-3">
                       <img src={p.image_url || "/placeholder.svg"} alt={p.name} className="w-10 h-10 rounded-xl object-cover border border-gray-100" onError={e => { (e.target as HTMLImageElement).src = "/placeholder.svg"; }} />
@@ -1026,8 +1024,8 @@ function ProductsPage() {
                   <td className="px-4 py-3.5">
                     {!isMock(p) && (
                       <div className="flex items-center gap-1 justify-end">
-                        <button onClick={() => openEdit(p)} className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition-colors"><span className="material-symbols-outlined text-[15px]">edit</span></button>
-                        <button onClick={() => setDeleteConfirm(p.id)} className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:bg-red-50 hover:text-red-500 transition-colors"><span className="material-symbols-outlined text-[15px]">delete</span></button>
+                        <button onClick={() => openEdit(p)} className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 transition-colors"><span className="material-symbols-outlined text-[15px]">edit</span></button>
+                        <button onClick={() => setDeleteConfirm(p.id)} className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 transition-colors"><span className="material-symbols-outlined text-[15px]">delete</span></button>
                       </div>
                     )}
                   </td>
@@ -1087,7 +1085,7 @@ function CategoriesPage() {
           <h1 className="font-headline text-2xl font-extrabold tracking-tight text-gray-900">Catégories</h1>
           <p className="font-body text-sm text-gray-400 mt-0.5">{categories.length} catégorie{categories.length !== 1 ? "s" : ""}</p>
         </div>
-        <button onClick={openAdd} className="flex items-center gap-1.5 bg-gray-900 text-white px-4 py-2.5 rounded-lg font-headline text-sm font-bold hover:bg-gray-800 transition-colors shadow-sm">
+        <button onClick={openAdd} className="flex items-center gap-1.5 bg-gray-900 text-white px-4 py-2.5 rounded-lg font-headline text-sm font-bold transition-colors">
           <span className="material-symbols-outlined text-[17px]">add</span>
           Nouvelle catégorie
         </button>
@@ -1098,10 +1096,10 @@ function CategoriesPage() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setShowForm(false)}>
             <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}
-              onClick={e => e.stopPropagation()} className="w-full max-w-sm bg-white rounded-xl shadow-2xl p-6">
+              onClick={e => e.stopPropagation()} className="w-full max-w-sm bg-white rounded-xl p-6">
               <div className="flex items-center justify-between mb-5">
                 <h2 className="font-headline text-base font-extrabold text-gray-900">{editCat ? "Modifier" : "Nouvelle catégorie"}</h2>
-                <button onClick={() => setShowForm(false)} className="w-9 h-9 rounded-xl hover:bg-gray-100 flex items-center justify-center"><span className="material-symbols-outlined text-gray-400 text-lg">close</span></button>
+                <button onClick={() => setShowForm(false)} className="w-9 h-9 rounded-xl flex items-center justify-center"><span className="material-symbols-outlined text-gray-400 text-lg">close</span></button>
               </div>
               <div className="space-y-4">
                 <div>
@@ -1114,7 +1112,7 @@ function CategoriesPage() {
                   <div className="grid grid-cols-7 gap-1.5 mb-3">
                     {ICONS.map(ic => (
                       <button key={ic} onClick={() => setForm(f => ({ ...f, icon: ic }))}
-                        className={`w-9 h-9 rounded-lg flex items-center justify-center transition-all ${form.icon === ic ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-500 hover:bg-gray-200"}`}>
+                        className={`w-9 h-9 rounded-lg flex items-center justify-center transition-all ${form.icon === ic ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-500"}`}>
                         <span className="material-symbols-outlined text-lg" style={form.icon === ic ? { fontVariationSettings: "'FILL' 1" } : {}}>{ic}</span>
                       </button>
                     ))}
@@ -1125,9 +1123,9 @@ function CategoriesPage() {
                   <p className="font-headline text-sm font-bold text-gray-700">{form.name || "Aperçu"}</p>
                 </div>
                 <div className="flex gap-3 pt-1">
-                  <button onClick={() => setShowForm(false)} className="flex-1 py-3 rounded-xl border border-gray-200 font-headline text-sm font-bold text-gray-500 hover:bg-gray-50">Annuler</button>
+                  <button onClick={() => setShowForm(false)} className="flex-1 py-3 rounded-xl border border-gray-200 font-headline text-sm font-bold text-gray-500">Annuler</button>
                   <button onClick={handleSave} disabled={saving || !form.name}
-                    className="flex-1 py-3 rounded-lg bg-gray-900 text-white font-headline text-sm font-bold hover:bg-gray-800 disabled:opacity-50 flex items-center justify-center gap-2 transition-colors">
+                    className="flex-1 py-3 rounded-lg bg-gray-900 text-white font-headline text-sm font-bold disabled:opacity-50 flex items-center justify-center gap-2 transition-colors">
                     {saving && <span className="material-symbols-outlined animate-spin text-base">progress_activity</span>}
                     {editCat ? "Mettre à jour" : "Créer"}
                   </button>
@@ -1143,7 +1141,7 @@ function CategoriesPage() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setDeleteConfirm(null)}>
             <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}
-              onClick={e => e.stopPropagation()} className="bg-white rounded-xl shadow-2xl p-6 w-80 text-center">
+              onClick={e => e.stopPropagation()} className="bg-white rounded-xl p-6 w-80 text-center">
               <div className="w-14 h-14 rounded-xl bg-red-50 border border-red-100 flex items-center justify-center mx-auto mb-4">
                 <span className="material-symbols-outlined text-red-500 text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>delete</span>
               </div>
@@ -1151,7 +1149,7 @@ function CategoriesPage() {
               <p className="font-body text-sm text-gray-400 mb-6">Les produits liés ne seront pas affectés.</p>
               <div className="flex gap-3">
                 <button onClick={() => setDeleteConfirm(null)} className="flex-1 py-2.5 rounded-xl border border-gray-200 font-headline text-sm font-bold text-gray-500">Annuler</button>
-                <button onClick={() => handleDelete(deleteConfirm!)} className="flex-1 py-2.5 rounded-xl bg-red-500 text-white font-headline text-sm font-bold hover:bg-red-600">Supprimer</button>
+                <button onClick={() => handleDelete(deleteConfirm!)} className="flex-1 py-2.5 rounded-xl bg-red-500 text-white font-headline text-sm font-bold">Supprimer</button>
               </div>
             </motion.div>
           </motion.div>
@@ -1164,20 +1162,20 @@ function CategoriesPage() {
         <div className="bg-white rounded-xl border border-dashed border-gray-200 py-20 text-center">
           <span className="material-symbols-outlined text-5xl text-gray-200 block mb-3">category</span>
           <p className="font-headline font-bold text-gray-400 mb-3">Aucune catégorie</p>
-          <button onClick={openAdd} className="inline-flex items-center gap-1.5 bg-gray-900 text-white px-5 py-2.5 rounded-lg font-headline text-sm font-bold hover:bg-gray-800 transition-colors"><span className="material-symbols-outlined text-base">add</span>Créer</button>
+          <button onClick={openAdd} className="inline-flex items-center gap-1.5 bg-gray-900 text-white px-5 py-2.5 rounded-lg font-headline text-sm font-bold transition-colors"><span className="material-symbols-outlined text-base">add</span>Créer</button>
         </div>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4">
           {categories.map(cat => (
             <motion.div key={cat.id} layout initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }}
-              className="group bg-white rounded-xl border border-gray-200 p-5 flex flex-col items-center gap-3 hover:shadow-md hover:border-gray-300 transition-all">
-              <div className="w-14 h-14 rounded-xl bg-primary/8 flex items-center justify-center">
+              className="bg-white rounded-xl border border-gray-200 p-5 flex flex-col items-center gap-3 transition-all">
+              <div className="w-14 h-14 rounded-xl bg-gray-50 flex items-center justify-center">
                 <span className="material-symbols-outlined text-gray-700 text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>{cat.icon || "category"}</span>
               </div>
               <p className="font-headline text-sm font-extrabold text-gray-800 text-center">{cat.name}</p>
-              <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                <button onClick={() => openEdit(cat)} className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-900 hover:text-white transition-all"><span className="material-symbols-outlined text-[14px]">edit</span></button>
-                <button onClick={() => setDeleteConfirm(cat.id)} className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-red-500 hover:text-white transition-all"><span className="material-symbols-outlined text-[14px]">delete</span></button>
+              <div className="flex gap-2">
+                <button onClick={() => openEdit(cat)} className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center text-gray-500 transition-all"><span className="material-symbols-outlined text-[14px]">edit</span></button>
+                <button onClick={() => setDeleteConfirm(cat.id)} className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center text-gray-500 transition-all"><span className="material-symbols-outlined text-[14px]">delete</span></button>
               </div>
             </motion.div>
           ))}
@@ -1213,7 +1211,7 @@ function UsersPage() {
         <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Nom, ville..."
           className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-gray-200 bg-white font-body text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all" />
       </div>
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
         <table className="w-full">
           <thead>
             <tr className="border-b border-gray-100 bg-gray-50">
@@ -1227,7 +1225,7 @@ function UsersPage() {
             {loading ? Array.from({ length: 5 }).map((_, i) => <tr key={i}><td colSpan={4} className="px-5 py-3.5"><div className="h-10 animate-pulse rounded-xl bg-gray-100" /></td></tr>)
             : filtered.length === 0 ? <tr><td colSpan={4} className="py-16 text-center"><span className="material-symbols-outlined text-4xl text-gray-200 block mb-2">group</span><p className="font-headline font-bold text-gray-400">Aucun acheteur</p></td></tr>
             : filtered.map(u => (
-              <tr key={u.user_id} className="hover:bg-gray-50/60 transition-colors">
+              <tr key={u.user_id} className="">
                 <td className="px-5 py-3.5">
                   <div className="flex items-center gap-3">
                     <div className={`w-9 h-9 rounded-xl flex items-center justify-center font-headline text-sm font-black shrink-0 ${colors[u.user_id.charCodeAt(0) % colors.length]}`}>
@@ -1291,7 +1289,7 @@ function AnalyticsPage({ orders }: { orders: Order[] }) {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {kpis.map((k, i) => (
           <motion.div key={k.label} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}
-            className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+            className="bg-white rounded-xl border border-gray-100 p-5">
             <div className="flex items-start justify-between mb-4">
               <p className="font-body text-sm text-gray-500">{k.label}</p>
               <span className="material-symbols-outlined text-gray-300 text-2xl">{k.icon}</span>
@@ -1301,7 +1299,7 @@ function AnalyticsPage({ orders }: { orders: Order[] }) {
         ))}
       </div>
 
-      <div className="bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
+      <div className="bg-white rounded-xl border border-gray-100 p-6">
         <h2 className="font-headline text-base font-extrabold text-gray-900 mb-1">Revenus — 30 jours</h2>
         <p className="font-body text-xs text-gray-400 mb-5">Chiffre d'affaires quotidien hors annulations</p>
         <ResponsiveContainer width="100%" height={200}>
@@ -1322,7 +1320,7 @@ function AnalyticsPage({ orders }: { orders: Order[] }) {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+        <div className="bg-white rounded-xl border border-gray-100 p-5">
           <h2 className="font-headline text-sm font-extrabold text-gray-900 mb-1">Statuts</h2>
           <p className="font-body text-xs text-gray-400 mb-5">{orders.length} commandes</p>
           <div className="space-y-3.5">
@@ -1344,7 +1342,7 @@ function AnalyticsPage({ orders }: { orders: Order[] }) {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+        <div className="bg-white rounded-xl border border-gray-100 p-5">
           <h2 className="font-headline text-sm font-extrabold text-gray-900 mb-1">Top villes</h2>
           <p className="font-body text-xs text-gray-400 mb-5">Commandes par localité</p>
           {byCity.length === 0 ? <p className="font-body text-sm text-gray-300 text-center py-8">Aucune donnée</p> : (
@@ -1367,7 +1365,7 @@ function AnalyticsPage({ orders }: { orders: Order[] }) {
           )}
         </div>
 
-        <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+        <div className="bg-white rounded-xl border border-gray-100 p-5">
           <h2 className="font-headline text-sm font-extrabold text-gray-900 mb-1">Commandes</h2>
           <p className="font-body text-xs text-gray-400 mb-4">7 derniers jours</p>
           <ResponsiveContainer width="100%" height={140}>
