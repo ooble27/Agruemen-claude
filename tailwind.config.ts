@@ -107,10 +107,10 @@ export default {
         },
         marquee: {
           from: { transform: "translateX(0)" },
-          to: { transform: "translateX(-50%)" },
+          to: { transform: "translateX(-33.333%)" },
         },
         "marquee-reverse": {
-          from: { transform: "translateX(-50%)" },
+          from: { transform: "translateX(-33.333%)" },
           to: { transform: "translateX(0)" },
         },
       },

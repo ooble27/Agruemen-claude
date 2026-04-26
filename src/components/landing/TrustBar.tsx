@@ -38,7 +38,7 @@ const TrustBar = () => {
         <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-20 bg-gradient-to-l from-white/60 to-transparent" />
         <div
           className="flex animate-marquee gap-6 will-change-transform"
-          style={{ animationDuration: "28s" }}
+          style={{ animation: "marquee 28s linear infinite" }}
         >
           {tripled.map((product, i) => (
             <span
