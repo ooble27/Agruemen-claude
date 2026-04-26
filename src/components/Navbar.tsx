@@ -340,7 +340,8 @@ const Navbar = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.2 }}
-              className="fixed top-[49px] left-0 right-0 z-50 md:hidden bg-card border-b border-border/60 shadow-xl"
+              className="fixed left-0 right-0 z-50 md:hidden bg-card border-b border-border/60 shadow-xl"
+            style={{ top: "calc(env(safe-area-inset-top, 0px) + 49px)" }}
             >
               <div className="flex flex-col px-5 py-4 gap-0.5 max-h-[80vh] overflow-y-auto">
                 {user && (

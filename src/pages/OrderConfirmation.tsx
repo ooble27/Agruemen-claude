@@ -47,7 +47,7 @@ const OrderConfirmation = () => {
   return (
     <div className="min-h-screen bg-surface-container-lowest">
       <Navbar />
-      <main className="pt-24 pb-24 px-4 md:px-12 max-w-2xl mx-auto">
+      <main className="pb-20 px-4 md:px-12 max-w-2xl mx-auto" style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 80px)" }}>
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
 
           {/* Success header */}

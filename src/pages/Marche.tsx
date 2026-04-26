@@ -116,9 +116,9 @@ const Marche = () => {
   const firstName = profile?.full_name?.split(" ")[0] || "there";
 
   return (
-    <div className="min-h-screen bg-surface-container-lowest pb-20 md:pb-0">
+    <div className="min-h-screen bg-surface-container-lowest pb-28 md:pb-0">
       <Navbar />
-      <main className="pt-28 md:pt-24">
+      <main style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 80px)" }}>
 
         {/* Breadcrumb */}
         <section className="px-5 md:px-12 pt-3 md:pt-4 max-w-[1440px] mx-auto">

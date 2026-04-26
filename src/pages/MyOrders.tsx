@@ -88,7 +88,7 @@ const MyOrders = () => {
   return (
     <div className="min-h-screen bg-surface-container-lowest">
       <Navbar />
-      <main className="pt-24 pb-24 px-4 md:px-12 max-w-3xl mx-auto">
+      <main className="pb-28 px-4 md:px-12 max-w-3xl mx-auto" style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 80px)" }}>
 
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-3xl md:text-4xl font-headline font-extrabold tracking-tighter">Mes Commandes</h1>

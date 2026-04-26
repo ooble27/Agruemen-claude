@@ -92,7 +92,7 @@ const AdminDashboard = () => {
         lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
       `}>
         {/* Logo */}
-        <div className="flex items-center gap-3 px-5 py-4 border-b border-white/8">
+        <div className="flex items-center gap-3 px-5 py-4 border-b border-white/8" style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 1rem)" }}>
           <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center shrink-0">
             <span className="material-symbols-outlined text-white text-[16px]" style={{ fontVariationSettings: "'FILL' 1" }}>eco</span>
           </div>
@@ -170,7 +170,7 @@ const AdminDashboard = () => {
       <div className="flex-1 flex flex-col min-h-screen lg:ml-60">
 
         {/* Top header */}
-        <header className="sticky top-0 z-30 bg-white border-b border-gray-200/80">
+        <header className="sticky top-0 z-30 bg-white border-b border-gray-200/80 safe-area-top">
           <div className="flex items-center gap-4 px-6 h-14">
             <button
               onClick={() => setSidebarOpen(true)}
