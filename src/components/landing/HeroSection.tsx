@@ -16,13 +16,10 @@ const HeroSection = () => {
   return (
     <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-4 pt-28 pb-0 text-center">
 
-      {/* Radial glow top */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{ background: "radial-gradient(ellipse 70% 50% at 50% 0%, rgba(0,0,0,0.03) 0%, transparent 70%)" }}
       />
-
-      {/* Bottom fade */}
       <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-white to-transparent" />
 
       <div className="relative z-10 mx-auto w-full max-w-4xl">
@@ -72,12 +69,12 @@ const HeroSection = () => {
           </a>
         </motion.div>
 
-        {/* Social proof */}
+        {/* Social proof — desktop/tablette seulement */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-2"
+          className="mt-8 hidden flex-wrap items-center justify-center gap-x-8 gap-y-2 sm:flex"
         >
           {[
             "500+ producteurs partenaires",
@@ -91,22 +88,23 @@ const HeroSection = () => {
           ))}
         </motion.div>
 
-        {/* Product image strip */}
+        {/* Product image strip — visible partout, taille adaptée par clamp */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.55 }}
-          className="mt-14 hidden items-end justify-center gap-3 sm:flex"
+          className="mt-10 flex items-end justify-center gap-1.5 sm:mt-14 sm:gap-3"
         >
           {PRODUCT_STRIP.map((img, i) => (
             <div
               key={img.alt}
               className="overflow-hidden rounded-xl border border-white/60 shadow-md"
               style={{
-                width: "clamp(88px, 9vw, 130px)",
-                height: "clamp(110px, 12vw, 170px)",
+                width:  "clamp(46px, 12vw, 130px)",
+                height: "clamp(58px, 15vw, 170px)",
                 transform: `rotate(${ROTATIONS[i]}deg)`,
                 transformOrigin: "bottom center",
+                flexShrink: 0,
               }}
             >
               <img src={img.src} alt={img.alt} className="h-full w-full object-cover" loading="lazy" />

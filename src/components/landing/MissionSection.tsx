@@ -4,7 +4,6 @@ import { MOCK_PRODUCTS } from "@/data/marketplaceMocks";
 
 const formatPrice = (n: number) => n.toLocaleString("fr-FR");
 
-// IDs avec images Unsplash confirmées, variété fruits + légumes
 const FEATURED_IDS = ["m1", "m2", "m3", "m4", "m5", "m6", "m7", "m13"];
 const FEATURED = FEATURED_IDS
   .map((id) => MOCK_PRODUCTS.find((p) => p.id === id))
@@ -12,7 +11,6 @@ const FEATURED = FEATURED_IDS
 
 const MissionSection = () => {
   return (
-    // pt réduit pour coller aux stats du dessus
     <section id="produits" className="pt-10 pb-16 md:pt-14 md:pb-24">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
 
@@ -48,7 +46,7 @@ const MissionSection = () => {
           </motion.div>
         </div>
 
-        {/* Grid — style identique au Marché */}
+        {/* Grid */}
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:gap-4 lg:grid-cols-4">
           {FEATURED.map((product, i) => (
             <motion.div
@@ -60,36 +58,50 @@ const MissionSection = () => {
             >
               <Link
                 to={`/produit/${product.id}`}
-                className="group block overflow-hidden rounded-md border border-black/8 bg-white transition-shadow hover:shadow-md"
+                className="group flex flex-col overflow-hidden rounded-xl border border-black/8 bg-white transition-shadow hover:shadow-md sm:rounded-2xl"
               >
-                {/* Image carrée — identique à ProductCard */}
-                <div className="relative aspect-square overflow-hidden bg-surface-container">
+                {/* Image :
+                    Mobile  → portrait aspect-[4/5], card plus haute et jolie
+                    sm+     → h-48 fixe (design original desktop/tablette) */}
+                <div className="relative aspect-[4/5] overflow-hidden bg-surface-container sm:aspect-auto sm:h-48">
                   <img
                     src={product.image_url ?? ""}
                     alt={product.name}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                   />
-                  {/* Catégorie en badge */}
                   {product.categories && (
-                    <span className="absolute left-2 top-2 rounded-md bg-white/90 px-1.5 py-0.5 font-headline text-[10px] font-bold text-foreground backdrop-blur-sm">
+                    <span className="absolute left-2 top-2 rounded-md bg-white/90 px-1.5 py-0.5 font-headline text-[10px] font-bold text-foreground backdrop-blur-sm sm:left-3 sm:top-3">
                       {product.categories.name}
                     </span>
                   )}
                 </div>
 
-                {/* Info — même ordre que ProductCard */}
-                <div className="p-2.5 md:p-3">
-                  <p className="font-headline text-sm font-extrabold text-foreground md:text-base">
-                    {formatPrice(product.price)}{" "}
-                    <span className="font-normal text-[10px] text-on-surface-variant md:text-xs">FCFA</span>
-                  </p>
-                  <p className="mt-0.5 line-clamp-2 font-headline text-xs font-bold leading-tight text-on-surface-variant md:text-sm">
+                {/* Info
+                    Mobile  → prix en haut (order-first), nom en dessous
+                    sm+     → nom en haut, shop, puis prix en bas (order-last + mt-auto) */}
+                <div className="flex flex-1 flex-col p-2.5 sm:gap-1 sm:p-3.5 md:p-4">
+
+                  {/* Prix — mobile: affiché en premier ; desktop: poussé en bas */}
+                  <div className="order-first sm:order-last sm:mt-auto sm:pt-2.5">
+                    <span className="font-headline font-black text-foreground" style={{ fontSize: "clamp(0.85rem, 2.5vw, 1.125rem)" }}>
+                      {formatPrice(product.price)}{" "}
+                    </span>
+                    <span className="font-body text-[10px] text-on-surface-variant">
+                      CFA / {product.unit}
+                    </span>
+                  </div>
+
+                  {/* Nom */}
+                  <h3 className="order-2 mt-1 line-clamp-2 font-headline text-xs font-bold leading-tight text-foreground sm:order-first sm:mt-0 sm:text-sm md:text-base">
                     {product.name}
+                  </h3>
+
+                  {/* Shop — desktop/tablette seulement */}
+                  <p className="order-3 hidden font-body text-[11px] text-on-surface-variant sm:block md:text-xs">
+                    {product.shops?.name ?? "Agrumen"}
                   </p>
-                  <p className="mt-0.5 font-body text-[10px] text-on-surface-variant/70 md:text-xs">
-                    {product.unit}
-                  </p>
+
                 </div>
               </Link>
             </motion.div>
