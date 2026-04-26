@@ -75,130 +75,133 @@ export default function AdminDashboard() {
   if (loading || !user || !isAdmin) return null;
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F2F4F7]">
+    <div className="min-h-screen bg-[#E8EAED]">
 
       {/* Mobile overlay */}
       <AnimatePresence>
         {sidebarOpen && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/30 z-40 lg:hidden" onClick={() => setSidebarOpen(false)} />
+            className="fixed inset-0 bg-black/40 z-40 lg:hidden" onClick={() => setSidebarOpen(false)} />
         )}
       </AnimatePresence>
 
-      {/* ══════ TOP HEADER ══════ */}
-      <header className="fixed top-0 left-0 right-0 h-14 bg-white border-b border-gray-100 z-50 flex items-center px-4 gap-3">
-
-        {/* Mobile hamburger */}
-        <button onClick={() => setSidebarOpen(true)}
-          className="lg:hidden w-9 h-9 rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors shrink-0">
-          <span className="material-symbols-outlined text-gray-500 text-lg">menu</span>
-        </button>
-
-        {/* Desktop: breadcrumb zone aligned with sidebar */}
-        <div className="hidden lg:flex items-center gap-2 w-[220px] shrink-0">
-          <div className="flex items-center gap-1.5">
-            <div className="w-6 h-6 rounded-md bg-gray-900 flex items-center justify-center shrink-0">
-              <span className="material-symbols-outlined text-white text-[13px]" style={{ fontVariationSettings: "'FILL' 1" }}>grid_view</span>
-            </div>
-            <span className="font-headline font-bold text-gray-800 text-sm tracking-tight">Admin</span>
+      {/* ══════ SIDEBAR — floating card ══════ */}
+      <aside className={`
+        fixed z-50 flex flex-col bg-white transition-transform duration-300 ease-out
+        top-0 left-0 bottom-0 w-[260px]
+        lg:top-3 lg:left-3 lg:bottom-3 lg:w-[224px] lg:rounded-2xl lg:shadow-md lg:border lg:border-gray-100/80
+        ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0
+      `}>
+        {/* Brand */}
+        <div className="flex items-center gap-2.5 px-4 h-14 border-b border-gray-100 shrink-0">
+          <div className="w-7 h-7 rounded-lg bg-gray-900 flex items-center justify-center shrink-0">
+            <span className="material-symbols-outlined text-white text-[13px]" style={{ fontVariationSettings: "'FILL' 1" }}>eco</span>
           </div>
-        </div>
-
-        {/* Search bar */}
-        <div className="flex-1 max-w-md">
-          <div className="relative">
-            <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-base">search</span>
-            <input placeholder="Rechercher..."
-              className="w-full pl-9 pr-4 py-2 rounded-lg bg-gray-100 border-none font-body text-sm outline-none focus:ring-2 focus:ring-gray-900/10 focus:bg-white transition-all" />
+          <div className="min-w-0">
+            <p className="font-headline font-black text-gray-900 text-[13px] leading-none">Agrumen</p>
+            <p className="font-body text-[9px] text-gray-400 mt-0.5">Admin Panel</p>
           </div>
-        </div>
-
-        {/* Right actions */}
-        <div className="ml-auto flex items-center gap-1">
-          <button onClick={() => setPage("orders")}
-            className="relative w-9 h-9 rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors">
-            <span className="material-symbols-outlined text-gray-400 text-lg">notifications</span>
-            {stats.pending > 0 && (
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-amber-500 rounded-full" />
-            )}
+          <button onClick={() => setSidebarOpen(false)}
+            className="ml-auto lg:hidden w-7 h-7 rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors">
+            <span className="material-symbols-outlined text-gray-400 text-base">close</span>
           </button>
-          <div className="w-px h-5 bg-gray-200 mx-1.5" />
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gray-900 flex items-center justify-center font-headline text-xs font-black text-white shrink-0">
-              {(user.email || "A")[0].toUpperCase()}
-            </div>
-            <div className="hidden md:block">
-              <p className="font-headline text-[11px] font-bold text-gray-800 leading-none">Administrateur</p>
-              <p className="font-body text-[10px] text-gray-400 mt-0.5 truncate max-w-[100px]">{user.email?.split("@")[0]}</p>
-            </div>
-          </div>
         </div>
-      </header>
 
-      {/* ══════ BODY (below header) ══════ */}
-      <div className="flex flex-1 pt-14">
-
-        {/* ══════ SIDEBAR ══════ */}
-        <aside className={`fixed top-14 left-0 bottom-0 w-[230px] bg-white border-r border-gray-100 flex flex-col z-50 transition-transform duration-300 ease-out lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
-
-          <nav className="flex-1 overflow-y-auto px-3 py-5 space-y-6">
-            {NAV_SECTIONS.map(section => (
-              <div key={section.label}>
-                <p className="px-3 mb-2 font-body text-[10px] font-semibold text-gray-400 uppercase tracking-[0.12em]">{section.label}</p>
-                <div className="space-y-0.5">
-                  {section.items.map(item => {
-                    const active = page === item.page;
-                    return (
-                      <button key={item.page} onClick={() => { setPage(item.page); setSidebarOpen(false); }}
-                        className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg font-headline text-[13px] font-semibold transition-all duration-150 ${
-                          active ? "bg-gray-900 text-white shadow-sm" : "text-gray-500 hover:text-gray-800 hover:bg-gray-100"
-                        }`}>
-                        <span className="material-symbols-outlined text-[18px]" style={active ? { fontVariationSettings: "'FILL' 1" } : {}}>{item.icon}</span>
-                        <span className="flex-1 text-left">{item.label}</span>
-                        {item.page === "orders" && stats.pending > 0 && (
-                          <span className={`text-[9px] font-black px-1.5 py-0.5 rounded-full min-w-[18px] text-center leading-none ${active ? "bg-white/30 text-white" : "bg-gray-100 text-gray-700"}`}>
-                            {stats.pending}
-                          </span>
-                        )}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
-
-            {/* Plateforme */}
-            <div>
-              <p className="px-3 mb-2 font-body text-[10px] font-semibold text-gray-400 uppercase tracking-[0.12em]">Plateforme</p>
+        <nav className="flex-1 overflow-y-auto px-2.5 py-4 space-y-5">
+          {NAV_SECTIONS.map(section => (
+            <div key={section.label}>
+              <p className="px-3 mb-1.5 font-body text-[9px] font-semibold text-gray-400 uppercase tracking-[0.15em]">{section.label}</p>
               <div className="space-y-0.5">
-                {[
-                  { to: "/marche", icon: "storefront", label: "Voir le Marché" },
-                  { to: "/", icon: "home", label: "Accueil" },
-                ].map(l => (
-                  <Link key={l.to} to={l.to}
-                    className="flex items-center gap-3 px-4 py-2.5 rounded-xl font-headline text-[13px] font-semibold text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-all">
-                    <span className="material-symbols-outlined text-[18px]">{l.icon}</span>
-                    {l.label}
-                    <span className="material-symbols-outlined text-[11px] ml-auto text-gray-300">open_in_new</span>
-                  </Link>
-                ))}
+                {section.items.map(item => {
+                  const active = page === item.page;
+                  return (
+                    <button key={item.page} onClick={() => { setPage(item.page); setSidebarOpen(false); }}
+                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-headline text-[12.5px] font-semibold transition-all duration-150 ${
+                        active ? "bg-gray-900 text-white" : "text-gray-500 hover:text-gray-800 hover:bg-gray-50"
+                      }`}>
+                      <span className="material-symbols-outlined text-[17px]" style={active ? { fontVariationSettings: "'FILL' 1" } : {}}>{item.icon}</span>
+                      <span className="flex-1 text-left">{item.label}</span>
+                      {item.page === "orders" && stats.pending > 0 && (
+                        <span className={`text-[9px] font-black px-1.5 py-0.5 rounded-full min-w-[16px] text-center ${active ? "bg-white/20 text-white" : "bg-gray-100 text-gray-600"}`}>
+                          {stats.pending}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
               </div>
             </div>
-          </nav>
+          ))}
 
-          {/* Log out */}
-          <div className="border-t border-gray-100 px-3 py-3">
-            <button
-              onClick={async () => { await supabase.auth.signOut(); navigate("/"); }}
-              className="flex items-center gap-3 px-4 py-2.5 rounded-lg font-headline text-[13px] font-semibold text-red-500 hover:bg-red-50 transition-all w-full">
-              <span className="material-symbols-outlined text-[18px]">logout</span>
-              Se déconnecter
-            </button>
+          <div>
+            <p className="px-3 mb-1.5 font-body text-[9px] font-semibold text-gray-400 uppercase tracking-[0.15em]">Plateforme</p>
+            <div className="space-y-0.5">
+              {[
+                { to: "/marche", icon: "storefront", label: "Voir le Marché" },
+                { to: "/", icon: "home", label: "Accueil" },
+              ].map(l => (
+                <Link key={l.to} to={l.to}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl font-headline text-[12.5px] font-semibold text-gray-400 hover:text-gray-700 hover:bg-gray-50 transition-all">
+                  <span className="material-symbols-outlined text-[17px]">{l.icon}</span>
+                  {l.label}
+                  <span className="material-symbols-outlined text-[10px] ml-auto text-gray-300">open_in_new</span>
+                </Link>
+              ))}
+            </div>
           </div>
-        </aside>
+        </nav>
 
-        {/* ══════ MAIN CONTENT ══════ */}
-        <main className="flex-1 lg:ml-[230px] p-5 md:p-7 w-full">
+        <div className="px-2.5 pb-4 shrink-0">
+          <button onClick={async () => { await supabase.auth.signOut(); navigate("/"); }}
+            className="flex items-center gap-3 px-3 py-2.5 rounded-xl font-headline text-[12.5px] font-semibold text-red-500 hover:bg-red-50 transition-all w-full">
+            <span className="material-symbols-outlined text-[17px]">logout</span>
+            Se déconnecter
+          </button>
+        </div>
+      </aside>
+
+      {/* ══════ MAIN AREA (header + content) ══════ */}
+      <div className="lg:ml-[239px] flex flex-col min-h-screen p-3 gap-3">
+
+        {/* ══════ HEADER — floating card ══════ */}
+        <header className="sticky top-3 z-40 bg-white rounded-2xl shadow-sm border border-gray-100/80 flex items-center h-14 px-4 gap-3 shrink-0">
+
+          <button onClick={() => setSidebarOpen(true)}
+            className="lg:hidden w-9 h-9 rounded-xl flex items-center justify-center hover:bg-gray-100 transition-colors shrink-0">
+            <span className="material-symbols-outlined text-gray-500 text-lg">menu</span>
+          </button>
+
+          <div className="flex-1 max-w-sm">
+            <div className="relative">
+              <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-base">search</span>
+              <input placeholder="Rechercher..."
+                className="w-full pl-9 pr-4 py-2 rounded-xl bg-gray-100 border-none font-body text-sm outline-none focus:ring-2 focus:ring-gray-200 transition-all" />
+            </div>
+          </div>
+
+          <div className="ml-auto flex items-center gap-1.5">
+            <button onClick={() => setPage("orders")}
+              className="relative w-9 h-9 rounded-xl flex items-center justify-center hover:bg-gray-100 transition-colors">
+              <span className="material-symbols-outlined text-gray-400 text-lg">notifications</span>
+              {stats.pending > 0 && (
+                <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-amber-500 rounded-full" />
+              )}
+            </button>
+            <div className="w-px h-5 bg-gray-200 mx-1" />
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-xl bg-gray-900 flex items-center justify-center font-headline text-xs font-black text-white shrink-0">
+                {(user.email || "A")[0].toUpperCase()}
+              </div>
+              <div className="hidden md:block">
+                <p className="font-headline text-[11px] font-bold text-gray-800 leading-none">Administrateur</p>
+                <p className="font-body text-[10px] text-gray-400 mt-0.5 truncate max-w-[110px]">{user.email?.split("@")[0]}</p>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        {/* ══════ PAGE CONTENT ══════ */}
+        <main className="flex-1 pb-6">
           <AnimatePresence mode="wait">
             <motion.div key={page} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.12 }}>
               {page === "overview"   && <OverviewPage stats={stats} orders={orders} loadingOrders={loadingOrders} setPage={setPage} />}
@@ -677,6 +680,7 @@ const EMPTY = { name: "", price: "", unit: "le kg", stock: "", description: "", 
 
 function ProductsPage() {
   const { user } = useAuth();
+  const [shopId, setShopId] = useState<string | null>(null);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [view, setView] = useState<"grid" | "table">("grid");
@@ -703,6 +707,13 @@ function ProductsPage() {
     });
   }, []);
 
+  useEffect(() => {
+    if (user?.id) {
+      supabase.from("shops").select("id").eq("seller_id", user.id).maybeSingle()
+        .then(({ data }) => { if (data) setShopId(data.id); });
+    }
+  }, [user?.id]);
+
   const products = useMemo(() => {
     const dbIds = new Set(dbProducts.map(p => p.id));
     const mocks = MOCK_PRODUCTS.filter(m => !dbIds.has(m.id)).map(m => ({
@@ -723,8 +734,8 @@ function ProductsPage() {
   const handleImageUpload = async (file: File) => {
     setUploading(true);
     const ext = file.name.split(".").pop();
-    const uid = user?.id ?? "admin";
-    const path = `${uid}/${Date.now()}.${ext}`;
+    const folder = shopId ?? user?.id ?? "admin";
+    const path = `${folder}/${Date.now()}.${ext}`;
     const { error } = await supabase.storage.from("product-images").upload(path, file, { upsert: true });
     if (error) {
       toast.error("Upload échoué : " + error.message);
