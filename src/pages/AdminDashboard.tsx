@@ -86,12 +86,8 @@ export default function AdminDashboard() {
       </AnimatePresence>
 
       {/* ══════ SIDEBAR — floating card ══════ */}
-      <aside className={`
-        fixed z-50 flex flex-col bg-white transition-transform duration-300 ease-out
-        top-0 left-0 bottom-0 w-[260px]
-        lg:top-3 lg:left-3 lg:bottom-3 lg:w-[224px] lg:rounded-2xl lg:shadow-md lg:border lg:border-gray-100/80
-        ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0
-      `}>
+      <div className={`fixed top-0 left-0 bottom-0 z-50 w-[250px] lg:w-[236px] transition-transform duration-300 ease-out lg:p-3 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}>
+      <aside className="h-full w-full bg-white flex flex-col overflow-hidden lg:rounded-xl lg:shadow-md lg:border lg:border-gray-100">
         {/* Brand */}
         <div className="flex items-center gap-2.5 px-4 h-14 border-b border-gray-100 shrink-0">
           <div className="w-7 h-7 rounded-lg bg-gray-900 flex items-center justify-center shrink-0">
@@ -116,7 +112,7 @@ export default function AdminDashboard() {
                   const active = page === item.page;
                   return (
                     <button key={item.page} onClick={() => { setPage(item.page); setSidebarOpen(false); }}
-                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-headline text-[12.5px] font-semibold transition-all duration-150 ${
+                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg font-headline text-[12.5px] font-semibold transition-all duration-150 ${
                         active ? "bg-gray-900 text-white" : "text-gray-500 hover:text-gray-800 hover:bg-gray-50"
                       }`}>
                       <span className="material-symbols-outlined text-[17px]" style={active ? { fontVariationSettings: "'FILL' 1" } : {}}>{item.icon}</span>
@@ -141,7 +137,7 @@ export default function AdminDashboard() {
                 { to: "/", icon: "home", label: "Accueil" },
               ].map(l => (
                 <Link key={l.to} to={l.to}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl font-headline text-[12.5px] font-semibold text-gray-400 hover:text-gray-700 hover:bg-gray-50 transition-all">
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg font-headline text-[12.5px] font-semibold text-gray-400 hover:text-gray-700 hover:bg-gray-50 transition-all">
                   <span className="material-symbols-outlined text-[17px]">{l.icon}</span>
                   {l.label}
                   <span className="material-symbols-outlined text-[10px] ml-auto text-gray-300">open_in_new</span>
@@ -153,21 +149,22 @@ export default function AdminDashboard() {
 
         <div className="px-2.5 pb-4 shrink-0">
           <button onClick={async () => { await supabase.auth.signOut(); navigate("/"); }}
-            className="flex items-center gap-3 px-3 py-2.5 rounded-xl font-headline text-[12.5px] font-semibold text-red-500 hover:bg-red-50 transition-all w-full">
+            className="flex items-center gap-3 px-3 py-2.5 rounded-lg font-headline text-[12.5px] font-semibold text-red-500 hover:bg-red-50 transition-all w-full">
             <span className="material-symbols-outlined text-[17px]">logout</span>
             Se déconnecter
           </button>
         </div>
       </aside>
+      </div>
 
       {/* ══════ MAIN AREA (header + content) ══════ */}
-      <div className="lg:ml-[239px] flex flex-col min-h-screen p-3 gap-3">
+      <div className="lg:ml-[236px] flex flex-col min-h-screen p-3 gap-3">
 
         {/* ══════ HEADER — floating card ══════ */}
-        <header className="sticky top-3 z-40 bg-white rounded-2xl shadow-sm border border-gray-100/80 flex items-center h-14 px-4 gap-3 shrink-0">
+        <header className="sticky top-3 z-40 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center h-14 px-4 gap-3 shrink-0">
 
           <button onClick={() => setSidebarOpen(true)}
-            className="lg:hidden w-9 h-9 rounded-xl flex items-center justify-center hover:bg-gray-100 transition-colors shrink-0">
+            className="lg:hidden w-9 h-9 rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors shrink-0">
             <span className="material-symbols-outlined text-gray-500 text-lg">menu</span>
           </button>
 
@@ -175,13 +172,13 @@ export default function AdminDashboard() {
             <div className="relative">
               <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-base">search</span>
               <input placeholder="Rechercher..."
-                className="w-full pl-9 pr-4 py-2 rounded-xl bg-gray-100 border-none font-body text-sm outline-none focus:ring-2 focus:ring-gray-200 transition-all" />
+                className="w-full pl-9 pr-4 py-2 rounded-lg bg-gray-100 border-none font-body text-sm outline-none focus:ring-2 focus:ring-gray-200 transition-all" />
             </div>
           </div>
 
           <div className="ml-auto flex items-center gap-1.5">
             <button onClick={() => setPage("orders")}
-              className="relative w-9 h-9 rounded-xl flex items-center justify-center hover:bg-gray-100 transition-colors">
+              className="relative w-9 h-9 rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors">
               <span className="material-symbols-outlined text-gray-400 text-lg">notifications</span>
               {stats.pending > 0 && (
                 <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-amber-500 rounded-full" />
@@ -189,7 +186,7 @@ export default function AdminDashboard() {
             </button>
             <div className="w-px h-5 bg-gray-200 mx-1" />
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-gray-900 flex items-center justify-center font-headline text-xs font-black text-white shrink-0">
+              <div className="w-8 h-8 rounded-lg bg-gray-900 flex items-center justify-center font-headline text-xs font-black text-white shrink-0">
                 {(user.email || "A")[0].toUpperCase()}
               </div>
               <div className="hidden md:block">
