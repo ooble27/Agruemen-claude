@@ -188,14 +188,6 @@ export const MOCK_PRODUCTS: MockProduct[] = [
     description: "Piment rouge vif pour relever sauces, braisés et marinades. Intensité modérée à forte selon la quantité. Séchable pour conservation.", stock: 22, sellerIdx: 2,
   }),
   createMockProduct({
-    id: "m14", name: "Aubergine", price: 450, unit: "le kg", categoryId: "cat-legumes",
-    imageUrl: "https://images.unsplash.com/photo-1615484477778-ca3b77940c25?w=600&h=600&fit=crop&auto=format",
-    extraImages: [
-      "https://images.unsplash.com/photo-1613478881427-1c3607cea46f?w=600&h=600&fit=crop&auto=format",
-    ],
-    description: "Aubergines charnues et brillantes pour yassa, ragoûts, gratins et cuissons au four. Chair tendre et savoureuse après cuisson.", stock: 20, sellerIdx: 0,
-  }),
-  createMockProduct({
     id: "m15", name: "Gombo", price: 500, unit: "le kg", categoryId: "cat-legumes",
     imageUrl: "https://images.unsplash.com/photo-1425543103986-22abb7d7e8d2?w=600&h=600&fit=crop&auto=format",
     description: "Gombo tendre et bien frais pour sauces onctueuses, soupes et plats traditionnels sénégalais. Riche en fibres et vitamines.", stock: 18, sellerIdx: 1,
@@ -223,16 +215,6 @@ export const MOCK_PRODUCTS: MockProduct[] = [
       "https://images.unsplash.com/photo-1568584711075-3d021a7c3ca3?w=600&h=600&fit=crop&auto=format",
     ],
     description: "Concombre frais et croquant, très hydratant. Excellent en salade, sandwichs, gaspacho ou infusé dans l'eau fraîche.", stock: 20, sellerIdx: 1,
-  }),
-  createMockProduct({
-    id: "m19", name: "Ail Frais", price: 800, unit: "le kg", categoryId: "cat-legumes",
-    imageUrl: "https://images.unsplash.com/photo-1540148426945-6cf22a6b2571?w=600&h=600&fit=crop&auto=format",
-    description: "Ail frais et parfumé, tête bien pleine. Indispensable pour assaisonner sauces, marinades et plats mijotés sénégalais.", stock: 24, sellerIdx: 2,
-  }),
-  createMockProduct({
-    id: "m19b", name: "Haricots Verts", price: 650, unit: "le kg", categoryId: "cat-legumes",
-    imageUrl: "https://images.unsplash.com/photo-1567375698348-5d9d5ae10c4a?w=600&h=600&fit=crop&auto=format",
-    description: "Haricots verts fins et croquants, récoltés jeunes. Parfaits pour accompagner viandes et poissons ou en salade tiède.", stock: 16, sellerIdx: 3,
   }),
   createMockProduct({
     id: "m19c", name: "Laitue", price: 250, unit: "la pièce", categoryId: "cat-legumes",
@@ -307,16 +289,6 @@ export const MOCK_PRODUCTS: MockProduct[] = [
     id: "m43", name: "Piment de Cayenne", price: 2500, unit: "le kg", categoryId: "cat-epices",
     imageUrl: "https://images.unsplash.com/photo-1583119022894-919a68a3d0e3?w=600&h=600&fit=crop&auto=format",
     description: "Piment de Cayenne séché et moulu, puissant et aromatique. Pour sauces piquantes, marinades et assaisonnements intenses.", stock: 12, sellerIdx: 2,
-  }),
-  createMockProduct({
-    id: "m44", name: "Poivre Noir", price: 4000, unit: "le kg", categoryId: "cat-epices",
-    imageUrl: "https://images.unsplash.com/photo-1599909533601-aa23a47b5fee?w=600&h=600&fit=crop&auto=format",
-    description: "Poivre noir en grains entiers, fraîchement récolté. À moudre au moulin pour un arôme intense et piquant sur tous vos plats.", stock: 8, sellerIdx: 3,
-  }),
-  createMockProduct({
-    id: "m45", name: "Cannelle", price: 3500, unit: "le kg", categoryId: "cat-epices",
-    imageUrl: "https://images.unsplash.com/photo-1608198399988-341dee9f9cda?w=600&h=600&fit=crop&auto=format",
-    description: "Bâtons de cannelle aromatiques pour café Touba, thé, desserts et plats sucrés-salés. Parfum chaud et réconfortant.", stock: 11, sellerIdx: 0,
   }),
   createMockProduct({
     id: "m46", name: "Noix de Muscade", price: 6000, unit: "le kg", categoryId: "cat-epices",
