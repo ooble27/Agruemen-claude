@@ -98,7 +98,7 @@ const HeroSection = () => {
           {PRODUCT_STRIP.map((img, i) => (
             <div
               key={img.alt}
-              className="overflow-hidden rounded-xl border border-white/60 shadow-md"
+              className="overflow-hidden rounded-md border-0 shadow-sm sm:rounded-xl sm:border sm:border-white/60 sm:shadow-md"
               style={{
                 width:  "clamp(46px, 12vw, 130px)",
                 height: "clamp(58px, 15vw, 170px)",
