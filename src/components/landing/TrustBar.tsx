@@ -15,9 +15,7 @@ const products = [
   { emoji: "🧅", name: "Oignon de Podor" },
   { emoji: "🌾", name: "Mil Souna" },
   { emoji: "🥜", name: "Arachide" },
-  { emoji: "🌿", name: "Gingembre" },
-  { emoji: "🌳", name: "Baobab" },
-  { emoji: "🥥", name: "Ditakh" },
+  { emoji: "🥥", name: "Coco" },
 ];
 
 const stats = [
@@ -28,22 +26,26 @@ const stats = [
 ];
 
 const TrustBar = () => {
-  const doubled = [...products, ...products];
+  // Triple pour éviter tout espace visible à la jonction
+  const tripled = [...products, ...products, ...products];
 
   return (
     <section className="bg-white/60 backdrop-blur-sm">
 
-      {/* Marquee */}
+      {/* Marquee — pas de pr-X pour que -50% = exactement une copie */}
       <div className="relative flex overflow-hidden border-y border-black/8 bg-black/[0.015] py-3">
         <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-20 bg-gradient-to-r from-white/60 to-transparent" />
         <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-20 bg-gradient-to-l from-white/60 to-transparent" />
-        <div className="flex animate-marquee gap-6 pr-6 will-change-transform">
-          {doubled.map((product, i) => (
+        <div
+          className="flex gap-6 will-change-transform"
+          style={{ animation: "marquee 28s linear infinite" }}
+        >
+          {tripled.map((product, i) => (
             <span
               key={i}
               className="flex shrink-0 items-center gap-2 font-headline text-[12px] font-semibold text-on-surface-variant"
             >
-              <span className="text-base">{product.emoji}</span>
+              <span className="text-base leading-none">{product.emoji}</span>
               {product.name}
               <span className="ml-2 h-1 w-1 shrink-0 rounded-full bg-foreground/20" />
             </span>
@@ -51,7 +53,7 @@ const TrustBar = () => {
         </div>
       </div>
 
-      {/* Stats — padding réduit */}
+      {/* Stats */}
       <div className="mx-auto max-w-[1200px] px-4 py-12 md:px-8 md:py-16">
         <div className="grid grid-cols-2 gap-10 md:grid-cols-4 md:gap-0">
           {stats.map((stat, i) => (

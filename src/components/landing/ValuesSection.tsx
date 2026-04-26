@@ -12,8 +12,9 @@ const categories = [
   { label: "Produits Laitiers", emoji: "🥛", border: "#60a5fa", href: "/marche" },
 ];
 
-const row1 = [...categories, ...categories];
-const row2 = [...[...categories].reverse(), ...[...categories].reverse()];
+// Triple pour que -33.3% → jamais de jonction visible
+const row1 = [...categories, ...categories, ...categories];
+const row2 = [...[...categories].reverse(), ...[...categories].reverse(), ...[...categories].reverse()];
 
 const Chip = ({ cat }: { cat: typeof categories[0] }) => (
   <Link
@@ -24,7 +25,7 @@ const Chip = ({ cat }: { cat: typeof categories[0] }) => (
       backgroundColor: `${cat.border}12`,
     }}
   >
-    <span className="text-2xl">{cat.emoji}</span>
+    <span className="text-2xl leading-none">{cat.emoji}</span>
     <span className="font-headline text-base font-bold text-white">{cat.label}</span>
   </Link>
 );
@@ -56,22 +57,28 @@ const ValuesSection = () => {
         </p>
       </motion.div>
 
-      {/* Row 1 — left → */}
+      {/* Row 1 → — pas de pr-X, animation inline pour contrôle précis */}
       <div className="relative mb-4 flex overflow-hidden">
         <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-24 bg-gradient-to-r from-[#0a0a0a] to-transparent" />
         <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-24 bg-gradient-to-l from-[#0a0a0a] to-transparent" />
-        <div className="flex animate-marquee gap-3 pr-3 will-change-transform">
+        <div
+          className="flex gap-3 will-change-transform"
+          style={{ animation: "marquee 25s linear infinite" }}
+        >
           {row1.map((cat, i) => (
             <Chip key={`r1-${i}`} cat={cat} />
           ))}
         </div>
       </div>
 
-      {/* Row 2 — right ← */}
+      {/* Row 2 ← */}
       <div className="relative flex overflow-hidden">
         <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-24 bg-gradient-to-r from-[#0a0a0a] to-transparent" />
         <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-24 bg-gradient-to-l from-[#0a0a0a] to-transparent" />
-        <div className="flex animate-marquee-reverse gap-3 pr-3 will-change-transform">
+        <div
+          className="flex gap-3 will-change-transform"
+          style={{ animation: "marquee-reverse 25s linear infinite" }}
+        >
           {row2.map((cat, i) => (
             <Chip key={`r2-${i}`} cat={cat} />
           ))}
