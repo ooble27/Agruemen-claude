@@ -32,7 +32,7 @@ const Chip = ({ cat }: { cat: typeof categories[0] }) => (
 
 const ValuesSection = () => {
   return (
-    <section id="categories" className="overflow-hidden bg-[#0a0a0a] py-24 md:py-32">
+    <section id="categories" className="overflow-hidden bg-[#0a0a0a] py-20">
 
       {/* Header */}
       <motion.div
@@ -40,7 +40,7 @@ const ValuesSection = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="mb-16 px-4 text-center md:px-8"
+        className="mb-12 px-4 text-center md:px-8"
       >
         <span className="mb-4 block font-headline text-xs font-bold uppercase tracking-[0.25em] text-white/30">
           Pour tous les goûts

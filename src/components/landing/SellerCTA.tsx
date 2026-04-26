@@ -11,7 +11,7 @@ const features = [
 
 const SellerCTA = () => {
   return (
-    <section className="mx-auto max-w-[1200px] space-y-20 px-4 py-16 md:space-y-28 md:px-8 md:py-24">
+    <section className="mx-auto max-w-[1200px] space-y-16 px-4 py-16 md:px-8">
 
       {/* ─── "C'est quoi Agrumen ?" — manifeste éditorial ─── */}
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-20">

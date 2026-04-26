@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const FinalCTA = () => {
   return (
-    <section className="py-16 md:py-24 px-4 md:px-8 max-w-[1200px] mx-auto text-center">
+    <section className="py-16 px-4 md:px-8 max-w-[1200px] mx-auto text-center">
       <motion.div
         initial={{ opacity: 0, scale: 0.96 }}
         whileInView={{ opacity: 1, scale: 1 }}

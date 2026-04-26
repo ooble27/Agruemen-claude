@@ -24,7 +24,7 @@ const steps = [
 
 const HowItWorks = () => {
   return (
-    <section id="comment" className="pt-8 pb-20 md:pt-12 md:pb-28">
+    <section id="comment" className="pt-6 pb-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
 
         {/* Header */}
@@ -33,7 +33,7 @@ const HowItWorks = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-14 md:mb-20"
+          className="mb-12"
         >
           <span className="mb-3 block font-headline text-xs font-bold uppercase tracking-[0.22em] text-on-surface-variant">
             Simple comme bonjour

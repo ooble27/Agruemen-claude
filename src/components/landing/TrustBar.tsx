@@ -54,7 +54,7 @@ const TrustBar = () => {
       </div>
 
       {/* Stats */}
-      <div className="mx-auto max-w-[1200px] px-4 py-12 md:px-8 md:py-16">
+      <div className="mx-auto max-w-[1200px] px-4 py-12 md:px-8">
         <div className="grid grid-cols-2 gap-10 md:grid-cols-4 md:gap-0">
           {stats.map((stat, i) => (
             <motion.div

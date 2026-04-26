@@ -14,7 +14,7 @@ const ROTATIONS = [-3, 2, -2, 3, -1, 2];
 
 const HeroSection = () => {
   return (
-    <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-4 pt-28 pb-0 lg:pb-14 text-center">
+    <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-4 pt-20 pb-0 lg:pb-14 text-center">
 
       <div
         className="pointer-events-none absolute inset-0"

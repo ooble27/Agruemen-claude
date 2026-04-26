@@ -11,7 +11,7 @@ const FEATURED = FEATURED_IDS
 
 const MissionSection = () => {
   return (
-    <section id="produits" className="pt-10 pb-16 md:pt-14 md:pb-24">
+    <section id="produits" className="py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
 
         {/* Header */}
