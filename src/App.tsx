@@ -14,6 +14,12 @@ import BuyerAccount from "./pages/BuyerAccount";
 import Marche from "./pages/Marche";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import NotFound from "./pages/NotFound";
+import Contact from "./pages/Contact";
+import NotreMission from "./pages/NotreMission";
+import Confidentialite from "./pages/Confidentialite";
+import CGU from "./pages/CGU";
+import Cookies from "./pages/Cookies";
+import MentionsLegales from "./pages/MentionsLegales";
 import { CartProvider } from "./contexts/CartContext";
 import { AuthProvider } from "./contexts/AuthContext";
 import { NotificationsProvider } from "./contexts/NotificationsContext";
@@ -38,6 +44,12 @@ const AnimatedRoutes = () => {
         <Route path="/confirmation" element={<PageTransition><OrderConfirmation /></PageTransition>} />
         <Route path="/mes-commandes" element={<PageTransition><MyOrders /></PageTransition>} />
         <Route path="/mon-compte" element={<PageTransition><BuyerAccount /></PageTransition>} />
+        <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+        <Route path="/notre-mission" element={<PageTransition><NotreMission /></PageTransition>} />
+        <Route path="/confidentialite" element={<PageTransition><Confidentialite /></PageTransition>} />
+        <Route path="/cgu" element={<PageTransition><CGU /></PageTransition>} />
+        <Route path="/cookies" element={<PageTransition><Cookies /></PageTransition>} />
+        <Route path="/mentions-legales" element={<PageTransition><MentionsLegales /></PageTransition>} />
         <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
       </Routes>
     </AnimatePresence>
