@@ -21,6 +21,8 @@ import CGU from "./pages/CGU";
 import Cookies from "./pages/Cookies";
 import MentionsLegales from "./pages/MentionsLegales";
 import FAQ from "./pages/FAQ";
+import Blog from "./pages/Blog";
+import DevenirPartenaire from "./pages/DevenirPartenaire";
 import ScrollToTop from "./components/ScrollToTop";
 import { CartProvider } from "./contexts/CartContext";
 import { AuthProvider } from "./contexts/AuthContext";
@@ -53,6 +55,8 @@ const AnimatedRoutes = () => {
         <Route path="/cookies" element={<PageTransition><Cookies /></PageTransition>} />
         <Route path="/mentions-legales" element={<PageTransition><MentionsLegales /></PageTransition>} />
         <Route path="/faq" element={<PageTransition><FAQ /></PageTransition>} />
+        <Route path="/blog" element={<PageTransition><Blog /></PageTransition>} />
+        <Route path="/devenir-partenaire" element={<PageTransition><DevenirPartenaire /></PageTransition>} />
         <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
       </Routes>
     </AnimatePresence>

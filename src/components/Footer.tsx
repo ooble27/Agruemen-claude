@@ -14,10 +14,10 @@ const links = {
     { label: "Contact", href: "/contact" },
   ],
   Société: [
+    { label: "Blog", href: "/blog" },
     { label: "Notre Mission", href: "/notre-mission" },
+    { label: "Devenir Partenaire", href: "/devenir-partenaire" },
     { label: "Contact", href: "/contact" },
-    { label: "Connexion", href: "/auth" },
-    { label: "Créer un compte", href: "/auth" },
   ],
   Légal: [
     { label: "Confidentialité", href: "/confidentialite" },
