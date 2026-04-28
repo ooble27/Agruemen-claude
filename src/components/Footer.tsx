@@ -16,7 +16,8 @@ const links = {
   Société: [
     { label: "Qui sommes-nous", href: "/qui-sommes-nous" },
     { label: "Blog", href: "/blog" },
-    { label: "Nos Producteurs", href: "/nos-producteurs" },
+    { label: "Nos Engagements", href: "/nos-engagements" },
+    { label: "Devenir Partenaire", href: "/devenir-partenaire" },
     { label: "Carrières", href: "/carrieres" },
   ],
   Légal: [

@@ -24,8 +24,9 @@ import FAQ from "./pages/FAQ";
 import Blog from "./pages/Blog";
 import DevenirPartenaire from "./pages/DevenirPartenaire";
 import QuiSommesNous from "./pages/QuiSommesNous";
-import NosProducteurs from "./pages/NosProducteurs";
 import Carrieres from "./pages/Carrieres";
+import BlogArticle from "./pages/BlogArticle";
+import NosEngagements from "./pages/NosEngagements";
 import ScrollToTop from "./components/ScrollToTop";
 import { CartProvider } from "./contexts/CartContext";
 import { AuthProvider } from "./contexts/AuthContext";
@@ -61,8 +62,9 @@ const AnimatedRoutes = () => {
         <Route path="/blog" element={<PageTransition><Blog /></PageTransition>} />
         <Route path="/devenir-partenaire" element={<PageTransition><DevenirPartenaire /></PageTransition>} />
         <Route path="/qui-sommes-nous" element={<PageTransition><QuiSommesNous /></PageTransition>} />
-        <Route path="/nos-producteurs" element={<PageTransition><NosProducteurs /></PageTransition>} />
         <Route path="/carrieres" element={<PageTransition><Carrieres /></PageTransition>} />
+        <Route path="/blog/:slug" element={<PageTransition><BlogArticle /></PageTransition>} />
+        <Route path="/nos-engagements" element={<PageTransition><NosEngagements /></PageTransition>} />
         <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
       </Routes>
     </AnimatePresence>
