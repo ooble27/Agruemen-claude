@@ -1,5 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
+import { useDarkMode } from "@/hooks/useDarkMode";
 import { useCart } from "@/contexts/CartContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNotifications } from "@/contexts/NotificationsContext";
@@ -9,6 +10,7 @@ import { buildMarketCategories } from "@/data/marketplaceMocks";
 import type { Category } from "@/types/database";
 
 const Navbar = () => {
+  const { dark, toggle } = useDarkMode();
   const { totalItems, setIsOpen } = useCart();
   const { user, isAdmin, signOut } = useAuth();
   const { notifications, unreadCount, markAllRead, markRead } = useNotifications();
@@ -230,6 +232,15 @@ const Navbar = () => {
                 </AnimatePresence>
               </div>
             )}
+
+            {/* Dark mode toggle */}
+            <button
+              onClick={toggle}
+              aria-label="Basculer le thème"
+              className="w-9 h-9 flex items-center justify-center rounded-lg text-on-surface-variant hover:text-foreground hover:bg-surface-container/50 transition-colors"
+            >
+              <span className="material-symbols-outlined text-xl">{dark ? "light_mode" : "dark_mode"}</span>
+            </button>
 
             {/* Cart */}
             <button

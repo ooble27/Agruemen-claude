@@ -15,7 +15,7 @@ const CONTACT_INFO = [
   { icon: "location_on", label: "Adresse", value: "Dakar, Sénégal", sub: "Quartier Plateau" },
   { icon: "mail", label: "Email", value: "hello@agrumen.sn", sub: "Réponse sous 24h" },
   { icon: "schedule", label: "Horaires", value: "Lun – Sam", sub: "7h00 – 20h00" },
-  { icon: "phone", label: "Téléphone", value: "+221 77 000 00 00", sub: "Support acheteurs" },
+  { icon: "phone", label: "Téléphone", value: "+1 418 261 9091", sub: "Support acheteurs" },
 ];
 
 const Contact = () => {
@@ -173,50 +173,76 @@ const Contact = () => {
               </form>
             </motion.div>
 
-            {/* Info */}
+            {/* Info — redesigned editorial */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="lg:col-span-2"
+              className="lg:col-span-2 flex flex-col gap-4"
             >
-              <h2 className="font-headline font-extrabold text-2xl tracking-tighter text-foreground mb-1">Informations</h2>
-              <p className="font-body text-on-surface-variant text-sm mb-8">Plusieurs façons de nous joindre.</p>
+              {/* Grand card sombre éditorial */}
+              <div className="relative rounded-2xl bg-[#0a0a0a] p-8 overflow-hidden">
+                {/* Décoration typographique en fond */}
+                <div className="pointer-events-none select-none absolute -bottom-6 -right-4 font-headline font-black text-[160px] leading-none text-white/[0.03]">
+                  AG
+                </div>
+                {/* Grille de points */}
+                <div className="pointer-events-none absolute inset-0 opacity-[0.06]"
+                  style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "22px 22px" }} />
 
-              <div className="space-y-4">
-                {CONTACT_INFO.map((item, i) => (
-                  <motion.div
-                    key={item.label}
-                    initial={{ opacity: 0, x: -12 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.08 }}
-                    className="flex items-start gap-4 p-4 rounded-xl bg-surface-container-lowest border border-border/30"
-                  >
-                    <div className="w-10 h-10 rounded-md bg-foreground/5 flex items-center justify-center shrink-0">
-                      <span className="material-symbols-outlined text-foreground text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>{item.icon}</span>
+                <p className="font-headline text-[10px] font-bold uppercase tracking-[0.22em] text-white/30 mb-7">
+                  Nous joindre
+                </p>
+
+                <div className="relative z-10 space-y-6">
+                  {[
+                    { icon: "mail", label: "Email", value: "hello@agrumen.sn" },
+                    { icon: "phone", label: "Téléphone", value: "+1 418 261 9091" },
+                    { icon: "location_on", label: "Adresse", value: "Dakar, Sénégal" },
+                  ].map(item => (
+                    <div key={item.label} className="flex items-center gap-4">
+                      <div className="w-11 h-11 rounded-xl bg-white/8 border border-white/8 flex items-center justify-center shrink-0">
+                        <span className="material-symbols-outlined text-white/60 text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>{item.icon}</span>
+                      </div>
+                      <div>
+                        <p className="font-headline text-[10px] font-bold uppercase tracking-widest text-white/30">{item.label}</p>
+                        <p className="font-headline text-sm font-bold text-white mt-0.5">{item.value}</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="font-headline text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 mb-0.5">{item.label}</p>
-                      <p className="font-headline text-sm font-bold text-foreground">{item.value}</p>
-                      <p className="font-body text-xs text-on-surface-variant mt-0.5">{item.sub}</p>
-                    </div>
-                  </motion.div>
+                  ))}
+                </div>
+
+                {/* Horaires en bas */}
+                <div className="relative z-10 mt-8 pt-6 border-t border-white/8 flex items-center gap-4">
+                  <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                  <div>
+                    <p className="font-headline text-[10px] font-bold uppercase tracking-widest text-white/30">Horaires</p>
+                    <p className="font-body text-sm text-white/65 mt-0.5">Lundi – Samedi · 7h00 – 20h00</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Deux cartes features côte à côte */}
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  { icon: "support_agent", title: "Support", sub: "Acheteurs & commandes" },
+                  { icon: "handshake", title: "Partenaires", sub: "Producteurs & pros" },
+                ].map(card => (
+                  <div key={card.title} className="rounded-xl bg-surface-container-lowest border border-border/30 p-5">
+                    <span className="material-symbols-outlined text-2xl text-foreground mb-3 block" style={{ fontVariationSettings: "'FILL' 1" }}>{card.icon}</span>
+                    <p className="font-headline font-bold text-sm text-foreground">{card.title}</p>
+                    <p className="font-body text-xs text-on-surface-variant mt-0.5">{card.sub}</p>
+                  </div>
                 ))}
               </div>
 
-              {/* Dark card */}
-              <div className="mt-6 p-6 rounded-xl bg-[#0a0a0a] text-white">
-                <span className="material-symbols-outlined text-emerald-400 text-2xl mb-3 block" style={{ fontVariationSettings: "'FILL' 1" }}>support_agent</span>
-                <p className="font-headline font-bold text-base mb-1">Support acheteurs</p>
-                <p className="font-body text-sm text-white/50 mb-4 leading-relaxed">
-                  Pour toute question urgente concernant une commande en cours.
+              {/* Badge réponse rapide */}
+              <div className="rounded-xl border border-emerald-200 bg-emerald-50 dark:bg-emerald-950/30 dark:border-emerald-800 px-5 py-4 flex items-center gap-3">
+                <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+                <p className="font-body text-sm text-emerald-800 dark:text-emerald-400">
+                  Temps de réponse moyen : <strong>sous 24 heures</strong>
                 </p>
-                <Link to="/mes-commandes" className="inline-flex items-center gap-1.5 font-headline text-xs font-bold text-white border border-white/20 rounded-full px-4 py-2">
-                  <span className="material-symbols-outlined text-sm">receipt_long</span>
-                  Mes commandes
-                </Link>
               </div>
             </motion.div>
           </div>

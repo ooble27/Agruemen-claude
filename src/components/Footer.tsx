@@ -10,8 +10,8 @@ const links = {
   Acheteur: [
     { label: "Comment ça marche", href: "/#comment" },
     { label: "Notre Mission", href: "/notre-mission" },
+    { label: "FAQ", href: "/faq" },
     { label: "Contact", href: "/contact" },
-    { label: "Rejoindre Agrumen", href: "/auth" },
   ],
   Société: [
     { label: "Notre Mission", href: "/notre-mission" },

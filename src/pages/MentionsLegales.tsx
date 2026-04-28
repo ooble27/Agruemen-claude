@@ -11,7 +11,7 @@ const BLOCKS = [
       ["Forme juridique", "Société à Responsabilité Limitée (SARL)"],
       ["Siège social", "Dakar, Sénégal"],
       ["Email", "hello@agrumen.sn"],
-      ["Téléphone", "+221 77 000 00 00"],
+      ["Téléphone", "+1 418 261 9091"],
       ["Directeur de publication", "Équipe Agrumen"],
     ],
   },

@@ -2,9 +2,11 @@ import { Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import { useDarkMode } from "@/hooks/useDarkMode";
 
 const LandingNavbar = () => {
   const { user, isAdmin } = useAuth();
+  const { dark, toggle } = useDarkMode();
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -50,6 +52,13 @@ const LandingNavbar = () => {
           </div>
 
           <div className="flex items-center gap-2">
+            <button
+              onClick={toggle}
+              aria-label="Basculer le thème"
+              className="w-9 h-9 rounded-md flex items-center justify-center text-on-surface-variant transition-colors hover:bg-surface-container"
+            >
+              <span className="material-symbols-outlined text-[20px]">{dark ? "light_mode" : "dark_mode"}</span>
+            </button>
             {user ? (
               <Link
                 to={isAdmin ? "/admin" : "/mon-compte"}

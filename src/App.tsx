@@ -20,6 +20,8 @@ import Confidentialite from "./pages/Confidentialite";
 import CGU from "./pages/CGU";
 import Cookies from "./pages/Cookies";
 import MentionsLegales from "./pages/MentionsLegales";
+import FAQ from "./pages/FAQ";
+import ScrollToTop from "./components/ScrollToTop";
 import { CartProvider } from "./contexts/CartContext";
 import { AuthProvider } from "./contexts/AuthContext";
 import { NotificationsProvider } from "./contexts/NotificationsContext";
@@ -50,6 +52,7 @@ const AnimatedRoutes = () => {
         <Route path="/cgu" element={<PageTransition><CGU /></PageTransition>} />
         <Route path="/cookies" element={<PageTransition><Cookies /></PageTransition>} />
         <Route path="/mentions-legales" element={<PageTransition><MentionsLegales /></PageTransition>} />
+        <Route path="/faq" element={<PageTransition><FAQ /></PageTransition>} />
         <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
       </Routes>
     </AnimatePresence>
@@ -60,6 +63,7 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <BrowserRouter>
+        <ScrollToTop />
         <AuthProvider>
           <NotificationsProvider>
             <WishlistProvider>
