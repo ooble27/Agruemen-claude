@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useCart } from "@/contexts/CartContext";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -30,9 +30,12 @@ const BottomNav = () => {
   };
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 md:hidden" style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
-      <div className="mx-3 mb-3">
-        <div className="flex items-center justify-around bg-card/95 backdrop-blur-xl border border-border/30 rounded-2xl px-2 py-2 shadow-[0_8px_32px_rgba(0,0,0,0.12)]">
+    <nav
+      className="fixed bottom-0 left-0 right-0 z-50 md:hidden"
+      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+    >
+      <div className="mx-4 mb-4">
+        <div className="flex items-end justify-around bg-[#111111] border border-white/[0.07] rounded-2xl px-2 py-3 shadow-[0_12px_48px_rgba(0,0,0,0.6)]">
           {NAV_ITEMS.map((item) => {
             const isCart = item.path === "__cart__";
             const isProfile = item.path === "__profile__";
@@ -40,34 +43,55 @@ const BottomNav = () => {
             const href = isProfile ? profilePath : item.path;
 
             const inner = (
-              <div className="relative flex flex-col items-center justify-center w-14 py-1">
-                <AnimatePresence>
-                  {active && (
+              <div className="flex flex-col items-center gap-1.5 relative px-3">
+                {/* Cart special button */}
+                {isCart ? (
+                  <div className="relative">
                     <motion.div
-                      layoutId="bottomnav-pill"
-                      className="absolute inset-0 bg-foreground rounded-xl"
-                      initial={false}
-                      transition={{ type: "spring", stiffness: 380, damping: 34 }}
-                    />
-                  )}
-                </AnimatePresence>
+                      animate={{ backgroundColor: active ? "#10b981" : "rgba(255,255,255,0.07)" }}
+                      transition={{ duration: 0.2 }}
+                      className="w-11 h-11 rounded-xl flex items-center justify-center"
+                    >
+                      <span
+                        className={`material-symbols-outlined text-[22px] transition-colors duration-200 ${active ? "text-white" : "text-white/40"}`}
+                        style={{ fontVariationSettings: active ? "'FILL' 1" : "'wght' 300" }}
+                      >
+                        {item.icon}
+                      </span>
+                    </motion.div>
+                    {totalItems > 0 && (
+                      <motion.span
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        className="absolute -top-1 -right-1 w-[17px] h-[17px] bg-red-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center leading-none z-10"
+                      >
+                        {totalItems > 9 ? "9+" : totalItems}
+                      </motion.span>
+                    )}
+                  </div>
+                ) : (
+                  <span
+                    className={`material-symbols-outlined text-[24px] transition-all duration-200 ${active ? "text-emerald-400" : "text-white/30"}`}
+                    style={{ fontVariationSettings: active ? "'FILL' 1, 'wght' 600" : "'wght' 300" }}
+                  >
+                    {item.icon}
+                  </span>
+                )}
+
+                {/* Label — visible for all items, dimmed when inactive */}
                 <span
-                  className={`relative material-symbols-outlined text-[22px] transition-colors duration-150 ${active ? "text-white" : "text-on-surface-variant/60"}`}
-                  style={{ fontVariationSettings: active ? "'FILL' 1, 'wght' 600" : "'wght' 300" }}
+                  className={`font-headline text-[9px] font-bold tracking-wide leading-none transition-colors duration-200 ${active ? "text-white/80" : "text-white/25"}`}
                 >
-                  {item.icon}
-                </span>
-                <span className={`relative font-headline text-[9px] font-bold mt-0.5 tracking-wide transition-colors duration-150 ${active ? "text-white" : "text-on-surface-variant/50"}`}>
                   {item.label}
                 </span>
-                {isCart && totalItems > 0 && (
+
+                {/* Active indicator dot */}
+                {active && !isCart && (
                   <motion.span
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    className="absolute -top-0.5 right-0.5 w-[16px] h-[16px] bg-red-500 text-white text-[8px] font-bold rounded-full flex items-center justify-center z-20 leading-none"
-                  >
-                    {totalItems > 9 ? "9+" : totalItems}
-                  </motion.span>
+                    layoutId="bottomnav-dot"
+                    className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-emerald-400"
+                    transition={{ type: "spring", stiffness: 500, damping: 35 }}
+                  />
                 )}
               </div>
             );

@@ -209,7 +209,7 @@ const BlogArticle = () => {
             <span className="material-symbols-outlined text-emerald-400 text-3xl mb-4 block" style={{ fontVariationSettings: "'FILL' 1" }}>agriculture</span>
             <h3 className="font-headline font-black text-white tracking-tighter mb-3 text-2xl">Vous êtes producteur au Sénégal ?</h3>
             <p className="font-body text-white/45 text-sm mb-6 max-w-md mx-auto">Rejoignez 340+ producteurs qui vendent directement sur Agrumen. Inscription gratuite.</p>
-            <Link to="/devenir-partenaire" className="inline-flex items-center gap-2 bg-white text-foreground font-headline font-bold text-sm px-7 py-3.5 rounded-full">
+            <Link to="/devenir-partenaire" className="inline-flex items-center gap-2 bg-white text-foreground font-headline font-bold text-sm px-7 py-3.5 rounded-xl">
               <span className="material-symbols-outlined text-sm">agriculture</span>
               Devenir partenaire
             </Link>

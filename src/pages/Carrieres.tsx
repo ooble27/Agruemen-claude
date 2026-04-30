@@ -140,7 +140,7 @@ const Carrieres = () => {
               <p className="font-body text-white/50 text-lg leading-relaxed max-w-sm mb-8">
                 Rejoignez une équipe passionnée qui réinvente la chaîne alimentaire au Sénégal. {JOBS.length} postes ouverts.
               </p>
-              <a href="#offres" className="inline-flex items-center gap-2 bg-emerald-500 text-white font-headline text-sm font-bold rounded-full px-6 py-3">
+              <a href="#offres" className="inline-flex items-center gap-2 bg-emerald-500 text-white font-headline text-sm font-bold rounded-xl px-6 py-3">
                 <span className="material-symbols-outlined text-sm">work</span>
                 Voir les offres
               </a>
@@ -275,7 +275,7 @@ const Carrieres = () => {
                       <a
                         href="#postuler"
                         onClick={() => setForm(p => ({ ...p, jobId: String(job.id) }))}
-                        className="inline-flex items-center gap-2 bg-foreground text-white font-headline font-bold text-sm px-6 py-3 rounded-full"
+                        className="inline-flex items-center gap-2 bg-foreground text-white font-headline font-bold text-sm px-6 py-3 rounded-xl"
                       >
                         <span className="material-symbols-outlined text-sm">send</span>
                         Postuler à ce poste
@@ -320,7 +320,7 @@ const Carrieres = () => {
                   <input
                     type="text" required value={form.name} onChange={e => f("name", e.target.value)}
                     placeholder="Votre nom et prénom"
-                    className="w-full px-4 py-3.5 rounded-md bg-white border border-border/40 font-body text-sm outline-none focus:ring-2 focus:ring-foreground/10 focus:border-foreground/30 transition-all"
+                    className="w-full px-4 py-3.5 rounded-xl bg-white border border-border/40 font-body text-sm outline-none focus:ring-2 focus:ring-foreground/10 focus:border-foreground/30 transition-all"
                   />
                 </div>
                 <div>
@@ -328,7 +328,7 @@ const Carrieres = () => {
                   <input
                     type="email" required value={form.email} onChange={e => f("email", e.target.value)}
                     placeholder="votre@email.com"
-                    className="w-full px-4 py-3.5 rounded-md bg-white border border-border/40 font-body text-sm outline-none focus:ring-2 focus:ring-foreground/10 focus:border-foreground/30 transition-all"
+                    className="w-full px-4 py-3.5 rounded-xl bg-white border border-border/40 font-body text-sm outline-none focus:ring-2 focus:ring-foreground/10 focus:border-foreground/30 transition-all"
                   />
                 </div>
               </div>
@@ -337,7 +337,7 @@ const Carrieres = () => {
                 <div className="relative">
                   <select
                     value={form.jobId} onChange={e => f("jobId", e.target.value)} required
-                    className="w-full appearance-none px-4 py-3.5 rounded-md bg-white border border-border/40 font-body text-sm outline-none focus:ring-2 focus:ring-foreground/10 transition-all"
+                    className="w-full appearance-none px-4 py-3.5 rounded-xl bg-white border border-border/40 font-body text-sm outline-none focus:ring-2 focus:ring-foreground/10 transition-all"
                   >
                     <option value="">Sélectionnez un poste</option>
                     {JOBS.map(j => <option key={j.id} value={j.id}>{j.title}</option>)}
@@ -356,7 +356,7 @@ const Carrieres = () => {
               </div>
               <button
                 type="submit" disabled={sending}
-                className="w-full flex items-center justify-center gap-2 bg-foreground text-white px-8 py-4 rounded-md font-headline font-bold text-sm disabled:opacity-50 transition-all"
+                className="w-full flex items-center justify-center gap-2 bg-foreground text-white px-8 py-4 rounded-xl font-headline font-bold text-sm disabled:opacity-50 transition-all"
               >
                 {sending ? (
                   <><span className="material-symbols-outlined animate-spin text-base">progress_activity</span>Envoi en cours...</>

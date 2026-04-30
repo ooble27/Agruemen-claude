@@ -184,7 +184,7 @@ const Contact = () => {
             <p className="font-headline text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant mb-2">Besoin d'une réponse rapide ?</p>
             <h2 className="font-headline font-black text-foreground tracking-tight text-3xl">Consultez notre FAQ.</h2>
           </div>
-          <Link to="/faq" className="inline-flex items-center gap-2 bg-foreground text-white font-headline font-bold text-sm px-7 py-4 rounded-full">
+          <Link to="/faq" className="inline-flex items-center gap-2 bg-foreground text-white font-headline font-bold text-sm px-7 py-4 rounded-xl">
             <span className="material-symbols-outlined text-sm">help</span>
             Voir la FAQ
           </Link>

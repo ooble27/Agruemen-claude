@@ -124,11 +124,11 @@ const DevenirPartenaire = () => {
                 Rejoignez 340+ producteurs sénégalais qui vendent directement aux consommateurs. Pas d'intermédiaire, des revenus équitables.
               </p>
               <div className="flex flex-wrap gap-3">
-                <a href="#candidature" className="inline-flex items-center gap-2 bg-emerald-500 text-white font-headline text-sm font-bold rounded-full px-6 py-3">
+                <a href="#candidature" className="inline-flex items-center gap-2 bg-emerald-500 text-white font-headline text-sm font-bold rounded-xl px-6 py-3">
                   <span className="material-symbols-outlined text-sm">agriculture</span>
                   Déposer ma candidature
                 </a>
-                <a href="#comment" className="inline-flex items-center gap-2 border border-white/20 text-white/70 font-headline text-sm font-bold rounded-full px-6 py-3">
+                <a href="#comment" className="inline-flex items-center gap-2 border border-white/20 text-white/70 font-headline text-sm font-bold rounded-xl px-6 py-3">
                   Comment ça marche
                 </a>
               </div>
@@ -338,7 +338,7 @@ const DevenirPartenaire = () => {
                   <input
                     type="text" required value={form.name} onChange={e => f("name", e.target.value)}
                     placeholder="Votre nom et prénom"
-                    className="w-full px-4 py-3.5 rounded-md bg-surface-container-lowest border border-border/40 font-body text-sm outline-none focus:ring-2 focus:ring-foreground/10 focus:border-foreground/30 transition-all"
+                    className="w-full px-4 py-3.5 rounded-xl bg-surface-container-lowest border border-border/40 font-body text-sm outline-none focus:ring-2 focus:ring-foreground/10 focus:border-foreground/30 transition-all"
                   />
                 </div>
                 <div>
@@ -346,7 +346,7 @@ const DevenirPartenaire = () => {
                   <input
                     type="tel" required value={form.phone} onChange={e => f("phone", e.target.value)}
                     placeholder="+221 77 000 00 00"
-                    className="w-full px-4 py-3.5 rounded-md bg-surface-container-lowest border border-border/40 font-body text-sm outline-none focus:ring-2 focus:ring-foreground/10 focus:border-foreground/30 transition-all"
+                    className="w-full px-4 py-3.5 rounded-xl bg-surface-container-lowest border border-border/40 font-body text-sm outline-none focus:ring-2 focus:ring-foreground/10 focus:border-foreground/30 transition-all"
                   />
                 </div>
               </div>
@@ -356,7 +356,7 @@ const DevenirPartenaire = () => {
                   <div className="relative">
                     <select
                       required value={form.region} onChange={e => f("region", e.target.value)}
-                      className="w-full appearance-none px-4 py-3.5 rounded-md bg-surface-container-lowest border border-border/40 font-body text-sm outline-none focus:ring-2 focus:ring-foreground/10 transition-all"
+                      className="w-full appearance-none px-4 py-3.5 rounded-xl bg-surface-container-lowest border border-border/40 font-body text-sm outline-none focus:ring-2 focus:ring-foreground/10 transition-all"
                     >
                       <option value="">Sélectionnez votre région</option>
                       {["Dakar", "Thiès", "Diourbel", "Fatick", "Kaolack", "Kaffrine", "Saint-Louis", "Louga", "Matam", "Tambacounda", "Kédougou", "Kolda", "Sédhiou", "Ziguinchor"].map(r => (
@@ -371,7 +371,7 @@ const DevenirPartenaire = () => {
                   <div className="relative">
                     <select
                       value={form.surface} onChange={e => f("surface", e.target.value)}
-                      className="w-full appearance-none px-4 py-3.5 rounded-md bg-surface-container-lowest border border-border/40 font-body text-sm outline-none focus:ring-2 focus:ring-foreground/10 transition-all"
+                      className="w-full appearance-none px-4 py-3.5 rounded-xl bg-surface-container-lowest border border-border/40 font-body text-sm outline-none focus:ring-2 focus:ring-foreground/10 transition-all"
                     >
                       <option value="">Sélectionnez</option>
                       <option>Moins de 1 hectare</option>
@@ -388,7 +388,7 @@ const DevenirPartenaire = () => {
                 <input
                   type="text" required value={form.products} onChange={e => f("products", e.target.value)}
                   placeholder="Ex. : tomates, oignons, mangues, mil..."
-                  className="w-full px-4 py-3.5 rounded-md bg-surface-container-lowest border border-border/40 font-body text-sm outline-none focus:ring-2 focus:ring-foreground/10 focus:border-foreground/30 transition-all"
+                  className="w-full px-4 py-3.5 rounded-xl bg-surface-container-lowest border border-border/40 font-body text-sm outline-none focus:ring-2 focus:ring-foreground/10 focus:border-foreground/30 transition-all"
                 />
               </div>
               <div>
@@ -401,7 +401,7 @@ const DevenirPartenaire = () => {
               </div>
               <button
                 type="submit" disabled={sending}
-                className="w-full flex items-center justify-center gap-2 bg-foreground text-white px-8 py-4 rounded-md font-headline font-bold text-sm disabled:opacity-50 transition-all"
+                className="w-full flex items-center justify-center gap-2 bg-foreground text-white px-8 py-4 rounded-xl font-headline font-bold text-sm disabled:opacity-50 transition-all"
               >
                 {sending ? (
                   <><span className="material-symbols-outlined animate-spin text-base">progress_activity</span>Envoi en cours...</>
@@ -436,11 +436,11 @@ const DevenirPartenaire = () => {
                 Notre équipe partenariat est disponible du lundi au samedi de 7h à 20h pour répondre à toutes vos questions.
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
-                <Link to="/contact" className="inline-flex items-center gap-2 bg-white text-foreground px-6 py-3 rounded-full font-headline font-bold text-sm">
+                <Link to="/contact" className="inline-flex items-center gap-2 bg-white text-foreground px-6 py-3 rounded-xl font-headline font-bold text-sm">
                   <span className="material-symbols-outlined text-base">mail</span>
                   Nous contacter
                 </Link>
-                <a href="#candidature" className="inline-flex items-center gap-2 border border-white/20 text-white px-6 py-3 rounded-full font-headline font-bold text-sm">
+                <a href="#candidature" className="inline-flex items-center gap-2 border border-white/20 text-white px-6 py-3 rounded-xl font-headline font-bold text-sm">
                   <span className="material-symbols-outlined text-base">agriculture</span>
                   Déposer ma candidature
                 </a>

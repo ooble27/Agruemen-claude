@@ -63,7 +63,7 @@ const Blog = () => {
                 <p className="font-body text-white/60 text-lg leading-relaxed max-w-xl mb-8">{featured.excerpt}</p>
                 <Link
                   to={`/blog/${featured.slug}`}
-                  className="inline-flex items-center gap-3 bg-white text-foreground font-headline font-bold text-sm px-7 py-4 rounded-full group"
+                  className="inline-flex items-center gap-3 bg-white text-foreground font-headline font-bold text-sm px-7 py-4 rounded-xl group"
                 >
                   Lire l'article
                   <span className="material-symbols-outlined text-base transition-transform duration-200 group-hover:translate-x-1">arrow_forward</span>
@@ -244,11 +244,11 @@ const Blog = () => {
             </h2>
           </motion.div>
           <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="flex flex-wrap gap-4 lg:justify-end">
-            <Link to="/devenir-partenaire" className="inline-flex items-center gap-2 bg-foreground text-white font-headline font-bold text-sm px-7 py-4 rounded-full">
+            <Link to="/devenir-partenaire" className="inline-flex items-center gap-2 bg-foreground text-white font-headline font-bold text-sm px-7 py-4 rounded-xl">
               <span className="material-symbols-outlined text-sm">agriculture</span>
               Devenir partenaire
             </Link>
-            <Link to="/nos-engagements" className="inline-flex items-center gap-2 border border-border/40 text-on-surface-variant font-headline font-bold text-sm px-7 py-4 rounded-full">
+            <Link to="/nos-engagements" className="inline-flex items-center gap-2 border border-border/40 text-on-surface-variant font-headline font-bold text-sm px-7 py-4 rounded-xl">
               Nos engagements
             </Link>
           </motion.div>

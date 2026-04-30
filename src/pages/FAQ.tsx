@@ -192,7 +192,7 @@ const FAQ = () => {
             <span className="material-symbols-outlined text-emerald-400 text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>support_agent</span>
             <h3 className="font-headline font-extrabold text-white text-xl">Parler à un agent</h3>
             <p className="font-body text-sm text-white/45 leading-relaxed">Notre équipe est disponible du lundi au samedi de 7h à 20h pour répondre à toutes vos questions.</p>
-            <Link to="/contact" className="inline-flex items-center gap-2 bg-white text-foreground font-headline font-bold text-sm px-6 py-3 rounded-full w-fit mt-auto">
+            <Link to="/contact" className="inline-flex items-center gap-2 bg-white text-foreground font-headline font-bold text-sm px-6 py-3 rounded-xl w-fit mt-auto">
               <span className="material-symbols-outlined text-sm">mail</span>
               Nous contacter
             </Link>
@@ -208,7 +208,7 @@ const FAQ = () => {
             <span className="material-symbols-outlined text-emerald-400 text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>agriculture</span>
             <h3 className="font-headline font-extrabold text-white text-xl">Vous êtes producteur ?</h3>
             <p className="font-body text-sm text-white/45 leading-relaxed">Rejoignez les 340+ agriculteurs qui vendent directement sur Agrumen. Inscription gratuite, sans engagement.</p>
-            <Link to="/devenir-partenaire" className="inline-flex items-center gap-2 bg-emerald-500 text-white font-headline font-bold text-sm px-6 py-3 rounded-full w-fit mt-auto">
+            <Link to="/devenir-partenaire" className="inline-flex items-center gap-2 bg-emerald-500 text-white font-headline font-bold text-sm px-6 py-3 rounded-xl w-fit mt-auto">
               <span className="material-symbols-outlined text-sm">agriculture</span>
               Devenir partenaire
             </Link>

@@ -162,11 +162,11 @@ const NosEngagements = () => {
             </h2>
           </motion.div>
           <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="flex flex-wrap gap-4 lg:justify-end">
-            <Link to="/marche" className="inline-flex items-center gap-2 bg-foreground text-white font-headline font-bold text-sm px-7 py-4 rounded-full">
+            <Link to="/marche" className="inline-flex items-center gap-2 bg-foreground text-white font-headline font-bold text-sm px-7 py-4 rounded-xl">
               <span className="material-symbols-outlined text-sm">storefront</span>
               Explorer le marché
             </Link>
-            <Link to="/qui-sommes-nous" className="inline-flex items-center gap-2 border border-border/40 text-on-surface-variant font-headline font-bold text-sm px-7 py-4 rounded-full">
+            <Link to="/qui-sommes-nous" className="inline-flex items-center gap-2 border border-border/40 text-on-surface-variant font-headline font-bold text-sm px-7 py-4 rounded-xl">
               Notre histoire
             </Link>
           </motion.div>

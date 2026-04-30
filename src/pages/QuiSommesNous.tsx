@@ -68,11 +68,11 @@ const QuiSommesNous = () => {
             </p>
 
             <div className="flex flex-wrap gap-3">
-              <Link to="/marche" className="inline-flex items-center gap-2 bg-white text-foreground font-headline text-sm font-bold rounded-full px-6 py-3.5">
+              <Link to="/marche" className="inline-flex items-center gap-2 bg-white text-foreground font-headline text-sm font-bold rounded-xl px-6 py-3.5">
                 <span className="material-symbols-outlined text-sm">storefront</span>
                 Explorer le marché
               </Link>
-              <Link to="/devenir-partenaire" className="inline-flex items-center gap-2 border border-white/20 text-white/70 font-headline text-sm font-bold rounded-full px-6 py-3.5">
+              <Link to="/devenir-partenaire" className="inline-flex items-center gap-2 border border-white/20 text-white/70 font-headline text-sm font-bold rounded-xl px-6 py-3.5">
                 Devenir partenaire
               </Link>
             </div>
@@ -375,11 +375,11 @@ const QuiSommesNous = () => {
             Une place pour<br />chacun chez<br />Agrumen.
           </h2>
           <div className="flex flex-wrap gap-3">
-            <Link to="/marche" className="inline-flex items-center gap-2 bg-foreground text-white font-headline font-bold text-sm rounded-full px-6 py-3.5">
+            <Link to="/marche" className="inline-flex items-center gap-2 bg-foreground text-white font-headline font-bold text-sm rounded-xl px-6 py-3.5">
               <span className="material-symbols-outlined text-sm">storefront</span>
               Explorer le marché
             </Link>
-            <Link to="/devenir-partenaire" className="inline-flex items-center gap-2 border border-border/40 text-on-surface-variant font-headline font-bold text-sm rounded-full px-6 py-3.5">
+            <Link to="/devenir-partenaire" className="inline-flex items-center gap-2 border border-border/40 text-on-surface-variant font-headline font-bold text-sm rounded-xl px-6 py-3.5">
               Devenir partenaire
             </Link>
           </div>
