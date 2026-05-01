@@ -30,89 +30,105 @@ const BottomNav = () => {
   };
 
   return (
-    <nav
-      className="fixed bottom-0 left-0 right-0 z-50 md:hidden"
-      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
-    >
-      <div className="mx-4 mb-4">
-        <div className="flex items-end justify-around bg-[#111111] border border-white/[0.07] rounded-2xl px-2 py-3 shadow-[0_12px_48px_rgba(0,0,0,0.6)]">
-          {NAV_ITEMS.map((item) => {
-            const isCart = item.path === "__cart__";
-            const isProfile = item.path === "__profile__";
-            const active = isActive(item.path);
-            const href = isProfile ? profilePath : item.path;
+    <>
+      {/* Safe area spacer */}
+      <div className="h-[72px] md:hidden" style={{ paddingBottom: "env(safe-area-inset-bottom)" }} />
 
-            const inner = (
-              <div className="flex flex-col items-center gap-1.5 relative px-3">
-                {/* Cart special button */}
-                {isCart ? (
-                  <div className="relative">
-                    <motion.div
-                      animate={{ backgroundColor: active ? "#10b981" : "rgba(255,255,255,0.07)" }}
-                      transition={{ duration: 0.2 }}
-                      className="w-11 h-11 rounded-xl flex items-center justify-center"
-                    >
+      <nav
+        className="fixed bottom-0 left-0 right-0 z-50 md:hidden"
+        style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+      >
+        {/* Gradient fade at top */}
+        <div className="absolute -top-6 left-0 right-0 h-6 bg-gradient-to-t from-background/60 to-transparent pointer-events-none" />
+
+        <div className="bg-background border-t border-border/30 px-2 pt-2 pb-2">
+          <div className="flex items-start justify-around max-w-sm mx-auto">
+            {NAV_ITEMS.map((item) => {
+              const isCart = item.path === "__cart__";
+              const isProfile = item.path === "__profile__";
+              const active = isActive(item.path);
+              const href = isProfile ? profilePath : item.path;
+
+              const inner = (
+                <div className="flex flex-col items-center gap-1 relative w-14">
+                  {/* Active indicator bar at top */}
+                  <motion.div
+                    animate={{ scaleX: active ? 1 : 0, opacity: active ? 1 : 0 }}
+                    transition={{ type: "spring", stiffness: 500, damping: 40 }}
+                    className="absolute -top-2 left-1/2 -translate-x-1/2 w-8 h-0.5 rounded-full bg-foreground origin-center"
+                  />
+
+                  {/* Cart: special pill */}
+                  {isCart ? (
+                    <div className="relative">
+                      <motion.div
+                        animate={{
+                          backgroundColor: active ? "hsl(var(--foreground))" : "transparent",
+                        }}
+                        transition={{ duration: 0.2 }}
+                        className="w-12 h-10 rounded-md flex items-center justify-center"
+                      >
+                        <span
+                          className={`material-symbols-outlined text-[22px] transition-colors duration-200 ${
+                            active ? "text-white" : "text-on-surface-variant/70"
+                          }`}
+                          style={{ fontVariationSettings: active ? "'FILL' 1" : "'wght' 400" }}
+                        >
+                          {item.icon}
+                        </span>
+                      </motion.div>
+                      {totalItems > 0 && (
+                        <motion.span
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          className="absolute -top-1 -right-0.5 min-w-[16px] h-4 bg-red-500 text-white text-[9px] font-bold rounded-sm flex items-center justify-center leading-none px-1 z-10"
+                        >
+                          {totalItems > 9 ? "9+" : totalItems}
+                        </motion.span>
+                      )}
+                    </div>
+                  ) : (
+                    <div className={`w-12 h-10 rounded-md flex items-center justify-center transition-colors duration-200 ${active ? "bg-foreground/6" : ""}`}>
                       <span
-                        className={`material-symbols-outlined text-[22px] transition-colors duration-200 ${active ? "text-white" : "text-white/40"}`}
-                        style={{ fontVariationSettings: active ? "'FILL' 1" : "'wght' 300" }}
+                        className={`material-symbols-outlined text-[22px] transition-colors duration-200 ${
+                          active ? "text-foreground" : "text-on-surface-variant/55"
+                        }`}
+                        style={{ fontVariationSettings: active ? "'FILL' 1, 'wght' 600" : "'wght' 300" }}
                       >
                         {item.icon}
                       </span>
-                    </motion.div>
-                    {totalItems > 0 && (
-                      <motion.span
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        className="absolute -top-1 -right-1 w-[17px] h-[17px] bg-red-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center leading-none z-10"
-                      >
-                        {totalItems > 9 ? "9+" : totalItems}
-                      </motion.span>
-                    )}
-                  </div>
-                ) : (
+                    </div>
+                  )}
+
+                  {/* Label */}
                   <span
-                    className={`material-symbols-outlined text-[24px] transition-all duration-200 ${active ? "text-emerald-400" : "text-white/30"}`}
-                    style={{ fontVariationSettings: active ? "'FILL' 1, 'wght' 600" : "'wght' 300" }}
+                    className={`font-headline text-[9px] font-bold tracking-wide leading-none transition-colors duration-200 ${
+                      active ? "text-foreground" : "text-on-surface-variant/40"
+                    }`}
                   >
-                    {item.icon}
+                    {item.label}
                   </span>
-                )}
-
-                {/* Label — visible for all items, dimmed when inactive */}
-                <span
-                  className={`font-headline text-[9px] font-bold tracking-wide leading-none transition-colors duration-200 ${active ? "text-white/80" : "text-white/25"}`}
-                >
-                  {item.label}
-                </span>
-
-                {/* Active indicator dot */}
-                {active && !isCart && (
-                  <motion.span
-                    layoutId="bottomnav-dot"
-                    className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-emerald-400"
-                    transition={{ type: "spring", stiffness: 500, damping: 35 }}
-                  />
-                )}
-              </div>
-            );
-
-            if (isCart) {
-              return (
-                <button key="cart" onClick={() => setIsOpen(true)} className="outline-none">
-                  {inner}
-                </button>
+                </div>
               );
-            }
 
-            return (
-              <Link key={item.path} to={href} className="outline-none">
-                {inner}
-              </Link>
-            );
-          })}
+              if (isCart) {
+                return (
+                  <button key="cart" onClick={() => setIsOpen(true)} className="outline-none">
+                    {inner}
+                  </button>
+                );
+              }
+
+              return (
+                <Link key={item.path} to={href} className="outline-none">
+                  {inner}
+                </Link>
+              );
+            })}
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </>
   );
 };
 
