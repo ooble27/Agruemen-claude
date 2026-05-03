@@ -98,7 +98,6 @@ const Marche = () => {
   const handleAddToCart = (product: Product, e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    if (product.id.startsWith("m")) return;
     addItem({
       id: product.id,
       name: product.name,

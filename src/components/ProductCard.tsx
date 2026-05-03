@@ -80,7 +80,7 @@ const ProductCard = ({ product, onAddToCart, formatPrice, index = 0 }: ProductCa
           </div>
 
           {/* Add to cart — desktop hover */}
-          {!outOfStock && !isMock && (
+          {!outOfStock && (
             <motion.button
               whileTap={{ scale: 0.88 }}
               onClick={(e) => onAddToCart(product, e)}
@@ -115,7 +115,7 @@ const ProductCard = ({ product, onAddToCart, formatPrice, index = 0 }: ProductCa
             <motion.button
               whileTap={{ scale: 0.85 }}
               onClick={(e) => onAddToCart(product, e)}
-              disabled={outOfStock || isMock}
+              disabled={outOfStock}
               className="w-7 h-7 rounded-sm bg-foreground text-white flex items-center justify-center transition-colors md:hidden disabled:opacity-25 shrink-0"
             >
               <span className="material-symbols-outlined text-[14px]">add</span>

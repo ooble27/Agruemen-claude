@@ -392,7 +392,7 @@ const ProductDetail = () => {
           >
             <button
               onClick={handleAddToCart}
-              disabled={product.stock <= 0 || isMock}
+              disabled={product.stock <= 0}
               className="w-full bg-foreground text-white py-3.5 rounded-sm font-headline font-black text-base flex items-center justify-center gap-2 active:scale-[0.97] transition-transform disabled:opacity-40"
             >
               <span className="material-symbols-outlined text-lg">shopping_basket</span>
@@ -589,7 +589,7 @@ const ProductDetail = () => {
                     {/* Add to cart */}
                     <button
                       onClick={handleAddToCart}
-                      disabled={product.stock <= 0 || isMock}
+                      disabled={product.stock <= 0}
                       className="w-full bg-foreground text-white py-4 rounded-sm font-headline font-black text-base flex items-center justify-center gap-2.5 hover:opacity-90 active:scale-[0.98] transition-all disabled:opacity-40"
                     >
                       <span className="material-symbols-outlined text-lg">shopping_basket</span>
