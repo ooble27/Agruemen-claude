@@ -145,3 +145,11 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Respect user motion preferences — stop marquee animations */
+@media (prefers-reduced-motion: reduce) {
+  .will-change-transform {
+    animation: none !important;
+    will-change: auto;
+  }
+}

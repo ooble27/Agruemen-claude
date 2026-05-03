@@ -15,7 +15,7 @@ type Product = MarketProduct;
 
 const Marche = () => {
   const { addItem } = useCart();
-  const { user, profile } = useAuth();
+  const { profile } = useAuth();
   const [dbProducts, setDbProducts] = useState<Product[]>([]);
   const [dbCategories, setDbCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
@@ -108,7 +108,7 @@ const Marche = () => {
       farmer: product.shops?.name || "Producteur",
       shopId: product.shop_id,
     });
-    toast.success(`${product.name} ajouté au panier`, { icon: "🧺" });
+    toast.success(`${product.name} ajouté au panier`);
   };
 
   const formatPrice = (n: number) => n.toLocaleString("fr-FR");
@@ -311,7 +311,8 @@ const Marche = () => {
             /* Default — horizontal scroll sections by category */
             <div className="space-y-6">
               <HorizontalProductRow
-                title="Populaires 🔥"
+                title="Populaires"
+                icon="local_fire_department"
                 products={products.slice(0, 10)}
                 onAddToCart={handleAddToCart}
                 formatPrice={formatPrice}

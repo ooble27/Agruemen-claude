@@ -1,21 +1,21 @@
 import { motion } from "framer-motion";
 
 const products = [
-  { emoji: "🥭", name: "Mangues Kent" },
-  { emoji: "🍅", name: "Tomate Mboro" },
-  { emoji: "🌺", name: "Bissap Rouge" },
-  { emoji: "🍉", name: "Pastèque" },
-  { emoji: "🍋", name: "Citron Vert" },
-  { emoji: "🌶️", name: "Piment Kaani" },
-  { emoji: "🫛", name: "Gombo" },
-  { emoji: "🍠", name: "Igname" },
-  { emoji: "🍌", name: "Banane Plantain" },
-  { emoji: "🍍", name: "Ananas Victoria" },
-  { emoji: "🍈", name: "Papaye" },
-  { emoji: "🧅", name: "Oignon de Podor" },
-  { emoji: "🌾", name: "Mil Souna" },
-  { emoji: "🥜", name: "Arachide" },
-  { emoji: "🥥", name: "Coco" },
+  { name: "Mangues Kent" },
+  { name: "Tomate Mboro" },
+  { name: "Bissap Rouge" },
+  { name: "Pastèque" },
+  { name: "Citron Vert" },
+  { name: "Piment Kaani" },
+  { name: "Gombo" },
+  { name: "Igname" },
+  { name: "Banane Plantain" },
+  { name: "Ananas Victoria" },
+  { name: "Papaye" },
+  { name: "Oignon de Podor" },
+  { name: "Mil Souna" },
+  { name: "Arachide" },
+  { name: "Coco" },
 ];
 
 const stats = [
@@ -33,7 +33,7 @@ const TrustBar = () => {
     <section className="bg-white/60 backdrop-blur-sm">
 
       {/* Marquee — pas de pr-X pour que -50% = exactement une copie */}
-      <div className="relative flex overflow-hidden border-y border-black/8 bg-black/[0.015] py-3">
+      <div className="relative flex overflow-hidden border-y border-black/8 bg-black/[0.015] py-3" aria-hidden="true">
         <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-20 bg-gradient-to-r from-white/60 to-transparent" />
         <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-20 bg-gradient-to-l from-white/60 to-transparent" />
         <div
@@ -45,7 +45,7 @@ const TrustBar = () => {
               key={i}
               className="flex shrink-0 items-center gap-2 font-headline text-[12px] font-semibold text-on-surface-variant"
             >
-              <span className="text-base leading-none">{product.emoji}</span>
+              <span className="material-symbols-outlined text-[13px] text-primary/60" style={{ fontVariationSettings: "'FILL' 1" }}>eco</span>
               {product.name}
               <span className="ml-2 h-1 w-1 shrink-0 rounded-full bg-foreground/20" />
             </span>

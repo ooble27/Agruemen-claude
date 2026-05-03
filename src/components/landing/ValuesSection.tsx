@@ -2,14 +2,14 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 const categories = [
-  { label: "Fruits",            emoji: "🍋", border: "#fbbf24", href: "/marche?cat=cat-fruits" },
-  { label: "Légumes",           emoji: "🥦", border: "#22c55e", href: "/marche?cat=cat-legumes" },
-  { label: "Céréales",          emoji: "🌾", border: "#f59e0b", href: "/marche?cat=cat-cereales" },
-  { label: "Tubercules",        emoji: "🥕", border: "#f97316", href: "/marche?cat=cat-tubercules" },
-  { label: "Épices",            emoji: "🌶️", border: "#ef4444", href: "/marche" },
-  { label: "Bio & Local",       emoji: "🌿", border: "#10b981", href: "/marche" },
-  { label: "Volaille",          emoji: "🐔", border: "#a78bfa", href: "/marche" },
-  { label: "Produits Laitiers", emoji: "🥛", border: "#60a5fa", href: "/marche" },
+  { label: "Fruits",            icon: "nutrition",      border: "#fbbf24", href: "/marche?cat=cat-fruits" },
+  { label: "Légumes",           icon: "local_florist",  border: "#22c55e", href: "/marche?cat=cat-legumes" },
+  { label: "Céréales",          icon: "grass",          border: "#f59e0b", href: "/marche?cat=cat-cereales" },
+  { label: "Tubercules",        icon: "compost",        border: "#f97316", href: "/marche?cat=cat-tubercules" },
+  { label: "Épices",            icon: "spa",            border: "#ef4444", href: "/marche" },
+  { label: "Bio & Local",       icon: "eco",            border: "#10b981", href: "/marche" },
+  { label: "Volaille",          icon: "local_dining",   border: "#a78bfa", href: "/marche" },
+  { label: "Produits Laitiers", icon: "water_drop",     border: "#60a5fa", href: "/marche" },
 ];
 
 // Triple pour que -33.3% → jamais de jonction visible
@@ -19,13 +19,18 @@ const row2 = [...[...categories].reverse(), ...[...categories].reverse(), ...[..
 const Chip = ({ cat }: { cat: typeof categories[0] }) => (
   <Link
     to={cat.href}
-    className="flex shrink-0 items-center gap-3 rounded-full px-6 py-3.5 transition-opacity hover:opacity-75"
+    className="flex shrink-0 items-center gap-3 rounded-full px-6 py-3.5 transition-opacity hover:opacity-75 cursor-pointer"
     style={{
       border: `1.5px solid ${cat.border}33`,
       backgroundColor: `${cat.border}12`,
     }}
   >
-    <span className="text-2xl leading-none">{cat.emoji}</span>
+    <span
+      className="material-symbols-outlined text-[20px] leading-none shrink-0"
+      style={{ color: cat.border, fontVariationSettings: "'FILL' 1" }}
+    >
+      {cat.icon}
+    </span>
     <span className="font-headline text-base font-bold text-white">{cat.label}</span>
   </Link>
 );
@@ -58,7 +63,7 @@ const ValuesSection = () => {
       </motion.div>
 
       {/* Row 1 → — pas de pr-X, animation inline pour contrôle précis */}
-      <div className="relative mb-4 flex overflow-hidden">
+      <div className="relative mb-4 flex overflow-hidden" aria-hidden="true">
         <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-24 bg-gradient-to-r from-[#0a0a0a] to-transparent" />
         <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-24 bg-gradient-to-l from-[#0a0a0a] to-transparent" />
         <div
@@ -72,7 +77,7 @@ const ValuesSection = () => {
       </div>
 
       {/* Row 2 ← */}
-      <div className="relative flex overflow-hidden">
+      <div className="relative flex overflow-hidden" aria-hidden="true">
         <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-24 bg-gradient-to-r from-[#0a0a0a] to-transparent" />
         <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-24 bg-gradient-to-l from-[#0a0a0a] to-transparent" />
         <div

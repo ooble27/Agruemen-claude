@@ -48,13 +48,13 @@ const HorizontalProductRow = ({ title, icon, products, onAddToCart, formatPrice,
         <div className="flex items-center gap-1.5">
           <button
             onClick={() => scroll("left")}
-            className="hidden md:flex w-7 h-7 rounded-sm bg-surface-container items-center justify-center hover:bg-surface-container-high transition-colors"
+            className="hidden md:flex w-7 h-7 rounded-sm bg-surface-container items-center justify-center hover:bg-surface-container-high transition-colors cursor-pointer"
           >
             <span className="material-symbols-outlined text-sm text-on-surface-variant">chevron_left</span>
           </button>
           <button
             onClick={() => scroll("right")}
-            className="hidden md:flex w-7 h-7 rounded-sm bg-surface-container items-center justify-center hover:bg-surface-container-high transition-colors"
+            className="hidden md:flex w-7 h-7 rounded-sm bg-surface-container items-center justify-center hover:bg-surface-container-high transition-colors cursor-pointer"
           >
             <span className="material-symbols-outlined text-sm text-on-surface-variant">chevron_right</span>
           </button>
