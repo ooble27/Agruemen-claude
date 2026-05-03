@@ -3,7 +3,6 @@ import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
-import Navbar from "@/components/Navbar";
 
 const OrderConfirmation = () => {
   const [searchParams] = useSearchParams();
@@ -36,161 +35,218 @@ const OrderConfirmation = () => {
 
   if (authLoading || loading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <span className="material-symbols-outlined text-4xl text-on-surface-variant animate-spin">progress_activity</span>
+      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
+        <span className="material-symbols-outlined text-4xl text-white/20 animate-spin">progress_activity</span>
       </div>
     );
   }
 
   if (!order) return null;
 
+  const STATUS_STEPS = ["Reçue", "Confirmée", "Préparation", "Livraison", "Livrée"];
+
   return (
-    <div className="min-h-screen bg-surface-container-lowest">
-      <Navbar />
-      <main className="pb-20 px-4 md:px-12 max-w-2xl mx-auto" style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 80px)" }}>
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+    <div className="min-h-screen bg-background">
 
-          {/* Success header */}
-          <div className="flex flex-col items-center text-center pt-8 pb-10">
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.15 }}
-              className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mb-6"
-            >
-              <span
-                className="material-symbols-outlined text-5xl text-primary"
-                style={{ fontVariationSettings: "'FILL' 1" }}
-              >
-                check_circle
-              </span>
-            </motion.div>
-            <h1 className="text-3xl font-headline font-extrabold tracking-tighter mb-2">
-              Commande confirmée !
-            </h1>
-            <p className="text-on-surface-variant font-body max-w-sm">
-              Merci pour votre confiance. Nous préparons votre commande avec soin.
-            </p>
-            <div className="mt-4 bg-surface-container rounded-full px-4 py-1.5">
-              <span className="text-xs font-headline font-bold text-on-surface-variant tracking-widest uppercase">
-                #{order.id.slice(0, 8).toUpperCase()}
-              </span>
-            </div>
-          </div>
+      {/* ── HERO DARK ── */}
+      <section className="bg-[#0a0a0a] relative overflow-hidden">
+        {/* Dot grid */}
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.04]"
+          style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "24px 24px" }}
+        />
 
-          {/* Delivery info */}
-          <div className="bg-primary/[0.05] border border-primary/20 rounded-lg p-5 mb-4 flex items-start gap-4">
+        <div className="relative z-10 px-6 md:px-14 pt-20 pb-16 max-w-2xl mx-auto text-center">
+          {/* Animated check */}
+          <motion.div
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: "spring", stiffness: 300, damping: 22, delay: 0.1 }}
+            className="inline-flex items-center justify-center w-20 h-20 rounded-sm bg-white/8 border border-white/12 mb-8"
+          >
             <span
-              className="material-symbols-outlined text-primary text-2xl mt-0.5 shrink-0"
+              className="material-symbols-outlined text-5xl text-white"
               style={{ fontVariationSettings: "'FILL' 1" }}
             >
-              local_shipping
+              check_circle
             </span>
-            <div>
-              <p className="font-headline font-bold text-sm mb-0.5">Livraison à {order.shipping_city}</p>
-              <p className="font-body text-xs text-on-surface-variant">{order.shipping_address}</p>
-              <p className="font-body text-xs text-on-surface-variant mt-1.5">
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.25 }}
+          >
+            <p className="font-headline text-[10px] font-bold uppercase tracking-[0.2em] text-white/35 mb-3">
+              Commande confirmée
+            </p>
+            <h1
+              className="font-headline font-black text-white tracking-tighter leading-[0.92] mb-4"
+              style={{ fontSize: "clamp(2.2rem, 5vw, 3.5rem)" }}
+            >
+              Merci pour<br />votre commande.
+            </h1>
+            <p className="font-body text-white/45 text-sm mb-6">
+              Nous préparons votre commande avec soin. Vous serez notifié à chaque étape.
+            </p>
+
+            {/* Order ID badge */}
+            <div className="inline-flex items-center gap-2 bg-white/8 border border-white/12 rounded-sm px-4 py-2">
+              <span className="material-symbols-outlined text-white/40 text-[14px]">tag</span>
+              <span className="font-headline text-xs font-bold text-white/60 tracking-[0.15em] uppercase">
+                {order.id.slice(0, 8).toUpperCase()}
+              </span>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── CONTENT ── */}
+      <main className="px-5 md:px-8 max-w-2xl mx-auto py-10 space-y-4">
+
+        {/* Delivery info */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.4 }}
+          className="rounded-sm border border-border/25 bg-background overflow-hidden"
+        >
+          <div className="flex items-center gap-3 px-5 py-4 border-b border-border/15">
+            <div className="w-8 h-8 rounded-sm bg-foreground/8 flex items-center justify-center shrink-0">
+              <span className="material-symbols-outlined text-foreground text-[16px]">local_shipping</span>
+            </div>
+            <h2 className="font-headline font-black text-sm tracking-tight">Livraison</h2>
+          </div>
+          <div className="px-5 py-4">
+            <p className="font-headline font-bold text-sm text-foreground">{order.shipping_address}</p>
+            <p className="font-body text-xs text-on-surface-variant mt-0.5">{order.shipping_city} · {order.phone}</p>
+            <div className="mt-3 flex items-center gap-2 bg-surface-container rounded-sm px-3 py-2">
+              <span className="material-symbols-outlined text-[14px] text-on-surface-variant/60">schedule</span>
+              <p className="font-body text-xs text-on-surface-variant">
                 Livraison estimée :{" "}
-                <strong className="text-foreground">aujourd'hui avant 20h</strong>
+                <strong className="text-foreground font-headline">aujourd'hui avant 20h</strong>
               </p>
             </div>
           </div>
+        </motion.div>
 
-          {/* Order items */}
-          <div className="bg-card rounded-lg border border-border/30 overflow-hidden mb-4">
-            <div className="px-5 py-4 border-b border-border/20 bg-surface-container-lowest">
-              <h2 className="font-headline text-sm font-bold flex items-center gap-2">
-                <span className="material-symbols-outlined text-primary text-[18px]">shopping_basket</span>
-                Articles commandés
-              </h2>
-            </div>
-            <div className="divide-y divide-border/10">
-              {items.length > 0 ? items.map(item => (
-                <div key={item.id} className="flex items-center gap-4 px-5 py-4">
-                  <img
-                    src={item.products?.image_url || "/placeholder.svg"}
-                    alt={item.products?.name}
-                    className="w-14 h-14 rounded-md object-cover shrink-0"
-                  />
-                  <div className="flex-1 min-w-0">
-                    <p className="font-headline text-sm font-semibold truncate">{item.products?.name}</p>
-                    <p className="font-body text-xs text-on-surface-variant">
-                      {item.quantity} × {item.unit_price?.toLocaleString("fr-FR")} FCFA
-                    </p>
+        {/* Status tracker */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.5 }}
+          className="rounded-sm border border-border/25 bg-background px-5 py-5"
+        >
+          <p className="font-headline text-[9px] font-bold uppercase tracking-[0.2em] text-on-surface-variant/50 mb-4">
+            Suivi de commande
+          </p>
+          <div className="flex items-center">
+            {STATUS_STEPS.map((label, i) => (
+              <div key={label} className="flex flex-1 items-center">
+                <div className="flex flex-col items-center gap-1.5 shrink-0">
+                  <div className={`w-7 h-7 rounded-sm flex items-center justify-center border-2 transition-all ${
+                    i === 0 ? "border-foreground bg-foreground" : "border-border/30 bg-background"
+                  }`}>
+                    {i === 0 ? (
+                      <span className="material-symbols-outlined text-white text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>check</span>
+                    ) : (
+                      <div className="w-1.5 h-1.5 rounded-full bg-border/40" />
+                    )}
                   </div>
-                  <span className="font-headline text-sm font-bold whitespace-nowrap">
-                    {formatPrice(item.unit_price * item.quantity)}
+                  <span className={`text-[9px] font-headline font-bold text-center leading-tight ${
+                    i === 0 ? "text-foreground" : "text-on-surface-variant/40"
+                  }`}>
+                    {label}
                   </span>
                 </div>
-              )) : (
-                <div className="px-5 py-8 text-center text-on-surface-variant text-sm">
-                  Récapitulatif disponible dans vos commandes
-                </div>
-              )}
-            </div>
-            <div className="border-t border-border/20 bg-surface-container-lowest px-5 py-4 space-y-2">
-              <div className="flex justify-between text-sm">
-                <span className="font-body text-on-surface-variant">Livraison</span>
-                <span className="font-headline font-bold text-primary flex items-center gap-1">
-                  <span className="material-symbols-outlined text-[14px]">local_shipping</span>
-                  Gratuite
-                </span>
+                {i < STATUS_STEPS.length - 1 && (
+                  <div className="flex-1 h-px mb-4 mx-1" style={{ background: i === 0 ? "hsl(var(--foreground))" : "hsl(var(--border) / 0.3)" }} />
+                )}
               </div>
-              <div className="flex justify-between items-center border-t border-border/20 pt-3">
-                <span className="font-headline font-extrabold">Total</span>
-                <span className="font-headline text-xl font-extrabold text-primary">
-                  {formatPrice(order.total)}
-                </span>
-              </div>
-            </div>
+            ))}
           </div>
-
-          {/* Status tracker */}
-          <div className="bg-card rounded-lg border border-border/30 p-5 mb-6">
-            <p className="font-headline text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-4">
-              Suivi de commande
-            </p>
-            <div className="flex items-center gap-0">
-              {["Reçue", "Confirmée", "Préparation", "Livraison", "Livrée"].map((label, i) => (
-                <div key={label} className="flex flex-1 items-center">
-                  <div className="flex flex-col items-center gap-1 shrink-0">
-                    <div className={`w-7 h-7 rounded-full flex items-center justify-center border-2 transition-all ${i === 0 ? "border-primary bg-primary" : "border-border/40 bg-white"}`}>
-                      {i === 0
-                        ? <span className="material-symbols-outlined text-white text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>check</span>
-                        : <div className="w-2 h-2 rounded-full bg-border/40" />
-                      }
-                    </div>
-                    <span className={`text-[9px] font-headline font-bold text-center leading-tight ${i === 0 ? "text-primary" : "text-on-surface-variant/50"}`}>
-                      {label}
-                    </span>
-                  </div>
-                  {i < 4 && (
-                    <div className="flex-1 h-px bg-border/30 mb-4 mx-1" />
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Link
-              to="/mes-commandes"
-              className="flex-1 flex items-center justify-center gap-2 py-3.5 bg-primary rounded-lg font-headline font-bold text-primary-foreground hover:opacity-90 transition-opacity"
-            >
-              <span className="material-symbols-outlined text-[18px]">receipt_long</span>
-              Suivre ma commande
-            </Link>
-            <Link
-              to="/marche"
-              className="flex-1 flex items-center justify-center gap-2 py-3.5 bg-surface-container rounded-lg font-headline font-bold text-on-surface-variant hover:bg-surface-container-high transition-colors"
-            >
-              <span className="material-symbols-outlined text-[18px]">storefront</span>
-              Continuer les achats
-            </Link>
-          </div>
-
         </motion.div>
+
+        {/* Order items */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.55 }}
+          className="rounded-sm border border-border/25 bg-background overflow-hidden"
+        >
+          <div className="flex items-center gap-3 px-5 py-4 border-b border-border/15">
+            <div className="w-8 h-8 rounded-sm bg-foreground/8 flex items-center justify-center shrink-0">
+              <span className="material-symbols-outlined text-foreground text-[16px]">shopping_basket</span>
+            </div>
+            <h2 className="font-headline font-black text-sm tracking-tight">
+              Articles commandés
+            </h2>
+          </div>
+
+          <div className="divide-y divide-border/10">
+            {items.length > 0 ? items.map(item => (
+              <div key={item.id} className="flex items-center gap-4 px-5 py-4">
+                <img
+                  src={item.products?.image_url || "/placeholder.svg"}
+                  alt={item.products?.name}
+                  className="w-14 h-14 rounded-sm object-cover shrink-0"
+                />
+                <div className="flex-1 min-w-0">
+                  <p className="font-headline text-sm font-bold truncate">{item.products?.name}</p>
+                  <p className="font-body text-xs text-on-surface-variant">
+                    {item.quantity} × {item.unit_price?.toLocaleString("fr-FR")} FCFA
+                  </p>
+                </div>
+                <span className="font-headline text-sm font-black whitespace-nowrap">
+                  {formatPrice(item.unit_price * item.quantity)}
+                </span>
+              </div>
+            )) : (
+              <div className="px-5 py-8 text-center">
+                <p className="font-body text-sm text-on-surface-variant/60">Récapitulatif disponible dans vos commandes.</p>
+              </div>
+            )}
+          </div>
+
+          {/* Total */}
+          <div className="border-t border-border/15 bg-surface-container/30 px-5 py-4 space-y-2">
+            <div className="flex justify-between text-sm">
+              <span className="font-body text-on-surface-variant">Livraison</span>
+              <span className="font-headline font-bold text-emerald-600 flex items-center gap-1">
+                <span className="material-symbols-outlined text-[14px]">local_shipping</span>
+                Gratuite
+              </span>
+            </div>
+            <div className="flex items-center justify-between border-t border-border/15 pt-3">
+              <span className="font-headline font-black text-lg">Total</span>
+              <span className="font-headline font-black text-xl">{formatPrice(order.total)}</span>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.65 }}
+          className="flex flex-col sm:flex-row gap-3 pt-2"
+        >
+          <Link
+            to="/mes-commandes"
+            className="flex-1 flex items-center justify-center gap-2 py-3.5 bg-foreground text-white rounded-sm font-headline font-bold text-sm hover:opacity-90 transition-opacity"
+          >
+            <span className="material-symbols-outlined text-[18px]">receipt_long</span>
+            Suivre ma commande
+          </Link>
+          <Link
+            to="/marche"
+            className="flex-1 flex items-center justify-center gap-2 py-3.5 border border-border/30 text-on-surface-variant rounded-sm font-headline font-bold text-sm hover:bg-surface-container transition-colors"
+          >
+            <span className="material-symbols-outlined text-[18px]">storefront</span>
+            Continuer les achats
+          </Link>
+        </motion.div>
+
       </main>
     </div>
   );

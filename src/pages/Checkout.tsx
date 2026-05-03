@@ -122,7 +122,7 @@ const Checkout = () => {
           <div className="flex items-center gap-4 py-4">
             <button
               onClick={() => step > 1 ? setStep(step - 1) : navigate(-1)}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-border/40 bg-white shadow-sm transition-all hover:border-border hover:shadow-md"
+              className="flex h-10 w-10 items-center justify-center rounded-sm border border-border/40 bg-white shadow-sm transition-all hover:border-border hover:shadow-md"
             >
               <span className="material-symbols-outlined text-[20px] text-on-surface-variant">arrow_back</span>
             </button>
@@ -137,7 +137,7 @@ const Checkout = () => {
             {steps.map((s, i) => (
               <div key={s.id} className="flex flex-1 items-center">
                 <div className="flex flex-col items-center gap-1.5">
-                  <div className={`flex h-10 w-10 items-center justify-center rounded-full border-2 transition-all duration-300 ${
+                  <div className={`flex h-10 w-10 items-center justify-center rounded-sm border-2 transition-all duration-300 ${
                     s.id < step
                       ? "border-foreground bg-foreground text-white"
                       : s.id === step
@@ -170,10 +170,10 @@ const Checkout = () => {
                 {/* Step 1: Livraison */}
                 {step === 1 && (
                   <motion.div key="step1" initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 16 }} transition={{ duration: 0.22 }}>
-                    <div className="overflow-hidden rounded-lg border border-border/30 bg-white shadow-sm">
+                    <div className="overflow-hidden rounded-sm border border-border/30 bg-white shadow-sm">
                       <div className="border-b border-border/20 bg-surface-container-lowest px-6 py-5">
                         <div className="flex items-center gap-3">
-                          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-foreground/10">
+                          <div className="flex h-9 w-9 items-center justify-center rounded-sm bg-foreground/8">
                             <span className="material-symbols-outlined text-foreground text-[18px]">local_shipping</span>
                           </div>
                           <div>
@@ -191,7 +191,7 @@ const Checkout = () => {
                             value={address}
                             onChange={e => setAddress(e.target.value)}
                             placeholder="Ex : Sacré Cœur 3, Villa 123"
-                            className="w-full rounded-md border border-border/40 bg-surface-container-lowest px-4 py-3.5 font-body text-sm outline-none transition-all placeholder:text-on-surface-variant/50 focus:border-foreground focus:ring-2 focus:ring-foreground/10"
+                            className="w-full rounded-sm border border-border/40 bg-surface-container-lowest px-4 py-3.5 font-body text-sm outline-none transition-all placeholder:text-on-surface-variant/50 focus:border-foreground focus:ring-2 focus:ring-foreground/10"
                           />
                         </div>
                         <div className="grid grid-cols-2 gap-4">
@@ -201,7 +201,7 @@ const Checkout = () => {
                               <select
                                 value={city}
                                 onChange={e => setCity(e.target.value)}
-                                className="w-full appearance-none rounded-md border border-border/40 bg-surface-container-lowest px-4 py-3.5 font-body text-sm outline-none transition-all focus:border-foreground focus:ring-2 focus:ring-foreground/10"
+                                className="w-full appearance-none rounded-sm border border-border/40 bg-surface-container-lowest px-4 py-3.5 font-body text-sm outline-none transition-all focus:border-foreground focus:ring-2 focus:ring-foreground/10"
                               >
                                 {CITIES.map(c => <option key={c} value={c}>{c}</option>)}
                               </select>
@@ -215,11 +215,11 @@ const Checkout = () => {
                               onChange={e => setPhone(e.target.value)}
                               placeholder="77 000 00 00"
                               type="tel"
-                              className="w-full rounded-md border border-border/40 bg-surface-container-lowest px-4 py-3.5 font-body text-sm outline-none transition-all placeholder:text-on-surface-variant/50 focus:border-foreground focus:ring-2 focus:ring-foreground/10"
+                              className="w-full rounded-sm border border-border/40 bg-surface-container-lowest px-4 py-3.5 font-body text-sm outline-none transition-all placeholder:text-on-surface-variant/50 focus:border-foreground focus:ring-2 focus:ring-foreground/10"
                             />
                           </div>
                         </div>
-                        <div className="flex items-center gap-3 rounded-md bg-surface-container px-4 py-3">
+                        <div className="flex items-center gap-3 rounded-sm bg-surface-container px-4 py-3">
                           <span className="material-symbols-outlined text-on-surface-variant text-[18px]">schedule</span>
                           <p className="font-body text-xs text-on-surface-variant">
                             Livraison estimée :{" "}
@@ -231,7 +231,7 @@ const Checkout = () => {
                     <button
                       onClick={() => setStep(2)}
                       disabled={!canProceedStep1}
-                      className="mt-4 flex w-full items-center justify-center gap-2 rounded-lg bg-foreground py-4 font-headline text-base font-extrabold text-white shadow-sm transition-all hover:opacity-90 hover:scale-[0.99] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none"
+                      className="mt-4 flex w-full items-center justify-center gap-2 rounded-sm bg-foreground py-4 font-headline text-base font-extrabold text-white shadow-sm transition-all hover:opacity-90 hover:scale-[0.99] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none"
                     >
                       Continuer vers le paiement
                       <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
@@ -242,10 +242,10 @@ const Checkout = () => {
                 {/* Step 2: Paiement */}
                 {step === 2 && (
                   <motion.div key="step2" initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 16 }} transition={{ duration: 0.22 }}>
-                    <div className="overflow-hidden rounded-lg border border-border/30 bg-white shadow-sm">
+                    <div className="overflow-hidden rounded-sm border border-border/30 bg-white shadow-sm">
                       <div className="border-b border-border/20 bg-surface-container-lowest px-6 py-5">
                         <div className="flex items-center gap-3">
-                          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-foreground/10">
+                          <div className="flex h-9 w-9 items-center justify-center rounded-sm bg-foreground/8">
                             <span className="material-symbols-outlined text-foreground text-[18px]">payments</span>
                           </div>
                           <div>
@@ -264,14 +264,14 @@ const Checkout = () => {
                               key={method.id}
                               type="button"
                               onClick={() => setPaymentMethod(method.id)}
-                              className={`relative flex flex-col items-center gap-3 rounded-lg border-2 p-5 text-left transition-all duration-200 ${
+                              className={`relative flex flex-col items-center gap-3 rounded-sm border-2 p-5 text-left transition-all duration-200 ${
                                 paymentMethod === method.id
                                   ? `${method.borderActive} bg-gradient-to-br ${method.color} shadow-md`
                                   : "border-border/30 bg-white hover:border-border hover:shadow-sm"
                               }`}
                             >
                               {method.badge && (
-                                <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 rounded-full bg-foreground px-2.5 py-0.5">
+                                <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 rounded-sm bg-foreground px-2.5 py-0.5">
                                   <span className="font-headline text-[9px] font-bold uppercase tracking-wider text-white">{method.badge}</span>
                                 </div>
                               )}
@@ -287,13 +287,13 @@ const Checkout = () => {
                         </div>
 
                         {/* Promo code */}
-                        <div className="rounded-md border border-border/30 bg-surface-container-lowest p-4">
+                        <div className="rounded-sm border border-border/30 bg-surface-container-lowest p-4">
                           <p className="font-headline text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-3 flex items-center gap-2">
                             <span className="material-symbols-outlined text-[16px]">local_offer</span>
                             Code promo
                           </p>
                           {promoCode ? (
-                            <div className="flex items-center justify-between bg-foreground/[0.05] border border-foreground/20 rounded-md px-4 py-2.5">
+                            <div className="flex items-center justify-between bg-foreground/[0.05] border border-foreground/20 rounded-sm px-4 py-2.5">
                               <div className="flex items-center gap-2">
                                 <span className="material-symbols-outlined text-foreground text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
                                 <div>
@@ -315,11 +315,11 @@ const Checkout = () => {
                                 onChange={e => { setPromoInput(e.target.value); setPromoError(""); }}
                                 onKeyDown={e => e.key === "Enter" && applyPromo()}
                                 placeholder="Ex: AGRUMEN10"
-                                className="flex-1 rounded-md border border-border/40 bg-white px-3.5 py-3 font-headline text-sm font-bold uppercase tracking-widest outline-none transition-all placeholder:text-on-surface-variant/40 placeholder:normal-case focus:border-foreground focus:ring-2 focus:ring-foreground/10"
+                                className="flex-1 rounded-sm border border-border/40 bg-white px-3.5 py-3 font-headline text-sm font-bold uppercase tracking-widest outline-none transition-all placeholder:text-on-surface-variant/40 placeholder:normal-case focus:border-foreground focus:ring-2 focus:ring-foreground/10"
                               />
                               <button
                                 onClick={applyPromo}
-                                className="w-full xs:w-auto px-5 py-3 rounded-md bg-foreground text-white font-headline text-sm font-bold hover:opacity-90 transition-opacity whitespace-nowrap"
+                                className="w-full xs:w-auto px-5 py-3 rounded-sm bg-foreground text-white font-headline text-sm font-bold hover:opacity-90 transition-opacity whitespace-nowrap"
                               >
                                 Appliquer
                               </button>
@@ -333,7 +333,7 @@ const Checkout = () => {
                           )}
                         </div>
 
-                        <div className="flex gap-3 rounded-md border border-border/30 bg-surface-container p-4">
+                        <div className="flex gap-3 rounded-sm border border-border/30 bg-surface-container p-4">
                           <span className="material-symbols-outlined shrink-0 text-on-surface-variant text-[18px] mt-0.5">info</span>
                           <p className="font-body text-xs leading-relaxed text-on-surface-variant">
                             Après confirmation, vous recevrez une notification{" "}
@@ -346,7 +346,7 @@ const Checkout = () => {
                     </div>
                     <button
                       onClick={() => setStep(3)}
-                      className="mt-4 flex w-full items-center justify-center gap-2 rounded-lg bg-foreground py-4 font-headline text-base font-extrabold text-white shadow-sm transition-all hover:opacity-90 hover:scale-[0.99] active:scale-[0.97]"
+                      className="mt-4 flex w-full items-center justify-center gap-2 rounded-sm bg-foreground py-4 font-headline text-base font-extrabold text-white shadow-sm transition-all hover:opacity-90 hover:scale-[0.99] active:scale-[0.97]"
                     >
                       Vérifier la commande
                       <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
@@ -357,8 +357,8 @@ const Checkout = () => {
                 {/* Step 3: Confirmation */}
                 {step === 3 && (
                   <motion.div key="step3" initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 16 }} transition={{ duration: 0.22 }} className="space-y-4">
-                    <div className="flex items-start gap-4 rounded-lg border border-border/30 bg-white p-5 shadow-sm">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-foreground/10">
+                    <div className="flex items-start gap-4 rounded-sm border border-border/30 bg-white p-5 shadow-sm">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-sm bg-foreground/8">
                         <span className="material-symbols-outlined text-foreground text-[18px]">location_on</span>
                       </div>
                       <div className="flex-1">
@@ -371,8 +371,8 @@ const Checkout = () => {
                       </div>
                     </div>
 
-                    <div className="flex items-start gap-4 rounded-lg border border-border/30 bg-white p-5 shadow-sm">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-foreground/10">
+                    <div className="flex items-start gap-4 rounded-sm border border-border/30 bg-white p-5 shadow-sm">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-sm bg-foreground/8">
                         <span className="material-symbols-outlined text-foreground text-[18px]">payments</span>
                       </div>
                       <div className="flex-1">
@@ -381,7 +381,7 @@ const Checkout = () => {
                           <button onClick={() => setStep(2)} className="font-headline text-xs font-bold text-foreground hover:underline">Modifier</button>
                         </div>
                         <div className="flex items-center gap-2.5">
-                          <img src={paymentMethod === "wave" ? waveLogo : orangeMoneyLogo} alt={paymentMethod} className="h-8 w-8 rounded-lg object-cover" />
+                          <img src={paymentMethod === "wave" ? waveLogo : orangeMoneyLogo} alt={paymentMethod} className="h-8 w-8 rounded-sm object-cover" />
                           <span className="font-headline text-sm font-semibold">
                             {paymentMethod === "wave" ? "Wave" : "Orange Money"}
                           </span>
@@ -395,7 +395,7 @@ const Checkout = () => {
                       </div>
                     </div>
 
-                    <div className="overflow-hidden rounded-lg border border-border/30 bg-white shadow-sm">
+                    <div className="overflow-hidden rounded-sm border border-border/30 bg-white shadow-sm">
                       <div className="border-b border-border/20 px-5 py-4">
                         <div className="flex items-center gap-2">
                           <span className="material-symbols-outlined text-foreground text-[18px]">shopping_basket</span>
@@ -407,7 +407,7 @@ const Checkout = () => {
                       <div className="divide-y divide-border/20 max-h-[240px] overflow-y-auto">
                         {items.map(item => (
                           <div key={item.id} className="flex items-center gap-4 px-5 py-4">
-                            <img src={item.image} alt={item.name} className="h-14 w-14 shrink-0 rounded-md object-cover" />
+                            <img src={item.image} alt={item.name} className="h-14 w-14 shrink-0 rounded-sm object-cover" />
                             <div className="min-w-0 flex-1">
                               <p className="truncate font-headline text-sm font-semibold">{item.name}</p>
                               <p className="font-body text-xs text-on-surface-variant">Qté : {item.quantity}</p>
@@ -423,7 +423,7 @@ const Checkout = () => {
                     <button
                       onClick={handleOrder}
                       disabled={loading}
-                      className="flex w-full items-center justify-center gap-3 rounded-lg bg-foreground py-5 font-headline text-lg font-extrabold text-white shadow-sm transition-all hover:opacity-90 hover:scale-[0.99] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none"
+                      className="flex w-full items-center justify-center gap-3 rounded-sm bg-foreground py-5 font-headline text-lg font-extrabold text-white shadow-sm transition-all hover:opacity-90 hover:scale-[0.99] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none"
                     >
                       {loading ? (
                         <>
@@ -449,7 +449,7 @@ const Checkout = () => {
 
             {/* Right: Récapitulatif — sticky with collapsible items */}
             <div className="hidden lg:block lg:col-span-2">
-              <div className="sticky top-20 overflow-hidden rounded-lg border border-border/30 bg-white shadow-sm">
+              <div className="sticky top-20 overflow-hidden rounded-sm border border-border/30 bg-white shadow-sm">
                 <div className="bg-surface-container-lowest px-5 py-4">
                   <h2 className="flex items-center gap-2 font-headline text-sm font-extrabold">
                     <span className="material-symbols-outlined text-foreground text-[18px]">receipt_long</span>
@@ -478,7 +478,7 @@ const Checkout = () => {
                   <div className="divide-y divide-border/10 px-5 max-h-[280px] overflow-y-auto border-b border-border/20">
                     {items.map(item => (
                       <div key={item.id} className="flex gap-3 py-4">
-                        <img src={item.image} alt={item.name} className="h-14 w-14 shrink-0 rounded-md object-cover" />
+                        <img src={item.image} alt={item.name} className="h-14 w-14 shrink-0 rounded-sm object-cover" />
                         <div className="min-w-0 flex-1">
                           <p className="truncate font-headline text-sm font-semibold">{item.name}</p>
                           <p className="font-body text-xs text-on-surface-variant">{item.farmer}</p>
