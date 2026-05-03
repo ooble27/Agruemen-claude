@@ -19,47 +19,57 @@ const HorizontalProductRow = ({ title, icon, products, onAddToCart, formatPrice,
   const scroll = (dir: "left" | "right") => {
     const el = scrollRef.current;
     if (!el) return;
-    const amount = el.clientWidth * 0.6;
-    el.scrollBy({ left: dir === "left" ? -amount : amount, behavior: "smooth" });
+    el.scrollBy({ left: dir === "left" ? -el.clientWidth * 0.65 : el.clientWidth * 0.65, behavior: "smooth" });
   };
 
   if (products.length === 0) return null;
 
   return (
     <motion.section
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.4 }}
-      className=""
     >
       {/* Header */}
       <div className="flex items-center justify-between px-5 md:px-12 mb-3">
         <div className="flex items-center gap-2">
           {icon && (
-            <span className="material-symbols-outlined text-primary text-lg">{icon}</span>
+            <span
+              className="material-symbols-outlined text-[18px] text-foreground/40"
+              style={{ fontVariationSettings: "'FILL' 1" }}
+            >
+              {icon}
+            </span>
           )}
-          <h2 className="font-headline font-extrabold text-base md:text-lg">{title}</h2>
-          <span className="text-xs text-on-surface-variant font-medium">({products.length})</span>
+          <h2 className="font-headline font-black text-base md:text-[17px] tracking-tight">{title}</h2>
         </div>
-        <div className="flex items-center gap-2">
-          {/* Desktop arrows */}
+
+        <div className="flex items-center gap-1.5">
           <button
             onClick={() => scroll("left")}
-            className="hidden md:flex w-8 h-8 rounded-lg bg-surface-container items-center justify-center hover:bg-surface-container-high transition-colors"
+            className="hidden md:flex w-7 h-7 rounded-sm bg-surface-container items-center justify-center hover:bg-surface-container-high transition-colors"
           >
             <span className="material-symbols-outlined text-sm text-on-surface-variant">chevron_left</span>
           </button>
           <button
             onClick={() => scroll("right")}
-            className="hidden md:flex w-8 h-8 rounded-lg bg-surface-container items-center justify-center hover:bg-surface-container-high transition-colors"
+            className="hidden md:flex w-7 h-7 rounded-sm bg-surface-container items-center justify-center hover:bg-surface-container-high transition-colors"
           >
             <span className="material-symbols-outlined text-sm text-on-surface-variant">chevron_right</span>
           </button>
-          {linkTo && (
-            <Link to={linkTo} className="text-xs font-headline font-bold text-primary hover:underline">
+          {linkTo ? (
+            <Link
+              to={linkTo}
+              className="flex items-center gap-0.5 font-headline text-[11px] font-bold text-on-surface-variant hover:text-foreground transition-colors"
+            >
               Voir tout
+              <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
             </Link>
+          ) : (
+            <span className="font-headline text-[11px] font-bold text-on-surface-variant/40">
+              {products.length} produit{products.length > 1 ? "s" : ""}
+            </span>
           )}
         </div>
       </div>
@@ -70,7 +80,7 @@ const HorizontalProductRow = ({ title, icon, products, onAddToCart, formatPrice,
         className="flex gap-3 overflow-x-auto px-5 md:px-12 scrollbar-hide snap-x snap-mandatory pb-1 scroll-px-5 md:scroll-px-12"
       >
         {products.map((product, i) => (
-          <div key={product.id} className="shrink-0 w-[30vw] md:w-[180px] lg:w-[190px] snap-start">
+          <div key={product.id} className="shrink-0 w-[44vw] md:w-[185px] lg:w-[195px] snap-start">
             <ProductCard product={product} onAddToCart={onAddToCart} formatPrice={formatPrice} index={i} />
           </div>
         ))}

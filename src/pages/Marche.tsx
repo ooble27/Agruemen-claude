@@ -113,7 +113,7 @@ const Marche = () => {
   };
 
   const formatPrice = (n: number) => n.toLocaleString("fr-FR");
-  const firstName = profile?.full_name?.split(" ")[0] || "there";
+  const firstName = profile?.full_name?.split(" ")[0];
 
   return (
     <div className="min-h-screen bg-surface-container-lowest pb-28 md:pb-0">
@@ -138,37 +138,38 @@ const Marche = () => {
         </section>
 
         {/* Header */}
-        <section className="px-5 md:px-12 pt-2 md:pt-4 max-w-[1440px] mx-auto">
-          <div className="flex items-center justify-between mb-4">
+        <section className="px-5 md:px-12 pt-3 md:pt-4 max-w-[1440px] mx-auto">
+          <div className="flex items-end justify-between mb-4">
             <div>
-              <p className="text-xl md:text-2xl font-headline font-bold tracking-tight">
-                Salut{user ? `, ${firstName}` : ""} 👋
+              <p className="font-headline text-[10px] font-bold uppercase tracking-[0.18em] text-on-surface-variant/60 mb-1">
+                Marché
               </p>
-              <p className="text-xs md:text-sm text-on-surface-variant font-normal">Qu'est-ce qu'on cuisine aujourd'hui ?</p>
+              <h1 className="font-headline font-black text-2xl md:text-3xl tracking-tight text-foreground leading-none">
+                {firstName ? `Bonjour, ${firstName}.` : "Produits frais du terroir."}
+              </h1>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2 text-sm text-on-surface-variant font-headline font-bold">
-                <span className="material-symbols-outlined text-sm">filter_list</span>
-                {filtered.length} résultat{filtered.length !== 1 ? "s" : ""}
-              </div>
-            </div>
+            <span className="font-headline text-xs font-bold text-on-surface-variant/50 pb-0.5">
+              {filtered.length} résultat{filtered.length !== 1 ? "s" : ""}
+            </span>
           </div>
 
           {/* Search + filter bar */}
           <div className="flex gap-2">
             <div className="relative flex-1">
-              <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant/60 text-lg">search</span>
+              <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant/50 text-lg">search</span>
               <input
                 type="text"
                 placeholder="Rechercher un produit..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-11 pr-4 py-3 rounded-xl bg-surface-container border-none font-body text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                className="w-full pl-10 pr-4 py-2.5 rounded-sm bg-surface-container border border-transparent font-body text-sm focus:outline-none focus:border-border/40 transition-all"
               />
             </div>
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className={`px-4 py-3 rounded-xl font-headline text-sm font-bold flex items-center gap-1.5 transition-colors ${showFilters ? "bg-primary text-primary-foreground" : "bg-surface-container text-on-surface-variant hover:bg-surface-container-high"}`}
+              className={`px-3.5 py-2.5 rounded-sm font-headline text-xs font-bold flex items-center gap-1.5 transition-colors ${
+                showFilters ? "bg-foreground text-white" : "bg-surface-container text-on-surface-variant hover:bg-surface-container-high"
+              }`}
             >
               <span className="material-symbols-outlined text-[18px]">tune</span>
               <span className="hidden sm:inline">Filtres</span>
@@ -177,12 +178,12 @@ const Marche = () => {
 
           {/* Expanded filters */}
           {showFilters && (
-            <div className="bg-surface-container rounded-xl p-4 space-y-4">
+            <div className="mt-2 bg-surface-container rounded-sm p-4 space-y-4 border border-border/20">
               <div className="flex flex-col sm:flex-row gap-4">
                 {/* Sort */}
                 <div className="flex-1">
-                  <p className="font-headline text-[11px] font-bold uppercase tracking-widest text-on-surface-variant mb-2">Trier par</p>
-                  <div className="flex flex-wrap gap-2">
+                  <p className="font-headline text-[10px] font-bold uppercase tracking-[0.15em] text-on-surface-variant/60 mb-2">Trier par</p>
+                  <div className="flex flex-wrap gap-1.5">
                     {[
                       { value: "default", label: "Défaut" },
                       { value: "price_asc", label: "Prix ↑" },
@@ -192,17 +193,25 @@ const Marche = () => {
                       <button
                         key={opt.value}
                         onClick={() => setSortBy(opt.value as typeof sortBy)}
-                        className={`px-3 py-1.5 rounded-lg font-headline text-xs font-bold transition-colors ${sortBy === opt.value ? "bg-primary text-primary-foreground" : "bg-white text-on-surface-variant hover:bg-surface-container-high"}`}
+                        className={`px-3 py-1.5 rounded-sm font-headline text-xs font-bold transition-colors ${
+                          sortBy === opt.value
+                            ? "bg-foreground text-white"
+                            : "bg-white text-on-surface-variant hover:bg-surface-container-high border border-border/20"
+                        }`}
                       >
                         {opt.label}
                       </button>
                     ))}
                   </div>
                 </div>
+
                 {/* Price max */}
                 <div className="flex-1">
-                  <p className="font-headline text-[11px] font-bold uppercase tracking-widest text-on-surface-variant mb-2">
-                    Prix max : <span className="text-primary">{priceMax.toLocaleString("fr-FR")} FCFA</span>
+                  <p className="font-headline text-[10px] font-bold uppercase tracking-[0.15em] text-on-surface-variant/60 mb-2">
+                    Prix max :&nbsp;
+                    <span className="text-foreground normal-case tracking-normal">
+                      {priceMax.toLocaleString("fr-FR")} FCFA
+                    </span>
                   </p>
                   <input
                     type="range"
@@ -211,21 +220,22 @@ const Marche = () => {
                     step={500}
                     value={priceMax}
                     onChange={e => setPriceMax(Number(e.target.value))}
-                    className="w-full accent-primary"
+                    className="w-full accent-foreground"
                   />
-                  <div className="flex justify-between font-body text-[10px] text-on-surface-variant/60 mt-1">
+                  <div className="flex justify-between font-body text-[10px] text-on-surface-variant/50 mt-1">
                     <span>500 FCFA</span>
                     <span>50 000 FCFA</span>
                   </div>
                 </div>
               </div>
+
               {(sortBy !== "default" || priceMax !== 50000) && (
                 <button
                   onClick={() => { setSortBy("default"); setPriceMax(50000); }}
-                  className="flex items-center gap-1.5 text-xs font-headline font-bold text-destructive hover:underline"
+                  className="flex items-center gap-1.5 text-xs font-headline font-bold text-on-surface-variant hover:text-foreground transition-colors"
                 >
                   <span className="material-symbols-outlined text-[14px]">restart_alt</span>
-                  Réinitialiser les filtres
+                  Réinitialiser
                 </button>
               )}
             </div>
@@ -242,8 +252,8 @@ const Marche = () => {
           <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
             <button
               onClick={() => handleCategoryChange(null)}
-              className={`shrink-0 px-4 py-2 rounded-md text-xs font-headline font-semibold transition-colors ${
-                !selectedCategoryKey ? "bg-foreground text-white" : "bg-surface-container text-on-surface-variant"
+              className={`shrink-0 px-4 py-2 rounded-sm text-xs font-headline font-bold transition-colors ${
+                !selectedCategoryKey ? "bg-foreground text-white" : "bg-surface-container text-on-surface-variant hover:bg-surface-container-high"
               }`}
             >
               Tout
@@ -252,11 +262,15 @@ const Marche = () => {
               <button
                 key={cat.id}
                 onClick={() => handleCategoryChange(isCategorySelected(cat) ? null : cat.id)}
-                className={`shrink-0 px-4 py-2 rounded-md text-xs font-headline font-semibold transition-colors flex items-center gap-1.5 ${
-                  isCategorySelected(cat) ? "bg-foreground text-white" : "bg-surface-container text-on-surface-variant"
+                className={`shrink-0 px-4 py-2 rounded-sm text-xs font-headline font-bold transition-colors flex items-center gap-1.5 ${
+                  isCategorySelected(cat) ? "bg-foreground text-white" : "bg-surface-container text-on-surface-variant hover:bg-surface-container-high"
                 }`}
               >
-                {cat.icon && <span className={`material-symbols-outlined text-sm ${isCategorySelected(cat) ? "text-white" : ""}`}>{cat.icon}</span>}
+                {cat.icon && (
+                  <span className={`material-symbols-outlined text-sm ${isCategorySelected(cat) ? "text-white" : ""}`}>
+                    {cat.icon}
+                  </span>
+                )}
                 {cat.name}
               </button>
             ))}
@@ -266,56 +280,52 @@ const Marche = () => {
         {/* Products */}
         <section className="mt-3 md:mt-0 max-w-[1440px] mx-auto pb-4">
           {loading ? (
-            <div className="px-5 md:px-12 grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4">
+            /* Skeleton — 2 cols mobile */
+            <div className="px-5 md:px-12 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4">
               {Array.from({ length: 12 }).map((_, i) => (
                 <div key={i} className="animate-pulse">
-                  <div className="aspect-square rounded-xl bg-surface-container mb-2" />
-                  <div className="h-4 bg-surface-container rounded-lg w-3/4 mb-1.5" />
-                  <div className="h-3 bg-surface-container rounded-lg w-1/2" />
+                  <div className="aspect-square rounded-sm bg-surface-container mb-2.5" />
+                  <div className="h-3.5 bg-surface-container rounded-sm w-3/4 mb-1.5" />
+                  <div className="h-3 bg-surface-container rounded-sm w-1/2 mb-2" />
+                  <div className="h-4 bg-surface-container rounded-sm w-2/3" />
                 </div>
               ))}
             </div>
           ) : isFiltering ? (
-            /* Filtered view — flat grid */
+            /* Filtered — flat grid, 2 cols on mobile */
             filtered.length === 0 ? (
-              <div className="text-center py-16 mx-5">
-                <span className="material-symbols-outlined text-5xl text-on-surface-variant/30 mb-4 block">search_off</span>
-                <p className="font-headline font-bold text-lg mb-2">Aucun produit trouvé</p>
+              <div className="text-center py-20 mx-5">
+                <span className="material-symbols-outlined text-5xl text-on-surface-variant/20 mb-4 block">search_off</span>
+                <p className="font-headline font-black text-lg mb-1.5 tracking-tight">Aucun produit trouvé</p>
                 <p className="text-on-surface-variant text-sm">
                   {searchQuery ? "Essayez avec d'autres termes." : "Aucun produit dans cette catégorie."}
                 </p>
               </div>
             ) : (
-              <div className="px-5 md:px-12 grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4">
+              <div className="px-5 md:px-12 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4">
                 {filtered.map((product, i) => (
                   <ProductCard key={product.id} product={product} onAddToCart={handleAddToCart} formatPrice={formatPrice} index={i} />
                 ))}
               </div>
             )
           ) : (
-            /* Default: horizontal scroll sections by category */
-            <div className="divide-y divide-border/30">
-              {/* "Populaires" — first 8 products mixed */}
-              <div className="py-4">
+            /* Default — horizontal scroll sections by category */
+            <div className="space-y-6">
+              <HorizontalProductRow
+                title="Populaires 🔥"
+                products={products.slice(0, 10)}
+                onAddToCart={handleAddToCart}
+                formatPrice={formatPrice}
+              />
+              {categoryGroups.map((group) => (
                 <HorizontalProductRow
-                  title="Populaires 🔥"
-                  products={products.slice(0, 10)}
+                  key={group.label}
+                  title={group.label}
+                  icon={group.icon}
+                  products={group.products}
                   onAddToCart={handleAddToCart}
                   formatPrice={formatPrice}
                 />
-              </div>
-
-              {/* By category */}
-              {categoryGroups.map((group) => (
-                <div key={group.label} className="py-4">
-                  <HorizontalProductRow
-                    title={group.label}
-                    icon={group.icon}
-                    products={group.products}
-                    onAddToCart={handleAddToCart}
-                    formatPrice={formatPrice}
-                  />
-                </div>
               ))}
             </div>
           )}

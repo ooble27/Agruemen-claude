@@ -111,17 +111,17 @@ const PromoCarousel = () => {
             <Link
               key={banner.id}
               to={banner.link}
-              className={`shrink-0 w-[85%] md:w-[45%] lg:w-[30%] snap-start relative ${banner.bg} rounded-lg p-4 md:p-6 flex items-center overflow-hidden min-h-[120px] md:min-h-[180px] lg:min-h-[160px] group`}
+              className={`shrink-0 w-[85%] md:w-[45%] lg:w-[30%] snap-start relative ${banner.bg} rounded-sm p-4 md:p-6 flex items-center overflow-hidden min-h-[120px] md:min-h-[180px] lg:min-h-[160px] group`}
             >
               <div className="flex-1 relative z-10">
-                <span className={`inline-block ${banner.badgeColor || "bg-white/20 backdrop-blur-sm text-white"} text-[10px] md:text-xs font-bold uppercase px-2.5 py-1 rounded mb-2`}>
+                <span className={`inline-block ${banner.badgeColor || "bg-white/20 backdrop-blur-sm text-white"} text-[10px] md:text-xs font-bold uppercase px-2.5 py-1 rounded-sm mb-2`}>
                   {banner.badge}
                 </span>
                 <h3 className={`${isDelivery ? "text-surface" : isLight ? banner.titleColor : "text-white"} font-headline font-bold text-base md:text-xl leading-tight mb-2 whitespace-pre-line`}>
                   {banner.title}
                 </h3>
                 <span
-                  className={`inline-flex items-center gap-1 ${banner.ctaColor || (isLight ? "text-[hsl(30,50%,15%)] bg-[hsl(30,60%,30%)]/15" : "text-white bg-white/20")} text-xs font-semibold px-3 py-1.5 rounded-md group-hover:opacity-80 transition-opacity`}
+                  className={`inline-flex items-center gap-1 ${banner.ctaColor || (isLight ? "text-[hsl(30,50%,15%)] bg-[hsl(30,60%,30%)]/15" : "text-white bg-white/20")} text-xs font-semibold px-3 py-1.5 rounded-sm group-hover:opacity-80 transition-opacity`}
                 >
                   {banner.cta}
                   <span className="material-symbols-outlined text-sm">arrow_forward</span>
