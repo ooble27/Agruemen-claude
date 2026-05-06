@@ -24,7 +24,7 @@ const steps = [
   { id: 3, label: "Confirmation", icon: "check_circle" },
 ];
 
-const inputCls = "w-full rounded-xl border border-border/40 bg-surface-container-lowest px-4 py-3.5 font-body text-sm outline-none transition-all placeholder:text-on-surface-variant/50 focus:border-foreground/30 focus:ring-2 focus:ring-foreground/8";
+const inputCls = "w-full rounded-md border border-border/40 bg-surface-container-lowest px-4 py-3.5 font-body text-sm outline-none transition-all placeholder:text-on-surface-variant/50 focus:border-foreground/30 focus:ring-2 focus:ring-foreground/8";
 
 const Checkout = () => {
   const { user, loading: authLoading, profile } = useAuth();
@@ -109,7 +109,7 @@ const Checkout = () => {
           <div className="flex items-center gap-4 py-5">
             <button
               onClick={() => step > 1 ? setStep(step - 1) : navigate(-1)}
-              className="flex h-10 w-10 items-center justify-center rounded-xl border border-border/40 bg-white shadow-sm transition-all hover:border-border hover:shadow-md cursor-pointer"
+              className="flex h-10 w-10 items-center justify-center rounded-md border border-border/40 bg-white shadow-sm transition-all hover:border-border hover:shadow-md cursor-pointer"
               aria-label="Retour"
             >
               <span className="material-symbols-outlined text-[20px] text-on-surface-variant">arrow_back</span>
@@ -143,7 +143,7 @@ const Checkout = () => {
                       scale:           s.id === step ? 1.08 : 1,
                     }}
                     transition={{ duration: 0.3 }}
-                    className="flex h-9 w-9 items-center justify-center rounded-xl border-2"
+                    className="flex h-9 w-9 items-center justify-center rounded-md border-2"
                   >
                     {s.id < step ? (
                       <span className="material-symbols-outlined text-[16px] text-white" style={{ fontVariationSettings: "'FILL' 1" }}>
@@ -182,9 +182,9 @@ const Checkout = () => {
                     exit={{ opacity: 0, x: 16 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <div className="overflow-hidden rounded-2xl border border-border/25 bg-white shadow-sm">
+                    <div className="overflow-hidden rounded-md border border-border/25 bg-white shadow-sm">
                       <div className="flex items-center gap-3 border-b border-border/15 bg-surface-container-lowest px-6 py-5">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-foreground/8">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-md bg-foreground/8">
                           <span className="material-symbols-outlined text-foreground text-[18px]">local_shipping</span>
                         </div>
                         <div>
@@ -229,7 +229,7 @@ const Checkout = () => {
                             />
                           </div>
                         </div>
-                        <div className="flex items-center gap-3 rounded-xl bg-emerald-50 border border-emerald-100 px-4 py-3">
+                        <div className="flex items-center gap-3 rounded-md bg-emerald-50 border border-emerald-100 px-4 py-3">
                           <span className="material-symbols-outlined text-emerald-500 text-[18px] shrink-0">schedule</span>
                           <p className="font-body text-xs text-emerald-700">
                             Livraison estimée :{" "}
@@ -258,9 +258,9 @@ const Checkout = () => {
                     exit={{ opacity: 0, x: 16 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <div className="overflow-hidden rounded-2xl border border-border/25 bg-white shadow-sm">
+                    <div className="overflow-hidden rounded-md border border-border/25 bg-white shadow-sm">
                       <div className="flex items-center gap-3 border-b border-border/15 bg-surface-container-lowest px-6 py-5">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-foreground/8">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-md bg-foreground/8">
                           <span className="material-symbols-outlined text-foreground text-[18px]">payments</span>
                         </div>
                         <div>
@@ -278,24 +278,24 @@ const Checkout = () => {
                             <button
                               key={method.id}
                               onClick={() => setPaymentMethod(method.id)}
-                              className={`relative flex items-center gap-4 rounded-2xl border-2 p-4 text-left transition-all duration-200 cursor-pointer ${
+                              className={`relative flex items-center gap-4 rounded-md border-2 p-4 text-left transition-all duration-200 cursor-pointer ${
                                 paymentMethod === method.id
                                   ? `${method.accent} shadow-md`
                                   : "border-border/30 bg-white hover:border-border/60 hover:shadow-sm"
                               }`}
                             >
                               {method.badge && (
-                                <div className="absolute -top-2.5 left-4 rounded-lg bg-foreground px-2.5 py-0.5">
+                                <div className="absolute -top-2.5 left-4 rounded-sm bg-foreground px-2.5 py-0.5">
                                   <span className="font-headline text-[9px] font-bold uppercase tracking-wider text-white">{method.badge}</span>
                                 </div>
                               )}
-                              <img src={method.logo} alt={method.label} className="h-12 w-12 rounded-xl object-cover shrink-0" />
+                              <img src={method.logo} alt={method.label} className="h-12 w-12 rounded-md object-cover shrink-0" />
                               <div className="flex-1">
                                 <span className="font-headline text-base font-extrabold block">{method.label}</span>
                                 <span className="font-body text-xs text-on-surface-variant">Paiement instantané</span>
                               </div>
                               {paymentMethod === method.id && (
-                                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-foreground shrink-0">
+                                <div className="flex h-6 w-6 items-center justify-center rounded-sm bg-foreground shrink-0">
                                   <span className="material-symbols-outlined text-[13px] text-white" style={{ fontVariationSettings: "'FILL' 1" }}>check</span>
                                 </div>
                               )}
@@ -304,13 +304,13 @@ const Checkout = () => {
                         </div>
 
                         {/* Promo code */}
-                        <div className="rounded-2xl border border-border/25 bg-surface-container-lowest p-4">
+                        <div className="rounded-md border border-border/25 bg-surface-container-lowest p-4">
                           <p className="font-headline text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-3 flex items-center gap-2">
                             <span className="material-symbols-outlined text-[16px]">local_offer</span>
                             Code promo
                           </p>
                           {promoCode ? (
-                            <div className="flex items-center justify-between bg-foreground/[0.05] border border-foreground/15 rounded-xl px-4 py-2.5">
+                            <div className="flex items-center justify-between bg-foreground/[0.05] border border-foreground/15 rounded-md px-4 py-2.5">
                               <div className="flex items-center gap-2">
                                 <span className="material-symbols-outlined text-foreground text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
                                 <div>
@@ -336,7 +336,7 @@ const Checkout = () => {
                               />
                               <button
                                 onClick={applyPromo}
-                                className="px-5 py-3 rounded-xl bg-foreground text-white font-headline text-sm font-bold hover:opacity-90 transition-opacity whitespace-nowrap cursor-pointer"
+                                className="px-5 py-3 rounded-md bg-foreground text-white font-headline text-sm font-bold hover:opacity-90 transition-opacity whitespace-nowrap cursor-pointer"
                               >
                                 Appliquer
                               </button>
@@ -351,7 +351,7 @@ const Checkout = () => {
                         </div>
 
                         {/* Info notice */}
-                        <div className="flex gap-3 rounded-2xl border border-border/25 bg-surface-container p-4">
+                        <div className="flex gap-3 rounded-md border border-border/25 bg-surface-container p-4">
                           <span className="material-symbols-outlined shrink-0 text-on-surface-variant text-[18px] mt-0.5">info</span>
                           <p className="font-body text-xs leading-relaxed text-on-surface-variant">
                             Après confirmation, vous recevrez une notification{" "}
@@ -382,8 +382,8 @@ const Checkout = () => {
                     className="space-y-3"
                   >
                     {/* Delivery summary */}
-                    <div className="flex items-start gap-4 rounded-2xl border border-border/25 bg-white p-5 shadow-sm">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-surface-container">
+                    <div className="flex items-start gap-4 rounded-md border border-border/25 bg-white p-5 shadow-sm">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-surface-container">
                         <span className="material-symbols-outlined text-foreground text-[18px]">location_on</span>
                       </div>
                       <div className="flex-1">
@@ -397,8 +397,8 @@ const Checkout = () => {
                     </div>
 
                     {/* Payment summary */}
-                    <div className="flex items-start gap-4 rounded-2xl border border-border/25 bg-white p-5 shadow-sm">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-surface-container">
+                    <div className="flex items-start gap-4 rounded-md border border-border/25 bg-white p-5 shadow-sm">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-surface-container">
                         <span className="material-symbols-outlined text-foreground text-[18px]">payments</span>
                       </div>
                       <div className="flex-1">
@@ -407,7 +407,7 @@ const Checkout = () => {
                           <button onClick={() => setStep(2)} className="font-headline text-xs font-bold text-foreground hover:underline cursor-pointer">Modifier</button>
                         </div>
                         <div className="flex items-center gap-2.5">
-                          <img src={paymentMethod === "wave" ? waveLogo : orangeMoneyLogo} alt={paymentMethod} className="h-8 w-8 rounded-lg object-cover" />
+                          <img src={paymentMethod === "wave" ? waveLogo : orangeMoneyLogo} alt={paymentMethod} className="h-8 w-8 rounded-md object-cover" />
                           <span className="font-headline text-sm font-semibold">{paymentMethod === "wave" ? "Wave" : "Orange Money"}</span>
                         </div>
                         {promoCode && (
@@ -420,7 +420,7 @@ const Checkout = () => {
                     </div>
 
                     {/* Articles */}
-                    <div className="overflow-hidden rounded-2xl border border-border/25 bg-white shadow-sm">
+                    <div className="overflow-hidden rounded-md border border-border/25 bg-white shadow-sm">
                       <div className="flex items-center gap-2 border-b border-border/15 px-5 py-4">
                         <span className="material-symbols-outlined text-foreground text-[18px]">shopping_basket</span>
                         <h3 className="font-headline text-sm font-bold">
@@ -430,7 +430,7 @@ const Checkout = () => {
                       <div className="divide-y divide-border/15 max-h-[240px] overflow-y-auto">
                         {items.map((item) => (
                           <div key={item.id} className="flex items-center gap-4 px-5 py-4">
-                            <img src={item.image} alt={item.name} className="h-14 w-14 shrink-0 rounded-xl object-cover" />
+                            <img src={item.image} alt={item.name} className="h-14 w-14 shrink-0 rounded-md object-cover" />
                             <div className="min-w-0 flex-1">
                               <p className="truncate font-headline text-sm font-semibold">{item.name}</p>
                               <p className="font-body text-xs text-on-surface-variant">Qté : {item.quantity}</p>
@@ -474,7 +474,7 @@ const Checkout = () => {
 
             {/* Right: Récapitulatif (desktop sticky) */}
             <div className="hidden lg:block lg:col-span-2">
-              <div className="sticky top-24 overflow-hidden rounded-2xl border border-border/25 bg-white shadow-sm">
+              <div className="sticky top-24 overflow-hidden rounded-md border border-border/25 bg-white shadow-sm">
 
                 {/* Header */}
                 <div className="flex items-center gap-2 bg-surface-container-lowest px-5 py-4 border-b border-border/15">
@@ -512,7 +512,7 @@ const Checkout = () => {
                       <div className="divide-y divide-border/10 px-5 max-h-[280px] overflow-y-auto">
                         {items.map((item) => (
                           <div key={item.id} className="flex gap-3 py-4">
-                            <img src={item.image} alt={item.name} className="h-14 w-14 shrink-0 rounded-xl object-cover" />
+                            <img src={item.image} alt={item.name} className="h-14 w-14 shrink-0 rounded-md object-cover" />
                             <div className="min-w-0 flex-1">
                               <p className="truncate font-headline text-sm font-semibold">{item.name}</p>
                               <p className="font-body text-xs text-on-surface-variant">{item.farmer}</p>
