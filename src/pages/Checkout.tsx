@@ -102,7 +102,7 @@ const Checkout = () => {
     <div className="min-h-screen bg-surface-container-lowest">
       <Navbar />
 
-      <main className="pb-36 md:pb-16" style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 80px)" }}>
+      <main className="pb-36 md:pb-16" style={{ paddingTop: "calc(var(--navbar-h) + 16px)" }}>
         <div className="mx-auto max-w-screen-xl px-4 md:px-8 lg:px-16">
 
           {/* ── Page header ── */}

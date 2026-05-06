@@ -638,7 +638,7 @@ const BuyerAccount = () => {
           {/* Mobile sticky header */}
           <div
             className="sticky top-0 z-30 bg-background/95 backdrop-blur-xl border-b border-border/15 flex items-center gap-3 px-4"
-            style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 12px)", paddingBottom: "12px" }}
+            style={{ paddingTop: "max(env(safe-area-inset-top, 0px), 8px)", paddingBottom: "12px" }}
           >
             {activeNav !== "overview" ? (
               <button

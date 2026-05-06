@@ -159,12 +159,12 @@ const Marche = () => {
     <div className="min-h-screen bg-background pb-24 md:pb-0" style={{ touchAction: "manipulation" }}>
       <Navbar />
 
-      <main style={{ paddingTop: "56px" }}>
+      <main style={{ paddingTop: "var(--navbar-h)" }}>
 
         {/* ── Sticky search + filter strip ── */}
         <div
           className="sticky z-30 bg-background/95 backdrop-blur-xl border-b border-border/15"
-          style={{ top: "56px" }}
+          style={{ top: "var(--navbar-h)" }}
         >
           <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-3 flex items-center gap-2">
             <div className="relative flex-1">
