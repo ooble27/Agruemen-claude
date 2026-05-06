@@ -241,7 +241,7 @@ const Checkout = () => {
                     <button
                       onClick={() => setStep(2)}
                       disabled={!canProceedStep1}
-                      className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-foreground py-4 font-headline text-base font-extrabold text-white shadow-sm transition-all hover:opacity-90 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40 cursor-pointer"
+                      className="mt-4 flex w-full items-center justify-center gap-2 rounded-md bg-foreground py-4 font-headline text-base font-extrabold text-white shadow-sm transition-all hover:opacity-90 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40 cursor-pointer"
                     >
                       Continuer vers le paiement
                       <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
@@ -363,7 +363,7 @@ const Checkout = () => {
                     </div>
                     <button
                       onClick={() => setStep(3)}
-                      className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-foreground py-4 font-headline text-base font-extrabold text-white shadow-sm transition-all hover:opacity-90 active:scale-[0.98] cursor-pointer"
+                      className="mt-4 flex w-full items-center justify-center gap-2 rounded-md bg-foreground py-4 font-headline text-base font-extrabold text-white shadow-sm transition-all hover:opacity-90 active:scale-[0.98] cursor-pointer"
                     >
                       Vérifier la commande
                       <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
@@ -447,7 +447,7 @@ const Checkout = () => {
                     <button
                       onClick={handleOrder}
                       disabled={loading}
-                      className="flex w-full items-center justify-center gap-3 rounded-2xl bg-foreground py-5 font-headline text-lg font-extrabold text-white shadow-sm transition-all hover:opacity-90 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
+                      className="flex w-full items-center justify-center gap-3 rounded-md bg-foreground py-5 font-headline text-lg font-extrabold text-white shadow-sm transition-all hover:opacity-90 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
                     >
                       {loading ? (
                         <>
