@@ -1,40 +1,38 @@
 import Navbar from "@/components/Navbar";
 import { toast } from "sonner";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useCart } from "@/contexts/CartContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { useEffect, useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
-import { buildMarketCategories, getCategoryKey, groupByCategory, MOCK_PRODUCTS, type MarketProduct } from "@/data/marketplaceMocks";
+import { buildMarketCategories, getCategoryKey, MOCK_PRODUCTS, type MarketProduct } from "@/data/marketplaceMocks";
 import type { Category } from "@/types/database";
 import ProductCard from "@/components/ProductCard";
-import PromoCarousel from "@/components/PromoCarousel";
-import HorizontalProductRow from "@/components/HorizontalProductRow";
 
 type Product = MarketProduct;
+type SortValue = "default" | "price_asc" | "price_desc" | "new";
 
-const SORT_OPTIONS = [
-  { value: "default",    label: "Défaut",          icon: "sort" },
-  { value: "price_asc",  label: "Prix croissant",  icon: "arrow_upward" },
-  { value: "price_desc", label: "Prix décroissant", icon: "arrow_downward" },
-  { value: "new",        label: "Nouveautés",      icon: "new_releases" },
-] as const;
-
-type SortValue = (typeof SORT_OPTIONS)[number]["value"];
+const CATEGORY_COLORS: Record<string, string> = {
+  fruits: '#E84A1F',
+  legumes: '#16A34A',
+  cereales: '#CA8A04',
+  tubercules: '#A16207',
+  epices: '#DC2626',
+  herbes: '#65A30D',
+};
 
 const Marche = () => {
   const { addItem } = useCart();
   const { profile } = useAuth();
-  const [dbProducts, setDbProducts]     = useState<Product[]>([]);
+  const [dbProducts, setDbProducts] = useState<Product[]>([]);
   const [dbCategories, setDbCategories] = useState<Category[]>([]);
-  const [loading, setLoading]           = useState(true);
+  const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
-  const selectedCategory                = searchParams.get("cat");
-  const [searchQuery, setSearchQuery]   = useState("");
-  const [sortBy, setSortBy]             = useState<SortValue>("default");
-  const [showFilters, setShowFilters]   = useState(false);
-  const [priceMax, setPriceMax]         = useState(50000);
+  const selectedCategory = searchParams.get("cat");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState<SortValue>("default");
+  const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
   const handleCategoryChange = (catId: string | null) => {
     setSearchParams((prev) => {
@@ -90,21 +88,18 @@ const Marche = () => {
         (p.category_id ? categoryKeyById.get(p.category_id) ?? getCategoryKey(p.category_id) : null);
       return (
         (!selectedCategoryKey || pCatKey === selectedCategoryKey) &&
-        (!searchQuery || p.name.toLowerCase().includes(searchQuery.toLowerCase())) &&
-        p.price <= priceMax
+        (!searchQuery || p.name.toLowerCase().includes(searchQuery.toLowerCase()))
       );
     })
     .sort((a, b) => {
-      if (sortBy === "price_asc")  return a.price - b.price;
+      if (sortBy === "price_asc") return a.price - b.price;
       if (sortBy === "price_desc") return b.price - a.price;
-      if (sortBy === "new")        return new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime();
+      if (sortBy === "new") return new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime();
       return 0;
     }),
-  [products, selectedCategoryKey, searchQuery, priceMax, sortBy, categoryKeyById]);
+  [products, selectedCategoryKey, searchQuery, sortBy, categoryKeyById]);
 
-  const categoryGroups = useMemo(() => groupByCategory(products), [products]);
-  const isFiltering    = !!selectedCategoryKey || !!searchQuery;
-  const hasFilters     = sortBy !== "default" || priceMax !== 50000;
+  const isFiltering = !!selectedCategoryKey || !!searchQuery;
 
   const handleAddToCart = (product: Product, e: React.MouseEvent) => {
     e.preventDefault();
@@ -123,271 +118,286 @@ const Marche = () => {
   };
 
   const formatPrice = (n: number) => n.toLocaleString("fr-FR");
-  const firstName   = profile?.full_name?.split(" ")[0];
 
-  /* ── Category chip — adapts mobile/desktop ── */
-  const CatChip = ({
-    icon, label, active, onClick,
-  }: { icon: string; label: string; active: boolean; onClick: () => void }) => (
-    <button
-      onClick={onClick}
-      className="flex flex-col md:flex-row items-center gap-1.5 md:gap-2.5 shrink-0 cursor-pointer"
-    >
-      <div
-        className={`w-14 h-14 md:w-10 md:h-10 rounded-2xl md:rounded-xl flex items-center justify-center transition-all duration-200 ${
-          active ? "bg-foreground shadow-md" : "bg-surface-container hover:bg-surface-container-high"
-        }`}
-      >
-        <span
-          className={`material-symbols-outlined text-[22px] md:text-[18px] ${active ? "text-white" : "text-foreground/50"}`}
-          style={{ fontVariationSettings: "'FILL' 1" }}
-        >
-          {icon}
-        </span>
-      </div>
-      <span
-        className={`font-headline text-[10px] md:text-[12px] font-bold text-center md:text-left leading-tight max-w-[64px] md:max-w-[96px] line-clamp-2 ${
-          active ? "text-foreground" : "text-on-surface-variant"
-        }`}
-      >
-        {label}
-      </span>
-    </button>
+  const getCatProductCount = (cat: Category) => {
+    const catKey = getCategoryKey(cat.name) ?? cat.id;
+    return products.filter(p => {
+      const pKey = getCategoryKey(p.categories?.name) ?? (p.category_id ? categoryKeyById.get(p.category_id) ?? getCategoryKey(p.category_id) : null);
+      return pKey === catKey;
+    }).length;
+  };
+
+  const LoadingSkeleton = () => (
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+      {Array.from({ length: 10 }).map((_, i) => (
+        <div key={i} className="animate-pulse">
+          <div className="aspect-square rounded-2xl mb-2.5" style={{ background: 'hsl(60 5% 94%)' }} />
+          <div className="h-3.5 rounded-lg w-1/2 mb-1" style={{ background: 'hsl(60 5% 94%)' }} />
+          <div className="h-3 rounded-lg w-3/4" style={{ background: 'hsl(60 5% 94%)' }} />
+        </div>
+      ))}
+    </div>
   );
 
+  const firstName = profile?.full_name?.split(" ")[0];
+
   return (
-    <div className="min-h-screen bg-background pb-24 md:pb-0" style={{ touchAction: "manipulation" }}>
+    <div className="min-h-screen pb-24 md:pb-0" style={{ background: 'hsl(60 5% 96%)' }}>
       <Navbar />
 
       <main style={{ paddingTop: "var(--navbar-h)" }}>
+        <div className="max-w-[1400px] mx-auto px-4 md:px-6 py-6">
+          <div className="flex gap-6 items-start">
 
-        {/* ── Sticky search + filter strip ── */}
-        <div
-          className="sticky z-30 bg-background/95 backdrop-blur-xl border-b border-border/15"
-          style={{ top: "var(--navbar-h)" }}
-        >
-          <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-3 flex items-center gap-2">
-            <div className="relative flex-1">
-              <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant/45 text-[18px] pointer-events-none">
-                search
-              </span>
-              <input
-                type="search"
-                placeholder={`Mangues, tomates, bissap${firstName ? `, ${firstName}` : ""}…`}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full h-11 pl-10 pr-10 rounded-full bg-surface-container border border-transparent font-body text-sm focus:outline-none focus:border-foreground/25 focus:bg-white transition-all placeholder:text-on-surface-variant/40"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery("")}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant/50 hover:text-foreground transition-colors cursor-pointer"
-                >
-                  <span className="material-symbols-outlined text-[16px]">close</span>
-                </button>
-              )}
-            </div>
-
-            <button
-              onClick={() => setShowFilters(!showFilters)}
-              className={`h-11 min-w-[44px] px-4 rounded-full font-headline text-xs font-bold flex items-center gap-1.5 transition-all duration-200 cursor-pointer ${
-                showFilters || hasFilters
-                  ? "bg-foreground text-white shadow-sm"
-                  : "bg-surface-container text-on-surface-variant hover:bg-surface-container-high"
-              }`}
+            {/* ── Sidebar (desktop only) ── */}
+            <aside
+              className="hidden md:block w-[220px] shrink-0 sticky"
+              style={{ top: 'calc(var(--navbar-h) + 20px)' }}
             >
-              <span className="material-symbols-outlined text-[16px]">tune</span>
-              <span className="hidden sm:inline">Filtres</span>
-              {hasFilters && <span className="w-1.5 h-1.5 rounded-full bg-white/80" />}
-            </button>
-          </div>
-        </div>
+              {/* Categories card */}
+              <div className="bg-white rounded-xl border p-3 mb-3" style={{ borderColor: 'hsl(60 5% 92%)' }}>
+                <p className="text-[10.5px] font-semibold uppercase tracking-[0.12em] text-on-surface-variant px-2 pb-2">Catégories</p>
+                <nav className="flex flex-col gap-0.5">
+                  <button
+                    onClick={() => handleCategoryChange(null)}
+                    className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-left transition-colors w-full"
+                    style={{
+                      background: !selectedCategoryKey ? 'hsl(60 5% 94%)' : 'transparent',
+                      color: !selectedCategoryKey ? '#0A0A0A' : '#8A8A85',
+                      fontWeight: !selectedCategoryKey ? 600 : 500,
+                    }}
+                  >
+                    <span className="material-symbols-outlined text-[15px] shrink-0" style={{ fontVariationSettings: "'FILL' 1", color: !selectedCategoryKey ? '#0A0A0A' : '#8A8A85' }}>apps</span>
+                    <span className="flex-1 text-[13px]">Tous les produits</span>
+                    <span className="text-[11px]" style={{ color: 'hsl(60 2% 54%)' }}>{products.length}</span>
+                  </button>
+                  {categories.map((cat) => {
+                    const active = isCategorySelected(cat);
+                    const catKey = getCategoryKey(cat.name) ?? cat.id;
+                    const count = getCatProductCount(cat);
+                    return (
+                      <button
+                        key={cat.id}
+                        onClick={() => handleCategoryChange(active ? null : cat.id)}
+                        className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-left transition-colors w-full"
+                        style={{
+                          background: active ? 'hsl(60 5% 94%)' : 'transparent',
+                          color: active ? '#0A0A0A' : '#8A8A85',
+                          fontWeight: active ? 600 : 500,
+                        }}
+                      >
+                        <span
+                          className="material-symbols-outlined text-[15px] shrink-0"
+                          style={{
+                            fontVariationSettings: "'FILL' 1",
+                            color: active ? (CATEGORY_COLORS[catKey] || '#0A0A0A') : 'hsl(60 2% 54%)',
+                          }}
+                        >
+                          {cat.icon || "eco"}
+                        </span>
+                        <span className="flex-1 text-[13px] truncate">{cat.name}</span>
+                        <span className="text-[11px]" style={{ color: 'hsl(60 2% 54%)' }}>{count}</span>
+                      </button>
+                    );
+                  })}
+                </nav>
+              </div>
 
-        {/* ── Main content area ── */}
-        <div className="max-w-[1440px] mx-auto px-4 md:px-8 pt-5 pb-8">
+              {/* Sort card */}
+              <div className="bg-white rounded-xl border p-3" style={{ borderColor: 'hsl(60 5% 92%)' }}>
+                <p className="text-[10.5px] font-semibold uppercase tracking-[0.12em] text-on-surface-variant px-2 pb-2">Trier par</p>
+                <div className="flex flex-col gap-0.5">
+                  {([
+                    { value: "default", label: "Par défaut" },
+                    { value: "price_asc", label: "Prix croissant" },
+                    { value: "price_desc", label: "Prix décroissant" },
+                    { value: "new", label: "Nouveautés" },
+                  ] as const).map((opt) => (
+                    <button
+                      key={opt.value}
+                      onClick={() => setSortBy(opt.value)}
+                      className="flex items-center gap-2 px-2.5 py-2 rounded-lg text-left transition-colors w-full text-[13px]"
+                      style={{
+                        background: sortBy === opt.value ? 'hsl(60 5% 94%)' : 'transparent',
+                        color: sortBy === opt.value ? '#0A0A0A' : '#8A8A85',
+                        fontWeight: sortBy === opt.value ? 600 : 500,
+                      }}
+                    >
+                      {sortBy === opt.value && <span className="w-1 h-1 rounded-full shrink-0" style={{ background: '#E84A1F' }}/>}
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </aside>
 
-          {/* ── Category chips — horizontal scroll on all screens ── */}
-          <div className="mb-5 -mx-4 md:mx-0 px-4 md:px-0">
-            <div className="flex gap-4 md:gap-5 overflow-x-auto pb-2 scrollbar-hide">
-              <CatChip
-                icon="apps"
-                label="Tout"
-                active={!selectedCategoryKey}
-                onClick={() => handleCategoryChange(null)}
-              />
-              {categories.map((cat) => (
-                <CatChip
-                  key={cat.id}
-                  icon={cat.icon || "eco"}
-                  label={cat.name}
-                  active={isCategorySelected(cat)}
-                  onClick={() => handleCategoryChange(isCategorySelected(cat) ? null : cat.id)}
-                />
-              ))}
-            </div>
-          </div>
+            {/* ── Main content ── */}
+            <div className="flex-1 min-w-0">
 
-          {/* ── Filter panel — all screens ── */}
-          <AnimatePresence>
-            {showFilters && (
-              <motion.div
-                initial={{ opacity: 0, height: 0, marginBottom: 0 }}
-                animate={{ opacity: 1, height: "auto", marginBottom: 20 }}
-                exit={{ opacity: 0, height: 0, marginBottom: 0 }}
-                transition={{ duration: 0.22, ease: "easeInOut" }}
-                className="overflow-hidden"
-              >
-                <div className="bg-white border border-border/25 rounded-2xl p-4 shadow-sm space-y-4">
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <div className="flex-1">
-                      <p className="font-headline text-[10px] font-bold uppercase tracking-[0.15em] text-on-surface-variant/60 mb-2">
-                        Trier par
-                      </p>
-                      <div className="flex flex-wrap gap-1.5">
-                        {SORT_OPTIONS.map((opt) => (
+              {/* Mobile: horizontal category chips */}
+              <div className="md:hidden mb-4 -mx-4 px-4">
+                <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+                  <button
+                    onClick={() => handleCategoryChange(null)}
+                    className="shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[13px] font-medium transition-all"
+                    style={{
+                      background: !selectedCategoryKey ? '#0A0A0A' : 'white',
+                      color: !selectedCategoryKey ? 'white' : '#8A8A85',
+                      border: '1px solid hsl(60 5% 92%)',
+                    }}
+                  >
+                    <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>apps</span>
+                    Tout
+                  </button>
+                  {categories.map((cat) => {
+                    const active = isCategorySelected(cat);
+                    return (
+                      <button
+                        key={cat.id}
+                        onClick={() => handleCategoryChange(active ? null : cat.id)}
+                        className="shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[13px] font-medium transition-all"
+                        style={{
+                          background: active ? '#0A0A0A' : 'white',
+                          color: active ? 'white' : '#8A8A85',
+                          border: '1px solid hsl(60 5% 92%)',
+                        }}
+                      >
+                        <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>{cat.icon || "eco"}</span>
+                        {cat.name}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Search bar + mobile filter toggle */}
+              <div className="flex gap-2 items-center mb-5">
+                <div
+                  className="flex-1 flex items-center px-4 py-0 rounded-full"
+                  style={{ background: 'white', border: '1px solid hsl(60 5% 92%)', boxShadow: '0 1px 2px rgba(10,10,10,0.04)' }}
+                >
+                  <span className="material-symbols-outlined text-[17px] mr-2.5" style={{ color: 'hsl(60 2% 54%)' }}>search</span>
+                  <input
+                    type="search"
+                    placeholder={`Mangue, tomate, mil…${firstName ? ` ${firstName}` : ''}`}
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="flex-1 py-2.5 bg-transparent text-[13.5px] outline-none font-body"
+                    style={{ color: '#0A0A0A' }}
+                  />
+                  {searchQuery && (
+                    <button onClick={() => setSearchQuery("")} className="ml-1" style={{ color: 'hsl(60 2% 54%)' }}>
+                      <span className="material-symbols-outlined text-[15px]">close</span>
+                    </button>
+                  )}
+                </div>
+                <button
+                  onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
+                  className="md:hidden flex items-center gap-1.5 px-3.5 py-2.5 rounded-full text-[13px] font-medium shrink-0"
+                  style={{
+                    background: sortBy !== 'default' ? '#0A0A0A' : 'white',
+                    color: sortBy !== 'default' ? 'white' : '#8A8A85',
+                    border: '1px solid hsl(60 5% 92%)',
+                  }}
+                >
+                  <span className="material-symbols-outlined text-[15px]">tune</span>
+                </button>
+              </div>
+
+              {/* Mobile filter panel */}
+              <AnimatePresence>
+                {mobileFilterOpen && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="overflow-hidden md:hidden mb-4"
+                  >
+                    <div className="bg-white rounded-xl border p-4" style={{ borderColor: 'hsl(60 5% 92%)' }}>
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-on-surface-variant mb-2">Trier par</p>
+                      <div className="flex flex-wrap gap-2">
+                        {([
+                          { value: "default", label: "Défaut" },
+                          { value: "price_asc", label: "Prix ↑" },
+                          { value: "price_desc", label: "Prix ↓" },
+                          { value: "new", label: "Nouveautés" },
+                        ] as const).map((opt) => (
                           <button
                             key={opt.value}
-                            onClick={() => setSortBy(opt.value)}
-                            className={`px-3 py-1.5 rounded-lg font-headline text-xs font-bold transition-colors cursor-pointer ${
-                              sortBy === opt.value
-                                ? "bg-foreground text-white"
-                                : "bg-surface-container text-on-surface-variant hover:bg-surface-container-high"
-                            }`}
+                            onClick={() => { setSortBy(opt.value); setMobileFilterOpen(false); }}
+                            className="px-3 py-1.5 rounded-full text-[12.5px] font-medium"
+                            style={{
+                              background: sortBy === opt.value ? '#0A0A0A' : 'hsl(60 5% 94%)',
+                              color: sortBy === opt.value ? 'white' : '#8A8A85',
+                            }}
                           >
                             {opt.label}
                           </button>
                         ))}
                       </div>
                     </div>
-                    <div className="flex-1">
-                      <p className="font-headline text-[10px] font-bold uppercase tracking-[0.15em] text-on-surface-variant/60 mb-2">
-                        Prix max —{" "}
-                        <span className="text-foreground normal-case tracking-normal">
-                          {priceMax.toLocaleString("fr-FR")} FCFA
-                        </span>
-                      </p>
-                      <input
-                        type="range" min={500} max={50000} step={500}
-                        value={priceMax}
-                        onChange={(e) => setPriceMax(Number(e.target.value))}
-                        className="w-full accent-foreground"
-                      />
-                      <div className="flex justify-between font-body text-[10px] text-on-surface-variant/50 mt-1">
-                        <span>500 FCFA</span><span>50 000 FCFA</span>
-                      </div>
-                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Page header */}
+              <div className="flex items-end justify-between mb-5">
+                <div>
+                  <h1 className="font-headline font-bold text-[22px] tracking-tight leading-tight" style={{ color: '#0A0A0A' }}>
+                    {selectedCategoryLabel || (searchQuery ? `« ${searchQuery} »` : (firstName ? `Bonjour, ${firstName}` : "Tous les produits"))}
+                  </h1>
+                  <p className="text-[13px] mt-1" style={{ color: 'hsl(60 2% 54%)' }}>
+                    {loading ? "Chargement…" : `${filtered.length} produit${filtered.length !== 1 ? "s" : ""} disponible${filtered.length !== 1 ? "s" : ""}`}
+                  </p>
+                </div>
+                {isFiltering && (
+                  <button
+                    onClick={() => { handleCategoryChange(null); setSearchQuery(""); }}
+                    className="flex items-center gap-1 text-[12.5px] font-medium hover:text-foreground transition-colors"
+                    style={{ color: 'hsl(60 2% 54%)' }}
+                  >
+                    <span className="material-symbols-outlined text-[14px]">close</span>
+                    Effacer
+                  </button>
+                )}
+              </div>
+
+              {/* Products */}
+              {loading ? (
+                <LoadingSkeleton />
+              ) : filtered.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-24 text-center">
+                  <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-4" style={{ background: 'hsl(60 5% 94%)' }}>
+                    <span className="material-symbols-outlined text-3xl" style={{ color: 'hsl(60 2% 54% / 0.4)' }}>search_off</span>
                   </div>
-                  {hasFilters && (
-                    <button
-                      onClick={() => { setSortBy("default"); setPriceMax(50000); }}
-                      className="flex items-center gap-1.5 text-xs font-headline font-bold text-on-surface-variant hover:text-foreground transition-colors cursor-pointer"
-                    >
-                      <span className="material-symbols-outlined text-[14px]">restart_alt</span>
-                      Réinitialiser
-                    </button>
-                  )}
+                  <p className="font-headline font-bold text-lg mb-2">Aucun résultat</p>
+                  <p className="text-[13.5px] max-w-xs mb-5" style={{ color: 'hsl(60 2% 54%)' }}>
+                    {searchQuery ? `Aucun produit pour « ${searchQuery} ».` : "Aucun produit dans cette catégorie."}
+                  </p>
+                  <button
+                    onClick={() => { handleCategoryChange(null); setSearchQuery(""); }}
+                    className="px-5 py-2.5 rounded-xl text-[13.5px] font-medium text-white"
+                    style={{ background: '#0A0A0A' }}
+                  >
+                    Voir tous les produits
+                  </button>
                 </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Promo carousel */}
-          {!isFiltering && (
-            <div className="mb-6">
-              <PromoCarousel />
+              ) : (
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+                  {filtered.map((product, i) => (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      onAddToCart={handleAddToCart}
+                      formatPrice={formatPrice}
+                      index={i}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
-          )}
-
-          {/* Section header */}
-          <div className="flex items-end justify-between mb-4">
-            <div>
-              <h1 className="font-headline font-black text-xl tracking-tight leading-tight">
-                {isFiltering
-                  ? selectedCategoryLabel || (searchQuery ? `"${searchQuery}"` : "Résultats")
-                  : firstName ? `Bonjour, ${firstName}` : "Produits frais"}
-              </h1>
-              <p className="font-body text-xs text-on-surface-variant mt-0.5">
-                {isFiltering
-                  ? `${filtered.length} résultat${filtered.length !== 1 ? "s" : ""}`
-                  : `${products.length} produits disponibles`}
-              </p>
-            </div>
-            {isFiltering && (
-              <button
-                onClick={() => { handleCategoryChange(null); setSearchQuery(""); }}
-                className="flex items-center gap-1 text-xs font-headline font-bold text-on-surface-variant hover:text-foreground transition-colors cursor-pointer"
-              >
-                <span className="material-symbols-outlined text-[14px]">close</span>
-                Effacer
-              </button>
-            )}
           </div>
-
-          {/* ── Products ── */}
-          {loading ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4">
-              {Array.from({ length: 12 }).map((_, i) => (
-                <div key={i} className="animate-pulse">
-                  <div className="aspect-square rounded-xl bg-surface-container mb-2.5" />
-                  <div className="h-3.5 bg-surface-container rounded-lg w-3/4 mb-1.5" />
-                  <div className="h-3 bg-surface-container rounded-lg w-1/2 mb-2" />
-                  <div className="h-4 bg-surface-container rounded-lg w-2/3" />
-                </div>
-              ))}
-            </div>
-          ) : isFiltering ? (
-            filtered.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-24 text-center">
-                <div className="w-20 h-20 rounded-2xl bg-surface-container flex items-center justify-center mb-5">
-                  <span className="material-symbols-outlined text-4xl text-on-surface-variant/30">search_off</span>
-                </div>
-                <p className="font-headline font-black text-xl mb-2 tracking-tight">Aucun résultat</p>
-                <p className="font-body text-sm text-on-surface-variant max-w-xs mb-6">
-                  {searchQuery
-                    ? `Aucun produit pour "${searchQuery}".`
-                    : "Aucun produit dans cette catégorie."}
-                </p>
-                <button
-                  onClick={() => { handleCategoryChange(null); setSearchQuery(""); }}
-                  className="px-6 py-3 rounded-lg bg-foreground text-white font-headline font-bold text-sm cursor-pointer"
-                >
-                  Voir tous les produits
-                </button>
-              </div>
-            ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4">
-                {filtered.map((product, i) => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    onAddToCart={handleAddToCart}
-                    formatPrice={formatPrice}
-                    index={i}
-                  />
-                ))}
-              </div>
-            )
-          ) : (
-            <div className="space-y-8 -mx-4 md:mx-0">
-              <HorizontalProductRow
-                title="Populaires"
-                icon="local_fire_department"
-                products={products.slice(0, 10)}
-                onAddToCart={handleAddToCart}
-                formatPrice={formatPrice}
-              />
-              {categoryGroups.map((group) => (
-                <HorizontalProductRow
-                  key={group.label}
-                  title={group.label}
-                  icon={group.icon}
-                  products={group.products}
-                  onAddToCart={handleAddToCart}
-                  formatPrice={formatPrice}
-                />
-              ))}
-            </div>
-          )}
         </div>
       </main>
     </div>

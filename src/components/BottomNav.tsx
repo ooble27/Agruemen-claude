@@ -28,65 +28,77 @@ const BottomNav = () => {
 
   return (
     <>
-      <div className="h-20 md:hidden" style={{ paddingBottom: "env(safe-area-inset-bottom)" }} />
-
-      <nav
-        className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-background/95 backdrop-blur-xl border-t border-border/25"
-        style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+      <div className="h-24 md:hidden" />
+      <div
+        className="fixed z-50 md:hidden"
+        style={{
+          bottom: 'max(calc(env(safe-area-inset-bottom, 0px) + 12px), 16px)',
+          left: 16,
+          right: 16,
+        }}
       >
-        <div className="flex items-center justify-around px-6 py-2">
+        <nav
+          className="flex items-center rounded-2xl px-1.5 py-1.5"
+          style={{
+            background: 'rgba(10,10,10,0.92)',
+            backdropFilter: 'blur(20px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+            boxShadow: '0 12px 32px rgba(10,10,10,0.22)',
+          }}
+        >
           {items.map((item) => {
             const isCart = item.href === "__cart__";
             const active = isActive(item.href);
 
-            const content = (
-              <div className="flex flex-col items-center gap-1 py-1.5 px-4 relative">
+            const inner = (
+              <div
+                className="flex-1 flex flex-col items-center gap-0.5 py-2 rounded-xl transition-colors"
+                style={{ background: active ? 'rgba(255,255,255,0.10)' : 'transparent' }}
+              >
                 <div className="relative">
                   <span
-                    className={`material-symbols-outlined text-[22px] leading-none block transition-colors duration-150 ${
-                      active ? "text-foreground" : "text-on-surface-variant/45"
-                    }`}
+                    className="material-symbols-outlined text-[20px] leading-none block"
                     style={{
-                      fontVariationSettings: active ? "'FILL' 1, 'wght' 600" : "'wght' 300",
+                      color: active ? '#fff' : 'rgba(255,255,255,0.45)',
+                      fontVariationSettings: active ? "'FILL' 1, 'wght' 500" : "'FILL' 0, 'wght' 300",
                     }}
                   >
                     {item.icon}
                   </span>
                   {isCart && totalItems > 0 && (
-                    <span className="absolute -top-1 -right-1.5 min-w-[14px] h-[14px] bg-red-500 text-white text-[8px] font-bold rounded-sm flex items-center justify-center leading-none px-0.5">
+                    <span
+                      className="absolute -top-1 -right-2 min-w-[14px] h-[14px] text-white text-[8px] font-bold rounded-full flex items-center justify-center px-1"
+                      style={{ background: '#E84A1F' }}
+                    >
                       {totalItems > 9 ? "9+" : totalItems}
                     </span>
                   )}
                 </div>
                 <span
-                  className={`font-headline text-[9px] font-bold leading-none transition-colors duration-150 ${
-                    active ? "text-foreground" : "text-on-surface-variant/40"
-                  }`}
+                  className="text-[10px] font-medium"
+                  style={{ color: active ? '#fff' : 'rgba(255,255,255,0.45)' }}
                 >
                   {item.label}
                 </span>
-                {active && (
-                  <span className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-[2px] rounded-full bg-foreground" />
-                )}
               </div>
             );
 
             if (isCart) {
               return (
-                <button key="cart" onClick={() => setIsOpen(true)} className="outline-none">
-                  {content}
+                <button key="cart" onClick={() => setIsOpen(true)} className="flex-1 flex">
+                  {inner}
                 </button>
               );
             }
 
             return (
-              <Link key={item.href} to={item.href} className="outline-none">
-                {content}
+              <Link key={item.href} to={item.href} className="flex-1 flex">
+                {inner}
               </Link>
             );
           })}
-        </div>
-      </nav>
+        </nav>
+      </div>
     </>
   );
 };
