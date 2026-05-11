@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useWishlist } from "@/contexts/WishlistContext";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Plus, Heart, Leaf } from "lucide-react";
 
 interface ProductCardProduct {
   id: string;
@@ -22,107 +25,121 @@ interface ProductCardProps {
 
 const ProductCard = ({ product, onAddToCart, formatPrice, index = 0 }: ProductCardProps) => {
   const { toggleWishlist, isWishlisted } = useWishlist();
-  const isMock = product.id.startsWith("m");
   const outOfStock = product.stock <= 0;
   const wishlisted = isWishlisted(product.id);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: Math.min(index * 0.03, 0.3), duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
+      transition={{ delay: Math.min(index * 0.03, 0.3), duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
     >
-      <Link to={`/produit/${product.id}`} className="block group">
-        {/* Image */}
-        <div className="relative aspect-square rounded-sm overflow-hidden bg-surface-container mb-2.5">
-          {product.image_url ? (
-            <img
-              alt={product.name}
-              src={product.image_url}
-              className={`w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04] ${outOfStock ? "opacity-40" : ""}`}
-              loading="lazy"
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center">
-              <span className="material-symbols-outlined text-4xl text-on-surface-variant/15">eco</span>
-            </div>
-          )}
-
-          {/* Top row: badge left, wishlist right */}
-          <div className="absolute top-2 left-2 right-2 flex items-start justify-between">
-            {outOfStock ? (
-              <span className="bg-foreground text-white text-[9px] font-bold font-headline px-2 py-0.5 rounded-sm leading-tight">
-                Rupture
-              </span>
+      <Card className="group overflow-hidden border border-border/60 hover:border-border hover:shadow-md transition-all duration-200 bg-card rounded-xl">
+        <Link to={`/produit/${product.id}`} className="block">
+          {/* Image */}
+          <div className="relative aspect-square overflow-hidden bg-muted rounded-t-xl">
+            {product.image_url ? (
+              <img
+                src={product.image_url}
+                alt={product.name}
+                loading="lazy"
+                className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04] ${
+                  outOfStock ? "opacity-50 grayscale-[20%]" : ""
+                }`}
+              />
             ) : (
-              <span />
+              <div className="w-full h-full flex items-center justify-center">
+                <Leaf className="h-10 w-10 text-muted-foreground/20" />
+              </div>
             )}
 
+            {outOfStock && (
+              <div className="absolute inset-0 bg-background/40 flex items-center justify-center">
+                <span className="bg-background/95 text-foreground text-[10px] font-semibold px-2.5 py-1 rounded-full border border-border/50">
+                  Rupture
+                </span>
+              </div>
+            )}
+
+            {/* Wishlist */}
             <button
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
                 toggleWishlist(product.id);
               }}
-              className={`w-6 h-6 rounded-sm flex items-center justify-center transition-all ${
+              className={`absolute top-2 right-2 w-7 h-7 rounded-full flex items-center justify-center backdrop-blur-sm transition-all shadow-sm ${
                 wishlisted
-                  ? "bg-red-50"
-                  : "bg-surface-container-lowest/80 backdrop-blur-sm"
+                  ? "bg-white text-red-500"
+                  : "bg-white/80 text-muted-foreground hover:text-red-400"
               }`}
             >
-              <span
-                className={`material-symbols-outlined text-[14px] ${wishlisted ? "text-red-500" : "text-on-surface-variant/50"}`}
-                style={{ fontVariationSettings: wishlisted ? "'FILL' 1" : "'FILL' 0" }}
-              >
-                favorite
-              </span>
+              <Heart
+                className="h-3.5 w-3.5"
+                fill={wishlisted ? "currentColor" : "none"}
+              />
             </button>
+
+            {/* Desktop hover add button */}
+            {!outOfStock && (
+              <div className="absolute bottom-2 right-2 hidden md:block opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-200">
+                <Button
+                  size="sm"
+                  className="h-8 px-3 text-xs shadow-md gap-1.5 rounded-full"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    onAddToCart(product, e);
+                  }}
+                >
+                  <Plus className="h-3.5 w-3.5" />
+                  Ajouter
+                </Button>
+              </div>
+            )}
           </div>
 
-          {/* Add to cart — desktop hover */}
-          {!outOfStock && (
-            <motion.button
-              whileTap={{ scale: 0.88 }}
-              onClick={(e) => onAddToCart(product, e)}
-              className="absolute bottom-2 right-2 h-7 px-2.5 rounded-sm bg-foreground text-white hidden md:flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-            >
-              <span className="material-symbols-outlined text-[12px]">add</span>
-              <span className="font-headline font-bold text-[11px]">Ajouter</span>
-            </motion.button>
-          )}
-        </div>
-
-        {/* Info */}
-        <div>
-          <p className="font-headline font-extrabold text-[13px] md:text-sm leading-snug line-clamp-2 text-foreground mb-0.5">
-            {product.name}
-          </p>
-          {product.shops?.name && (
-            <p className="font-body text-[10px] text-on-surface-variant/55 mb-1.5 truncate">
-              {product.shops.name}
+          {/* Info */}
+          <CardContent className="p-3">
+            {product.categories?.name && (
+              <p className="text-[10px] font-semibold text-muted-foreground/70 uppercase tracking-wide mb-1">
+                {product.categories.name}
+              </p>
+            )}
+            <p className="font-semibold text-[13px] leading-snug line-clamp-2 text-foreground mb-0.5">
+              {product.name}
             </p>
-          )}
-          <div className="flex items-center justify-between gap-1">
-            <div>
-              <span className="font-headline font-black text-sm text-foreground">
-                {formatPrice(product.price)}
-              </span>
-              <span className="font-body text-[9px] text-on-surface-variant ml-1">
-                FCFA/{product.unit}
-              </span>
+            {product.shops?.name && (
+              <p className="text-[11px] text-muted-foreground truncate mb-2.5">
+                {product.shops.name}
+              </p>
+            )}
+            <div className="flex items-center justify-between gap-1">
+              <div className="flex items-baseline gap-1 flex-wrap">
+                <span className="font-bold text-sm text-foreground">
+                  {formatPrice(product.price)}
+                </span>
+                <span className="text-[10px] text-muted-foreground">
+                  FCFA/{product.unit}
+                </span>
+              </div>
+              {/* Mobile: always visible add */}
+              <Button
+                size="icon"
+                className="h-7 w-7 md:hidden shrink-0 rounded-full"
+                disabled={outOfStock}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  onAddToCart(product, e);
+                }}
+              >
+                <Plus className="h-3.5 w-3.5" />
+              </Button>
             </div>
-            {/* Mobile: always-visible add button */}
-            <motion.button
-              whileTap={{ scale: 0.85 }}
-              onClick={(e) => onAddToCart(product, e)}
-              disabled={outOfStock}
-              className="w-7 h-7 rounded-sm bg-foreground text-white flex items-center justify-center transition-colors md:hidden disabled:opacity-25 shrink-0"
-            >
-              <span className="material-symbols-outlined text-[14px]">add</span>
-            </motion.button>
-          </div>
-        </div>
-      </Link>
+          </CardContent>
+        </Link>
+      </Card>
     </motion.div>
   );
 };
