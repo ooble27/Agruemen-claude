@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { AnimatePresence, motion } from "framer-motion";
 import { buildMarketCategories } from "@/data/marketplaceMocks";
 import type { Category } from "@/types/database";
+import { Leaf } from "lucide-react";
 
 const Navbar = () => {
   const { totalItems, setIsOpen } = useCart();
@@ -57,12 +58,15 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 w-full z-50 bg-background border-b border-border safe-area-top">
-        <div className="flex items-center px-5 md:px-8 lg:px-10 py-2.5 max-w-[1440px] mx-auto w-full gap-1">
+      <nav className="fixed top-0 w-full z-50 bg-white shadow-[0_2px_12px_rgba(0,0,0,0.06)] safe-area-top">
+        <div className="flex items-center px-4 md:px-8 lg:px-10 h-16 max-w-[1440px] mx-auto w-full gap-2">
 
           {/* Logo */}
-          <Link to="/" className="font-headline font-black text-xl tracking-tighter text-foreground shrink-0 mr-6">
-            Agrumen
+          <Link to="/" className="flex items-center gap-2.5 shrink-0 mr-6">
+            <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center shrink-0">
+              <Leaf className="h-4 w-4 text-white" />
+            </div>
+            <span className="font-bold text-[18px] text-foreground tracking-tight leading-none">Agrumen</span>
           </Link>
 
           {/* Desktop nav */}
@@ -71,10 +75,10 @@ const Navbar = () => {
             {/* Marché mega-menu */}
             <div ref={marcheRef} className="relative" onMouseEnter={handleMarcheEnter} onMouseLeave={handleMarcheLeave}>
               <button
-                className={`flex items-center gap-1 px-3.5 py-2 rounded-sm text-[13px] font-bold transition-all duration-150 ${
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-150 ${
                   isActive("/marche") || marcheOpen
-                    ? "bg-foreground text-white"
-                    : "text-on-surface-variant hover:text-foreground hover:bg-surface-container"
+                    ? "bg-primary text-white"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 }`}
                 onClick={() => setMarcheOpen(!marcheOpen)}
               >
@@ -91,46 +95,43 @@ const Navbar = () => {
               <AnimatePresence>
                 {marcheOpen && (
                   <motion.div
-                    initial={{ opacity: 0, y: 6 }}
+                    initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 6 }}
-                    transition={{ duration: 0.14, ease: "easeOut" }}
-                    className="absolute left-0 top-full mt-2.5 bg-background rounded-sm border border-border/50 shadow-[0_16px_40px_rgba(0,0,0,0.12)] overflow-hidden z-50"
+                    exit={{ opacity: 0, y: 8 }}
+                    transition={{ duration: 0.16, ease: "easeOut" }}
+                    className="absolute left-0 top-full mt-3 bg-white rounded-2xl border border-border/30 shadow-[0_20px_60px_rgba(0,0,0,0.12)] overflow-hidden z-50"
                     style={{ width: "480px" }}
                     onMouseEnter={handleMarcheEnter}
                     onMouseLeave={handleMarcheLeave}
                   >
                     <div className="flex">
-                      {/* Categories */}
-                      <div className="flex-1 p-3">
-                        <p className="font-headline text-[9px] font-bold uppercase tracking-[0.2em] text-on-surface-variant/60 px-2 pb-2">
+                      <div className="flex-1 p-4">
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 px-2 pb-3">
                           Catégories
                         </p>
-                        <div className="grid grid-cols-2 gap-0.5">
+                        <div className="grid grid-cols-2 gap-1">
                           {displayCategories.map((cat) => (
                             <Link
                               key={cat.id}
                               to={`/marche?cat=${cat.id}`}
                               onClick={() => setMarcheOpen(false)}
-                              className="flex items-center gap-3 px-3 py-2.5 rounded-sm transition-colors group hover:bg-surface-container"
+                              className="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors group hover:bg-muted"
                             >
-                              <div className="w-7 h-7 rounded-sm bg-surface-container flex items-center justify-center shrink-0 group-hover:bg-foreground/8 transition-colors">
-                                <span className="material-symbols-outlined text-[15px] text-on-surface-variant/60" style={{ fontVariationSettings: "'FILL' 1" }}>
+                              <div className="w-8 h-8 rounded-xl bg-muted flex items-center justify-center shrink-0 group-hover:bg-primary/10 transition-colors">
+                                <span className="material-symbols-outlined text-[16px] text-muted-foreground" style={{ fontVariationSettings: "'FILL' 1" }}>
                                   {cat.icon || "eco"}
                                 </span>
                               </div>
                               <div>
-                                <p className="font-headline text-[13px] font-bold text-foreground leading-tight">{cat.name}</p>
-                                <p className="font-body text-[10px] text-on-surface-variant/60">Produits frais</p>
+                                <p className="text-[13px] font-semibold text-foreground leading-tight">{cat.name}</p>
+                                <p className="text-[10px] text-muted-foreground/60">Produits frais</p>
                               </div>
                             </Link>
                           ))}
                         </div>
                       </div>
-
-                      {/* Explorer */}
-                      <div className="w-40 bg-surface-container/30 p-3 border-l border-border/20">
-                        <p className="font-headline text-[9px] font-bold uppercase tracking-[0.2em] text-on-surface-variant/60 px-2 pb-2">
+                      <div className="w-44 bg-muted/40 p-4 border-l border-border/20">
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 px-2 pb-3">
                           Explorer
                         </p>
                         <div className="flex flex-col gap-0.5">
@@ -143,7 +144,7 @@ const Navbar = () => {
                               key={item.href}
                               to={item.href}
                               onClick={() => setMarcheOpen(false)}
-                              className="px-2 py-2.5 rounded-sm font-headline text-[13px] font-bold text-on-surface-variant hover:text-foreground hover:bg-surface-container transition-colors"
+                              className="px-3 py-2.5 rounded-xl text-sm font-semibold text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
                             >
                               {item.label}
                             </Link>
@@ -159,10 +160,10 @@ const Navbar = () => {
             {user && (
               <Link
                 to={accountPath}
-                className={`px-3.5 py-2 rounded-sm text-[13px] font-bold transition-all duration-150 ${
+                className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-150 ${
                   isActive("/mon-compte") || isActive("/admin")
-                    ? "bg-foreground text-white"
-                    : "text-on-surface-variant hover:text-foreground hover:bg-surface-container"
+                    ? "bg-primary text-white"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 }`}
               >
                 Mon Compte
@@ -172,10 +173,10 @@ const Navbar = () => {
             {user && isAdmin && (
               <Link
                 to="/admin"
-                className={`px-3.5 py-2 rounded-sm text-[13px] font-bold transition-all duration-150 ${
+                className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-150 ${
                   isActive("/admin")
-                    ? "bg-foreground text-white"
-                    : "text-on-surface-variant hover:text-foreground hover:bg-surface-container"
+                    ? "bg-primary text-white"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 }`}
               >
                 Admin
@@ -184,18 +185,18 @@ const Navbar = () => {
           </div>
 
           {/* Right actions */}
-          <div className="flex items-center gap-1.5 ml-auto">
+          <div className="flex items-center gap-1 ml-auto">
 
             {/* Notifications */}
             {user && (
               <div ref={notifRef} className="relative">
                 <button
                   onClick={() => setNotifOpen(!notifOpen)}
-                  className="relative w-9 h-9 flex items-center justify-center rounded-sm text-on-surface-variant hover:text-foreground hover:bg-surface-container transition-colors"
+                  className="relative w-9 h-9 flex items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
                 >
-                  <span className="material-symbols-outlined text-xl">notifications</span>
+                  <span className="material-symbols-outlined text-[22px]">notifications</span>
                   {unreadCount > 0 && (
-                    <span className="absolute -top-0.5 -right-0.5 w-[16px] h-[16px] bg-foreground text-white text-[9px] font-bold rounded-full flex items-center justify-center">
+                    <span className="absolute -top-0.5 -right-0.5 w-[17px] h-[17px] bg-primary text-white text-[9px] font-bold rounded-full flex items-center justify-center">
                       {unreadCount > 9 ? "9+" : unreadCount}
                     </span>
                   )}
@@ -204,16 +205,16 @@ const Navbar = () => {
                 <AnimatePresence>
                   {notifOpen && (
                     <motion.div
-                      initial={{ opacity: 0, y: 4 }}
+                      initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 4 }}
-                      transition={{ duration: 0.12 }}
-                      className="absolute right-0 top-full mt-2.5 w-80 bg-background rounded-sm border border-border/50 shadow-[0_16px_40px_rgba(0,0,0,0.12)] overflow-hidden z-50"
+                      exit={{ opacity: 0, y: 8 }}
+                      transition={{ duration: 0.14 }}
+                      className="absolute right-0 top-full mt-3 w-80 bg-white rounded-2xl border border-border/30 shadow-[0_20px_60px_rgba(0,0,0,0.12)] overflow-hidden z-50"
                     >
-                      <div className="px-4 py-3 border-b border-border/20 flex items-center justify-between">
-                        <span className="font-headline text-sm font-black">Notifications</span>
+                      <div className="px-4 py-3.5 border-b border-border/20 flex items-center justify-between">
+                        <span className="font-bold text-sm">Notifications</span>
                         {unreadCount > 0 && (
-                          <button onClick={markAllRead} className="font-headline text-xs font-bold text-on-surface-variant hover:text-foreground transition-colors">
+                          <button onClick={markAllRead} className="text-xs font-semibold text-primary hover:text-primary/80 transition-colors">
                             Tout marquer lu
                           </button>
                         )}
@@ -221,21 +222,21 @@ const Navbar = () => {
                       <div className="max-h-80 overflow-y-auto divide-y divide-border/10">
                         {notifications.length === 0 ? (
                           <div className="py-12 text-center">
-                            <span className="material-symbols-outlined text-3xl text-on-surface-variant/20 block mb-2">notifications_none</span>
-                            <p className="font-body text-sm text-on-surface-variant/50">Aucune notification</p>
+                            <span className="material-symbols-outlined text-3xl text-muted-foreground/20 block mb-2">notifications_none</span>
+                            <p className="text-sm text-muted-foreground/50">Aucune notification</p>
                           </div>
                         ) : notifications.map(n => (
                           <button
                             key={n.id}
                             onClick={() => { markRead(n.id); if (n.order_id) navigate("/mes-commandes"); setNotifOpen(false); }}
-                            className={`w-full text-left px-4 py-3 hover:bg-surface-container transition-colors ${!n.read ? "bg-foreground/[0.02]" : ""}`}
+                            className={`w-full text-left px-4 py-3 hover:bg-muted/50 transition-colors ${!n.read ? "bg-primary/[0.03]" : ""}`}
                           >
                             <div className="flex items-start gap-3">
-                              {!n.read && <div className="w-1.5 h-1.5 rounded-full bg-foreground mt-2 shrink-0" />}
-                              <div className={!n.read ? "" : "pl-4"}>
-                                <p className="font-headline text-xs font-bold text-foreground">{n.title}</p>
-                                <p className="font-body text-xs text-on-surface-variant mt-0.5">{n.body}</p>
-                                <p className="font-body text-[10px] text-on-surface-variant/50 mt-1">
+                              {!n.read && <div className="w-2 h-2 rounded-full bg-primary mt-1.5 shrink-0" />}
+                              <div className={!n.read ? "" : "pl-5"}>
+                                <p className="text-xs font-bold text-foreground">{n.title}</p>
+                                <p className="text-xs text-muted-foreground mt-0.5">{n.body}</p>
+                                <p className="text-[10px] text-muted-foreground/50 mt-1">
                                   {new Date(n.created_at).toLocaleString("fr-FR", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" })}
                                 </p>
                               </div>
@@ -252,25 +253,25 @@ const Navbar = () => {
             {/* Cart */}
             <button
               onClick={() => setIsOpen(true)}
-              className="relative w-9 h-9 flex items-center justify-center rounded-sm text-on-surface-variant hover:text-foreground hover:bg-surface-container transition-colors"
+              className="relative w-9 h-9 flex items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
             >
-              <span className="material-symbols-outlined text-xl">shopping_bag</span>
+              <span className="material-symbols-outlined text-[22px]">shopping_bag</span>
               {totalItems > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 w-[16px] h-[16px] bg-foreground text-white text-[9px] font-bold rounded-full flex items-center justify-center">
+                <span className="absolute -top-0.5 -right-0.5 w-[17px] h-[17px] bg-primary text-white text-[9px] font-bold rounded-full flex items-center justify-center">
                   {totalItems}
                 </span>
               )}
             </button>
 
             {/* Desktop auth / profile */}
-            <div className="hidden md:flex items-center gap-1.5">
+            <div className="hidden md:flex items-center gap-1.5 ml-1">
               {user ? (
                 <div ref={profileRef} className="relative">
                   <button
                     onClick={() => setProfileOpen(!profileOpen)}
-                    className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-sm text-on-surface-variant hover:text-foreground hover:bg-surface-container transition-colors"
+                    className="flex items-center gap-2 px-2.5 py-1.5 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
                   >
-                    <div className="w-7 h-7 rounded-sm bg-foreground flex items-center justify-center text-white text-xs font-bold font-headline">
+                    <div className="w-7 h-7 rounded-full bg-primary flex items-center justify-center text-white text-xs font-bold">
                       {(user.email || "U").charAt(0).toUpperCase()}
                     </div>
                     <motion.span
@@ -285,22 +286,20 @@ const Navbar = () => {
                   <AnimatePresence>
                     {profileOpen && (
                       <motion.div
-                        initial={{ opacity: 0, y: 4 }}
+                        initial={{ opacity: 0, y: 8 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 4 }}
-                        transition={{ duration: 0.12 }}
-                        className="absolute right-0 top-full mt-2.5 w-52 bg-background rounded-sm border border-border/50 shadow-[0_16px_40px_rgba(0,0,0,0.12)] overflow-hidden z-50"
+                        exit={{ opacity: 0, y: 8 }}
+                        transition={{ duration: 0.14 }}
+                        className="absolute right-0 top-full mt-3 w-52 bg-white rounded-2xl border border-border/30 shadow-[0_20px_60px_rgba(0,0,0,0.12)] overflow-hidden z-50"
                       >
-                        <div className="px-4 py-3 border-b border-border/20">
-                          <p className="font-headline text-sm font-bold text-foreground truncate">{user.email}</p>
-                          <p className="font-body text-[11px] text-on-surface-variant/60 mt-0.5">
-                            {isAdmin ? "Administrateur" : "Acheteur"}
-                          </p>
+                        <div className="px-4 py-3.5 border-b border-border/20">
+                          <p className="text-sm font-bold text-foreground truncate">{user.email}</p>
+                          <p className="text-[11px] text-muted-foreground mt-0.5">{isAdmin ? "Administrateur" : "Acheteur"}</p>
                         </div>
-                        <div className="py-1">
+                        <div className="p-1.5">
                           <Link
                             to={accountPath}
-                            className="flex items-center gap-3 px-4 py-2.5 font-headline text-[13px] font-bold text-on-surface-variant hover:text-foreground hover:bg-surface-container transition-colors"
+                            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
                           >
                             <span className="material-symbols-outlined text-[18px]">person</span>
                             Mon Compte
@@ -308,17 +307,17 @@ const Navbar = () => {
                           {!isAdmin && (
                             <Link
                               to="/mes-commandes"
-                              className="flex items-center gap-3 px-4 py-2.5 font-headline text-[13px] font-bold text-on-surface-variant hover:text-foreground hover:bg-surface-container transition-colors"
+                              className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
                             >
                               <span className="material-symbols-outlined text-[18px]">receipt_long</span>
                               Mes Commandes
                             </Link>
                           )}
                         </div>
-                        <div className="border-t border-border/20 py-1">
+                        <div className="border-t border-border/20 p-1.5">
                           <button
                             onClick={() => { signOut(); setProfileOpen(false); }}
-                            className="flex items-center gap-3 w-full px-4 py-2.5 font-headline text-[13px] font-bold text-destructive hover:bg-destructive/5 transition-colors"
+                            className="flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm font-semibold text-destructive hover:bg-destructive/5 transition-colors"
                           >
                             <span className="material-symbols-outlined text-[18px]">logout</span>
                             Déconnexion
@@ -332,13 +331,13 @@ const Navbar = () => {
                 <>
                   <Link
                     to="/auth"
-                    className="px-3.5 py-2 rounded-sm text-[13px] font-bold text-on-surface-variant hover:text-foreground hover:bg-surface-container transition-colors"
+                    className="px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors"
                   >
                     Connexion
                   </Link>
                   <Link
                     to="/auth"
-                    className="px-4 py-2 rounded-sm bg-foreground text-white text-[13px] font-bold hover:opacity-90 transition-opacity"
+                    className="px-4 py-2 rounded-full bg-primary text-white text-sm font-semibold hover:bg-primary/90 transition-colors"
                   >
                     Commencer
                   </Link>
@@ -349,7 +348,7 @@ const Navbar = () => {
             {/* Mobile hamburger */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="md:hidden w-9 h-9 flex items-center justify-center rounded-sm text-on-surface-variant hover:bg-surface-container transition-colors"
+              className="md:hidden w-9 h-9 flex items-center justify-center rounded-full text-muted-foreground hover:bg-muted transition-colors"
               aria-label="Menu"
             >
               <span className="material-symbols-outlined text-xl">{mobileOpen ? "close" : "menu"}</span>
@@ -366,36 +365,34 @@ const Navbar = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 md:hidden"
+              className="fixed inset-0 bg-black/25 backdrop-blur-sm z-40 md:hidden"
               onClick={() => setMobileOpen(false)}
             />
             <motion.div
-              initial={{ opacity: 0, y: -8, scale: 0.98 }}
+              initial={{ opacity: 0, y: -10, scale: 0.97 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -8, scale: 0.98 }}
-              transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed left-4 right-4 z-50 md:hidden bg-background border border-border/50 rounded-sm shadow-[0_20px_60px_rgba(0,0,0,0.18)] overflow-hidden"
-              style={{ top: "calc(env(safe-area-inset-top, 0px) + 58px)" }}
+              exit={{ opacity: 0, y: -10, scale: 0.97 }}
+              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+              className="fixed left-3 right-3 z-50 md:hidden bg-white rounded-2xl shadow-[0_24px_64px_rgba(0,0,0,0.16)] overflow-hidden border border-border/20"
+              style={{ top: "calc(env(safe-area-inset-top, 0px) + 68px)" }}
             >
               <div className="flex flex-col max-h-[80vh] overflow-y-auto">
 
-                {/* User info */}
                 {user && (
-                  <div className="flex items-center gap-3 px-4 py-3.5 border-b border-border/15">
-                    <div className="w-9 h-9 rounded-sm bg-foreground flex items-center justify-center text-white font-headline font-bold text-sm shrink-0">
+                  <div className="flex items-center gap-3 px-4 py-4 border-b border-border/15 bg-muted/30">
+                    <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold text-sm shrink-0">
                       {(user.email || "U").charAt(0).toUpperCase()}
                     </div>
                     <div className="min-w-0">
-                      <p className="font-headline text-sm font-bold text-foreground truncate">{user.email}</p>
-                      <p className="font-body text-[11px] text-on-surface-variant/60">{isAdmin ? "Administrateur" : "Acheteur"}</p>
+                      <p className="text-sm font-bold text-foreground truncate">{user.email}</p>
+                      <p className="text-[11px] text-muted-foreground">{isAdmin ? "Administrateur" : "Acheteur"}</p>
                     </div>
                   </div>
                 )}
 
-                {/* Nav links */}
                 <div className="p-3">
-                  <p className="font-headline text-[9px] font-bold uppercase tracking-[0.2em] text-on-surface-variant/40 px-2 pb-2">Navigation</p>
-                  <div className="grid grid-cols-2 gap-1">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50 px-2 pb-2.5">Navigation</p>
+                  <div className="grid grid-cols-2 gap-1.5">
                     {[
                       { label: "Marché", href: "/marche", icon: "storefront" },
                       { label: "Nouveautés", href: "/marche?sort=new", icon: "new_releases" },
@@ -404,34 +401,33 @@ const Navbar = () => {
                         key={item.href}
                         to={item.href}
                         onClick={() => setMobileOpen(false)}
-                        className={`flex items-center gap-2.5 px-3 py-3 rounded-sm transition-colors ${
-                          isActive(item.href) ? "bg-foreground text-white" : "text-on-surface-variant hover:bg-surface-container"
+                        className={`flex items-center gap-2.5 px-3 py-3 rounded-xl transition-colors text-sm font-semibold ${
+                          isActive(item.href) ? "bg-primary text-white" : "text-muted-foreground hover:bg-muted"
                         }`}
                       >
-                        <span className={`material-symbols-outlined text-[17px] shrink-0 ${isActive(item.href) ? "text-white" : "text-foreground/40"}`} style={{ fontVariationSettings: "'FILL' 1" }}>
+                        <span className={`material-symbols-outlined text-[17px] shrink-0 ${isActive(item.href) ? "text-white" : "text-muted-foreground/60"}`} style={{ fontVariationSettings: "'FILL' 1" }}>
                           {item.icon}
                         </span>
-                        <span className="font-headline text-[13px] font-bold">{item.label}</span>
+                        {item.label}
                       </Link>
                     ))}
                   </div>
 
-                  {/* Categories */}
                   {displayCategories.length > 0 && (
-                    <div className="mt-2 pt-2 border-t border-border/15">
-                      <p className="font-headline text-[9px] font-bold uppercase tracking-[0.2em] text-on-surface-variant/40 px-2 pb-2">Catégories</p>
-                      <div className="grid grid-cols-2 gap-1">
+                    <div className="mt-3 pt-3 border-t border-border/15">
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50 px-2 pb-2.5">Catégories</p>
+                      <div className="grid grid-cols-2 gap-1.5">
                         {displayCategories.map(cat => (
                           <Link
                             key={cat.id}
                             to={`/marche?cat=${cat.id}`}
                             onClick={() => setMobileOpen(false)}
-                            className="flex items-center gap-2.5 px-3 py-3 rounded-sm text-on-surface-variant hover:bg-surface-container transition-colors"
+                            className="flex items-center gap-2.5 px-3 py-3 rounded-xl text-sm font-semibold text-muted-foreground hover:bg-muted transition-colors"
                           >
-                            <span className="material-symbols-outlined text-[17px] shrink-0 text-foreground/40" style={{ fontVariationSettings: "'FILL' 1" }}>
+                            <span className="material-symbols-outlined text-[17px] shrink-0 text-muted-foreground/50" style={{ fontVariationSettings: "'FILL' 1" }}>
                               {cat.icon || "eco"}
                             </span>
-                            <span className="font-headline text-[13px] font-bold">{cat.name}</span>
+                            {cat.name}
                           </Link>
                         ))}
                       </div>
@@ -439,14 +435,13 @@ const Navbar = () => {
                   )}
                 </div>
 
-                {/* Auth CTA */}
-                <div className="border-t border-border/20 p-3">
+                <div className="border-t border-border/20 p-3 bg-muted/20">
                   {user ? (
-                    <div className="flex flex-col gap-1.5">
+                    <div className="flex flex-col gap-2">
                       <Link
                         to={accountPath}
                         onClick={() => setMobileOpen(false)}
-                        className="flex items-center justify-center gap-2 py-3 rounded-sm bg-foreground text-white font-headline font-bold text-sm"
+                        className="flex items-center justify-center gap-2 py-3 rounded-xl bg-primary text-white font-semibold text-sm"
                       >
                         <span className="material-symbols-outlined text-base" style={{ fontVariationSettings: "'FILL' 1" }}>person</span>
                         Mon Compte
@@ -455,7 +450,7 @@ const Navbar = () => {
                         <Link
                           to="/mes-commandes"
                           onClick={() => setMobileOpen(false)}
-                          className="flex items-center justify-center gap-2 py-3 rounded-sm border border-border/30 text-on-surface-variant font-headline font-bold text-sm"
+                          className="flex items-center justify-center gap-2 py-3 rounded-xl border border-border/40 text-muted-foreground font-semibold text-sm"
                         >
                           <span className="material-symbols-outlined text-base">receipt_long</span>
                           Mes Commandes
@@ -463,7 +458,7 @@ const Navbar = () => {
                       )}
                       <button
                         onClick={() => { signOut(); setMobileOpen(false); }}
-                        className="flex items-center justify-center gap-2 py-2.5 text-on-surface-variant/60 font-headline text-xs font-bold"
+                        className="flex items-center justify-center gap-2 py-2.5 text-muted-foreground/60 font-semibold text-xs"
                       >
                         <span className="material-symbols-outlined text-sm">logout</span>
                         Déconnexion
@@ -473,7 +468,7 @@ const Navbar = () => {
                     <Link
                       to="/auth"
                       onClick={() => setMobileOpen(false)}
-                      className="flex items-center justify-center gap-2 py-3 rounded-sm bg-foreground text-white font-headline font-bold text-sm"
+                      className="flex items-center justify-center gap-2 py-3 rounded-xl bg-primary text-white font-semibold text-sm"
                     >
                       Connexion / Commencer
                     </Link>
