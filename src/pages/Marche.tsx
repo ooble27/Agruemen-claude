@@ -111,7 +111,7 @@ const Marche = () => {
       priceNum: product.price,
       unit: product.unit,
       image: product.image_url || "/placeholder.svg",
-      farmer: product.shops?.name || "Producteur",
+      farmer: product.shops?.name || "Mamakaasa",
       shopId: product.shop_id,
     });
     toast.success(`${product.name} ajouté au panier`);

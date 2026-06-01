@@ -162,7 +162,7 @@ const ProductDetail = () => {
         priceNum: product.price,
         unit: product.unit,
         image: images[0] || "/placeholder.svg",
-        farmer: sellerProfile?.full_name || shop?.name || "Vendeur",
+        farmer: sellerProfile?.full_name || shop?.name || "Mamakaasa",
         shopId: product.shop_id,
       });
     }

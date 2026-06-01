@@ -10,7 +10,7 @@ const testimonials = [
   {
     name: "Moussa Sall",
     role: "Producteur à Thiès",
-    text: "Mamakaasa m'a permis de vendre mes récoltes à un prix juste, sans passer par des intermédiaires. Mes revenus ont augmenté de 40%.",
+    text: "Mamakaasa achète mes récoltes directement à la ferme, à un prix garanti fixé à l'avance. Fini l'incertitude — mes revenus ont augmenté de 40%.",
     initials: "MS",
   },
   {
