@@ -30,6 +30,21 @@ const HeroSection = () => {
 
       <div className="relative z-10 mx-auto w-full max-w-4xl">
 
+        {/* Logo */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.92 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          className="mb-8 flex justify-center"
+        >
+          <img
+            src="/logo-mamakaasa.png"
+            alt="Mamakaasa"
+            className="h-28 w-auto drop-shadow-sm md:h-36"
+            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+          />
+        </motion.div>
+
         {/* Headline */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
@@ -49,8 +64,8 @@ const HeroSection = () => {
           transition={{ duration: 0.6, delay: 0.15 }}
           className="mx-auto mb-9 max-w-lg font-body text-lg leading-relaxed text-on-surface-variant md:text-xl"
         >
-          Achetez directement aux producteurs sénégalais.
-          Frais, naturel, <span className="font-semibold text-foreground">sans intermédiaire</span>.
+          Mamakaasa vous livre les meilleurs produits agricoles du Sénégal.
+          Frais, naturel, <span className="font-semibold text-foreground">livré chez vous</span>.
         </motion.p>
 
         {/* CTAs */}
@@ -83,7 +98,7 @@ const HeroSection = () => {
           className="mt-8 hidden flex-wrap items-center justify-center gap-x-8 gap-y-2 sm:flex"
         >
           {[
-            "500+ producteurs partenaires",
+            "Produits frais sélectionnés",
             "14 régions du Sénégal",
             "Livraison en 24h à Dakar",
           ].map((item) => (

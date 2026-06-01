@@ -39,7 +39,7 @@ const Footer = () => {
           {/* Brand column */}
           <div className="md:col-span-1">
             <Link to="/" className="font-headline text-xl font-black tracking-tighter" style={{ letterSpacing: '-0.04em' }}>
-              <span style={{ color: '#FFFFFF' }}>mama</span><span style={{ color: '#E84A1F' }}>kaasa</span>
+              <span style={{ color: '#FFDDBB' }}>mama</span><span style={{ color: '#F07800' }}>kaasa</span>
             </Link>
             <p className="mt-3 font-body text-sm leading-relaxed text-white/40">
               Vos produits agricoles frais, livrés partout au Sénégal.

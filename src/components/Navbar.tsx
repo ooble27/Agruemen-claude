@@ -10,7 +10,7 @@ import type { Category } from "@/types/database";
 
 const MamakaasaLogo = () => (
   <span style={{ fontFamily: "'Manrope', sans-serif", fontWeight: 800, fontSize: 20, letterSpacing: '-0.04em', lineHeight: 1 }}>
-    <span style={{ color: '#0A0A0A' }}>mama</span><span style={{ color: '#E84A1F' }}>kaasa</span>
+    <span style={{ color: '#5C2800' }}>mama</span><span style={{ color: '#F07800' }}>kaasa</span>
   </span>
 );
 
@@ -191,7 +191,7 @@ const Navbar = () => {
                 >
                   <span className="material-symbols-outlined text-[18px]">notifications</span>
                   {unreadCount > 0 && (
-                    <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full" style={{ background: '#E84A1F' }}/>
+                    <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full" style={{ background: '#F07800' }}/>
                   )}
                 </button>
                 <AnimatePresence>
@@ -315,7 +315,7 @@ const Navbar = () => {
               <span className="material-symbols-outlined text-[16px]">shopping_bag</span>
               <span className="hidden sm:inline">Panier</span>
               {totalItems > 0 && (
-                <span className="text-[11px] font-bold px-1.5 py-0.5 rounded-md min-w-[18px] text-center leading-tight" style={{ background: '#E84A1F' }}>
+                <span className="text-[11px] font-bold px-1.5 py-0.5 rounded-md min-w-[18px] text-center leading-tight" style={{ background: '#F07800' }}>
                   {totalItems}
                 </span>
               )}

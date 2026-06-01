@@ -7,7 +7,7 @@
 
 @layer base {
   :root {
-    /* ── Agrumen Design System — warm neutral + black + orange accent ── */
+    /* ── Mamakaasa Design System — warm neutral + dark brown + amber-orange accent ── */
     --background: 60 5% 96%;        /* #F5F5F2 warm off-white */
     --foreground: 0 0% 4%;          /* #0A0A0A near black */
 
@@ -27,13 +27,13 @@
     --secondary: 60 5% 94%;
     --secondary-foreground: 0 0% 4%;
 
-    --tertiary: 13 81% 52%;         /* #E84A1F orange-red */
+    --tertiary: 30 100% 47%;        /* #F07800 amber-orange logo */
     --tertiary-foreground: 0 0% 100%;
 
     --muted: 60 5% 94%;
     --muted-foreground: 60 2% 54%;  /* #8A8A85 */
 
-    --accent: 13 81% 52%;           /* #E84A1F orange accent */
+    --accent: 30 100% 47%;          /* #F07800 amber-orange (logo KAASA color) */
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 45%;

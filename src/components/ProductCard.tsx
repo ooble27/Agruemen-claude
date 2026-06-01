@@ -108,7 +108,7 @@ const ProductCard = ({ product, onAddToCart, formatPrice, index = 0 }: ProductCa
             <span
               className="material-symbols-outlined text-[13px]"
               style={{
-                color: wishlisted ? '#E84A1F' : 'hsl(60 2% 54%)',
+                color: wishlisted ? '#F07800' : 'hsl(60 2% 54%)',
                 fontVariationSettings: wishlisted ? "'FILL' 1" : "'FILL' 0",
               }}
             >

@@ -58,7 +58,7 @@ const LandingNavbar = () => {
             }`}
           >
             <Link to="/" className="font-headline text-lg font-black tracking-tighter" style={{ letterSpacing: '-0.04em' }}>
-              <span style={{ color: '#0A0A0A' }}>mama</span><span style={{ color: '#E84A1F' }}>kaasa</span>
+              <span style={{ color: '#5C2800' }}>mama</span><span style={{ color: '#F07800' }}>kaasa</span>
             </Link>
 
             {/* Desktop nav */}
