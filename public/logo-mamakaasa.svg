@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 400" fill="none">
+
+  <!-- Sun rays -->
+  <g transform="translate(218,130)">
+    <polygon points="0,-88 6,-50 0,-44 -6,-50" fill="#F5B800"/>
+    <polygon points="0,-88 6,-50 0,-44 -6,-50" fill="#F5B800" transform="rotate(30)"/>
+    <polygon points="0,-88 6,-50 0,-44 -6,-50" fill="#F5B800" transform="rotate(60)"/>
+    <polygon points="0,-88 6,-50 0,-44 -6,-50" fill="#F5B800" transform="rotate(90)"/>
+    <polygon points="0,-88 6,-50 0,-44 -6,-50" fill="#F5B800" transform="rotate(120)"/>
+    <polygon points="0,-88 6,-50 0,-44 -6,-50" fill="#F5B800" transform="rotate(150)"/>
+    <polygon points="0,-88 6,-50 0,-44 -6,-50" fill="#F5B800" transform="rotate(180)"/>
+    <polygon points="0,-88 6,-50 0,-44 -6,-50" fill="#F5B800" transform="rotate(210)"/>
+    <polygon points="0,-88 6,-50 0,-44 -6,-50" fill="#F5B800" transform="rotate(240)"/>
+    <polygon points="0,-88 6,-50 0,-44 -6,-50" fill="#F5B800" transform="rotate(270)"/>
+    <polygon points="0,-88 6,-50 0,-44 -6,-50" fill="#F5B800" transform="rotate(300)"/>
+    <polygon points="0,-88 6,-50 0,-44 -6,-50" fill="#F5B800" transform="rotate(330)"/>
+    <!-- Sun circle -->
+    <circle cx="0" cy="0" r="52" fill="#F5A800"/>
+  </g>
+
+  <!-- Leaves left -->
+  <ellipse cx="96" cy="248" rx="62" ry="17" fill="#2A7A35" transform="rotate(-35,96,248)"/>
+  <ellipse cx="78" cy="265" rx="44" ry="13" fill="#3A9447" transform="rotate(-55,78,265)"/>
+  <line x1="78" y1="265" x2="118" y2="235" stroke="#1F5C28" stroke-width="1.5"/>
+
+  <!-- Leaves right -->
+  <ellipse cx="290" cy="232" rx="52" ry="15" fill="#2A7A35" transform="rotate(25,290,232)"/>
+  <ellipse cx="305" cy="252" rx="40" ry="12" fill="#3A9447" transform="rotate(50,305,252)"/>
+  <line x1="305" y1="252" x2="268" y2="225" stroke="#1F5C28" stroke-width="1.5"/>
+
+  <!-- Ground sweep -->
+  <path d="M 95,300 Q 190,318 295,295" stroke="#C8860A" stroke-width="2" stroke-linecap="round" fill="none"/>
+
+  <!-- Woman silhouette -->
+  <!-- Head + headwrap -->
+  <path d="
+    M 192,48
+    C 208,42 232,48 242,62
+    C 250,74 248,88 240,96
+    C 252,92 262,86 268,78
+    C 278,64 272,44 258,38
+    C 244,32 224,36 214,46
+    Z
+  " fill="#3D1800"/>
+  <path d="
+    M 192,48
+    C 198,52 208,54 216,52
+    C 228,50 240,58 242,70
+    C 244,82 236,96 224,102
+    C 212,108 198,106 190,98
+    C 180,88 180,72 188,62
+    C 189,58 190,52 192,48
+    Z
+  " fill="#3D1800"/>
+  <!-- Earring -->
+  <circle cx="188" cy="96" r="6" fill="none" stroke="#D4A017" stroke-width="2.5"/>
+
+  <!-- Neck + torso + arm -->
+  <path d="
+    M 200,108
+    C 194,112 188,118 186,126
+    C 184,134 186,144 190,152
+    C 182,158 172,168 168,180
+    C 162,196 165,216 172,232
+    C 178,248 190,258 200,264
+    L 225,270
+    C 240,268 258,260 268,248
+    C 278,236 280,220 276,206
+    C 272,194 264,184 255,178
+    L 248,170
+    C 246,158 248,144 252,134
+    C 254,126 252,116 246,110
+    C 240,106 226,106 218,108
+    Z
+  " fill="#3D1800"/>
+
+  <!-- Basket body -->
+  <path d="M 138,262 Q 195,288 265,262 L 270,295 Q 210,320 140,295 Z" fill="#9B6B35"/>
+  <!-- Basket rim -->
+  <ellipse cx="200" cy="265" rx="67" ry="20" fill="#B8842A"/>
+  <!-- Basket weave lines -->
+  <line x1="155" y1="270" x2="152" y2="295" stroke="#7A5020" stroke-width="1.2"/>
+  <line x1="172" y1="276" x2="170" y2="300" stroke="#7A5020" stroke-width="1.2"/>
+  <line x1="190" y1="280" x2="189" y2="304" stroke="#7A5020" stroke-width="1.2"/>
+  <line x1="208" y1="280" x2="208" y2="304" stroke="#7A5020" stroke-width="1.2"/>
+  <line x1="226" y1="276" x2="228" y2="300" stroke="#7A5020" stroke-width="1.2"/>
+  <line x1="244" y1="270" x2="248" y2="294" stroke="#7A5020" stroke-width="1.2"/>
+
+  <!-- Fruits in basket -->
+  <circle cx="174" cy="255" r="20" fill="#F5A500"/>
+  <circle cx="174" cy="255" r="20" fill="url(#orange1)"/>
+  <circle cx="206" cy="249" r="22" fill="#F07800"/>
+  <circle cx="236" cy="256" r="18" fill="#E84A00"/>
+  <!-- Small mango red top -->
+  <ellipse cx="236" cy="241" rx="10" ry="7" fill="#D43000" transform="rotate(-15,236,241)"/>
+  <!-- Stems -->
+  <line x1="174" y1="235" x2="176" y2="228" stroke="#2A7A35" stroke-width="2"/>
+  <line x1="206" y1="227" x2="208" y2="218" stroke="#2A7A35" stroke-width="2"/>
+
+  <!-- Fabric/sash on shoulder (orange) -->
+  <path d="M 218,108 C 228,112 240,118 248,128 C 255,138 258,152 255,162 C 250,155 244,148 238,144 C 232,136 225,124 218,108 Z" fill="#C86800" opacity="0.85"/>
+
+  <!-- Text MAMA -->
+  <text x="180" y="352"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-weight="900"
+        font-size="66"
+        fill="#5C1F00"
+        text-anchor="middle"
+        letter-spacing="5">MAMA</text>
+
+  <!-- Text —KAASA— -->
+  <text x="180" y="390"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-weight="700"
+        font-size="40"
+        fill="#F07800"
+        text-anchor="middle"
+        letter-spacing="4">—KAASA—</text>
+
+  <defs>
+    <radialGradient id="orange1" cx="40%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#FFD080"/>
+      <stop offset="100%" stop-color="#F5A500"/>
+    </radialGradient>
+  </defs>
+</svg>

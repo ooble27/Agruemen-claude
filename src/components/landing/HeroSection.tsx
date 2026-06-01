@@ -38,7 +38,7 @@ const HeroSection = () => {
           className="mb-8 flex justify-center"
         >
           <img
-            src="/logo-mamakaasa.png"
+            src="/logo-mamakaasa.svg"
             alt="Mamakaasa"
             className="h-28 w-auto drop-shadow-sm md:h-36"
             onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
