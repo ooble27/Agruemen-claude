@@ -69,13 +69,10 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className="fixed top-0 w-full z-50 safe-area-top"
+        className="fixed top-0 w-full z-50 safe-area-top bg-white transition-shadow duration-200"
         style={{
-          background: 'rgba(255,255,255,0.88)',
-          backdropFilter: 'blur(20px) saturate(180%)',
-          WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-          borderBottom: scrolled ? '1px solid hsl(60 5% 92%)' : '1px solid transparent',
-          transition: 'border-color 0.2s',
+          borderBottom: '1px solid #f0ede6',
+          boxShadow: scrolled ? '0 2px 16px rgba(0,0,0,0.07)' : 'none',
         }}
       >
         <div className="flex items-center px-5 md:px-8 lg:px-10 max-w-[1440px] mx-auto w-full gap-3" style={{ height: 60 }}>
@@ -90,8 +87,8 @@ const Navbar = () => {
               <button
                 className="flex items-center gap-1 px-3 py-2 rounded-lg text-[13.5px] font-medium transition-colors"
                 style={{
-                  color: isActive("/marche") || marcheOpen ? '#0A0A0A' : '#8A8A85',
-                  background: isActive("/marche") || marcheOpen ? 'hsl(60 5% 94%)' : 'transparent',
+                  color: isActive("/marche") || marcheOpen ? '#0A0A0A' : '#5a5a54',
+                  background: isActive("/marche") || marcheOpen ? '#f5f2eb' : 'transparent',
                 }}
                 onClick={() => setMarcheOpen(!marcheOpen)}
               >
@@ -168,8 +165,8 @@ const Navbar = () => {
                 to={accountPath}
                 className="px-3 py-2 rounded-lg text-[13.5px] font-medium transition-colors"
                 style={{
-                  color: isActive("/mon-compte") || isActive("/admin") ? '#0A0A0A' : '#8A8A85',
-                  background: isActive("/mon-compte") || isActive("/admin") ? 'hsl(60 5% 94%)' : 'transparent',
+                  color: isActive("/mon-compte") || isActive("/admin") ? '#0A0A0A' : '#5a5a54',
+                  background: isActive("/mon-compte") || isActive("/admin") ? '#f5f2eb' : 'transparent',
                 }}
               >
                 Mon Compte
