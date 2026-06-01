@@ -6,7 +6,7 @@ const steps = [
     n: "01",
     icon: "storefront",
     title: "Explorez le Marché",
-    desc: "Parcourez des centaines de produits frais issus de producteurs partenaires dans tout le Sénégal.",
+    desc: "Parcourez des centaines de produits frais sélectionnés et livrés par Mamakaasa depuis tout le Sénégal.",
   },
   {
     n: "02",

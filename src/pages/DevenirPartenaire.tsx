@@ -13,34 +13,34 @@ const PHOTOS = [
 
 const BENEFITS = [
   {
-    icon: "storefront",
-    title: "Accès à des milliers d'acheteurs",
-    desc: "Vendez directement à des consommateurs dakarois sans intermédiaire. Votre marché s'étend instantanément à toute l'agglomération.",
+    icon: "handshake",
+    title: "Acheteur garanti",
+    desc: "Mamakaasa achète votre production directement. Fini l'incertitude — vous savez à l'avance qui achète, à quel prix et en quelle quantité.",
   },
   {
     icon: "payments",
     title: "Paiements rapides & sécurisés",
-    desc: "Recevez votre argent via Wave ou Orange Money dans les 48h suivant la livraison. Aucun risque d'impayé.",
+    desc: "Recevez votre argent via Wave ou Orange Money dans les 48h suivant la collecte. Aucun risque d'impayé, jamais.",
   },
   {
     icon: "trending_up",
-    title: "Revenus en hausse",
-    desc: "Nos producteurs partenaires constatent en moyenne +40% de revenus dès le premier trimestre grâce à des prix équitables fixés par eux-mêmes.",
+    title: "Prix équitables garantis",
+    desc: "Nous fixons des prix d'achat stables et justes, supérieurs aux cours du marché traditionnel. Vos revenus ne dépendent plus des fluctuations.",
   },
   {
     icon: "support_agent",
     title: "Accompagnement dédié",
-    desc: "Un agent Mamakaasa vous accompagne dans la création de votre profil, la mise en ligne de vos produits et le suivi de vos premières commandes.",
+    desc: "Un agent Mamakaasa terrain vous accompagne dès le départ : visite d'exploitation, collecte régulière, suivi qualité.",
   },
   {
     icon: "local_shipping",
-    title: "Logistique prise en charge",
-    desc: "Nous gérons la collecte, le transport et la livraison. Vous vous concentrez sur la production, on s'occupe du reste.",
+    title: "Collecte à la ferme",
+    desc: "Nos équipes viennent chercher votre production directement chez vous. Vous vous concentrez sur la culture, on s'occupe du reste.",
   },
   {
-    icon: "verified",
-    title: "Label Producteur Vérifié",
-    desc: "Votre profil est certifié Mamakaasa, ce qui renforce la confiance des acheteurs et augmente votre taux de conversion.",
+    icon: "eco",
+    title: "Partenariat durable",
+    desc: "Nous construisons des relations de long terme avec nos fournisseurs. Plus votre qualité est constante, plus nous augmentons nos volumes d'achat.",
   },
 ];
 
@@ -53,12 +53,12 @@ const STEPS = [
   {
     num: "02",
     title: "Validation & visite terrain",
-    desc: "Notre équipe analyse votre dossier sous 5 jours ouvrés. Un agent peut se déplacer pour valider la qualité de votre exploitation.",
+    desc: "Notre équipe analyse votre dossier sous 5 jours ouvrés. Un agent se déplace pour évaluer votre exploitation et définir les volumes et prix d'achat.",
   },
   {
     num: "03",
-    title: "Mise en ligne & premières ventes",
-    desc: "Votre profil producteur est créé, vos produits mis en ligne. Vous commencez à recevoir des commandes dès la semaine suivante.",
+    title: "Accord & premières collectes",
+    desc: "Un contrat d'approvisionnement est signé. Nos équipes commencent à collecter votre production dès la semaine suivante, avec paiement sous 48h.",
   },
 ];
 
@@ -71,7 +71,7 @@ const REQUIREMENTS = [
 ];
 
 const STATS = [
-  { value: "340+", label: "Producteurs partenaires" },
+  { value: "340+", label: "Fournisseurs partenaires" },
   { value: "14", label: "Régions couvertes" },
   { value: "48h", label: "Délai de paiement" },
   { value: "+40%", label: "Revenus moyens en plus" },
@@ -118,10 +118,10 @@ const DevenirPartenaire = () => {
                 className="font-headline font-black text-white tracking-[-0.045em] leading-[0.9] mb-5"
                 style={{ fontSize: "clamp(2.8rem, 6vw, 5.5rem)" }}
               >
-                Vendez vos<br />récoltes sur<br />Mamakaasa.
+                Vendez vos<br />récoltes<br />à Mamakaasa.
               </h1>
               <p className="font-body text-white/50 text-lg leading-relaxed max-w-sm mb-8">
-                Rejoignez 340+ producteurs sénégalais qui vendent directement aux consommateurs. Pas d'intermédiaire, des revenus équitables.
+                Rejoignez nos producteurs partenaires qui nous fournissent chaque jour en produits frais. Prix garantis, paiement rapide, collecte à la ferme.
               </p>
               <div className="flex flex-wrap gap-3">
                 <a href="#candidature" className="inline-flex items-center gap-2 bg-emerald-500 text-white font-headline text-sm font-bold rounded-xl px-6 py-3">
@@ -189,7 +189,7 @@ const DevenirPartenaire = () => {
             >
               <p className="font-headline text-[11px] font-bold uppercase tracking-widest text-on-surface-variant mb-3">Pourquoi Mamakaasa</p>
               <h2 className="font-headline font-black text-foreground tracking-tighter" style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}>
-                Ce que vous gagnez<br />en rejoignant la plateforme.
+                Ce que vous gagnez<br />en devenant fournisseur.
               </h2>
             </motion.div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -226,7 +226,7 @@ const DevenirPartenaire = () => {
             >
               <p className="font-headline text-[11px] font-bold uppercase tracking-widest text-emerald-400 mb-3">Processus</p>
               <h2 className="font-headline font-black text-white tracking-tighter" style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}>
-                3 étapes pour commencer<br />à vendre.
+                3 étapes pour devenir<br />fournisseur Mamakaasa.
               </h2>
             </motion.div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -289,12 +289,12 @@ const DevenirPartenaire = () => {
                 style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "22px 22px" }} />
               <div className="relative z-10">
                 <span className="material-symbols-outlined text-emerald-400 text-3xl mb-4 block" style={{ fontVariationSettings: "'FILL' 1" }}>verified</span>
-                <h3 className="font-headline font-extrabold text-xl text-white mb-3">Candidature 100% gratuite</h3>
+                <h3 className="font-headline font-extrabold text-xl text-white mb-3">Partenariat simple & transparent</h3>
                 <p className="font-body text-sm text-white/50 leading-relaxed mb-6">
-                  Aucun frais d'inscription. Mamakaasa prélève une commission uniquement sur les ventes réalisées. Si vous ne vendez pas, vous ne payez rien.
+                  Aucun frais d'inscription. Mamakaasa achète votre production à prix convenus d'avance. Vous produisez, nous achetons.
                 </p>
                 <div className="space-y-3">
-                  {["Aucun frais d'inscription", "Commission seulement sur les ventes", "Pas de contrat longue durée", "Résiliation libre à tout moment"].map(item => (
+                  {["Aucun frais d'inscription", "Prix d'achat fixés à l'avance", "Collecte directement chez vous", "Paiement garanti sous 48h"].map(item => (
                     <div key={item} className="flex items-center gap-3">
                       <span className="material-symbols-outlined text-emerald-400 text-base" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
                       <span className="font-body text-sm text-white/65">{item}</span>

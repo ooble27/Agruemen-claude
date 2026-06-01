@@ -207,7 +207,7 @@ const FAQ = () => {
           >
             <span className="material-symbols-outlined text-emerald-400 text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>agriculture</span>
             <h3 className="font-headline font-extrabold text-white text-xl">Vous êtes producteur ?</h3>
-            <p className="font-body text-sm text-white/45 leading-relaxed">Rejoignez les 340+ agriculteurs qui vendent directement sur Mamakaasa. Inscription gratuite, sans engagement.</p>
+            <p className="font-body text-sm text-white/45 leading-relaxed">Rejoignez les 340+ fournisseurs qui approvisionnent Mamakaasa. Candidature gratuite, sans engagement.</p>
             <Link to="/devenir-partenaire" className="inline-flex items-center gap-2 bg-emerald-500 text-white font-headline font-bold text-sm px-6 py-3 rounded-xl w-fit mt-auto">
               <span className="material-symbols-outlined text-sm">agriculture</span>
               Devenir partenaire

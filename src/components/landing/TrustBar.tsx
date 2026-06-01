@@ -19,9 +19,9 @@ const products = [
 ];
 
 const stats = [
-  { value: "500+", label: "Producteurs Partenaires", sub: "répartis dans 14 régions" },
-  { value: "10K+", label: "Commandes Livrées",       sub: "depuis le lancement" },
-  { value: "0",    label: "Intermédiaire",            sub: "direct producteur → vous" },
+  { value: "14",   label: "Régions Couvertes",        sub: "partout au Sénégal" },
+  { value: "10K+", label: "Commandes Livrées",        sub: "depuis le lancement" },
+  { value: "100%", label: "Produits Locaux",          sub: "achetés directement aux producteurs" },
   { value: "<24h", label: "Champ → Votre Porte",     sub: "partout à Dakar" },
 ];
 

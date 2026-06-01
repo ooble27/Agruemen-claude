@@ -17,12 +17,12 @@ const TIMELINE = [
   { year: "2022", title: "L'idée naît", desc: "Deux entrepreneurs dakarois constatent que les producteurs sénégalais perdent 35% de leurs récoltes faute de débouchés. L'idée d'Mamakaasa prend forme dans un garage à Plateau." },
   { year: "2023", title: "Lancement à Dakar", desc: "6 producteurs pionniers rejoignent la plateforme. Dès le premier mois, 120 livraisons sont effectuées dans Dakar. Le bouche-à-oreille fait le reste." },
   { year: "2024", title: "Expansion nationale", desc: "Mamakaasa s'étend à Thiès, Diourbel, Kaolack et Saint-Louis. 120 producteurs partenaires, 4 500 commandes mensuelles et une équipe terrain de 18 agents." },
-  { year: "2025", title: "Plateforme leader", desc: "340+ producteurs dans 14 régions. 12 000 commandes par mois. Lancement du programme de microfinancement agricole avec nos partenaires bancaires." },
-  { year: "2026", title: "Demain", desc: "Mamakaasa est la première marketplace agro-alimentaire du Sénégal. Expansion prévue vers la Côte d'Ivoire et le Mali avant fin 2026." },
+  { year: "2025", title: "Distributeur national", desc: "340+ fournisseurs dans 14 régions. 12 000 commandes livrées par mois. Lancement du programme de microfinancement agricole avec nos partenaires bancaires." },
+  { year: "2026", title: "Demain", desc: "Mamakaasa est le premier distributeur alimentaire digital du Sénégal. Expansion prévue vers la Côte d'Ivoire et le Mali avant fin 2026." },
 ];
 
 const VALUES = [
-  { num: "01", title: "Équité", desc: "Des prix fixés par les producteurs eux-mêmes. Pas d'intermédiaires entre le champ et votre table." },
+  { num: "01", title: "Équité", desc: "Nous achetons à des prix garantis et justes, supérieurs aux cours du marché. Pas de mauvaises surprises pour nos fournisseurs." },
   { num: "02", title: "Transparence", desc: "Chaque produit affiche le nom, la région et la date de récolte du producteur. Rien n'est caché." },
   { num: "03", title: "Durabilité", desc: "Nous soutenons les pratiques agroécologiques et réduisons les pertes post-récolte de 35%." },
   { num: "04", title: "Communauté", desc: "Un réseau vivant de producteurs, consommateurs et agents qui se soutiennent mutuellement." },
@@ -30,7 +30,7 @@ const VALUES = [
   { num: "06", title: "Impact social", desc: "1% de chaque commande est reversé au Fonds Mamakaasa pour former les jeunes agriculteurs." },
 ];
 
-const TICKER_ITEMS = ["ÉQUITÉ", "FRAÎCHEUR", "SÉNÉGAL", "TRANSPARENCE", "DURABILITÉ", "IMPACT", "14 RÉGIONS", "340+ PRODUCTEURS", "ÉQUITÉ", "FRAÎCHEUR", "SÉNÉGAL", "TRANSPARENCE", "DURABILITÉ", "IMPACT"];
+const TICKER_ITEMS = ["ÉQUITÉ", "FRAÎCHEUR", "SÉNÉGAL", "TRANSPARENCE", "DURABILITÉ", "IMPACT", "14 RÉGIONS", "DISTRIBUTION LOCALE", "ÉQUITÉ", "FRAÎCHEUR", "SÉNÉGAL", "TRANSPARENCE", "DURABILITÉ", "IMPACT"];
 
 const QuiSommesNous = () => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -64,7 +64,7 @@ const QuiSommesNous = () => {
             </h1>
 
             <p className="font-body text-white/45 text-lg leading-relaxed max-w-xs mb-10">
-              Mamakaasa connecte directement les producteurs sénégalais aux consommateurs. Pas d'intermédiaire. Des revenus justes. Des produits vrais.
+              Mamakaasa achète directement aux producteurs sénégalais et livre des produits frais chez vous. Qualité garantie, traçabilité totale.
             </p>
 
             <div className="flex flex-wrap gap-3">
@@ -168,10 +168,10 @@ const QuiSommesNous = () => {
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <p className="font-body text-base text-on-surface-variant leading-relaxed">
-                  Au Sénégal, un producteur reçoit en moyenne 3 à 4 fois moins que ce que le consommateur paye. La différence est absorbée par des intermédiaires sans valeur ajoutée. Mamakaasa court-circuite cette chaîne.
+                  Au Sénégal, un producteur reçoit en moyenne 3 à 4 fois moins que ce que le consommateur paye. La différence est absorbée par des intermédiaires sans valeur ajoutée.
                 </p>
                 <p className="font-body text-base text-on-surface-variant leading-relaxed">
-                  En connectant directement producteurs et consommateurs, nous restituons aux agriculteurs la valeur de leur travail — et nous offrons aux familles dakaroises des produits plus frais, plus traçables, moins chers.
+                  Mamakaasa achète directement aux producteurs à des prix équitables et garantis — et livre aux familles sénégalaises des produits frais, traçables et de qualité. Nous sommes le chaînon qui remplace toute la chaîne.
                 </p>
               </div>
             </motion.div>
@@ -206,7 +206,7 @@ const QuiSommesNous = () => {
               Notre<br />parcours.
             </h2>
             <p className="font-body text-sm text-on-surface-variant max-w-xs text-right hidden md:block">
-              De l'idée née à Dakar en 2022 à la première marketplace agricole du Sénégal.
+              De l'idée née à Dakar en 2022 au premier distributeur alimentaire digital du Sénégal.
             </p>
           </motion.div>
 
@@ -317,7 +317,7 @@ const QuiSommesNous = () => {
             <span className="font-headline font-black text-foreground/10 select-none" style={{ fontSize: "7rem", lineHeight: 1 }}>"</span>
             <div>
               <p className="font-headline font-bold text-foreground text-xl md:text-2xl leading-snug mb-4">
-                En rejoignant Mamakaasa, j'ai doublé mon revenu en 6 mois. Mes tomates partent directement chez les consommateurs à Dakar, sans passer par personne.
+                Depuis que Mamakaasa achète ma production, j'ai doublé mon revenu en 6 mois. Prix garanti, paiement en 48h, et ils viennent chercher les tomates directement à ma ferme.
               </p>
               <p className="font-body text-sm text-on-surface-variant">— Ousmane D., maraîcher à Thiès · partenaire depuis 2023</p>
             </div>

@@ -240,7 +240,7 @@ const Blog = () => {
           <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
             <p className="font-headline text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant mb-3">Vous êtes producteur ?</p>
             <h2 className="font-headline font-black text-foreground tracking-tighter leading-none" style={{ fontSize: "clamp(2rem, 4vw, 3.4rem)" }}>
-              Rejoignez les 340<br />producteurs Mamakaasa.
+              Commandez frais.<br />Livré chez vous.
             </h2>
           </motion.div>
           <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="flex flex-wrap gap-4 lg:justify-end">

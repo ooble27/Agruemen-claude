@@ -28,7 +28,7 @@ const JOBS = [
     location: "Dakar · Hybride",
     type: "CDI",
     level: "Mid-Senior",
-    desc: "Vous rejoindrez notre équipe produit pour développer de nouvelles fonctionnalités sur la marketplace et l'app mobile. Stack : React, TypeScript, Supabase, React Native.",
+    desc: "Vous rejoindrez notre équipe produit pour développer de nouvelles fonctionnalités sur la plateforme de distribution et l'app mobile. Stack : React, TypeScript, Supabase, React Native.",
     missions: [
       "Développer et maintenir les fonctionnalités frontend et backend",
       "Participer aux code reviews et améliorer la qualité du code",

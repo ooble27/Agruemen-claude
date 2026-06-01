@@ -21,7 +21,7 @@ const PRODUCERS = [
     rating: 4.9,
     orders: 1240,
     img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&auto=format",
-    badge: "Top vendeur",
+    badge: "Top fournisseur",
     desc: "Exploitation maraîchère de 3 hectares à Mbour. Spécialisé en culture sous serre pour garantir la fraîcheur toute l'année.",
   },
   {
@@ -54,7 +54,7 @@ const PRODUCERS = [
     rating: 4.9,
     orders: 780,
     img: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&auto=format",
-    badge: "Top vendeur",
+    badge: "Top fournisseur",
     desc: "Arboricultrice en Casamance, région aux conditions climatiques idéales pour les fruits tropicaux. Livraison express depuis Ziguinchor.",
   },
   {
@@ -303,7 +303,7 @@ const NosProducteurs = () => {
                 Vous êtes producteur au Sénégal ?
               </h3>
               <p className="font-body text-white/50 text-sm mb-8 max-w-md mx-auto">
-                Rejoignez les 340 producteurs qui vendent directement sur Mamakaasa. Inscription gratuite, revenus équitables.
+                Rejoignez les 340 fournisseurs qui approvisionnent Mamakaasa chaque semaine. Candidature gratuite, prix garantis.
               </p>
               <Link
                 to="/devenir-partenaire"

@@ -4,7 +4,7 @@ import LandingNavbar from "@/components/landing/LandingNavbar";
 import Footer from "@/components/Footer";
 
 const ENGAGEMENTS = [
-  { num: "01", title: "Équité des revenus", desc: "Nous garantissons que les producteurs partenaires reçoivent au minimum 65% du prix de vente final — contre 20 à 25% dans le circuit traditionnel. Les prix sont fixés par les producteurs eux-mêmes, jamais imposés.", icon: "balance", color: "text-amber-400" },
+  { num: "01", title: "Prix d'achat équitables", desc: "Nous achetons aux producteurs partenaires à des prix garantis et fixés à l'avance — au moins 2× supérieurs aux prix du marché traditionnel. Pas de fluctuations, pas d'impayés, jamais.", icon: "balance", color: "text-amber-400" },
   { num: "02", title: "Zéro pesticide cachée", desc: "Chaque lot est contrôlé par notre équipe terrain avant expédition. Les producteurs sous label « Certifié Mamakaasa » s'engagent à respecter une liste d'intrants autorisés et à soumettre leurs pratiques à un audit annuel.", icon: "eco", color: "text-emerald-400" },
   { num: "03", title: "Traçabilité totale", desc: "Du champ à votre porte, chaque produit est tracé. Vous pouvez scanner le QR code sur votre commande pour voir le nom du producteur, sa région, la date de récolte et le parcours de livraison.", icon: "qr_code_scanner", color: "text-blue-400" },
   { num: "04", title: "Livraison carbone neutre", desc: "Nous compensons 100% des émissions CO₂ de notre flotte de livraison via notre partenariat avec l'initiative de reboisement Senvert. Chaque commande plantait en moyenne 0,3 arbre en 2025.", icon: "forest", color: "text-lime-400" },
@@ -13,9 +13,9 @@ const ENGAGEMENTS = [
 ];
 
 const IMPACT = [
-  { value: "340+", label: "Producteurs partenaires", sub: "dont 42% de femmes" },
+  { value: "340+", label: "Fournisseurs partenaires", sub: "dont 42% de femmes" },
   { value: "−35%", label: "Pertes post-récolte", sub: "évitées grâce à notre logistique" },
-  { value: "+40%", label: "Revenus producteurs", sub: "en moyenne dès la 1ère année" },
+  { value: "+40%", label: "Revenus fournisseurs", sub: "en moyenne dès la 1ère année" },
   { value: "48", label: "Jeunes formés en 2025", sub: "via le Fonds Mamakaasa" },
   { value: "0,3", label: "Arbre planté par commande", sub: "via Senvert" },
   { value: "14", label: "Régions couvertes", sub: "sur 14 régions du Sénégal" },
