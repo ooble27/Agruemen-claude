@@ -57,8 +57,8 @@ const LandingNavbar = () => {
                 : "border-border/35 bg-background/85 shadow-sm backdrop-blur-lg"
             }`}
           >
-            <Link to="/" className="font-headline text-lg font-black tracking-tighter" style={{ letterSpacing: '-0.04em' }}>
-              <span style={{ color: '#5C2800' }}>mama</span><span style={{ color: '#F07800' }}>kaasa</span>
+            <Link to="/">
+              <img src="/logo-mamakaasa.png" alt="Mamakaasa" style={{ height: 38, width: 'auto', display: 'block' }} />
             </Link>
 
             {/* Desktop nav */}

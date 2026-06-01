@@ -67,8 +67,8 @@ const Auth = () => {
         <div className="relative z-10 flex flex-col h-full p-12">
 
           {/* Logo */}
-          <Link to="/" className="font-headline font-black text-2xl text-foreground tracking-tighter">
-            Mamakaasa
+          <Link to="/">
+            <img src="/logo-mamakaasa.png" alt="Mamakaasa" className="h-16 w-auto" />
           </Link>
 
           {/* Center text */}
@@ -162,8 +162,8 @@ const Auth = () => {
 
             {/* Desktop logo */}
             <div className="hidden lg:block mb-10">
-              <Link to="/" className="font-headline font-extrabold text-2xl text-foreground tracking-tighter">
-                Mamakaasa
+              <Link to="/">
+                <img src="/logo-mamakaasa.png" alt="Mamakaasa" className="h-16 w-auto" />
               </Link>
             </div>
 

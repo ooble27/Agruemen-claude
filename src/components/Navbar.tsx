@@ -9,9 +9,7 @@ import { buildMarketCategories } from "@/data/marketplaceMocks";
 import type { Category } from "@/types/database";
 
 const MamakaasaLogo = () => (
-  <span style={{ fontFamily: "'Manrope', sans-serif", fontWeight: 800, fontSize: 20, letterSpacing: '-0.04em', lineHeight: 1 }}>
-    <span style={{ color: '#5C2800' }}>mama</span><span style={{ color: '#F07800' }}>kaasa</span>
-  </span>
+  <img src="/logo-mamakaasa.png" alt="Mamakaasa" style={{ height: 40, width: 'auto', display: 'block' }} />
 );
 
 const Navbar = () => {
