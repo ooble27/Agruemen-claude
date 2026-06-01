@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
 const CartDrawer = () => {
-  const { items, isOpen, setIsOpen, updateQuantity, removeItem, totalPrice, totalItems, clearCart } = useCart();
+  const { items, isOpen, setIsOpen, updateQuantity, totalPrice, totalItems, clearCart } = useCart();
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -95,28 +95,31 @@ const CartDrawer = () => {
                         <p className="text-sm font-headline font-bold mt-0.5">{item.price} / {item.unit}</p>
 
                         <div className="flex items-center justify-between mt-2.5">
-                          {/* Quantity controls */}
-                          <div className="flex items-center gap-0 bg-surface-container rounded-sm border border-border/20">
+                          <div
+                            className="flex items-center rounded-full"
+                            style={{ background: '#F07800' }}
+                          >
                             <button
                               onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                              className="w-8 h-8 flex items-center justify-center hover:bg-surface-container-high transition-colors rounded-sm"
+                              className="w-8 h-8 flex items-center justify-center rounded-full"
+                              style={{ color: '#fff' }}
                             >
-                              <span className="material-symbols-outlined text-base">remove</span>
+                              <span className="material-symbols-outlined text-[14px]">
+                                {item.quantity === 1 ? 'delete' : 'remove'}
+                              </span>
                             </button>
-                            <span className="w-8 text-center font-headline font-bold text-sm">{item.quantity}</span>
+                            <span className="w-6 text-center font-bold text-sm" style={{ color: '#fff' }}>{item.quantity}</span>
                             <button
                               onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                              className="w-8 h-8 flex items-center justify-center hover:bg-surface-container-high transition-colors rounded-sm"
+                              className="w-8 h-8 flex items-center justify-center rounded-full"
+                              style={{ color: '#fff' }}
                             >
-                              <span className="material-symbols-outlined text-base">add</span>
+                              <span className="material-symbols-outlined text-[14px]">add</span>
                             </button>
                           </div>
-                          <button
-                            onClick={() => removeItem(item.id)}
-                            className="p-1.5 text-on-surface-variant/50 hover:text-destructive transition-colors"
-                          >
-                            <span className="material-symbols-outlined text-lg">delete</span>
-                          </button>
+                          <span className="font-headline font-bold text-sm" style={{ color: '#0A0A0A' }}>
+                            {(item.priceNum * item.quantity).toLocaleString("fr-FR")} F
+                          </span>
                         </div>
                       </div>
                     </motion.div>

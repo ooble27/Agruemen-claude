@@ -64,7 +64,7 @@ const ProductCard = ({ product, onAddToCart, formatPrice, index = 0 }: ProductCa
       <Link to={`/produit/${product.id}`} className="block">
         {/* Image */}
         <div
-          className="relative aspect-square rounded-2xl overflow-hidden mb-2.5"
+          className="relative aspect-square rounded-2xl overflow-hidden mb-2"
           style={{
             background: 'hsl(60 5% 94%)',
             border: '1px solid hsl(60 5% 92%)',
@@ -115,57 +115,48 @@ const ProductCard = ({ product, onAddToCart, formatPrice, index = 0 }: ProductCa
               favorite
             </span>
           </button>
-
-          {!outOfStock && (
-            <div className="absolute bottom-2 right-2">
-              {qty === 0 ? (
-                <button
-                  onClick={handleAdd}
-                  className="w-8 h-8 rounded-full flex items-center justify-center"
-                  style={{
-                    background: 'rgba(255,255,255,0.92)',
-                    backdropFilter: 'blur(6px)',
-                    boxShadow: '0 2px 8px rgba(10,10,10,0.14)',
-                    border: '1px solid rgba(10,10,10,0.08)',
-                  }}
-                >
-                  <span className="material-symbols-outlined text-[16px]" style={{ color: '#0A0A0A' }}>add</span>
-                </button>
-              ) : (
-                <div
-                  onClick={(e) => e.stopPropagation()}
-                  className="flex items-center rounded-full px-0.5 py-0.5"
-                  style={{ background: '#0A0A0A', boxShadow: '0 2px 8px rgba(10,10,10,0.2)' }}
-                >
-                  <button onClick={handleDec} className="w-7 h-7 rounded-full flex items-center justify-center" style={{ color: '#fff' }}>
-                    <span className="material-symbols-outlined text-[13px]">{qty === 1 ? 'delete' : 'remove'}</span>
-                  </button>
-                  <span className="text-[12px] font-semibold min-w-[16px] text-center" style={{ color: '#fff' }}>{qty}</span>
-                  <button onClick={handleInc} className="w-7 h-7 rounded-full flex items-center justify-center" style={{ color: '#fff' }}>
-                    <span className="material-symbols-outlined text-[13px]">add</span>
-                  </button>
-                </div>
-              )}
-            </div>
-          )}
         </div>
 
         {/* Info */}
         <div>
-          <div className="flex items-baseline gap-1 mb-0.5">
-            <span className="font-headline font-bold text-[14px] tracking-tight" style={{ color: '#0A0A0A' }}>
-              {formatPrice(product.price)}
-            </span>
-            <span className="text-[10.5px] font-body" style={{ color: 'hsl(60 2% 54%)' }}>F · {product.unit}</span>
-          </div>
-          <p className="font-body text-[13px] leading-snug line-clamp-1" style={{ color: 'rgba(10,10,10,0.75)' }}>
+          <p className="font-body text-[13px] leading-snug line-clamp-1 mb-1" style={{ color: 'rgba(10,10,10,0.8)' }}>
             {product.name}
           </p>
-          {product.shops?.name && (
-            <p className="font-body text-[10.5px] mt-0.5 truncate" style={{ color: 'hsl(60 2% 54%)' }}>
-              {product.shops.name}
-            </p>
-          )}
+          <div className="flex items-center justify-between gap-1">
+            <div>
+              <span className="font-headline font-bold text-[14px] tracking-tight" style={{ color: '#0A0A0A' }}>
+                {formatPrice(product.price)}
+              </span>
+              <span className="text-[10px] font-body ml-1" style={{ color: 'hsl(60 2% 54%)' }}>F/{product.unit}</span>
+            </div>
+
+            {!outOfStock && (
+              <div onClick={(e) => e.stopPropagation()}>
+                {qty === 0 ? (
+                  <button
+                    onClick={handleAdd}
+                    className="w-7 h-7 rounded-full flex items-center justify-center shrink-0"
+                    style={{ background: '#0A0A0A' }}
+                  >
+                    <span className="material-symbols-outlined text-[15px]" style={{ color: '#fff' }}>add</span>
+                  </button>
+                ) : (
+                  <div
+                    className="flex items-center rounded-full"
+                    style={{ background: '#F07800' }}
+                  >
+                    <button onClick={handleDec} className="w-7 h-7 rounded-full flex items-center justify-center" style={{ color: '#fff' }}>
+                      <span className="material-symbols-outlined text-[13px]">{qty === 1 ? 'delete' : 'remove'}</span>
+                    </button>
+                    <span className="text-[12px] font-bold min-w-[16px] text-center" style={{ color: '#fff' }}>{qty}</span>
+                    <button onClick={handleInc} className="w-7 h-7 rounded-full flex items-center justify-center" style={{ color: '#fff' }}>
+                      <span className="material-symbols-outlined text-[13px]">add</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </Link>
     </motion.div>
