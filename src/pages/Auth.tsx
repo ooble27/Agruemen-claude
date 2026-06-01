@@ -55,18 +55,20 @@ const Auth = () => {
   return (
     <div className="min-h-screen flex flex-col lg:flex-row">
 
-      {/* ══ Left panel — dark, brand ══ */}
-      <div className="hidden lg:flex lg:w-[46%] shrink-0 flex-col bg-[#0A0A0A] relative overflow-hidden">
+      {/* ══ Left panel — white, brand ══ */}
+      <div className="hidden lg:flex lg:w-[46%] shrink-0 flex-col bg-white relative overflow-hidden"
+        style={{ borderRight: "1px solid #f0ede6" }}
+      >
 
         {/* Subtle dot grid */}
         <div
-          className="pointer-events-none absolute inset-0 opacity-[0.04]"
-          style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "28px 28px" }}
+          className="pointer-events-none absolute inset-0"
+          style={{ backgroundImage: "radial-gradient(circle, #dde3ec 1px, transparent 1px)", backgroundSize: "28px 28px" }}
         />
 
         {/* Glow */}
-        <div className="pointer-events-none absolute top-0 right-0 w-96 h-96 rounded-full opacity-[0.07]"
-          style={{ background: "radial-gradient(circle, #F07800 0%, transparent 70%)", transform: "translate(30%, -30%)" }} />
+        <div className="pointer-events-none absolute bottom-0 left-0 w-96 h-96 rounded-full opacity-[0.08]"
+          style={{ background: "radial-gradient(circle, #F07800 0%, transparent 70%)", transform: "translate(-30%, 30%)" }} />
 
         <div className="relative z-10 flex flex-col h-full px-12 py-12">
 
@@ -76,7 +78,6 @@ const Auth = () => {
               src="/logo-mamakaasa.png"
               alt="Mamakaasa"
               className="h-12 w-auto"
-              style={{ filter: "brightness(0) invert(1)" }}
             />
           </Link>
 
@@ -87,15 +88,15 @@ const Auth = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
             >
-              <span className="inline-flex items-center gap-2 bg-white/8 border border-white/10 rounded-full px-3.5 py-1.5 mb-6">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                <span className="font-headline text-[10px] font-bold text-white/50 uppercase tracking-[0.2em]">
+              <span className="inline-flex items-center gap-2 bg-[#f5f2eb] border border-[#e8e4da] rounded-full px-3.5 py-1.5 mb-6">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                <span className="font-headline text-[10px] font-bold text-[#5a5a54] uppercase tracking-[0.2em]">
                   Distribution alimentaire
                 </span>
               </span>
 
               <h2
-                className="font-headline font-black text-white tracking-[-0.045em] leading-[0.9] mb-5"
+                className="font-headline font-black text-[#0A0A0A] tracking-[-0.045em] leading-[0.9] mb-5"
                 style={{ fontSize: "clamp(2.6rem, 4vw, 3.8rem)" }}
               >
                 Du Champ<br />
@@ -103,7 +104,7 @@ const Auth = () => {
                 <span style={{ color: "#F07800" }}>Table.</span>
               </h2>
 
-              <p className="font-body text-white/45 text-[15px] leading-relaxed max-w-xs mb-10">
+              <p className="font-body text-[#5a5a54] text-[15px] leading-relaxed max-w-xs mb-10">
                 Mamakaasa livre des produits frais, sélectionnés directement auprès de 340 fournisseurs sénégalais.
               </p>
 
@@ -111,7 +112,7 @@ const Auth = () => {
               <div className="space-y-3 mb-12">
                 {TRUST.map((t) => (
                   <div key={t.text} className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-white/8 flex items-center justify-center shrink-0">
+                    <div className="w-8 h-8 rounded-lg bg-[#f5f2eb] flex items-center justify-center shrink-0">
                       <span
                         className="material-symbols-outlined text-[15px]"
                         style={{ color: "#F07800", fontVariationSettings: "'FILL' 1" }}
@@ -119,7 +120,7 @@ const Auth = () => {
                         {t.icon}
                       </span>
                     </div>
-                    <span className="font-body text-sm text-white/60">{t.text}</span>
+                    <span className="font-body text-sm text-[#5a5a54]">{t.text}</span>
                   </div>
                 ))}
               </div>
@@ -149,7 +150,7 @@ const Auth = () => {
             </motion.div>
           </div>
 
-          <p className="font-body text-[11px] text-white/20 mt-10">© 2025 Mamakaasa · Dakar, Sénégal</p>
+          <p className="font-body text-[11px] text-[#9a9a92] mt-10">© 2025 Mamakaasa · Dakar, Sénégal</p>
         </div>
       </div>
 
@@ -157,13 +158,13 @@ const Auth = () => {
       <div className="flex-1 flex flex-col bg-white min-h-screen lg:min-h-0">
 
         {/* Mobile top bar */}
-        <div className="lg:hidden flex items-center justify-between px-6 pt-8 pb-2">
+        <div className="lg:hidden flex items-center justify-between px-6 pt-8 pb-4" style={{ borderBottom: "1px solid #f0ede6" }}>
           <Link to="/">
-            <img src="/logo-mamakaasa.png" alt="Mamakaasa" className="h-9 w-auto" />
+            <img src="/logo-mamakaasa.png" alt="Mamakaasa" className="h-10 w-auto" />
           </Link>
           <Link
             to="/marche"
-            className="text-[13px] font-headline font-semibold text-[#5a5a54] hover:text-[#0A0A0A] transition-colors flex items-center gap-1"
+            className="flex items-center gap-1.5 text-[13px] font-headline font-semibold text-[#5a5a54] hover:text-[#0A0A0A] transition-colors"
           >
             <span className="material-symbols-outlined text-[15px]">storefront</span>
             Marché
