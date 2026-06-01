@@ -2,14 +2,14 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 const categories = [
-  { label: "Fruits",            icon: "nutrition",      border: "#fbbf24", href: "/marche?cat=cat-fruits" },
-  { label: "Légumes",           icon: "local_florist",  border: "#22c55e", href: "/marche?cat=cat-legumes" },
-  { label: "Céréales",          icon: "grass",          border: "#f59e0b", href: "/marche?cat=cat-cereales" },
-  { label: "Tubercules",        icon: "compost",        border: "#f97316", href: "/marche?cat=cat-tubercules" },
-  { label: "Épices",            icon: "spa",            border: "#ef4444", href: "/marche" },
-  { label: "Bio & Local",       icon: "eco",            border: "#10b981", href: "/marche" },
-  { label: "Volaille",          icon: "local_dining",   border: "#a78bfa", href: "/marche" },
-  { label: "Produits Laitiers", icon: "water_drop",     border: "#60a5fa", href: "/marche" },
+  { label: "Fruits",            emoji: "🥭",  border: "#fbbf24", href: "/marche?cat=cat-fruits" },
+  { label: "Légumes",           emoji: "🥦",  border: "#22c55e", href: "/marche?cat=cat-legumes" },
+  { label: "Céréales",          emoji: "🌾",  border: "#f59e0b", href: "/marche?cat=cat-cereales" },
+  { label: "Tubercules",        emoji: "🍠",  border: "#f97316", href: "/marche?cat=cat-tubercules" },
+  { label: "Épices",            emoji: "🌶️", border: "#ef4444", href: "/marche" },
+  { label: "Bio & Local",       emoji: "🥬",  border: "#10b981", href: "/marche" },
+  { label: "Volaille",          emoji: "🐓",  border: "#a78bfa", href: "/marche" },
+  { label: "Produits Laitiers", emoji: "🥛",  border: "#60a5fa", href: "/marche" },
 ];
 
 // Triple pour que -33.3% → jamais de jonction visible
@@ -25,12 +25,7 @@ const Chip = ({ cat }: { cat: typeof categories[0] }) => (
       backgroundColor: `${cat.border}12`,
     }}
   >
-    <span
-      className="material-symbols-outlined text-[20px] leading-none shrink-0"
-      style={{ color: cat.border, fontVariationSettings: "'FILL' 1" }}
-    >
-      {cat.icon}
-    </span>
+    <span className="text-[22px] leading-none shrink-0">{cat.emoji}</span>
     <span className="font-headline text-base font-bold text-white">{cat.label}</span>
   </Link>
 );
