@@ -7,12 +7,12 @@ const BLOCKS = [
   {
     title: "Éditeur du site",
     rows: [
-      ["Société", "Agrumen Sénégal"],
+      ["Société", "Mamakaasa Sénégal"],
       ["Forme juridique", "Société à Responsabilité Limitée (SARL)"],
       ["Siège social", "Dakar, Sénégal"],
-      ["Email", "hello@agrumen.sn"],
+      ["Email", "hello@mamakaasa.sn"],
       ["Téléphone", "+1 418 261 9091"],
-      ["Directeur de publication", "Équipe Agrumen"],
+      ["Directeur de publication", "Équipe Mamakaasa"],
     ],
   },
   {
@@ -28,23 +28,23 @@ const BLOCKS = [
   },
   {
     title: "Propriété intellectuelle",
-    content: `Le site Agrumen et l'ensemble de ses contenus (textes, images, logos, graphismes, icônes, code source) sont protégés par les lois relatives à la propriété intellectuelle en vigueur au Sénégal et à l'international.
+    content: `Le site Mamakaasa et l'ensemble de ses contenus (textes, images, logos, graphismes, icônes, code source) sont protégés par les lois relatives à la propriété intellectuelle en vigueur au Sénégal et à l'international.
 
-Toute reproduction, représentation, modification, publication, transmission ou dénaturation, totale ou partielle, du site ou de son contenu, par quelque procédé que ce soit, et sur quelque support que ce soit, est interdite, sauf autorisation préalable et écrite d'Agrumen.
+Toute reproduction, représentation, modification, publication, transmission ou dénaturation, totale ou partielle, du site ou de son contenu, par quelque procédé que ce soit, et sur quelque support que ce soit, est interdite, sauf autorisation préalable et écrite d'Mamakaasa.
 
 Le non-respect de cette interdiction constitue une contrefaçon pouvant engager la responsabilité civile et pénale du contrefacteur.`,
   },
   {
     title: "Liens hypertextes",
-    content: `La plateforme Agrumen peut contenir des liens vers des sites tiers. Ces liens sont fournis à titre informatif. Agrumen n'exerce aucun contrôle sur le contenu de ces sites et décline toute responsabilité quant à leurs contenus ou pratiques.
+    content: `La plateforme Mamakaasa peut contenir des liens vers des sites tiers. Ces liens sont fournis à titre informatif. Mamakaasa n'exerce aucun contrôle sur le contenu de ces sites et décline toute responsabilité quant à leurs contenus ou pratiques.
 
-La création de liens hypertextes pointant vers le site Agrumen est soumise à l'autorisation préalable de l'éditeur.`,
+La création de liens hypertextes pointant vers le site Mamakaasa est soumise à l'autorisation préalable de l'éditeur.`,
   },
   {
     title: "Données personnelles",
     content: `Le traitement des données personnelles collectées sur la plateforme est décrit dans notre Politique de Confidentialité. Conformément aux lois applicables sur la protection des données personnelles, vous disposez d'un droit d'accès, de rectification et de suppression de vos données.
 
-Pour exercer ces droits : privacy@agrumen.sn`,
+Pour exercer ces droits : privacy@mamakaasa.sn`,
   },
   {
     title: "Cookies",
@@ -76,7 +76,7 @@ const MentionsLegales = () => (
             style={{ fontSize: "clamp(2.4rem, 5vw, 4rem)" }}>
             Mentions<br />Légales
           </h1>
-          <p className="font-body text-white/40 text-base">Dernière mise à jour : Janvier 2025 · Agrumen Sénégal</p>
+          <p className="font-body text-white/40 text-base">Dernière mise à jour : Janvier 2025 · Mamakaasa Sénégal</p>
         </motion.div>
       </section>
 

@@ -28,7 +28,7 @@ export const useNotifications = () => {
 };
 
 const STATUS_MESSAGES: Record<string, { title: string; body: string }> = {
-  confirmed: { title: "Commande confirmée ✓", body: "Votre commande a été confirmée par Agrumen." },
+  confirmed: { title: "Commande confirmée ✓", body: "Votre commande a été confirmée par Mamakaasa." },
   preparing: { title: "Commande en préparation 📦", body: "L'équipe prépare votre commande avec soin." },
   shipped: { title: "En livraison 🚚", body: "Votre commande est en route !" },
   delivered: { title: "Commande livrée ! 🎉", body: "Votre commande a été livrée. Bon appétit !" },

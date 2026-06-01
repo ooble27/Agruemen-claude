@@ -99,7 +99,7 @@ const MissionSection = () => {
 
                   {/* Shop — desktop/tablette seulement */}
                   <p className="order-3 hidden font-body text-[11px] text-on-surface-variant sm:block md:text-xs">
-                    {product.shops?.name ?? "Agrumen"}
+                    {product.shops?.name ?? "Mamakaasa"}
                   </p>
 
                 </div>

@@ -14,11 +14,11 @@ const TEAM = [
 ];
 
 const TIMELINE = [
-  { year: "2022", title: "L'idée naît", desc: "Deux entrepreneurs dakarois constatent que les producteurs sénégalais perdent 35% de leurs récoltes faute de débouchés. L'idée d'Agrumen prend forme dans un garage à Plateau." },
+  { year: "2022", title: "L'idée naît", desc: "Deux entrepreneurs dakarois constatent que les producteurs sénégalais perdent 35% de leurs récoltes faute de débouchés. L'idée d'Mamakaasa prend forme dans un garage à Plateau." },
   { year: "2023", title: "Lancement à Dakar", desc: "6 producteurs pionniers rejoignent la plateforme. Dès le premier mois, 120 livraisons sont effectuées dans Dakar. Le bouche-à-oreille fait le reste." },
-  { year: "2024", title: "Expansion nationale", desc: "Agrumen s'étend à Thiès, Diourbel, Kaolack et Saint-Louis. 120 producteurs partenaires, 4 500 commandes mensuelles et une équipe terrain de 18 agents." },
+  { year: "2024", title: "Expansion nationale", desc: "Mamakaasa s'étend à Thiès, Diourbel, Kaolack et Saint-Louis. 120 producteurs partenaires, 4 500 commandes mensuelles et une équipe terrain de 18 agents." },
   { year: "2025", title: "Plateforme leader", desc: "340+ producteurs dans 14 régions. 12 000 commandes par mois. Lancement du programme de microfinancement agricole avec nos partenaires bancaires." },
-  { year: "2026", title: "Demain", desc: "Agrumen est la première marketplace agro-alimentaire du Sénégal. Expansion prévue vers la Côte d'Ivoire et le Mali avant fin 2026." },
+  { year: "2026", title: "Demain", desc: "Mamakaasa est la première marketplace agro-alimentaire du Sénégal. Expansion prévue vers la Côte d'Ivoire et le Mali avant fin 2026." },
 ];
 
 const VALUES = [
@@ -27,7 +27,7 @@ const VALUES = [
   { num: "03", title: "Durabilité", desc: "Nous soutenons les pratiques agroécologiques et réduisons les pertes post-récolte de 35%." },
   { num: "04", title: "Communauté", desc: "Un réseau vivant de producteurs, consommateurs et agents qui se soutiennent mutuellement." },
   { num: "05", title: "Innovation", desc: "La technologie au service du réel : paiement mobile, suivi en temps réel, logistique optimisée." },
-  { num: "06", title: "Impact social", desc: "1% de chaque commande est reversé au Fonds Agrumen pour former les jeunes agriculteurs." },
+  { num: "06", title: "Impact social", desc: "1% de chaque commande est reversé au Fonds Mamakaasa pour former les jeunes agriculteurs." },
 ];
 
 const TICKER_ITEMS = ["ÉQUITÉ", "FRAÎCHEUR", "SÉNÉGAL", "TRANSPARENCE", "DURABILITÉ", "IMPACT", "14 RÉGIONS", "340+ PRODUCTEURS", "ÉQUITÉ", "FRAÎCHEUR", "SÉNÉGAL", "TRANSPARENCE", "DURABILITÉ", "IMPACT"];
@@ -64,7 +64,7 @@ const QuiSommesNous = () => {
             </h1>
 
             <p className="font-body text-white/45 text-lg leading-relaxed max-w-xs mb-10">
-              Agrumen connecte directement les producteurs sénégalais aux consommateurs. Pas d'intermédiaire. Des revenus justes. Des produits vrais.
+              Mamakaasa connecte directement les producteurs sénégalais aux consommateurs. Pas d'intermédiaire. Des revenus justes. Des produits vrais.
             </p>
 
             <div className="flex flex-wrap gap-3">
@@ -168,7 +168,7 @@ const QuiSommesNous = () => {
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <p className="font-body text-base text-on-surface-variant leading-relaxed">
-                  Au Sénégal, un producteur reçoit en moyenne 3 à 4 fois moins que ce que le consommateur paye. La différence est absorbée par des intermédiaires sans valeur ajoutée. Agrumen court-circuite cette chaîne.
+                  Au Sénégal, un producteur reçoit en moyenne 3 à 4 fois moins que ce que le consommateur paye. La différence est absorbée par des intermédiaires sans valeur ajoutée. Mamakaasa court-circuite cette chaîne.
                 </p>
                 <p className="font-body text-base text-on-surface-variant leading-relaxed">
                   En connectant directement producteurs et consommateurs, nous restituons aux agriculteurs la valeur de leur travail — et nous offrons aux familles dakaroises des produits plus frais, plus traçables, moins chers.
@@ -278,7 +278,7 @@ const QuiSommesNous = () => {
             <p className="font-headline text-[10px] font-bold uppercase tracking-[0.22em] text-on-surface-variant mb-3">L'équipe fondatrice</p>
             <h2 className="font-headline font-black text-foreground tracking-tighter leading-none"
               style={{ fontSize: "clamp(2.4rem, 5vw, 4.5rem)" }}>
-              Les visages<br />d'Agrumen.
+              Les visages<br />d'Mamakaasa.
             </h2>
           </motion.div>
 
@@ -317,7 +317,7 @@ const QuiSommesNous = () => {
             <span className="font-headline font-black text-foreground/10 select-none" style={{ fontSize: "7rem", lineHeight: 1 }}>"</span>
             <div>
               <p className="font-headline font-bold text-foreground text-xl md:text-2xl leading-snug mb-4">
-                En rejoignant Agrumen, j'ai doublé mon revenu en 6 mois. Mes tomates partent directement chez les consommateurs à Dakar, sans passer par personne.
+                En rejoignant Mamakaasa, j'ai doublé mon revenu en 6 mois. Mes tomates partent directement chez les consommateurs à Dakar, sans passer par personne.
               </p>
               <p className="font-body text-sm text-on-surface-variant">— Ousmane D., maraîcher à Thiès · partenaire depuis 2023</p>
             </div>
@@ -372,7 +372,7 @@ const QuiSommesNous = () => {
           <p className="font-headline text-[10px] font-bold uppercase tracking-[0.22em] text-on-surface-variant mb-6">Rejoignez l'aventure</p>
           <h2 className="font-headline font-black text-foreground tracking-tighter leading-none mb-8"
             style={{ fontSize: "clamp(2rem, 4vw, 3.4rem)" }}>
-            Une place pour<br />chacun chez<br />Agrumen.
+            Une place pour<br />chacun chez<br />Mamakaasa.
           </h2>
           <div className="flex flex-wrap gap-3">
             <Link to="/marche" className="inline-flex items-center gap-2 bg-foreground text-white font-headline font-bold text-sm rounded-xl px-6 py-3.5">

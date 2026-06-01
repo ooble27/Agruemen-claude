@@ -21,7 +21,7 @@ const FAQ_DATA = [
     icon: "local_shipping",
     color: "text-blue-400",
     questions: [
-      { q: "Quelles sont les zones de livraison ?", a: "Agrumen livre actuellement à Dakar et dans sa banlieue (Pikine, Guédiawaye, Rufisque). Nous travaillons à étendre notre couverture à d'autres villes du Sénégal. Les zones disponibles sont affichées lors du checkout." },
+      { q: "Quelles sont les zones de livraison ?", a: "Mamakaasa livre actuellement à Dakar et dans sa banlieue (Pikine, Guédiawaye, Rufisque). Nous travaillons à étendre notre couverture à d'autres villes du Sénégal. Les zones disponibles sont affichées lors du checkout." },
       { q: "Quel est le délai de livraison ?", a: "Les commandes passées avant 12h sont livrées le même jour avant 20h. Les commandes passées après 12h sont livrées le lendemain matin. Le délai exact est confirmé dans votre email de confirmation." },
       { q: "La livraison est-elle gratuite ?", a: "Oui, la livraison est offerte sur toutes vos commandes, sans minimum d'achat. C'est notre engagement pour rendre les produits frais accessibles à tous." },
       { q: "Que faire si ma commande n'arrive pas ?", a: "Si votre commande n'est pas livrée dans le créneau prévu, contactez notre support via la page Contact ou par téléphone au +1 418 261 9091. Nous localisons votre livraison et vous tenons informé en temps réel." },
@@ -33,7 +33,7 @@ const FAQ_DATA = [
     color: "text-emerald-400",
     questions: [
       { q: "Quels modes de paiement acceptez-vous ?", a: "Nous acceptons Wave et Orange Money. Ces solutions de paiement mobile sont les plus utilisées au Sénégal et permettent une transaction rapide et sécurisée directement depuis votre téléphone." },
-      { q: "Mon paiement est-il sécurisé ?", a: "Oui, tous les paiements sont traités directement par Wave et Orange Money via leurs propres systèmes sécurisés. Agrumen ne stocke aucune information bancaire ou de carte." },
+      { q: "Mon paiement est-il sécurisé ?", a: "Oui, tous les paiements sont traités directement par Wave et Orange Money via leurs propres systèmes sécurisés. Mamakaasa ne stocke aucune information bancaire ou de carte." },
       { q: "Comment suis-je remboursé en cas de problème ?", a: "En cas d'annulation ou de produit défectueux, le remboursement est effectué sur le même moyen de paiement (Wave ou Orange Money) dans un délai de 24 à 48 heures ouvrées." },
     ],
   },
@@ -54,7 +54,7 @@ const FAQ_DATA = [
     questions: [
       { q: "Comment créer un compte ?", a: "Cliquez sur « Commencer » dans la barre de navigation, puis renseignez votre nom, email et mot de passe. Un email de vérification vous sera envoyé." },
       { q: "Comment modifier mes informations personnelles ?", a: "Rendez-vous dans « Mon Compte » → section Profil. Vous pouvez y modifier votre nom, numéro de téléphone et adresse de livraison par défaut." },
-      { q: "Comment supprimer mon compte ?", a: "Contactez notre support à hello@agrumen.sn en précisant votre demande. La suppression est effectuée sous 72h et toutes vos données personnelles sont effacées conformément à notre politique de confidentialité." },
+      { q: "Comment supprimer mon compte ?", a: "Contactez notre support à hello@mamakaasa.sn en précisant votre demande. La suppression est effectuée sous 72h et toutes vos données personnelles sont effacées conformément à notre politique de confidentialité." },
     ],
   },
 ];
@@ -207,7 +207,7 @@ const FAQ = () => {
           >
             <span className="material-symbols-outlined text-emerald-400 text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>agriculture</span>
             <h3 className="font-headline font-extrabold text-white text-xl">Vous êtes producteur ?</h3>
-            <p className="font-body text-sm text-white/45 leading-relaxed">Rejoignez les 340+ agriculteurs qui vendent directement sur Agrumen. Inscription gratuite, sans engagement.</p>
+            <p className="font-body text-sm text-white/45 leading-relaxed">Rejoignez les 340+ agriculteurs qui vendent directement sur Mamakaasa. Inscription gratuite, sans engagement.</p>
             <Link to="/devenir-partenaire" className="inline-flex items-center gap-2 bg-emerald-500 text-white font-headline font-bold text-sm px-6 py-3 rounded-xl w-fit mt-auto">
               <span className="material-symbols-outlined text-sm">agriculture</span>
               Devenir partenaire

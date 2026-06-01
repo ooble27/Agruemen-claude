@@ -8,11 +8,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import { buildMarketCategories } from "@/data/marketplaceMocks";
 import type { Category } from "@/types/database";
 
-const AgrumenLogo = () => (
-  <div style={{ display: 'flex', alignItems: 'center', gap: 7, fontFamily: "'Manrope', sans-serif", fontWeight: 700, fontSize: 20, letterSpacing: '-0.035em', color: '#0A0A0A' }}>
-    <span style={{ width: 24, height: 24, borderRadius: 6, background: '#0A0A0A', color: '#fff', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 13, letterSpacing: 0, flexShrink: 0 }}>a</span>
-    agrumen
-  </div>
+const MamakaasaLogo = () => (
+  <span style={{ fontFamily: "'Manrope', sans-serif", fontWeight: 800, fontSize: 20, letterSpacing: '-0.04em', lineHeight: 1 }}>
+    <span style={{ color: '#0A0A0A' }}>mama</span><span style={{ color: '#E84A1F' }}>kaasa</span>
+  </span>
 );
 
 const Navbar = () => {
@@ -84,7 +83,7 @@ const Navbar = () => {
         <div className="flex items-center px-5 md:px-8 lg:px-10 max-w-[1440px] mx-auto w-full gap-3" style={{ height: 60 }}>
 
           <Link to="/" className="shrink-0 mr-4">
-            <AgrumenLogo />
+            <MamakaasaLogo />
           </Link>
 
           {/* Desktop nav links */}

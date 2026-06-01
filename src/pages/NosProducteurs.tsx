@@ -99,7 +99,7 @@ const PRODUCERS = [
     orders: 390,
     img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop&auto=format",
     badge: "Nouveau",
-    desc: "Jeune agricultrice formée par Agrumen. Son exploitation maraîchère à Richard Toll produit des légumes de grande qualité grâce à l'irrigation contrôlée.",
+    desc: "Jeune agricultrice formée par Mamakaasa. Son exploitation maraîchère à Richard Toll produit des légumes de grande qualité grâce à l'irrigation contrôlée.",
   },
   {
     name: "Alioune Seck",
@@ -303,14 +303,14 @@ const NosProducteurs = () => {
                 Vous êtes producteur au Sénégal ?
               </h3>
               <p className="font-body text-white/50 text-sm mb-8 max-w-md mx-auto">
-                Rejoignez les 340 producteurs qui vendent directement sur Agrumen. Inscription gratuite, revenus équitables.
+                Rejoignez les 340 producteurs qui vendent directement sur Mamakaasa. Inscription gratuite, revenus équitables.
               </p>
               <Link
                 to="/devenir-partenaire"
                 className="inline-flex items-center gap-2 bg-white text-foreground px-8 py-4 rounded-full font-headline font-bold text-sm"
               >
                 <span className="material-symbols-outlined text-base">agriculture</span>
-                Devenir partenaire Agrumen
+                Devenir partenaire Mamakaasa
               </Link>
             </motion.div>
           </div>

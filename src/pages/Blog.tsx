@@ -107,7 +107,7 @@ const Blog = () => {
       <section className="px-6 md:px-14 py-12 border-b border-border/20">
         <div className="mx-auto max-w-[1200px] flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
-            <p className="font-headline text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant mb-1">Le Blog Agrumen</p>
+            <p className="font-headline text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant mb-1">Le Blog Mamakaasa</p>
             <h2 className="font-headline font-black text-foreground tracking-tighter text-3xl">Tous les articles.</h2>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -240,7 +240,7 @@ const Blog = () => {
           <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
             <p className="font-headline text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant mb-3">Vous êtes producteur ?</p>
             <h2 className="font-headline font-black text-foreground tracking-tighter leading-none" style={{ fontSize: "clamp(2rem, 4vw, 3.4rem)" }}>
-              Rejoignez les 340<br />producteurs Agrumen.
+              Rejoignez les 340<br />producteurs Mamakaasa.
             </h2>
           </motion.div>
           <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="flex flex-wrap gap-4 lg:justify-end">

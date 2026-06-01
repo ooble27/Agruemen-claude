@@ -52,17 +52,17 @@ export const MOCK_CATEGORIES: Category[] = [
 ];
 
 const MOCK_SELLERS: MockSellerProfile[] = [
-  { full_name: "Agrumen Dakar", avatar_url: null, city: "Dakar", phone: "+221 77 000 00 00" },
-  { full_name: "Agrumen Thiès", avatar_url: null, city: "Thiès", phone: "+221 78 111 11 11" },
-  { full_name: "Agrumen Casamance", avatar_url: null, city: "Ziguinchor", phone: "+221 76 222 22 22" },
-  { full_name: "Agrumen Nord", avatar_url: null, city: "Saint-Louis", phone: "+221 77 333 33 33" },
+  { full_name: "Mamakaasa Dakar", avatar_url: null, city: "Dakar", phone: "+221 77 000 00 00" },
+  { full_name: "Mamakaasa Thiès", avatar_url: null, city: "Thiès", phone: "+221 78 111 11 11" },
+  { full_name: "Mamakaasa Casamance", avatar_url: null, city: "Ziguinchor", phone: "+221 76 222 22 22" },
+  { full_name: "Mamakaasa Nord", avatar_url: null, city: "Saint-Louis", phone: "+221 77 333 33 33" },
 ];
 
 const MOCK_SHOPS: MockShopInfo[] = [
-  { name: "Agrumen — Dakar", seller_id: "agrumen-1", city: "Dakar", phone: "+221 77 000 00 00", location: "Marché central, Dakar" },
-  { name: "Agrumen — Thiès", seller_id: "agrumen-2", city: "Thiès", phone: "+221 78 111 11 11", location: "Route de Thiès" },
-  { name: "Agrumen — Casamance", seller_id: "agrumen-3", city: "Ziguinchor", phone: "+221 76 222 22 22", location: "Ziguinchor centre" },
-  { name: "Agrumen — Nord", seller_id: "agrumen-4", city: "Saint-Louis", phone: "+221 77 333 33 33", location: "Saint-Louis Sor" },
+  { name: "Mamakaasa — Dakar", seller_id: "mamakaasa-1", city: "Dakar", phone: "+221 77 000 00 00", location: "Marché central, Dakar" },
+  { name: "Mamakaasa — Thiès", seller_id: "mamakaasa-2", city: "Thiès", phone: "+221 78 111 11 11", location: "Route de Thiès" },
+  { name: "Mamakaasa — Casamance", seller_id: "mamakaasa-3", city: "Ziguinchor", phone: "+221 76 222 22 22", location: "Ziguinchor centre" },
+  { name: "Mamakaasa — Nord", seller_id: "mamakaasa-4", city: "Saint-Louis", phone: "+221 77 333 33 33", location: "Saint-Louis Sor" },
 ];
 
 const createMockProduct = ({
@@ -77,7 +77,7 @@ const createMockProduct = ({
   return {
     id, name, price, unit,
     category_id: categoryId,
-    shop_id: "agrumen-shop",
+    shop_id: "mamakaasa-shop",
     image_url: imageUrl,
     description,
     stock,

@@ -30,7 +30,7 @@ const BENEFITS = [
   {
     icon: "support_agent",
     title: "Accompagnement dédié",
-    desc: "Un agent Agrumen vous accompagne dans la création de votre profil, la mise en ligne de vos produits et le suivi de vos premières commandes.",
+    desc: "Un agent Mamakaasa vous accompagne dans la création de votre profil, la mise en ligne de vos produits et le suivi de vos premières commandes.",
   },
   {
     icon: "local_shipping",
@@ -40,7 +40,7 @@ const BENEFITS = [
   {
     icon: "verified",
     title: "Label Producteur Vérifié",
-    desc: "Votre profil est certifié Agrumen, ce qui renforce la confiance des acheteurs et augmente votre taux de conversion.",
+    desc: "Votre profil est certifié Mamakaasa, ce qui renforce la confiance des acheteurs et augmente votre taux de conversion.",
   },
 ];
 
@@ -118,7 +118,7 @@ const DevenirPartenaire = () => {
                 className="font-headline font-black text-white tracking-[-0.045em] leading-[0.9] mb-5"
                 style={{ fontSize: "clamp(2.8rem, 6vw, 5.5rem)" }}
               >
-                Vendez vos<br />récoltes sur<br />Agrumen.
+                Vendez vos<br />récoltes sur<br />Mamakaasa.
               </h1>
               <p className="font-body text-white/50 text-lg leading-relaxed max-w-sm mb-8">
                 Rejoignez 340+ producteurs sénégalais qui vendent directement aux consommateurs. Pas d'intermédiaire, des revenus équitables.
@@ -187,7 +187,7 @@ const DevenirPartenaire = () => {
               viewport={{ once: true }}
               className="mb-12"
             >
-              <p className="font-headline text-[11px] font-bold uppercase tracking-widest text-on-surface-variant mb-3">Pourquoi Agrumen</p>
+              <p className="font-headline text-[11px] font-bold uppercase tracking-widest text-on-surface-variant mb-3">Pourquoi Mamakaasa</p>
               <h2 className="font-headline font-black text-foreground tracking-tighter" style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}>
                 Ce que vous gagnez<br />en rejoignant la plateforme.
               </h2>
@@ -263,7 +263,7 @@ const DevenirPartenaire = () => {
             >
               <p className="font-headline text-[11px] font-bold uppercase tracking-widest text-on-surface-variant mb-3">Critères d'éligibilité</p>
               <h2 className="font-headline font-black text-foreground tracking-tighter mb-8" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)" }}>
-                Qui peut rejoindre<br />Agrumen ?
+                Qui peut rejoindre<br />Mamakaasa ?
               </h2>
               <div className="space-y-4">
                 {REQUIREMENTS.map((r) => (
@@ -291,7 +291,7 @@ const DevenirPartenaire = () => {
                 <span className="material-symbols-outlined text-emerald-400 text-3xl mb-4 block" style={{ fontVariationSettings: "'FILL' 1" }}>verified</span>
                 <h3 className="font-headline font-extrabold text-xl text-white mb-3">Candidature 100% gratuite</h3>
                 <p className="font-body text-sm text-white/50 leading-relaxed mb-6">
-                  Aucun frais d'inscription. Agrumen prélève une commission uniquement sur les ventes réalisées. Si vous ne vendez pas, vous ne payez rien.
+                  Aucun frais d'inscription. Mamakaasa prélève une commission uniquement sur les ventes réalisées. Si vous ne vendez pas, vous ne payez rien.
                 </p>
                 <div className="space-y-3">
                   {["Aucun frais d'inscription", "Commission seulement sur les ventes", "Pas de contrat longue durée", "Résiliation libre à tout moment"].map(item => (
@@ -317,7 +317,7 @@ const DevenirPartenaire = () => {
             >
               <p className="font-headline text-[11px] font-bold uppercase tracking-widest text-on-surface-variant mb-3">Candidature</p>
               <h2 className="font-headline font-black text-foreground tracking-tighter mb-3" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)" }}>
-                Rejoignez la famille Agrumen
+                Rejoignez la famille Mamakaasa
               </h2>
               <p className="font-body text-sm text-on-surface-variant max-w-md mx-auto">
                 Remplissez ce formulaire et notre équipe vous recontacte sous 5 jours ouvrés pour un entretien téléphonique.
@@ -410,7 +410,7 @@ const DevenirPartenaire = () => {
                 )}
               </button>
               <p className="font-body text-xs text-on-surface-variant/60 text-center">
-                En soumettant ce formulaire, vous acceptez d'être contacté par l'équipe Agrumen.
+                En soumettant ce formulaire, vous acceptez d'être contacté par l'équipe Mamakaasa.
                 Candidature gratuite, sans engagement.
               </p>
             </motion.form>

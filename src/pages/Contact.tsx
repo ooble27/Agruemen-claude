@@ -54,7 +54,7 @@ const Contact = () => {
           {/* Info contacts éditoriaux */}
           <div className="mt-14 space-y-0 divide-y divide-white/8">
             {[
-              { label: "Email", value: "hello@agrumen.sn", icon: "mail" },
+              { label: "Email", value: "hello@mamakaasa.sn", icon: "mail" },
               { label: "Téléphone", value: "+1 418 261 9091", icon: "phone" },
               { label: "Adresse", value: "Dakar, Plateau · Sénégal", icon: "location_on" },
             ].map(item => (

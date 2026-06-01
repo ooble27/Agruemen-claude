@@ -5,15 +5,15 @@ import deliveryMoto from "@/assets/delivery-moto.png";
 const features = [
   { n: "01", icon: "smartphone",     title: "Commandez depuis votre téléphone",          sub: "En quelques clics, partout, à tout moment." },
   { n: "02", icon: "payments",       title: "Payez avec Wave, Orange Money ou carte",    sub: "Modes de paiement locaux et sécurisés." },
-  { n: "03", icon: "local_shipping", title: "Livraison partout à Dakar en moins de 24h", sub: "Nos livreurs partent dès la récolte terminée." },
-  { n: "04", icon: "verified",       title: "Chaque produit tracé, champ à porte",        sub: "Transparence totale sur l'origine et le producteur." },
+  { n: "03", icon: "local_shipping", title: "Livraison partout à Dakar en moins de 24h", sub: "Nos équipes approvisionnent chaque matin pour vous livrer frais." },
+  { n: "04", icon: "verified",       title: "Qualité sélectionnée, traçabilité garantie",  sub: "Chaque produit est contrôlé avant d'être livré chez vous." },
 ];
 
 const SellerCTA = () => {
   return (
     <section className="mx-auto max-w-[1200px] space-y-16 px-4 py-16 md:px-8">
 
-      {/* ─── "C'est quoi Agrumen ?" — manifeste éditorial ─── */}
+      {/* ─── "C'est quoi Mamakaasa ?" — manifeste éditorial ─── */}
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-20">
 
         {/* Left — headline manifeste */}
@@ -25,7 +25,7 @@ const SellerCTA = () => {
           className="flex flex-col justify-center"
         >
           <span className="mb-5 block font-headline text-xs font-bold uppercase tracking-[0.25em] text-on-surface-variant">
-            // C'est quoi Agrumen ?
+            // C'est quoi Mamakaasa ?
           </span>
 
           <h2 className="mb-6 font-headline text-4xl font-black leading-[1.05] tracking-[-0.04em] text-foreground md:text-5xl lg:text-[3.4rem]">
@@ -34,7 +34,7 @@ const SellerCTA = () => {
           </h2>
 
           <p className="mb-8 max-w-md font-body text-base leading-relaxed text-on-surface-variant md:text-lg">
-            Agrumen vous connecte directement aux agriculteurs du Sénégal. Des produits frais, 100% naturels, des fruits, légumes, céréales — livrés chez vous d'un simple tap.
+            Mamakaasa sélectionne et vous livre les meilleurs produits agricoles du Sénégal. Fruits, légumes, céréales — 100% frais, directement à votre porte.
           </p>
 
           <Link

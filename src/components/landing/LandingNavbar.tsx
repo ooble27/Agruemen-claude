@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from "react";
 
 const ABOUT_LINKS = [
   { label: "Qui sommes-nous", href: "/qui-sommes-nous", icon: "info", desc: "Notre histoire & équipe" },
-  { label: "Notre Mission", href: "/notre-mission", icon: "eco", desc: "Pourquoi Agrumen existe" },
+  { label: "Notre Mission", href: "/notre-mission", icon: "eco", desc: "Pourquoi Mamakaasa existe" },
   { label: "Nos Engagements", href: "/nos-engagements", icon: "volunteer_activism", desc: "Impact & durabilité" },
   { label: "Blog", href: "/blog", icon: "article", desc: "Agrobusiness & agriculture" },
   { label: "Carrières", href: "/carrieres", icon: "work", desc: "Rejoindre l'équipe" },
@@ -57,8 +57,8 @@ const LandingNavbar = () => {
                 : "border-border/35 bg-background/85 shadow-sm backdrop-blur-lg"
             }`}
           >
-            <Link to="/" className="font-headline text-lg font-black tracking-tighter text-foreground">
-              Agrumen
+            <Link to="/" className="font-headline text-lg font-black tracking-tighter" style={{ letterSpacing: '-0.04em' }}>
+              <span style={{ color: '#0A0A0A' }}>mama</span><span style={{ color: '#E84A1F' }}>kaasa</span>
             </Link>
 
             {/* Desktop nav */}
@@ -106,7 +106,7 @@ const LandingNavbar = () => {
                       {/* Dropdown header */}
                       <div className="px-4 pt-4 pb-2.5 border-b border-border/20">
                         <p className="font-headline text-[9px] font-bold uppercase tracking-[0.2em] text-on-surface-variant/60">
-                          Découvrir Agrumen
+                          Découvrir Mamakaasa
                         </p>
                       </div>
 

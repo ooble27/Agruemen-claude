@@ -68,7 +68,7 @@ const Auth = () => {
 
           {/* Logo */}
           <Link to="/" className="font-headline font-black text-2xl text-foreground tracking-tighter">
-            Agrumen
+            Mamakaasa
           </Link>
 
           {/* Center text */}
@@ -88,7 +88,7 @@ const Auth = () => {
               transition={{ duration: 0.5, delay: 0.12 }}
               className="font-body text-on-surface-variant text-base leading-relaxed max-w-xs mb-8"
             >
-              Produits frais, locaux et sans intermédiaires. Rejoignez la communauté Agrumen.
+              Produits frais, locaux et sans intermédiaires. Rejoignez la communauté Mamakaasa.
             </motion.p>
 
             {/* Social proof */}
@@ -135,7 +135,7 @@ const Auth = () => {
             </motion.div>
           </div>
 
-          <p className="font-body text-[11px] text-on-surface-variant/40">© 2025 Agrumen · Dakar, Sénégal</p>
+          <p className="font-body text-[11px] text-on-surface-variant/40">© 2025 Mamakaasa · Dakar, Sénégal</p>
         </div>
       </div>
 
@@ -145,7 +145,7 @@ const Auth = () => {
         {/* Mobile top bar */}
         <div className="lg:hidden flex items-center justify-between px-6 pt-8 pb-4">
           <Link to="/" className="font-headline font-extrabold text-xl text-foreground tracking-tighter">
-            Agrumen
+            Mamakaasa
           </Link>
           <Link to="/" className="w-9 h-9 rounded-md bg-surface-container flex items-center justify-center">
             <span className="material-symbols-outlined text-on-surface-variant text-[20px]">close</span>
@@ -163,7 +163,7 @@ const Auth = () => {
             {/* Desktop logo */}
             <div className="hidden lg:block mb-10">
               <Link to="/" className="font-headline font-extrabold text-2xl text-foreground tracking-tighter">
-                Agrumen
+                Mamakaasa
               </Link>
             </div>
 
@@ -192,7 +192,7 @@ const Auth = () => {
             {/* Title */}
             <div className="mb-6">
               <h1 className="font-headline font-extrabold text-2xl tracking-tighter">
-                {isLogin ? "Bon retour !" : "Rejoindre Agrumen"}
+                {isLogin ? "Bon retour !" : "Rejoindre Mamakaasa"}
               </h1>
               <p className="font-body text-on-surface-variant text-sm mt-1">
                 {isLogin

@@ -519,7 +519,7 @@ const BuyerAccount = () => {
                   </p>
                   <button
                     onClick={() => {
-                      addItem({ id: product.id, name: product.name, price: product.price.toLocaleString("fr-FR") + " FCFA", priceNum: product.price, unit: product.unit, image: product.image_url || "", farmer: product.shops?.name || "Agrumen", shopId: product.shop_id });
+                      addItem({ id: product.id, name: product.name, price: product.price.toLocaleString("fr-FR") + " FCFA", priceNum: product.price, unit: product.unit, image: product.image_url || "", farmer: product.shops?.name || "Mamakaasa", shopId: product.shop_id });
                       toast.success(`${product.name} ajouté au panier`);
                     }}
                     className="mt-2 w-full py-2 rounded-md bg-foreground/8 text-foreground font-headline text-xs font-bold hover:bg-foreground hover:text-white transition-all cursor-pointer"

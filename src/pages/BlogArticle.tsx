@@ -162,9 +162,9 @@ const BlogArticle = () => {
             </div>
             <div>
               <p className="font-headline font-extrabold text-foreground">{article.author.name}</p>
-              <p className="font-body text-sm text-on-surface-variant mb-2">{article.author.role} · Agrumen</p>
+              <p className="font-body text-sm text-on-surface-variant mb-2">{article.author.role} · Mamakaasa</p>
               <p className="font-body text-sm text-on-surface-variant/70 leading-relaxed">
-                Contributeur régulier du Blog Agrumen, spécialisé dans l'agriculture sénégalaise, l'agrobusiness et le développement des filières locales.
+                Contributeur régulier du Blog Mamakaasa, spécialisé dans l'agriculture sénégalaise, l'agrobusiness et le développement des filières locales.
               </p>
             </div>
           </div>
@@ -208,7 +208,7 @@ const BlogArticle = () => {
               style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "22px 22px" }} />
             <span className="material-symbols-outlined text-emerald-400 text-3xl mb-4 block" style={{ fontVariationSettings: "'FILL' 1" }}>agriculture</span>
             <h3 className="font-headline font-black text-white tracking-tighter mb-3 text-2xl">Vous êtes producteur au Sénégal ?</h3>
-            <p className="font-body text-white/45 text-sm mb-6 max-w-md mx-auto">Rejoignez 340+ producteurs qui vendent directement sur Agrumen. Inscription gratuite.</p>
+            <p className="font-body text-white/45 text-sm mb-6 max-w-md mx-auto">Rejoignez 340+ producteurs qui vendent directement sur Mamakaasa. Inscription gratuite.</p>
             <Link to="/devenir-partenaire" className="inline-flex items-center gap-2 bg-white text-foreground font-headline font-bold text-sm px-7 py-3.5 rounded-xl">
               <span className="material-symbols-outlined text-sm">agriculture</span>
               Devenir partenaire

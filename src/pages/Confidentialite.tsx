@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 const SECTIONS = [
   {
     title: "1. Données collectées",
-    content: `Agrumen collecte les données que vous nous fournissez directement lors de la création de votre compte (nom, email, numéro de téléphone, adresse de livraison) ainsi que les données générées par votre utilisation de la plateforme (historique des commandes, préférences, interactions).
+    content: `Mamakaasa collecte les données que vous nous fournissez directement lors de la création de votre compte (nom, email, numéro de téléphone, adresse de livraison) ainsi que les données générées par votre utilisation de la plateforme (historique des commandes, préférences, interactions).
 
 Nous collectons également des données techniques non-personnelles : adresse IP, type de navigateur, pages visitées et durée de visite, à des fins d'amélioration du service.`,
   },
@@ -46,24 +46,24 @@ Les données de commande sont conservées 3 ans à des fins de traçabilité et 
 • Droit à la portabilité : exporter vos données dans un format lisible
 • Droit d'opposition : refuser certains traitements de vos données
 
-Pour exercer ces droits, contactez-nous à privacy@agrumen.sn ou via la page Contact.`,
+Pour exercer ces droits, contactez-nous à privacy@mamakaasa.sn ou via la page Contact.`,
   },
   {
     title: "6. Sécurité",
-    content: `Agrumen met en œuvre des mesures techniques et organisationnelles appropriées pour protéger vos données : chiffrement des données en transit (HTTPS/TLS), authentification sécurisée, accès limité aux données sensibles.
+    content: `Mamakaasa met en œuvre des mesures techniques et organisationnelles appropriées pour protéger vos données : chiffrement des données en transit (HTTPS/TLS), authentification sécurisée, accès limité aux données sensibles.
 
 Bien que nous fassions tout notre possible pour protéger vos informations, aucun système de sécurité n'est infaillible. En cas de violation de données, nous vous en informerons conformément aux obligations légales.`,
   },
   {
     title: "7. Cookies",
-    content: `Agrumen utilise des cookies pour améliorer votre expérience. Consultez notre Politique de cookies pour en savoir plus sur les types de cookies utilisés et comment les gérer.`,
+    content: `Mamakaasa utilise des cookies pour améliorer votre expérience. Consultez notre Politique de cookies pour en savoir plus sur les types de cookies utilisés et comment les gérer.`,
   },
   {
     title: "8. Contact",
     content: `Pour toute question relative à cette politique de confidentialité ou à vos données personnelles :
 
-Email : privacy@agrumen.sn
-Adresse : Agrumen Sénégal, Dakar, Sénégal
+Email : privacy@mamakaasa.sn
+Adresse : Mamakaasa Sénégal, Dakar, Sénégal
 Téléphone : +221 77 000 00 00
 
 Dernière mise à jour : Janvier 2025`,
@@ -93,7 +93,7 @@ const Confidentialite = () => (
             Politique de<br />Confidentialité
           </h1>
           <p className="font-body text-white/40 text-base">
-            Dernière mise à jour : Janvier 2025 · Agrumen Sénégal
+            Dernière mise à jour : Janvier 2025 · Mamakaasa Sénégal
           </p>
         </motion.div>
       </section>
@@ -120,7 +120,7 @@ const Confidentialite = () => (
             <article className="flex-1 min-w-0 space-y-10">
               <div className="p-5 rounded-xl bg-surface-container-lowest border border-border/30">
                 <p className="font-body text-sm text-on-surface-variant leading-relaxed">
-                  Chez Agrumen, nous prenons la protection de vos données personnelles très au sérieux.
+                  Chez Mamakaasa, nous prenons la protection de vos données personnelles très au sérieux.
                   Cette politique explique quelles données nous collectons, comment nous les utilisons
                   et quels sont vos droits.
                 </p>

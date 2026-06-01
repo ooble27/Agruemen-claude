@@ -93,7 +93,7 @@ export default function AdminDashboard() {
             <span className="material-symbols-outlined text-white text-[13px]" style={{ fontVariationSettings: "'FILL' 1" }}>eco</span>
           </div>
           <div className="min-w-0">
-            <p className="font-headline font-black text-gray-900 text-[13px] leading-none">Agrumen</p>
+            <p className="font-headline font-black text-gray-900 text-[13px] leading-none">Mamakaasa</p>
             <p className="font-body text-[9px] text-gray-400 mt-0.5">Admin Panel</p>
           </div>
           <button onClick={() => setSidebarOpen(false)}

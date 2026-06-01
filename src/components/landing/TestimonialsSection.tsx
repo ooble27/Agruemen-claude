@@ -4,13 +4,13 @@ const testimonials = [
   {
     name: "Aminata Diop",
     role: "Acheteuse à Dakar",
-    text: "Depuis que j'utilise Agrumen, je ne vais plus au marché. Les produits sont frais, livrés le jour même, et je soutiens directement nos agriculteurs.",
+    text: "Depuis que j'utilise Mamakaasa, je ne vais plus au marché. Les produits sont frais, livrés le jour même, et je soutiens directement nos agriculteurs.",
     initials: "AD",
   },
   {
     name: "Moussa Sall",
     role: "Producteur à Thiès",
-    text: "Agrumen m'a permis de vendre mes récoltes à un prix juste, sans passer par des intermédiaires. Mes revenus ont augmenté de 40%.",
+    text: "Mamakaasa m'a permis de vendre mes récoltes à un prix juste, sans passer par des intermédiaires. Mes revenus ont augmenté de 40%.",
     initials: "MS",
   },
   {

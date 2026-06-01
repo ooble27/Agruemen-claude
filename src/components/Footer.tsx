@@ -38,11 +38,11 @@ const Footer = () => {
 
           {/* Brand column */}
           <div className="md:col-span-1">
-            <Link to="/" className="font-headline text-xl font-black tracking-tighter text-white">
-              Agrumen
+            <Link to="/" className="font-headline text-xl font-black tracking-tighter" style={{ letterSpacing: '-0.04em' }}>
+              <span style={{ color: '#FFFFFF' }}>mama</span><span style={{ color: '#E84A1F' }}>kaasa</span>
             </Link>
             <p className="mt-3 font-body text-sm leading-relaxed text-white/40">
-              Le marché frais du Sénégal, directement dans votre poche.
+              Vos produits agricoles frais, livrés partout au Sénégal.
             </p>
             <div className="mt-6 space-y-2">
               <p className="flex items-center gap-2 font-body text-xs text-white/30">
@@ -51,7 +51,7 @@ const Footer = () => {
               </p>
               <p className="flex items-center gap-2 font-body text-xs text-white/30">
                 <span className="material-symbols-outlined text-[14px]">mail</span>
-                hello@agrumen.sn
+                hello@mamakaasa.sn
               </p>
               <p className="flex items-center gap-2 font-body text-xs text-white/30">
                 <span className="material-symbols-outlined text-[14px]">schedule</span>
@@ -86,7 +86,7 @@ const Footer = () => {
         {/* Bottom bar */}
         <div className="flex flex-col items-center justify-between gap-4 py-6 sm:flex-row">
           <p className="font-body text-xs text-white/25">
-            © 2025 Agrumen Sénégal · L'Agronome Digital · Dakar, Sénégal
+            © 2025 Mamakaasa · Dakar, Sénégal
           </p>
 
           {/* Payment methods */}

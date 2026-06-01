@@ -17,7 +17,7 @@ const COOKIES = [
     icon: "bar_chart",
     color: "text-sky-600 bg-sky-50 border-sky-200",
     required: false,
-    desc: "Nous aident à comprendre comment les visiteurs utilisent Agrumen afin d'améliorer notre service. Ces données sont anonymisées.",
+    desc: "Nous aident à comprendre comment les visiteurs utilisent Mamakaasa afin d'améliorer notre service. Ces données sont anonymisées.",
     examples: ["Pages visitées", "Durée de visite", "Source de trafic", "Actions effectuées"],
   },
   {
@@ -82,7 +82,7 @@ const Cookies = () => (
             style={{ fontSize: "clamp(2.4rem, 5vw, 4rem)" }}>
             Politique<br />de Cookies
           </h1>
-          <p className="font-body text-white/40 text-base">Dernière mise à jour : Janvier 2025 · Agrumen Sénégal</p>
+          <p className="font-body text-white/40 text-base">Dernière mise à jour : Janvier 2025 · Mamakaasa Sénégal</p>
         </motion.div>
       </section>
 
@@ -92,7 +92,7 @@ const Cookies = () => (
 
           <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10">
             <h2 className="font-headline font-extrabold text-2xl tracking-tighter text-foreground mb-2">Types de cookies utilisés</h2>
-            <p className="font-body text-sm text-on-surface-variant">Agrumen utilise trois catégories de cookies, détaillées ci-dessous.</p>
+            <p className="font-body text-sm text-on-surface-variant">Mamakaasa utilise trois catégories de cookies, détaillées ci-dessous.</p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-16">

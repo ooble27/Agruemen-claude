@@ -44,7 +44,7 @@ const JOBS = [
     location: "Thiès / Saint-Louis · Terrain",
     type: "CDI",
     level: "Junior-Mid",
-    desc: "Vous serez le visage d'Agrumen sur le terrain. Votre mission : identifier, recruter et accompagner les producteurs partenaires dans les régions de Thiès et Saint-Louis.",
+    desc: "Vous serez le visage d'Mamakaasa sur le terrain. Votre mission : identifier, recruter et accompagner les producteurs partenaires dans les régions de Thiès et Saint-Louis.",
     missions: [
       "Prospecter et recruter de nouveaux producteurs partenaires",
       "Former les producteurs à l'utilisation de la plateforme",
@@ -60,7 +60,7 @@ const JOBS = [
     location: "Dakar · Hybride",
     type: "CDI",
     level: "Mid-Senior",
-    desc: "Vous définirez et exécuterez la stratégie marketing d'Agrumen pour accélérer l'acquisition d'acheteurs et la notoriété de la marque au Sénégal et en Afrique de l'Ouest.",
+    desc: "Vous définirez et exécuterez la stratégie marketing d'Mamakaasa pour accélérer l'acquisition d'acheteurs et la notoriété de la marque au Sénégal et en Afrique de l'Ouest.",
     missions: [
       "Définir et piloter la stratégie de content marketing et social media",
       "Gérer les campagnes d'acquisition payantes (Meta, Google)",
@@ -182,7 +182,7 @@ const Carrieres = () => {
             >
               <p className="font-headline text-[11px] font-bold uppercase tracking-widest text-on-surface-variant mb-3">Pourquoi nous rejoindre</p>
               <h2 className="font-headline font-black text-foreground tracking-tighter" style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}>
-                Travailler chez Agrumen,<br />c'est différent.
+                Travailler chez Mamakaasa,<br />c'est différent.
               </h2>
             </motion.div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -350,7 +350,7 @@ const Carrieres = () => {
                 <label className="font-headline text-[10px] font-bold uppercase tracking-widest text-on-surface-variant mb-1.5 block">Lettre de motivation</label>
                 <textarea
                   required value={form.message} onChange={e => f("message", e.target.value)}
-                  rows={5} placeholder="Présentez-vous et dites-nous pourquoi vous voulez rejoindre Agrumen..."
+                  rows={5} placeholder="Présentez-vous et dites-nous pourquoi vous voulez rejoindre Mamakaasa..."
                   className="w-full px-4 py-3.5 rounded-md bg-white border border-border/40 font-body text-sm outline-none focus:ring-2 focus:ring-foreground/10 focus:border-foreground/30 resize-none transition-all"
                 />
               </div>

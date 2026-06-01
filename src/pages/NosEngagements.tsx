@@ -5,10 +5,10 @@ import Footer from "@/components/Footer";
 
 const ENGAGEMENTS = [
   { num: "01", title: "Équité des revenus", desc: "Nous garantissons que les producteurs partenaires reçoivent au minimum 65% du prix de vente final — contre 20 à 25% dans le circuit traditionnel. Les prix sont fixés par les producteurs eux-mêmes, jamais imposés.", icon: "balance", color: "text-amber-400" },
-  { num: "02", title: "Zéro pesticide cachée", desc: "Chaque lot est contrôlé par notre équipe terrain avant expédition. Les producteurs sous label « Certifié Agrumen » s'engagent à respecter une liste d'intrants autorisés et à soumettre leurs pratiques à un audit annuel.", icon: "eco", color: "text-emerald-400" },
+  { num: "02", title: "Zéro pesticide cachée", desc: "Chaque lot est contrôlé par notre équipe terrain avant expédition. Les producteurs sous label « Certifié Mamakaasa » s'engagent à respecter une liste d'intrants autorisés et à soumettre leurs pratiques à un audit annuel.", icon: "eco", color: "text-emerald-400" },
   { num: "03", title: "Traçabilité totale", desc: "Du champ à votre porte, chaque produit est tracé. Vous pouvez scanner le QR code sur votre commande pour voir le nom du producteur, sa région, la date de récolte et le parcours de livraison.", icon: "qr_code_scanner", color: "text-blue-400" },
   { num: "04", title: "Livraison carbone neutre", desc: "Nous compensons 100% des émissions CO₂ de notre flotte de livraison via notre partenariat avec l'initiative de reboisement Senvert. Chaque commande plantait en moyenne 0,3 arbre en 2025.", icon: "forest", color: "text-lime-400" },
-  { num: "05", title: "Fonds jeunes agriculteurs", desc: "1% de chaque commande est reversé au Fonds Agrumen pour la formation des jeunes agriculteurs (18-30 ans). En 2025, 48 jeunes ont été formés aux techniques agroécologiques grâce à ce fonds.", icon: "school", color: "text-purple-400" },
+  { num: "05", title: "Fonds jeunes agriculteurs", desc: "1% de chaque commande est reversé au Fonds Mamakaasa pour la formation des jeunes agriculteurs (18-30 ans). En 2025, 48 jeunes ont été formés aux techniques agroécologiques grâce à ce fonds.", icon: "school", color: "text-purple-400" },
   { num: "06", title: "Parité femmes-hommes", desc: "42% de nos producteurs partenaires sont des femmes — contre 23% en moyenne dans le secteur agricole sénégalais. Nous favorisons activement le recrutement de productrices dans chaque région.", icon: "diversity_3", color: "text-rose-400" },
 ];
 
@@ -16,7 +16,7 @@ const IMPACT = [
   { value: "340+", label: "Producteurs partenaires", sub: "dont 42% de femmes" },
   { value: "−35%", label: "Pertes post-récolte", sub: "évitées grâce à notre logistique" },
   { value: "+40%", label: "Revenus producteurs", sub: "en moyenne dès la 1ère année" },
-  { value: "48", label: "Jeunes formés en 2025", sub: "via le Fonds Agrumen" },
+  { value: "48", label: "Jeunes formés en 2025", sub: "via le Fonds Mamakaasa" },
   { value: "0,3", label: "Arbre planté par commande", sub: "via Senvert" },
   { value: "14", label: "Régions couvertes", sub: "sur 14 régions du Sénégal" },
 ];
@@ -53,7 +53,7 @@ const NosEngagements = () => {
                 <span className="text-emerald-400">Pas des promesses.</span>
               </h1>
               <p className="font-body text-white/50 text-lg leading-relaxed max-w-lg">
-                Chez Agrumen, chaque décision business est évaluée à l'aune de son impact sur les producteurs, les consommateurs et l'environnement.
+                Chez Mamakaasa, chaque décision business est évaluée à l'aune de son impact sur les producteurs, les consommateurs et l'environnement.
               </p>
             </motion.div>
           </div>
@@ -69,7 +69,7 @@ const NosEngagements = () => {
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
             <p className="font-headline font-black text-foreground tracking-tight leading-[1.05] mb-8" style={{ fontSize: "clamp(1.6rem, 3vw, 2.6rem)" }}>
-              "La rentabilité et l'impact social ne sont pas des objectifs contradictoires. Chez Agrumen, ils sont inseparables."
+              "La rentabilité et l'impact social ne sont pas des objectifs contradictoires. Chez Mamakaasa, ils sont inseparables."
             </p>
             <p className="font-body text-base text-on-surface-variant leading-relaxed">
               Nous refusons le narratif qui présente les entreprises à impact comme moins performantes que les entreprises classiques. Notre preuve : des producteurs mieux payés qui produisent plus, des consommateurs satisfaits qui commandent plus souvent, une plateforme qui croît de 140% par an.

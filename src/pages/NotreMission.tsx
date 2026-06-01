@@ -10,16 +10,16 @@ const PHOTOS = [
 ];
 
 const VALUES = [
-  { icon: "eco", title: "Durabilité", desc: "Nous favorisons des pratiques agricoles respectueuses de l'environnement et des saisons." },
-  { icon: "handshake", title: "Équité", desc: "Les producteurs reçoivent une rémunération juste, sans intermédiaires qui captent la valeur." },
-  { icon: "verified", title: "Transparence", desc: "Chaque produit est traçable : vous savez d'où il vient et qui l'a cultivé." },
-  { icon: "people", title: "Communauté", desc: "Agrumen est un lien direct entre consommateurs et agriculteurs du Sénégal." },
+  { icon: "eco", title: "Durabilité", desc: "Nous sélectionnons des produits issus de pratiques agricoles respectueuses de l'environnement et des saisons." },
+  { icon: "verified", title: "Qualité", desc: "Chaque produit est contrôlé avant livraison — frais, sain, et sélectionné avec soin." },
   { icon: "local_shipping", title: "Accessibilité", desc: "Des produits frais livrés rapidement, accessibles à tous dans les zones desservies." },
-  { icon: "trending_up", title: "Croissance", desc: "Nous aidons les agriculteurs à développer leur activité grâce à des outils modernes." },
+  { icon: "people", title: "Proximité", desc: "Mamakaasa s'approvisionne auprès de cultivateurs locaux pour vous garantir fraîcheur et qualité." },
+  { icon: "handshake", title: "Confiance", desc: "Une traçabilité complète : vous savez toujours d'où vient ce que vous mangez." },
+  { icon: "trending_up", title: "Croissance", desc: "En choisissant Mamakaasa, vous soutenez l'agriculture locale et l'économie sénégalaise." },
 ];
 
 const STATS = [
-  { value: "500+", label: "Producteurs partenaires" },
+  { value: "1000+", label: "Clients satisfaits" },
   { value: "14", label: "Régions du Sénégal" },
   { value: "24h", label: "Délai de livraison Dakar" },
   { value: "100%", label: "Produits locaux" },
@@ -54,7 +54,7 @@ const NotreMission = () => {
                 Pour une<br />agriculture juste.
               </h1>
               <p className="font-body text-white/50 text-lg leading-relaxed max-w-sm">
-                Agrumen connecte directement producteurs et consommateurs sénégalais pour un avenir alimentaire plus équitable.
+                Mamakaasa distribue des produits agricoles frais du Sénégal, directement chez vous — qualité garantie, prix justes.
               </p>
             </motion.div>
 
@@ -106,14 +106,13 @@ const NotreMission = () => {
                   augmente les prix pour le consommateur.
                 </p>
                 <p>
-                  Agrumen est né pour changer ça. En créant un lien direct entre producteurs vérifiés et
-                  acheteurs, nous redonnons de la valeur à ceux qui cultivent, et de la fraîcheur à ceux
-                  qui consomment.
+                  Mamakaasa est né pour changer ça. En tant qu'entreprise de distribution alimentaire, nous
+                  sélectionnons, conditionnons et livrons des produits frais directement chez nos clients
+                  — sans compromis sur la qualité.
                 </p>
                 <p>
-                  Aujourd'hui, nous sommes présents dans <strong className="text-foreground">14 régions du Sénégal</strong>,
-                  avec plus de <strong className="text-foreground">500 producteurs partenaires</strong> qui font
-                  confiance à notre plateforme pour développer leur activité.
+                  Aujourd'hui, nous sommes présents dans <strong className="text-foreground">14 régions du Sénégal</strong>
+                  et livrons chaque jour des milliers de familles avec des produits locaux de qualité.
                 </p>
               </div>
               <Link
@@ -196,7 +195,7 @@ const NotreMission = () => {
               Rejoignez le mouvement.
             </h2>
             <p className="font-body text-on-surface-variant text-lg leading-relaxed mb-8">
-              Que vous soyez acheteur ou producteur, Agrumen est construit pour vous.
+              Que vous soyez acheteur ou producteur, Mamakaasa est construit pour vous.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link to="/marche" className="flex items-center gap-2 justify-center bg-foreground text-white px-8 py-4 rounded-md font-headline font-bold text-sm">
