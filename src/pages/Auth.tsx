@@ -5,17 +5,23 @@ import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 
 const PHOTOS = [
-  { src: "https://images.unsplash.com/photo-1553279768-865429fa0078?w=320&h=420&fit=crop&auto=format", alt: "Mangues", rot: -5 },
-  { src: "https://images.unsplash.com/photo-1550258987-190a2d41a8ba?w=320&h=420&fit=crop&auto=format", alt: "Ananas", rot: 3 },
-  { src: "https://images.unsplash.com/photo-1589984662646-e7b2e4962f18?w=320&h=420&fit=crop&auto=format", alt: "Pastèque", rot: -2 },
+  { src: "https://images.unsplash.com/photo-1553279768-865429fa0078?w=280&h=360&fit=crop&auto=format", alt: "Mangues",   rot: -4 },
+  { src: "https://images.unsplash.com/photo-1550258987-190a2d41a8ba?w=280&h=360&fit=crop&auto=format", alt: "Ananas",    rot: 3  },
+  { src: "https://images.unsplash.com/photo-1589984662646-e7b2e4962f18?w=280&h=360&fit=crop&auto=format", alt: "Pastèque", rot: -1.5 },
+];
+
+const TRUST = [
+  { icon: "local_shipping", text: "Livraison en 24h à Dakar" },
+  { icon: "eco",            text: "100 % produits locaux" },
+  { icon: "verified",       text: "Qualité contrôlée" },
 ];
 
 const Auth = () => {
-  const [isLogin, setIsLogin] = useState(true);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [isLogin, setIsLogin]         = useState(true);
+  const [email, setEmail]             = useState("");
+  const [password, setPassword]       = useState("");
+  const [fullName, setFullName]       = useState("");
+  const [loading, setLoading]         = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const { signUp, signIn } = useAuth();
   const navigate = useNavigate();
@@ -47,86 +53,94 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex flex-col lg:flex-row">
 
-      {/* ══ Left: Visual panel — desktop only ══ */}
-      <div
-        className="hidden lg:flex lg:w-[48%] relative overflow-hidden"
-        style={{
-          background: "#FAFAF7",
-          backgroundImage: "radial-gradient(circle, #dde3ec 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
-        }}
-      >
-        {/* Gradient fades */}
-        <div className="pointer-events-none absolute inset-0"
-          style={{ background: "radial-gradient(ellipse 80% 60% at 30% 20%, rgba(0,0,0,0.02) 0%, transparent 70%)" }} />
-        <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-56"
-          style={{ background: "linear-gradient(to top, #FAFAF7 20%, transparent)" }} />
+      {/* ══ Left panel — dark, brand ══ */}
+      <div className="hidden lg:flex lg:w-[46%] shrink-0 flex-col bg-[#0A0A0A] relative overflow-hidden">
 
-        <div className="relative z-10 flex flex-col h-full p-12">
+        {/* Subtle dot grid */}
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.04]"
+          style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "28px 28px" }}
+        />
+
+        {/* Glow */}
+        <div className="pointer-events-none absolute top-0 right-0 w-96 h-96 rounded-full opacity-[0.07]"
+          style={{ background: "radial-gradient(circle, #F07800 0%, transparent 70%)", transform: "translate(30%, -30%)" }} />
+
+        <div className="relative z-10 flex flex-col h-full px-12 py-12">
 
           {/* Logo */}
-          <Link to="/">
-            <img src="/logo-mamakaasa.png" alt="Mamakaasa" className="h-16 w-auto" />
+          <Link to="/" className="shrink-0">
+            <img
+              src="/logo-mamakaasa.png"
+              alt="Mamakaasa"
+              className="h-12 w-auto"
+              style={{ filter: "brightness(0) invert(1)" }}
+            />
           </Link>
 
-          {/* Center text */}
+          {/* Headline */}
           <div className="flex-1 flex flex-col justify-center">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="font-headline font-black text-foreground tracking-[-0.045em] leading-[0.9] mb-5"
-              style={{ fontSize: "clamp(2.8rem, 5vw, 4.2rem)" }}
-            >
-              Du Champ<br />à Votre Table.
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.12 }}
-              className="font-body text-on-surface-variant text-base leading-relaxed max-w-xs mb-8"
-            >
-              Produits frais, locaux et sans intermédiaires. Rejoignez la communauté Mamakaasa.
-            </motion.p>
-
-            {/* Social proof */}
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.25 }}
-              className="space-y-2 mb-12"
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7 }}
             >
-              {[
-                "500+ producteurs partenaires",
-                "14 régions du Sénégal",
-                "Livraison en 24h à Dakar",
-              ].map((t) => (
-                <div key={t} className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-emerald-500 text-base" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
-                  <span className="font-body text-sm text-on-surface-variant">{t}</span>
-                </div>
-              ))}
+              <span className="inline-flex items-center gap-2 bg-white/8 border border-white/10 rounded-full px-3.5 py-1.5 mb-6">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <span className="font-headline text-[10px] font-bold text-white/50 uppercase tracking-[0.2em]">
+                  Distribution alimentaire
+                </span>
+              </span>
+
+              <h2
+                className="font-headline font-black text-white tracking-[-0.045em] leading-[0.9] mb-5"
+                style={{ fontSize: "clamp(2.6rem, 4vw, 3.8rem)" }}
+              >
+                Du Champ<br />
+                à Votre<br />
+                <span style={{ color: "#F07800" }}>Table.</span>
+              </h2>
+
+              <p className="font-body text-white/45 text-[15px] leading-relaxed max-w-xs mb-10">
+                Mamakaasa livre des produits frais, sélectionnés directement auprès de 340 fournisseurs sénégalais.
+              </p>
+
+              {/* Trust items */}
+              <div className="space-y-3 mb-12">
+                {TRUST.map((t) => (
+                  <div key={t.text} className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-white/8 flex items-center justify-center shrink-0">
+                      <span
+                        className="material-symbols-outlined text-[15px]"
+                        style={{ color: "#F07800", fontVariationSettings: "'FILL' 1" }}
+                      >
+                        {t.icon}
+                      </span>
+                    </div>
+                    <span className="font-body text-sm text-white/60">{t.text}</span>
+                  </div>
+                ))}
+              </div>
             </motion.div>
 
-            {/* Inclined photos */}
+            {/* Product photos */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.35 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
               className="flex items-end gap-3"
             >
-              {PHOTOS.map((img, i) => (
+              {PHOTOS.map((img) => (
                 <div
                   key={img.alt}
-                  className="overflow-hidden rounded-xl border border-black/10"
+                  className="overflow-hidden rounded-xl border border-white/10 shrink-0"
                   style={{
-                    width: 148,
-                    height: 195,
+                    width: 120,
+                    height: 158,
                     transform: `rotate(${img.rot}deg)`,
                     transformOrigin: "bottom center",
-                    flexShrink: 0,
                   }}
                 >
                   <img src={img.src} alt={img.alt} className="w-full h-full object-cover" loading="eager" />
@@ -135,96 +149,119 @@ const Auth = () => {
             </motion.div>
           </div>
 
-          <p className="font-body text-[11px] text-on-surface-variant/40">© 2025 Mamakaasa · Dakar, Sénégal</p>
+          <p className="font-body text-[11px] text-white/20 mt-10">© 2025 Mamakaasa · Dakar, Sénégal</p>
         </div>
       </div>
 
-      {/* ══ Right: Form panel ══ */}
-      <div className="flex-1 flex flex-col bg-white">
+      {/* ══ Right panel — form ══ */}
+      <div className="flex-1 flex flex-col bg-white min-h-screen lg:min-h-0">
 
         {/* Mobile top bar */}
-        <div className="lg:hidden flex items-center justify-between px-6 pt-8 pb-4">
-          <Link to="/" className="font-headline font-extrabold text-xl text-foreground tracking-tighter">
-            Mamakaasa
+        <div className="lg:hidden flex items-center justify-between px-6 pt-8 pb-2">
+          <Link to="/">
+            <img src="/logo-mamakaasa.png" alt="Mamakaasa" className="h-9 w-auto" />
           </Link>
-          <Link to="/" className="w-9 h-9 rounded-md bg-surface-container flex items-center justify-center">
-            <span className="material-symbols-outlined text-on-surface-variant text-[20px]">close</span>
+          <Link
+            to="/marche"
+            className="text-[13px] font-headline font-semibold text-[#5a5a54] hover:text-[#0A0A0A] transition-colors flex items-center gap-1"
+          >
+            <span className="material-symbols-outlined text-[15px]">storefront</span>
+            Marché
           </Link>
         </div>
 
-        <div className="flex-1 flex items-center justify-center px-6 py-10">
+        {/* Form container */}
+        <div className="flex-1 flex items-center justify-center px-6 py-12 lg:py-0">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="w-full max-w-md"
+            transition={{ duration: 0.45 }}
+            className="w-full max-w-[420px]"
           >
 
-            {/* Desktop logo */}
-            <div className="hidden lg:block mb-10">
-              <Link to="/">
-                <img src="/logo-mamakaasa.png" alt="Mamakaasa" className="h-16 w-auto" />
+            {/* Desktop: nav back */}
+            <div className="hidden lg:flex items-center justify-between mb-10">
+              <Link to="/" className="flex items-center gap-2 text-[#5a5a54] hover:text-[#0A0A0A] transition-colors">
+                <span className="material-symbols-outlined text-[18px]">arrow_back</span>
+                <span className="font-headline text-[13px] font-semibold">Accueil</span>
+              </Link>
+              <Link
+                to="/marche"
+                className="font-headline text-[13px] font-semibold text-[#5a5a54] hover:text-[#0A0A0A] transition-colors flex items-center gap-1.5"
+              >
+                <span className="material-symbols-outlined text-[15px]">storefront</span>
+                Explorer sans compte
               </Link>
             </div>
 
-            {/* Tab switcher */}
-            <div className="flex bg-surface-container rounded-md p-1 mb-8">
-              <button
-                type="button"
-                onClick={() => switchMode(true)}
-                className={`flex-1 py-2.5 rounded-md font-headline text-sm font-bold transition-all duration-200 ${
-                  isLogin ? "bg-foreground text-white" : "text-on-surface-variant"
-                }`}
-              >
-                Connexion
-              </button>
-              <button
-                type="button"
-                onClick={() => switchMode(false)}
-                className={`flex-1 py-2.5 rounded-md font-headline text-sm font-bold transition-all duration-200 ${
-                  !isLogin ? "bg-foreground text-white" : "text-on-surface-variant"
-                }`}
-              >
-                Créer un compte
-              </button>
-            </div>
-
-            {/* Title */}
-            <div className="mb-6">
-              <h1 className="font-headline font-extrabold text-2xl tracking-tighter">
-                {isLogin ? "Bon retour !" : "Rejoindre Mamakaasa"}
+            {/* Heading */}
+            <div className="mb-8">
+              <h1 className="font-headline font-black text-[#0A0A0A] tracking-tighter mb-1.5" style={{ fontSize: "clamp(1.7rem, 4vw, 2.1rem)" }}>
+                {isLogin ? "Bon retour 👋" : "Créer un compte"}
               </h1>
-              <p className="font-body text-on-surface-variant text-sm mt-1">
+              <p className="font-body text-[#5a5a54] text-[14px]">
                 {isLogin
-                  ? "Connectez-vous pour accéder au marché"
-                  : "Créez votre compte en quelques secondes"}
+                  ? "Connectez-vous pour accéder au marché."
+                  : "Rejoignez Mamakaasa en quelques secondes."}
               </p>
             </div>
 
+            {/* Tab switcher */}
+            <div
+              className="flex mb-7 rounded-xl p-1 gap-1"
+              style={{ background: "#f5f2eb" }}
+            >
+              {[
+                { label: "Connexion",     login: true  },
+                { label: "Créer un compte", login: false },
+              ].map(({ label, login }) => (
+                <button
+                  key={label}
+                  type="button"
+                  onClick={() => switchMode(login)}
+                  className="flex-1 py-2.5 rounded-lg font-headline text-[13.5px] font-bold transition-all duration-200"
+                  style={{
+                    background: isLogin === login ? "#0A0A0A" : "transparent",
+                    color: isLogin === login ? "#fff" : "#5a5a54",
+                    boxShadow: isLogin === login ? "0 2px 8px rgba(0,0,0,0.15)" : "none",
+                  }}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+
+            {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-4">
 
-              <AnimatePresence>
+              <AnimatePresence initial={false}>
                 {!isLogin && (
                   <motion.div
                     key="fullname"
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.2 }}
+                    initial={{ opacity: 0, height: 0, marginBottom: 0 }}
+                    animate={{ opacity: 1, height: "auto", marginBottom: 0 }}
+                    exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+                    transition={{ duration: 0.22 }}
                     className="overflow-hidden"
                   >
-                    <label className="text-[11px] font-headline font-bold text-on-surface-variant uppercase tracking-widest mb-1.5 block">
+                    <label className="block font-headline text-[11px] font-bold uppercase tracking-[0.14em] text-[#5a5a54] mb-1.5">
                       Nom complet
                     </label>
                     <div className="relative">
-                      <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant/50 text-[18px]">person</span>
+                      <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-[#0A0A0A]/30 text-[18px]">person</span>
                       <input
                         type="text"
                         value={fullName}
                         onChange={e => setFullName(e.target.value)}
                         placeholder="Prénom et Nom"
                         required={!isLogin}
-                        className="w-full pl-11 pr-4 py-3.5 rounded-md bg-surface-container-lowest border border-border/40 font-body text-sm outline-none focus:ring-2 focus:ring-foreground/10 focus:border-foreground/30 transition-all"
+                        className="w-full pl-11 pr-4 py-3.5 rounded-xl font-body text-sm text-[#0A0A0A] outline-none transition-all"
+                        style={{
+                          background: "#faf8f4",
+                          border: "1.5px solid #e8e4da",
+                        }}
+                        onFocus={e => { e.currentTarget.style.border = "1.5px solid #F07800"; e.currentTarget.style.background = "#fff"; }}
+                        onBlur={e => { e.currentTarget.style.border = "1.5px solid #e8e4da"; e.currentTarget.style.background = "#faf8f4"; }}
                       />
                     </div>
                   </motion.div>
@@ -232,28 +269,39 @@ const Auth = () => {
               </AnimatePresence>
 
               <div>
-                <label className="text-[11px] font-headline font-bold text-on-surface-variant uppercase tracking-widest mb-1.5 block">
-                  Email
+                <label className="block font-headline text-[11px] font-bold uppercase tracking-[0.14em] text-[#5a5a54] mb-1.5">
+                  Adresse email
                 </label>
                 <div className="relative">
-                  <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant/50 text-[18px]">mail</span>
+                  <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-[#0A0A0A]/30 text-[18px]">mail</span>
                   <input
                     type="email"
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                     placeholder="votre@email.com"
                     required
-                    className="w-full pl-11 pr-4 py-3.5 rounded-md bg-surface-container-lowest border border-border/40 font-body text-sm outline-none focus:ring-2 focus:ring-foreground/10 focus:border-foreground/30 transition-all"
+                    autoComplete="email"
+                    className="w-full pl-11 pr-4 py-3.5 rounded-xl font-body text-sm text-[#0A0A0A] outline-none transition-all"
+                    style={{ background: "#faf8f4", border: "1.5px solid #e8e4da" }}
+                    onFocus={e => { e.currentTarget.style.border = "1.5px solid #F07800"; e.currentTarget.style.background = "#fff"; }}
+                    onBlur={e => { e.currentTarget.style.border = "1.5px solid #e8e4da"; e.currentTarget.style.background = "#faf8f4"; }}
                   />
                 </div>
               </div>
 
               <div>
-                <label className="text-[11px] font-headline font-bold text-on-surface-variant uppercase tracking-widest mb-1.5 block">
-                  Mot de passe
-                </label>
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="font-headline text-[11px] font-bold uppercase tracking-[0.14em] text-[#5a5a54]">
+                    Mot de passe
+                  </label>
+                  {isLogin && (
+                    <span className="font-body text-[12px] text-[#5a5a54] cursor-pointer hover:text-[#0A0A0A] transition-colors">
+                      Mot de passe oublié ?
+                    </span>
+                  )}
+                </div>
                 <div className="relative">
-                  <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant/50 text-[18px]">lock</span>
+                  <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-[#0A0A0A]/30 text-[18px]">lock</span>
                   <input
                     type={showPassword ? "text" : "password"}
                     value={password}
@@ -261,40 +309,61 @@ const Auth = () => {
                     placeholder="••••••••"
                     required
                     minLength={6}
-                    className="w-full pl-11 pr-12 py-3.5 rounded-md bg-surface-container-lowest border border-border/40 font-body text-sm outline-none focus:ring-2 focus:ring-foreground/10 focus:border-foreground/30 transition-all"
+                    autoComplete={isLogin ? "current-password" : "new-password"}
+                    className="w-full pl-11 pr-12 py-3.5 rounded-xl font-body text-sm text-[#0A0A0A] outline-none transition-all"
+                    style={{ background: "#faf8f4", border: "1.5px solid #e8e4da" }}
+                    onFocus={e => { e.currentTarget.style.border = "1.5px solid #F07800"; e.currentTarget.style.background = "#fff"; }}
+                    onBlur={e => { e.currentTarget.style.border = "1.5px solid #e8e4da"; e.currentTarget.style.background = "#faf8f4"; }}
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant/40 transition-colors"
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#0A0A0A]/30 hover:text-[#0A0A0A]/60 transition-colors"
+                    tabIndex={-1}
                   >
                     <span className="material-symbols-outlined text-[18px]">
                       {showPassword ? "visibility_off" : "visibility"}
                     </span>
                   </button>
                 </div>
+                {!isLogin && (
+                  <p className="font-body text-[11px] text-[#9a9a92] mt-1.5">Minimum 6 caractères</p>
+                )}
               </div>
 
+              {/* Submit */}
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-foreground text-white py-4 rounded-md font-headline font-extrabold text-base active:scale-[0.98] transition-all disabled:opacity-50 mt-2 flex items-center justify-center gap-2"
+                className="w-full py-4 rounded-xl font-headline font-extrabold text-[15px] text-white mt-2 flex items-center justify-center gap-2 transition-all active:scale-[0.98] disabled:opacity-60"
+                style={{ background: "#F07800", boxShadow: "0 4px 20px rgba(240,120,0,0.30)" }}
               >
                 {loading ? (
                   <>
                     <span className="material-symbols-outlined animate-spin text-[20px]">progress_activity</span>
-                    Chargement...
+                    Chargement…
                   </>
-                ) : isLogin ? "Se connecter" : "Créer mon compte"}
+                ) : isLogin ? (
+                  <>
+                    Se connecter
+                    <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+                  </>
+                ) : (
+                  <>
+                    Créer mon compte
+                    <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+                  </>
+                )}
               </button>
             </form>
 
-            <div className="mt-8 pt-6 border-t border-border/20 text-center">
+            {/* Footer */}
+            <div className="mt-7 pt-6 border-t flex items-center justify-center gap-2" style={{ borderColor: "#f0ede6" }}>
+              <span className="material-symbols-outlined text-[#9a9a92] text-[16px]">storefront</span>
               <Link
                 to="/marche"
-                className="inline-flex items-center gap-1.5 font-headline text-sm font-semibold text-on-surface-variant transition-colors"
+                className="font-headline text-[13px] font-semibold text-[#5a5a54] hover:text-[#0A0A0A] transition-colors"
               >
-                <span className="material-symbols-outlined text-[16px]">storefront</span>
                 Continuer sans compte
               </Link>
             </div>
@@ -302,6 +371,7 @@ const Auth = () => {
           </motion.div>
         </div>
       </div>
+
     </div>
   );
 };
