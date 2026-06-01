@@ -58,7 +58,7 @@ const ValuesSection = () => {
           Catégories.
         </h2>
         <p className="mx-auto mt-5 max-w-md font-body text-base text-white/40">
-          Achetez facilement pour tous vos besoins — des fruits aux épices, 100% naturel.
+          Mamakaasa vous livre tous les produits frais directement chez vous — des fruits aux céréales, 100% sénégalais.
         </p>
       </motion.div>
 

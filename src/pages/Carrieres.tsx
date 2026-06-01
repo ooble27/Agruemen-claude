@@ -47,7 +47,7 @@ const JOBS = [
     desc: "Vous serez le visage d'Mamakaasa sur le terrain. Votre mission : identifier, recruter et accompagner les producteurs partenaires dans les régions de Thiès et Saint-Louis.",
     missions: [
       "Prospecter et recruter de nouveaux producteurs partenaires",
-      "Former les producteurs à l'utilisation de la plateforme",
+      "Former les producteurs aux standards de collecte et processus qualité Mamakaasa",
       "Assurer le suivi de la qualité des produits et des livraisons",
       "Être l'interlocuteur de confiance des producteurs",
     ],

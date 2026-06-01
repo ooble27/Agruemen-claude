@@ -19,12 +19,12 @@ const FinalCTA = () => {
 
         <div className="relative z-10">
           <h2 className="text-3xl md:text-5xl lg:text-7xl font-headline font-extrabold text-primary-container-foreground tracking-tight mb-6 leading-[1.05]">
-            Mangez Local.
+            Du Champ.
             <br />
-            Soutenez nos Héros.
+            À Votre Table.
           </h2>
           <p className="text-base md:text-lg text-primary-container-foreground/70 font-body max-w-xl mx-auto mb-10">
-            Rejoignez des milliers de Sénégalais qui font le choix de la qualité, de la fraîcheur et de la justice sociale.
+            Mamakaasa est une entreprise de distribution alimentaire. Nos fournisseurs cultivent, nous collectons, nous livrons — frais, rapide, partout au Sénégal.
           </p>
           <Link
             to="/marche"

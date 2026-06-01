@@ -12,12 +12,12 @@ En utilisant la plateforme, vous acceptez sans réserve ces conditions. Si vous 
   },
   {
     title: "2. Description du service",
-    content: `Mamakaasa est une marketplace en ligne qui met en relation des acheteurs et des producteurs agricoles sénégalais. La plateforme permet :
-• La consultation et la commande de produits frais (fruits, légumes, produits du terroir)
+    content: `Mamakaasa est une entreprise de distribution alimentaire. La plateforme permet :
+• La consultation et la commande de produits frais (fruits, légumes, céréales, produits du terroir)
 • La livraison à domicile dans les zones desservies
 • La gestion de compte acheteur (historique, favoris, profil)
 
-Mamakaasa agit en tant qu'intermédiaire entre les acheteurs et les producteurs partenaires.`,
+Mamakaasa s'approvisionne directement auprès de producteurs sénégalais partenaires, puis vend et livre les produits à ses clients. Mamakaasa est le vendeur unique sur la plateforme.`,
   },
   {
     title: "3. Inscription et compte",
@@ -52,7 +52,7 @@ Après vérification, Mamakaasa procède au remplacement ou au remboursement du 
     title: "7. Comportement des utilisateurs",
     content: `L'utilisateur s'engage à utiliser la plateforme de manière licite et à ne pas :
 • Publier de fausses évaluations ou informations
-• Tenter de contacter directement les producteurs hors de la plateforme pour contourner les commissions
+• Tenter d'usurper l'identité de Mamakaasa ou de ses équipes
 • Utiliser la plateforme à des fins frauduleuses ou illégales
 • Porter atteinte à l'infrastructure technique d'Mamakaasa
 

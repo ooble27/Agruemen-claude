@@ -115,7 +115,7 @@ const PRODUCERS = [
 ];
 
 const STATS = [
-  { value: "340+", label: "Producteurs actifs" },
+  { value: "340+", label: "Fournisseurs partenaires" },
   { value: "14", label: "Régions couvertes" },
   { value: "100%", label: "Sénégalais vérifiés" },
   { value: "48h", label: "Du champ à votre porte" },
@@ -155,7 +155,7 @@ const NosProducteurs = () => {
                 340 visages<br />derrière<br />vos repas.
               </h1>
               <p className="font-body text-white/50 text-lg leading-relaxed max-w-sm mb-8">
-                Rencontrez les agriculteurs sénégalais qui cultivent avec passion pour que votre assiette soit pleine de saveurs authentiques.
+                Mamakaasa s'approvisionne auprès de 340 fournisseurs sénégalais pour vous livrer des produits frais, locaux et contrôlés — directement depuis leurs exploitations.
               </p>
               <Link to="/devenir-partenaire" className="inline-flex items-center gap-2 bg-emerald-500 text-white font-headline text-sm font-bold rounded-full px-6 py-3">
                 <span className="material-symbols-outlined text-sm">agriculture</span>

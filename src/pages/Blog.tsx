@@ -238,18 +238,21 @@ const Blog = () => {
       <section className="px-6 md:px-14 py-20">
         <div className="mx-auto max-w-[1200px] grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
           <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-            <p className="font-headline text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant mb-3">Vous êtes producteur ?</p>
-            <h2 className="font-headline font-black text-foreground tracking-tighter leading-none" style={{ fontSize: "clamp(2rem, 4vw, 3.4rem)" }}>
-              Commandez frais.<br />Livré chez vous.
+            <p className="font-headline text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant mb-3">Commandez maintenant</p>
+            <h2 className="font-headline font-black text-foreground tracking-tighter leading-none mb-4" style={{ fontSize: "clamp(2rem, 4vw, 3.4rem)" }}>
+              Produits frais.<br />Livrés chez vous.
             </h2>
+            <p className="font-body text-sm text-on-surface-variant max-w-sm">
+              Mamakaasa sélectionne les meilleurs produits auprès de nos fournisseurs et vous les livre frais à domicile partout à Dakar.
+            </p>
           </motion.div>
           <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="flex flex-wrap gap-4 lg:justify-end">
-            <Link to="/devenir-partenaire" className="inline-flex items-center gap-2 bg-foreground text-white font-headline font-bold text-sm px-7 py-4 rounded-xl">
-              <span className="material-symbols-outlined text-sm">agriculture</span>
-              Devenir partenaire
+            <Link to="/marche" className="inline-flex items-center gap-2 bg-foreground text-white font-headline font-bold text-sm px-7 py-4 rounded-xl">
+              <span className="material-symbols-outlined text-sm">storefront</span>
+              Explorer le marché
             </Link>
-            <Link to="/nos-engagements" className="inline-flex items-center gap-2 border border-border/40 text-on-surface-variant font-headline font-bold text-sm px-7 py-4 rounded-xl">
-              Nos engagements
+            <Link to="/devenir-partenaire" className="inline-flex items-center gap-2 border border-border/40 text-on-surface-variant font-headline font-bold text-sm px-7 py-4 rounded-xl">
+              Devenir fournisseur
             </Link>
           </motion.div>
         </div>
