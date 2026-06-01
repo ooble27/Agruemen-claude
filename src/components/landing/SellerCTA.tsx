@@ -34,7 +34,7 @@ const SellerCTA = () => {
           </h2>
 
           <p className="mb-8 max-w-md font-body text-base leading-relaxed text-on-surface-variant md:text-lg">
-            Mamakaasa sélectionne et vous livre les meilleurs produits agricoles du Sénégal. Fruits, légumes, céréales — 100% frais, directement à votre porte.
+            Mamakaasa est une entreprise de distribution alimentaire. Fruits, légumes, céréales — des produits frais livrés chez vous partout au Sénégal.
           </p>
 
           <Link

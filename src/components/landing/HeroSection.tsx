@@ -63,7 +63,7 @@ const HeroSection = () => {
           transition={{ duration: 0.6, delay: 0.15 }}
           className="mx-auto mb-9 max-w-lg font-body text-lg leading-relaxed text-on-surface-variant md:text-xl"
         >
-          Mamakaasa vous livre les meilleurs produits agricoles du Sénégal.
+          Mamakaasa, votre entreprise de distribution alimentaire.
           Frais, naturel, <span className="font-semibold text-foreground">livré chez vous</span>.
         </motion.p>
 

@@ -64,7 +64,7 @@ const QuiSommesNous = () => {
             </h1>
 
             <p className="font-body text-white/45 text-lg leading-relaxed max-w-xs mb-10">
-              Mamakaasa achète directement aux producteurs sénégalais et livre des produits frais chez vous. Qualité garantie, traçabilité totale.
+              Mamakaasa est une entreprise de distribution alimentaire. Des produits frais livrés chez vous, partout au Sénégal.
             </p>
 
             <div className="flex flex-wrap gap-3">
@@ -171,7 +171,7 @@ const QuiSommesNous = () => {
                   Au Sénégal, un producteur reçoit en moyenne 3 à 4 fois moins que ce que le consommateur paye. La différence est absorbée par des intermédiaires sans valeur ajoutée.
                 </p>
                 <p className="font-body text-base text-on-surface-variant leading-relaxed">
-                  Mamakaasa achète directement aux producteurs à des prix équitables et garantis — et livre aux familles sénégalaises des produits frais, traçables et de qualité. Nous sommes le chaînon qui remplace toute la chaîne.
+                  Mamakaasa est une entreprise de distribution alimentaire. Nous sourçons, stockons et livrons des produits frais de qualité partout au Sénégal.
                 </p>
               </div>
             </motion.div>
