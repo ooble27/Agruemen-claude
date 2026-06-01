@@ -6,90 +6,33 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useEffect, useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
-import {
-  buildMarketCategories, getCategoryKey, groupByCategory,
-  MOCK_PRODUCTS, type MarketProduct,
-} from "@/data/marketplaceMocks";
+import { buildMarketCategories, getCategoryKey, MOCK_PRODUCTS, type MarketProduct } from "@/data/marketplaceMocks";
 import type { Category } from "@/types/database";
 import ProductCard from "@/components/ProductCard";
-import PromoCarousel from "@/components/PromoCarousel";
-
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Separator } from "@/components/ui/separator";
-import { Slider } from "@/components/ui/slider";
-import {
-  Select, SelectContent, SelectItem,
-  SelectTrigger, SelectValue,
-} from "@/components/ui/select";
-
-import { Search, X, SlidersHorizontal, RotateCcw } from "lucide-react";
 
 type Product = MarketProduct;
+type SortValue = "default" | "price_asc" | "price_desc" | "new";
 
-const SORT_OPTIONS = [
-  { value: "default",    label: "Défaut" },
-  { value: "price_asc",  label: "Prix croissant" },
-  { value: "price_desc", label: "Prix décroissant" },
-  { value: "new",        label: "Nouveautés" },
-] as const;
-
-type SortValue = (typeof SORT_OPTIONS)[number]["value"];
-
-const GRID_CLS = "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4";
-
-/* ── Loading skeleton ── */
-const LoadingSkeleton = () => (
-  <div className={GRID_CLS}>
-    {Array.from({ length: 10 }).map((_, i) => (
-      <div key={i} className="space-y-2">
-        <Skeleton className="aspect-square rounded-xl" />
-        <Skeleton className="h-2.5 w-2/3" />
-        <Skeleton className="h-4 w-full" />
-        <Skeleton className="h-3 w-1/2" />
-        <Skeleton className="h-4 w-3/4" />
-      </div>
-    ))}
-  </div>
-);
-
-/* ── Section header ── */
-const SectionHeader = ({
-  title, icon, count,
-}: { title: string; icon?: string | null; count?: number }) => (
-  <div className="flex items-center gap-2.5 mb-4">
-    {icon && (
-      <span
-        className="material-symbols-outlined text-[20px] text-primary"
-        style={{ fontVariationSettings: "'FILL' 1" }}
-      >
-        {icon}
-      </span>
-    )}
-    <h2 className="text-[15px] font-bold text-foreground">{title}</h2>
-    {count !== undefined && (
-      <Badge variant="secondary" className="text-[11px] font-medium h-5 px-2">
-        {count}
-      </Badge>
-    )}
-  </div>
-);
+const CATEGORY_COLORS: Record<string, string> = {
+  fruits: '#F07800',
+  legumes: '#16A34A',
+  cereales: '#CA8A04',
+  tubercules: '#A16207',
+  epices: '#DC2626',
+  herbes: '#65A30D',
+};
 
 const Marche = () => {
   const { addItem } = useCart();
   const { profile } = useAuth();
-  const [dbProducts, setDbProducts]     = useState<Product[]>([]);
+  const [dbProducts, setDbProducts] = useState<Product[]>([]);
   const [dbCategories, setDbCategories] = useState<Category[]>([]);
-  const [loading, setLoading]           = useState(true);
+  const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
-  const selectedCategory                = searchParams.get("cat");
-  const [searchQuery, setSearchQuery]   = useState("");
-  const [sortBy, setSortBy]             = useState<SortValue>("default");
-  const [showFilters, setShowFilters]   = useState(false);
-  const [priceMax, setPriceMax]         = useState(50000);
+  const selectedCategory = searchParams.get("cat");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState<SortValue>("default");
+  const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
   const handleCategoryChange = (catId: string | null) => {
     setSearchParams((prev) => {
@@ -103,11 +46,7 @@ const Marche = () => {
   useEffect(() => {
     const fetchData = async () => {
       const [prodRes, catRes] = await Promise.all([
-        supabase
-          .from("products")
-          .select("*, shops(name, seller_id), categories(name, icon)")
-          .eq("is_active", true)
-          .order("created_at", { ascending: false }),
+        supabase.from("products").select("*, shops(name, seller_id), categories(name, icon)").eq("is_active", true).order("created_at", { ascending: false }),
         supabase.from("categories").select("*").order("name"),
       ]);
       if (prodRes.data) setDbProducts(prodRes.data as Product[]);
@@ -136,46 +75,31 @@ const Marche = () => {
 
   const selectedCategoryLabel = useMemo(() => {
     if (!selectedCategoryKey) return null;
-    return (
-      categories.find((c) => (getCategoryKey(c.name) ?? c.id) === selectedCategoryKey)
-        ?.name ?? "Catégorie"
-    );
+    return categories.find((c) => (getCategoryKey(c.name) ?? c.id) === selectedCategoryKey)?.name ?? "Catégorie";
   }, [categories, selectedCategoryKey]);
 
   const isCategorySelected = (cat: Category) =>
     selectedCategoryKey === (getCategoryKey(cat.name) ?? cat.id);
 
-  const filtered = useMemo(
-    () =>
-      products
-        .filter((p) => {
-          const pCatKey =
-            getCategoryKey(p.categories?.name) ??
-            (p.category_id
-              ? categoryKeyById.get(p.category_id) ?? getCategoryKey(p.category_id)
-              : null);
-          return (
-            (!selectedCategoryKey || pCatKey === selectedCategoryKey) &&
-            (!searchQuery || p.name.toLowerCase().includes(searchQuery.toLowerCase())) &&
-            p.price <= priceMax
-          );
-        })
-        .sort((a, b) => {
-          if (sortBy === "price_asc")  return a.price - b.price;
-          if (sortBy === "price_desc") return b.price - a.price;
-          if (sortBy === "new")
-            return (
-              new Date(b.created_at || 0).getTime() -
-              new Date(a.created_at || 0).getTime()
-            );
-          return 0;
-        }),
-    [products, selectedCategoryKey, searchQuery, priceMax, sortBy, categoryKeyById]
-  );
+  const filtered = useMemo(() => products
+    .filter((p) => {
+      const pCatKey =
+        getCategoryKey(p.categories?.name) ??
+        (p.category_id ? categoryKeyById.get(p.category_id) ?? getCategoryKey(p.category_id) : null);
+      return (
+        (!selectedCategoryKey || pCatKey === selectedCategoryKey) &&
+        (!searchQuery || p.name.toLowerCase().includes(searchQuery.toLowerCase()))
+      );
+    })
+    .sort((a, b) => {
+      if (sortBy === "price_asc") return a.price - b.price;
+      if (sortBy === "price_desc") return b.price - a.price;
+      if (sortBy === "new") return new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime();
+      return 0;
+    }),
+  [products, selectedCategoryKey, searchQuery, sortBy, categoryKeyById]);
 
-  const categoryGroups = useMemo(() => groupByCategory(products), [products]);
-  const isFiltering    = !!selectedCategoryKey || !!searchQuery;
-  const hasFilters     = sortBy !== "default" || priceMax !== 50000;
+  const isFiltering = !!selectedCategoryKey || !!searchQuery;
 
   const handleAddToCart = (product: Product, e: React.MouseEvent) => {
     e.preventDefault();
@@ -187,249 +111,281 @@ const Marche = () => {
       priceNum: product.price,
       unit: product.unit,
       image: product.image_url || "/placeholder.svg",
-      farmer: product.shops?.name || "Producteur",
+      farmer: "Mamakaasa",
       shopId: product.shop_id,
     });
     toast.success(`${product.name} ajouté au panier`);
   };
 
   const formatPrice = (n: number) => n.toLocaleString("fr-FR");
-  const firstName   = profile?.full_name?.split(" ")[0];
+
+  const getCatProductCount = (cat: Category) => {
+    const catKey = getCategoryKey(cat.name) ?? cat.id;
+    return products.filter(p => {
+      const pKey = getCategoryKey(p.categories?.name) ?? (p.category_id ? categoryKeyById.get(p.category_id) ?? getCategoryKey(p.category_id) : null);
+      return pKey === catKey;
+    }).length;
+  };
+
+  const LoadingSkeleton = () => (
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+      {Array.from({ length: 10 }).map((_, i) => (
+        <div key={i} className="animate-pulse">
+          <div className="aspect-square rounded-2xl mb-2.5" style={{ background: 'hsl(60 5% 94%)' }} />
+          <div className="h-3.5 rounded-lg w-1/2 mb-1" style={{ background: 'hsl(60 5% 94%)' }} />
+          <div className="h-3 rounded-lg w-3/4" style={{ background: 'hsl(60 5% 94%)' }} />
+        </div>
+      ))}
+    </div>
+  );
+
+  const firstName = profile?.full_name?.split(" ")[0];
 
   return (
-    <div className="min-h-screen bg-background pb-24 md:pb-0">
+    <div className="min-h-screen pb-24 md:pb-0" style={{ background: 'hsl(60 5% 96%)' }}>
       <Navbar />
 
       <main style={{ paddingTop: "var(--navbar-h)" }}>
+        <div className="max-w-[1400px] mx-auto px-4 md:px-6 pt-2 pb-6 md:py-6">
+          <div className="flex gap-6 items-start">
 
-        {/* ── Sticky top bar ── */}
-        <div
-          className="sticky z-20 bg-background border-b border-border/50"
-          style={{ top: "var(--navbar-h)" }}
-        >
-          <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-3 space-y-2.5">
-
-            {/* Search + Filter */}
-            <div className="flex gap-2">
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
-                <Input
-                  type="search"
-                  placeholder={`Mangues, tomates, bissap${firstName ? `, ${firstName}` : ""}…`}
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-9 pr-9 h-10 rounded-full bg-muted border-transparent focus-visible:border-border focus-visible:bg-background transition-all"
-                />
-                {searchQuery && (
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 rounded-full"
-                    onClick={() => setSearchQuery("")}
+            {/* ── Sidebar (desktop only) ── */}
+            <aside
+              className="hidden md:block w-[220px] shrink-0 sticky"
+              style={{ top: 'calc(var(--navbar-h) + 20px)' }}
+            >
+              {/* Categories card */}
+              <div className="bg-white rounded-xl border p-3 mb-3" style={{ borderColor: 'hsl(60 5% 92%)' }}>
+                <p className="text-[10.5px] font-semibold uppercase tracking-[0.12em] text-on-surface-variant px-2 pb-2">Catégories</p>
+                <nav className="flex flex-col gap-0.5">
+                  <button
+                    onClick={() => handleCategoryChange(null)}
+                    className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-left transition-colors w-full"
+                    style={{
+                      background: !selectedCategoryKey ? 'hsl(60 5% 94%)' : 'transparent',
+                      color: !selectedCategoryKey ? '#0A0A0A' : '#8A8A85',
+                      fontWeight: !selectedCategoryKey ? 600 : 500,
+                    }}
                   >
-                    <X className="h-3.5 w-3.5" />
-                  </Button>
-                )}
-              </div>
-              <Button
-                variant={showFilters || hasFilters ? "default" : "outline"}
-                className="h-10 px-4 rounded-full gap-2 shrink-0 text-sm font-semibold"
-                onClick={() => setShowFilters(!showFilters)}
-              >
-                <SlidersHorizontal className="h-4 w-4" />
-                <span className="hidden sm:inline">Filtres</span>
-                {hasFilters && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-current opacity-80" />
-                )}
-              </Button>
-            </div>
-
-            {/* Category chips */}
-            <div className="flex gap-2 overflow-x-auto pb-0.5 scrollbar-hide">
-              <Button
-                variant={!selectedCategoryKey ? "default" : "ghost"}
-                size="sm"
-                className="rounded-full h-8 px-4 shrink-0 text-xs font-semibold"
-                onClick={() => handleCategoryChange(null)}
-              >
-                Tout voir
-              </Button>
-              {categories.map((cat) => (
-                <Button
-                  key={cat.id}
-                  variant={isCategorySelected(cat) ? "default" : "ghost"}
-                  size="sm"
-                  className="rounded-full h-8 px-4 shrink-0 text-xs font-semibold"
-                  onClick={() =>
-                    handleCategoryChange(isCategorySelected(cat) ? null : cat.id)
-                  }
-                >
-                  {cat.name}
-                </Button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* ── Main content ── */}
-        <div className="max-w-[1440px] mx-auto px-4 md:px-8 pt-6 pb-10">
-
-          {/* Filter panel */}
-          <AnimatePresence>
-            {showFilters && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.22, ease: "easeInOut" }}
-                className="overflow-hidden mb-5"
-              >
-                <Card className="border-border/60 shadow-sm">
-                  <CardContent className="p-5">
-                    <div className="flex flex-col sm:flex-row gap-6">
-
-                      {/* Sort */}
-                      <div className="flex-1 min-w-0">
-                        <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-widest mb-2.5">
-                          Trier par
-                        </p>
-                        <Select
-                          value={sortBy}
-                          onValueChange={(v) => setSortBy(v as SortValue)}
+                    <span className="material-symbols-outlined text-[15px] shrink-0" style={{ fontVariationSettings: "'FILL' 1", color: !selectedCategoryKey ? '#0A0A0A' : '#8A8A85' }}>apps</span>
+                    <span className="flex-1 text-[13px]">Tous les produits</span>
+                    <span className="text-[11px]" style={{ color: 'hsl(60 2% 54%)' }}>{products.length}</span>
+                  </button>
+                  {categories.map((cat) => {
+                    const active = isCategorySelected(cat);
+                    const catKey = getCategoryKey(cat.name) ?? cat.id;
+                    const count = getCatProductCount(cat);
+                    return (
+                      <button
+                        key={cat.id}
+                        onClick={() => handleCategoryChange(active ? null : cat.id)}
+                        className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-left transition-colors w-full"
+                        style={{
+                          background: active ? 'hsl(60 5% 94%)' : 'transparent',
+                          color: active ? '#0A0A0A' : '#8A8A85',
+                          fontWeight: active ? 600 : 500,
+                        }}
+                      >
+                        <span
+                          className="material-symbols-outlined text-[15px] shrink-0"
+                          style={{
+                            fontVariationSettings: "'FILL' 1",
+                            color: active ? (CATEGORY_COLORS[catKey] || '#0A0A0A') : 'hsl(60 2% 54%)',
+                          }}
                         >
-                          <SelectTrigger className="h-9 text-sm">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {SORT_OPTIONS.map((opt) => (
-                              <SelectItem key={opt.value} value={opt.value}>
-                                {opt.label}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
+                          {cat.icon || "eco"}
+                        </span>
+                        <span className="flex-1 text-[13px] truncate">{cat.name}</span>
+                        <span className="text-[11px]" style={{ color: 'hsl(60 2% 54%)' }}>{count}</span>
+                      </button>
+                    );
+                  })}
+                </nav>
+              </div>
 
-                      <Separator orientation="vertical" className="hidden sm:block self-stretch" />
+              {/* Sort card */}
+              <div className="bg-white rounded-xl border p-3" style={{ borderColor: 'hsl(60 5% 92%)' }}>
+                <p className="text-[10.5px] font-semibold uppercase tracking-[0.12em] text-on-surface-variant px-2 pb-2">Trier par</p>
+                <div className="flex flex-col gap-0.5">
+                  {([
+                    { value: "default", label: "Par défaut" },
+                    { value: "price_asc", label: "Prix croissant" },
+                    { value: "price_desc", label: "Prix décroissant" },
+                    { value: "new", label: "Nouveautés" },
+                  ] as const).map((opt) => (
+                    <button
+                      key={opt.value}
+                      onClick={() => setSortBy(opt.value)}
+                      className="flex items-center gap-2 px-2.5 py-2 rounded-lg text-left transition-colors w-full text-[13px]"
+                      style={{
+                        background: sortBy === opt.value ? 'hsl(60 5% 94%)' : 'transparent',
+                        color: sortBy === opt.value ? '#0A0A0A' : '#8A8A85',
+                        fontWeight: sortBy === opt.value ? 600 : 500,
+                      }}
+                    >
+                      {sortBy === opt.value && <span className="w-1 h-1 rounded-full shrink-0" style={{ background: '#F07800' }}/>}
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </aside>
 
-                      {/* Price */}
-                      <div className="flex-1 min-w-0">
-                        <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-widest mb-2.5">
-                          Prix max —{" "}
-                          <span className="text-foreground normal-case tracking-normal font-bold">
-                            {priceMax.toLocaleString("fr-FR")} FCFA
-                          </span>
-                        </p>
-                        <Slider
-                          min={500}
-                          max={50000}
-                          step={500}
-                          value={[priceMax]}
-                          onValueChange={([v]) => setPriceMax(v)}
-                        />
-                        <div className="flex justify-between text-[10px] text-muted-foreground mt-1.5">
-                          <span>500 FCFA</span>
-                          <span>50 000 FCFA</span>
-                        </div>
+            {/* ── Main content ── */}
+            <div className="flex-1 min-w-0">
+
+              {/* Mobile: horizontal category chips */}
+              <div className="md:hidden mb-4 -mx-4 px-4">
+                <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+                  <button
+                    onClick={() => handleCategoryChange(null)}
+                    className="shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[13px] font-medium transition-all"
+                    style={{
+                      background: !selectedCategoryKey ? '#0A0A0A' : 'white',
+                      color: !selectedCategoryKey ? 'white' : '#8A8A85',
+                      border: '1px solid hsl(60 5% 92%)',
+                    }}
+                  >
+                    <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>apps</span>
+                    Tout
+                  </button>
+                  {categories.map((cat) => {
+                    const active = isCategorySelected(cat);
+                    return (
+                      <button
+                        key={cat.id}
+                        onClick={() => handleCategoryChange(active ? null : cat.id)}
+                        className="shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[13px] font-medium transition-all"
+                        style={{
+                          background: active ? '#0A0A0A' : 'white',
+                          color: active ? 'white' : '#8A8A85',
+                          border: '1px solid hsl(60 5% 92%)',
+                        }}
+                      >
+                        <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>{cat.icon || "eco"}</span>
+                        {cat.name}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Search bar + mobile filter toggle */}
+              <div className="flex gap-2 items-center mb-5">
+                <div
+                  className="flex-1 flex items-center px-4 py-0 rounded-full"
+                  style={{ background: 'white', border: '1px solid hsl(60 5% 92%)', boxShadow: '0 1px 2px rgba(10,10,10,0.04)' }}
+                >
+                  <span className="material-symbols-outlined text-[17px] mr-2.5" style={{ color: 'hsl(60 2% 54%)' }}>search</span>
+                  <input
+                    type="search"
+                    placeholder={`Mangue, tomate, mil…${firstName ? ` ${firstName}` : ''}`}
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="flex-1 py-2.5 bg-transparent text-[13.5px] outline-none font-body"
+                    style={{ color: '#0A0A0A' }}
+                  />
+                  {searchQuery && (
+                    <button onClick={() => setSearchQuery("")} className="ml-1" style={{ color: 'hsl(60 2% 54%)' }}>
+                      <span className="material-symbols-outlined text-[15px]">close</span>
+                    </button>
+                  )}
+                </div>
+                <button
+                  onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
+                  className="md:hidden flex items-center gap-1.5 px-3.5 py-2.5 rounded-full text-[13px] font-medium shrink-0"
+                  style={{
+                    background: sortBy !== 'default' ? '#0A0A0A' : 'white',
+                    color: sortBy !== 'default' ? 'white' : '#8A8A85',
+                    border: '1px solid hsl(60 5% 92%)',
+                  }}
+                >
+                  <span className="material-symbols-outlined text-[15px]">tune</span>
+                </button>
+              </div>
+
+              {/* Mobile filter panel */}
+              <AnimatePresence>
+                {mobileFilterOpen && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="overflow-hidden md:hidden mb-4"
+                  >
+                    <div className="bg-white rounded-xl border p-4" style={{ borderColor: 'hsl(60 5% 92%)' }}>
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-on-surface-variant mb-2">Trier par</p>
+                      <div className="flex flex-wrap gap-2">
+                        {([
+                          { value: "default", label: "Défaut" },
+                          { value: "price_asc", label: "Prix ↑" },
+                          { value: "price_desc", label: "Prix ↓" },
+                          { value: "new", label: "Nouveautés" },
+                        ] as const).map((opt) => (
+                          <button
+                            key={opt.value}
+                            onClick={() => { setSortBy(opt.value); setMobileFilterOpen(false); }}
+                            className="px-3 py-1.5 rounded-full text-[12.5px] font-medium"
+                            style={{
+                              background: sortBy === opt.value ? '#0A0A0A' : 'hsl(60 5% 94%)',
+                              color: sortBy === opt.value ? 'white' : '#8A8A85',
+                            }}
+                          >
+                            {opt.label}
+                          </button>
+                        ))}
                       </div>
                     </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
-                    {hasFilters && (
-                      <>
-                        <Separator className="my-3" />
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-7 text-xs text-muted-foreground hover:text-foreground gap-1.5 -ml-2"
-                          onClick={() => { setSortBy("default"); setPriceMax(50000); }}
-                        >
-                          <RotateCcw className="h-3 w-3" />
-                          Réinitialiser les filtres
-                        </Button>
-                      </>
-                    )}
-                  </CardContent>
-                </Card>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Results header (filtering mode) */}
-          {isFiltering && (
-            <div className="flex items-center justify-between mb-5">
-              <div className="flex items-center gap-2.5">
-                <h1 className="text-lg font-bold">
-                  {selectedCategoryLabel ||
-                    (searchQuery ? `"${searchQuery}"` : "Résultats")}
-                </h1>
-                <Badge variant="secondary" className="text-xs font-medium">
-                  {filtered.length} produit{filtered.length !== 1 ? "s" : ""}
-                </Badge>
-              </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-xs text-muted-foreground gap-1.5"
-                onClick={() => { handleCategoryChange(null); setSearchQuery(""); }}
-              >
-                <X className="h-3.5 w-3.5" />
-                Effacer
-              </Button>
-            </div>
-          )}
-
-          {/* ── Products ── */}
-          {loading ? (
-            <LoadingSkeleton />
-          ) : isFiltering ? (
-            filtered.length === 0 ? (
-              /* Empty state */
-              <div className="flex flex-col items-center justify-center py-24 text-center">
-                <div className="w-16 h-16 rounded-2xl bg-muted flex items-center justify-center mb-5">
-                  <Search className="h-7 w-7 text-muted-foreground/30" />
+              {/* Page header */}
+              <div className="flex items-end justify-between mb-5">
+                <div>
+                  <h1 className="font-headline font-bold text-[22px] tracking-tight leading-tight" style={{ color: '#0A0A0A' }}>
+                    {selectedCategoryLabel || (searchQuery ? `« ${searchQuery} »` : (firstName ? `Bonjour, ${firstName}` : "Tous les produits"))}
+                  </h1>
+                  <p className="text-[13px] mt-1" style={{ color: 'hsl(60 2% 54%)' }}>
+                    {loading ? "Chargement…" : `${filtered.length} produit${filtered.length !== 1 ? "s" : ""} disponible${filtered.length !== 1 ? "s" : ""}`}
+                  </p>
                 </div>
-                <h3 className="text-lg font-bold mb-2">Aucun résultat</h3>
-                <p className="text-sm text-muted-foreground max-w-xs mb-6">
-                  {searchQuery
-                    ? `Aucun produit pour "${searchQuery}".`
-                    : "Aucun produit dans cette catégorie pour le moment."}
-                </p>
-                <Button onClick={() => { handleCategoryChange(null); setSearchQuery(""); }}>
-                  Voir tous les produits
-                </Button>
-              </div>
-            ) : (
-              /* Filtered grid */
-              <div className={GRID_CLS}>
-                {filtered.map((product, i) => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    onAddToCart={handleAddToCart}
-                    formatPrice={formatPrice}
-                    index={i}
-                  />
-                ))}
-              </div>
-            )
-          ) : (
-            /* Browse mode */
-            <div className="space-y-0">
-
-              {/* Promo carousel */}
-              <div className="mb-8">
-                <PromoCarousel />
+                {isFiltering && (
+                  <button
+                    onClick={() => { handleCategoryChange(null); setSearchQuery(""); }}
+                    className="flex items-center gap-1 text-[12.5px] font-medium hover:text-foreground transition-colors"
+                    style={{ color: 'hsl(60 2% 54%)' }}
+                  >
+                    <span className="material-symbols-outlined text-[14px]">close</span>
+                    Effacer
+                  </button>
+                )}
               </div>
 
-              {/* Populaires */}
-              <div className="mb-10">
-                <SectionHeader
-                  title="Populaires"
-                  icon="local_fire_department"
-                  count={Math.min(products.length, 10)}
-                />
-                <div className={GRID_CLS}>
-                  {products.slice(0, 10).map((product, i) => (
+              {/* Products */}
+              {loading ? (
+                <LoadingSkeleton />
+              ) : filtered.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-24 text-center">
+                  <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-4" style={{ background: 'hsl(60 5% 94%)' }}>
+                    <span className="material-symbols-outlined text-3xl" style={{ color: 'hsl(60 2% 54% / 0.4)' }}>search_off</span>
+                  </div>
+                  <p className="font-headline font-bold text-lg mb-2">Aucun résultat</p>
+                  <p className="text-[13.5px] max-w-xs mb-5" style={{ color: 'hsl(60 2% 54%)' }}>
+                    {searchQuery ? `Aucun produit pour « ${searchQuery} ».` : "Aucun produit dans cette catégorie."}
+                  </p>
+                  <button
+                    onClick={() => { handleCategoryChange(null); setSearchQuery(""); }}
+                    className="px-5 py-2.5 rounded-xl text-[13.5px] font-medium text-white"
+                    style={{ background: '#0A0A0A' }}
+                  >
+                    Voir tous les produits
+                  </button>
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+                  {filtered.map((product, i) => (
                     <ProductCard
                       key={product.id}
                       product={product}
@@ -439,32 +395,9 @@ const Marche = () => {
                     />
                   ))}
                 </div>
-              </div>
-
-              {/* Per-category sections */}
-              {categoryGroups.map((group) => (
-                <div key={group.label} className="mb-10">
-                  <Separator className="mb-8" />
-                  <SectionHeader
-                    title={group.label}
-                    icon={group.icon}
-                    count={group.products.length}
-                  />
-                  <div className={GRID_CLS}>
-                    {group.products.map((product, i) => (
-                      <ProductCard
-                        key={product.id}
-                        product={product}
-                        onAddToCart={handleAddToCart}
-                        formatPrice={formatPrice}
-                        index={i}
-                      />
-                    ))}
-                  </div>
-                </div>
-              ))}
+              )}
             </div>
-          )}
+          </div>
         </div>
       </main>
     </div>

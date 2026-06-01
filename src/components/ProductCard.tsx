@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useState } from "react";
 import { useWishlist } from "@/contexts/WishlistContext";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Plus, Heart, Leaf } from "lucide-react";
+import { useCart } from "@/contexts/CartContext";
 
 interface ProductCardProduct {
   id: string;
@@ -25,121 +24,148 @@ interface ProductCardProps {
 
 const ProductCard = ({ product, onAddToCart, formatPrice, index = 0 }: ProductCardProps) => {
   const { toggleWishlist, isWishlisted } = useWishlist();
+  const { items, updateQuantity } = useCart();
+  const cartItem = items.find(i => i.id === product.id);
+  const qty = cartItem?.quantity || 0;
   const outOfStock = product.stock <= 0;
   const wishlisted = isWishlisted(product.id);
+  const [hover, setHover] = useState(false);
+
+  const handleAdd = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onAddToCart(product, e);
+  };
+
+  const handleInc = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    updateQuantity(product.id, qty + 1);
+  };
+
+  const handleDec = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    updateQuantity(product.id, qty - 1);
+  };
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 8 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: Math.min(index * 0.03, 0.3), duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+      transition={{ delay: Math.min(index * 0.03, 0.3), duration: 0.3 }}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      style={{
+        transform: hover ? 'translateY(-2px)' : 'translateY(0)',
+        transition: 'transform 0.18s cubic-bezier(0.2,0.8,0.2,1)',
+      }}
     >
-      <Card className="group overflow-hidden border border-border/60 hover:border-border hover:shadow-md transition-all duration-200 bg-card rounded-xl">
-        <Link to={`/produit/${product.id}`} className="block">
-          {/* Image */}
-          <div className="relative aspect-square overflow-hidden bg-muted rounded-t-xl">
-            {product.image_url ? (
-              <img
-                src={product.image_url}
-                alt={product.name}
-                loading="lazy"
-                className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04] ${
-                  outOfStock ? "opacity-50 grayscale-[20%]" : ""
-                }`}
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center">
-                <Leaf className="h-10 w-10 text-muted-foreground/20" />
-              </div>
-            )}
-
-            {outOfStock && (
-              <div className="absolute inset-0 bg-background/40 flex items-center justify-center">
-                <span className="bg-background/95 text-foreground text-[10px] font-semibold px-2.5 py-1 rounded-full border border-border/50">
-                  Rupture
-                </span>
-              </div>
-            )}
-
-            {/* Wishlist */}
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                toggleWishlist(product.id);
+      <Link to={`/produit/${product.id}`} className="block">
+        {/* Image */}
+        <div
+          className="relative aspect-square rounded-2xl overflow-hidden mb-2.5"
+          style={{
+            background: 'hsl(60 5% 94%)',
+            border: '1px solid hsl(60 5% 92%)',
+            boxShadow: hover ? '0 4px 16px rgba(10,10,10,0.08)' : '0 1px 2px rgba(10,10,10,0.04)',
+            transition: 'box-shadow 0.18s',
+          }}
+        >
+          {product.image_url ? (
+            <img
+              alt={product.name}
+              src={product.image_url}
+              className="w-full h-full object-cover"
+              style={{
+                transform: hover ? 'scale(1.04)' : 'scale(1)',
+                transition: 'transform 0.4s cubic-bezier(0.2,0.8,0.2,1)',
+                opacity: outOfStock ? 0.4 : 1,
               }}
-              className={`absolute top-2 right-2 w-7 h-7 rounded-full flex items-center justify-center backdrop-blur-sm transition-all shadow-sm ${
-                wishlisted
-                  ? "bg-white text-red-500"
-                  : "bg-white/80 text-muted-foreground hover:text-red-400"
-              }`}
-            >
-              <Heart
-                className="h-3.5 w-3.5"
-                fill={wishlisted ? "currentColor" : "none"}
-              />
-            </button>
+              loading="lazy"
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center">
+              <span className="material-symbols-outlined text-4xl" style={{ color: 'hsl(60 2% 54% / 0.2)' }}>eco</span>
+            </div>
+          )}
 
-            {/* Desktop hover add button */}
-            {!outOfStock && (
-              <div className="absolute bottom-2 right-2 hidden md:block opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-200">
-                <Button
-                  size="sm"
-                  className="h-8 px-3 text-xs shadow-md gap-1.5 rounded-full"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    onAddToCart(product, e);
+          {outOfStock && (
+            <span className="absolute top-2 left-2 text-white text-[9px] font-bold px-2 py-0.5 rounded-md leading-tight" style={{ background: '#0A0A0A' }}>
+              Rupture
+            </span>
+          )}
+
+          <button
+            onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleWishlist(product.id); }}
+            className="absolute top-2 right-2 w-7 h-7 rounded-full flex items-center justify-center transition-all"
+            style={{
+              background: 'rgba(255,255,255,0.92)',
+              backdropFilter: 'blur(6px)',
+              boxShadow: '0 1px 4px rgba(10,10,10,0.12)',
+            }}
+          >
+            <span
+              className="material-symbols-outlined text-[13px]"
+              style={{
+                color: wishlisted ? '#F07800' : 'hsl(60 2% 54%)',
+                fontVariationSettings: wishlisted ? "'FILL' 1" : "'FILL' 0",
+              }}
+            >
+              favorite
+            </span>
+          </button>
+
+          {!outOfStock && (
+            <div className="absolute bottom-2 right-2">
+              {qty === 0 ? (
+                <button
+                  onClick={handleAdd}
+                  className="w-8 h-8 rounded-full flex items-center justify-center"
+                  style={{
+                    background: 'rgba(255,255,255,0.92)',
+                    backdropFilter: 'blur(6px)',
+                    boxShadow: '0 2px 8px rgba(10,10,10,0.14)',
+                    border: '1px solid rgba(10,10,10,0.08)',
                   }}
                 >
-                  <Plus className="h-3.5 w-3.5" />
-                  Ajouter
-                </Button>
-              </div>
-            )}
-          </div>
-
-          {/* Info */}
-          <CardContent className="p-3">
-            {product.categories?.name && (
-              <p className="text-[10px] font-semibold text-muted-foreground/70 uppercase tracking-wide mb-1">
-                {product.categories.name}
-              </p>
-            )}
-            <p className="font-semibold text-[13px] leading-snug line-clamp-2 text-foreground mb-0.5">
-              {product.name}
-            </p>
-            {product.shops?.name && (
-              <p className="text-[11px] text-muted-foreground truncate mb-2.5">
-                {product.shops.name}
-              </p>
-            )}
-            <div className="flex items-center justify-between gap-1">
-              <div className="flex items-baseline gap-1 flex-wrap">
-                <span className="font-bold text-sm text-foreground">
-                  {formatPrice(product.price)}
-                </span>
-                <span className="text-[10px] text-muted-foreground">
-                  FCFA/{product.unit}
-                </span>
-              </div>
-              {/* Mobile: always visible add */}
-              <Button
-                size="icon"
-                className="h-7 w-7 md:hidden shrink-0 rounded-full"
-                disabled={outOfStock}
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  onAddToCart(product, e);
-                }}
-              >
-                <Plus className="h-3.5 w-3.5" />
-              </Button>
+                  <span className="material-symbols-outlined text-[16px]" style={{ color: '#0A0A0A' }}>add</span>
+                </button>
+              ) : (
+                <div
+                  onClick={(e) => e.stopPropagation()}
+                  className="flex items-center rounded-full px-0.5 py-0.5"
+                  style={{ background: '#0A0A0A', boxShadow: '0 2px 8px rgba(10,10,10,0.2)' }}
+                >
+                  <button onClick={handleDec} className="w-7 h-7 rounded-full flex items-center justify-center" style={{ color: '#fff' }}>
+                    <span className="material-symbols-outlined text-[13px]">{qty === 1 ? 'delete' : 'remove'}</span>
+                  </button>
+                  <span className="text-[12px] font-semibold min-w-[16px] text-center" style={{ color: '#fff' }}>{qty}</span>
+                  <button onClick={handleInc} className="w-7 h-7 rounded-full flex items-center justify-center" style={{ color: '#fff' }}>
+                    <span className="material-symbols-outlined text-[13px]">add</span>
+                  </button>
+                </div>
+              )}
             </div>
-          </CardContent>
-        </Link>
-      </Card>
+          )}
+        </div>
+
+        {/* Info */}
+        <div>
+          <div className="flex items-baseline gap-1 mb-0.5">
+            <span className="font-headline font-bold text-[14px] tracking-tight" style={{ color: '#0A0A0A' }}>
+              {formatPrice(product.price)}
+            </span>
+            <span className="text-[10.5px] font-body" style={{ color: 'hsl(60 2% 54%)' }}>F · {product.unit}</span>
+          </div>
+          <p className="font-body text-[13px] leading-snug line-clamp-1" style={{ color: 'rgba(10,10,10,0.75)' }}>
+            {product.name}
+          </p>
+          <p className="font-body text-[10.5px] mt-0.5" style={{ color: 'hsl(60 2% 54%)' }}>
+            Mamakaasa
+          </p>
+        </div>
+      </Link>
     </motion.div>
   );
 };
