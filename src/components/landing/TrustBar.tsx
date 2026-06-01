@@ -1,21 +1,21 @@
 import { motion } from "framer-motion";
 
 const products = [
-  { name: "Mangues Kent" },
-  { name: "Tomate Mboro" },
-  { name: "Bissap Rouge" },
-  { name: "Pastèque" },
-  { name: "Citron Vert" },
-  { name: "Piment Kaani" },
-  { name: "Gombo" },
-  { name: "Igname" },
-  { name: "Banane Plantain" },
-  { name: "Ananas Victoria" },
-  { name: "Papaye" },
-  { name: "Oignon de Podor" },
-  { name: "Mil Souna" },
-  { name: "Arachide" },
-  { name: "Coco" },
+  { name: "Mangues Kent",      emoji: "🥭" },
+  { name: "Tomate Mboro",      emoji: "🍅" },
+  { name: "Bissap Rouge",      emoji: "🌺" },
+  { name: "Pastèque",          emoji: "🍉" },
+  { name: "Citron Vert",       emoji: "🍋" },
+  { name: "Piment Kaani",      emoji: "🌶️" },
+  { name: "Gombo",             emoji: "🫑" },
+  { name: "Igname",            emoji: "🍠" },
+  { name: "Banane Plantain",   emoji: "🍌" },
+  { name: "Ananas Victoria",   emoji: "🍍" },
+  { name: "Papaye",            emoji: "🍈" },
+  { name: "Oignon de Podor",   emoji: "🧅" },
+  { name: "Mil Souna",         emoji: "🌾" },
+  { name: "Arachide",          emoji: "🥜" },
+  { name: "Coco",              emoji: "🥥" },
 ];
 
 const stats = [
@@ -45,7 +45,7 @@ const TrustBar = () => {
               key={i}
               className="flex shrink-0 items-center gap-2 font-headline text-[12px] font-semibold text-on-surface-variant"
             >
-              <span className="material-symbols-outlined text-[13px] text-primary/60" style={{ fontVariationSettings: "'FILL' 1" }}>eco</span>
+              <span className="text-[15px] leading-none">{product.emoji}</span>
               {product.name}
               <span className="ml-2 h-1 w-1 shrink-0 rounded-full bg-foreground/20" />
             </span>
