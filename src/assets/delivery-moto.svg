@@ -1,0 +1,121 @@
+<svg viewBox="0 0 780 480" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+
+  <!-- Ground shadow -->
+  <ellipse cx="388" cy="448" rx="268" ry="16" fill="rgba(10,10,10,0.09)"/>
+
+  <!-- ═══ REAR WHEEL ═══ -->
+  <circle cx="198" cy="372" r="82" fill="#0A0A0A"/>
+  <circle cx="198" cy="372" r="62" fill="#181810"/>
+  <!-- Spokes -->
+  <line x1="198" y1="310" x2="198" y2="434" stroke="#0A0A0A" stroke-width="5"/>
+  <line x1="136" y1="372" x2="260" y2="372" stroke="#0A0A0A" stroke-width="5"/>
+  <line x1="154" y1="328" x2="242" y2="416" stroke="#0A0A0A" stroke-width="4"/>
+  <line x1="242" y1="328" x2="154" y2="416" stroke="#0A0A0A" stroke-width="4"/>
+  <!-- Orange rim band -->
+  <circle cx="198" cy="372" r="46" fill="none" stroke="#F07800" stroke-width="10"/>
+  <!-- Hub -->
+  <circle cx="198" cy="372" r="18" fill="#0A0A0A"/>
+  <circle cx="198" cy="372" r="9"  fill="#F07800"/>
+
+  <!-- ═══ FRONT WHEEL ═══ -->
+  <circle cx="582" cy="390" r="70" fill="#0A0A0A"/>
+  <circle cx="582" cy="390" r="52" fill="#181810"/>
+  <line x1="582" y1="320" x2="582" y2="460" stroke="#0A0A0A" stroke-width="4.5"/>
+  <line x1="512" y1="390" x2="652" y2="390" stroke="#0A0A0A" stroke-width="4.5"/>
+  <line x1="533" y1="341" x2="631" y2="439" stroke="#0A0A0A" stroke-width="3.5"/>
+  <line x1="631" y1="341" x2="533" y2="439" stroke="#0A0A0A" stroke-width="3.5"/>
+  <circle cx="582" cy="390" r="38" fill="none" stroke="#F07800" stroke-width="8.5"/>
+  <circle cx="582" cy="390" r="14" fill="#0A0A0A"/>
+  <circle cx="582" cy="390" r="7"  fill="#F07800"/>
+
+  <!-- ═══ DELIVERY BOX (back of scooter) ═══ -->
+  <!-- Box shadow -->
+  <rect x="72" y="206" width="236" height="162" rx="12" fill="rgba(10,10,10,0.08)" transform="translate(4,5)"/>
+  <!-- Box body -->
+  <rect x="72" y="206" width="236" height="162" rx="12" fill="#FAF8F4"/>
+  <rect x="72" y="206" width="236" height="162" rx="12" fill="none" stroke="#E8E4DA" stroke-width="2"/>
+  <!-- Orange top band -->
+  <path d="M72 218 Q72 206 84 206 H296 Q308 206 308 218 V252 H72 Z" fill="#F07800"/>
+  <!-- "Mamakaasa" on band -->
+  <text x="190" y="234" text-anchor="middle" fill="white"
+        font-family="'Manrope','Inter',sans-serif" font-weight="800"
+        font-size="16" letter-spacing="1">Mamakaasa</text>
+  <!-- Handle on top -->
+  <rect x="148" y="193" width="84" height="18" rx="9" fill="#D96A00"/>
+  <rect x="148" y="196" width="84" height="8" rx="4" fill="#E87800" opacity="0.5"/>
+  <!-- Box content area -->
+  <!-- Vertical divider -->
+  <line x1="190" y1="252" x2="190" y2="360" stroke="#EDE9E0" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <!-- Fruits -->
+  <text x="131" y="305" font-size="34" text-anchor="middle">🥭</text>
+  <text x="249" y="305" font-size="34" text-anchor="middle">🍅</text>
+  <text x="131" y="352" font-size="24" text-anchor="middle">🌽</text>
+  <text x="249" y="352" font-size="24" text-anchor="middle">🥬</text>
+
+  <!-- ═══ SCOOTER BODY ═══ -->
+  <!-- Main frame / undercarriage -->
+  <path d="M278 358 Q295 335 320 310 Q348 282 400 265 Q450 250 510 244 L570 240 Q610 238 635 248 Q652 258 656 278 L652 310 Q640 328 618 338 L545 352 Q490 358 430 362 L340 368 Q300 368 280 358Z"
+        fill="#F07800"/>
+  <!-- Body shadow/depth -->
+  <path d="M300 340 Q320 318 370 302 Q420 288 490 280 L570 274 Q610 272 638 284 L645 300 Q620 305 585 305 Q530 303 470 308 L370 322 Q320 335 305 350Z"
+        fill="#D96A00" opacity="0.45"/>
+
+  <!-- Engine / center cover -->
+  <path d="M380 340 Q395 320 430 308 Q468 296 510 292 L548 290 Q570 290 582 300 L580 318 Q565 328 540 334 L470 344 Q418 348 390 348 Q375 348 370 340Z"
+        fill="#E07000"/>
+
+  <!-- Seat -->
+  <path d="M366 258 Q395 244 448 238 Q498 233 548 236 L574 240 Q590 244 592 254 Q585 268 562 272 Q528 278 488 282 Q442 287 400 290 Q368 293 352 284 Q339 274 366 258Z"
+        fill="#1C1C12"/>
+  <!-- Seat highlight -->
+  <path d="M378 263 Q405 252 450 247 Q495 242 540 245 L564 249 Q552 260 525 265 Q490 270 452 275 Q412 279 382 278 Q363 275 378 263Z"
+        fill="#2C2C1C"/>
+
+  <!-- Front fork + steering column -->
+  <path d="M575 248 L608 285 Q622 308 618 358 L600 385 Q592 368 592 345 L598 308 L578 268Z"
+        fill="#242418"/>
+  <!-- Fork tube -->
+  <path d="M580 254 L612 292 Q624 316 620 356"
+        fill="none" stroke="#3C3C2C" stroke-width="3"/>
+
+  <!-- Handlebar assembly -->
+  <path d="M555 238 Q568 226 582 222 L618 221 Q634 224 638 234 Q630 248 612 250 L572 248 Q556 248 555 238Z"
+        fill="#1C1C12"/>
+  <!-- Right grip -->
+  <rect x="618" y="218" width="32" height="14" rx="7" fill="#2C2C1C"/>
+  <rect x="620" y="220" width="28" height="5" rx="2" fill="#404030" opacity="0.6"/>
+  <!-- Speedometer -->
+  <circle cx="585" cy="222" r="10" fill="#0A0A0A" stroke="#F07800" stroke-width="2"/>
+  <circle cx="585" cy="222" r="5"  fill="#FAF8F4"/>
+
+  <!-- Headlight -->
+  <ellipse cx="638" cy="272" rx="16" ry="11" fill="#FAF8F4" stroke="#E8E4DA" stroke-width="1.5"/>
+  <ellipse cx="638" cy="272" rx="12" ry="8"  fill="#FFF5CC"/>
+
+  <!-- Windshield -->
+  <path d="M566 224 Q582 208 604 208 Q620 208 626 220 Q614 234 596 238 Q578 241 566 232Z"
+        fill="#C8D8E8" opacity="0.55"/>
+  <path d="M568 226 Q582 212 602 212 Q616 212 620 222 Q608 234 592 237 Q578 240 568 230Z"
+        fill="white" opacity="0.25"/>
+
+  <!-- Box ↔ body connector rail -->
+  <rect x="282" y="348" width="56" height="14" rx="5" fill="#242418"/>
+  <rect x="270" y="354" width="80" height="7" rx="3" fill="#D96A00"/>
+
+  <!-- Rear axle/chain area -->
+  <circle cx="298" cy="368" r="20" fill="#181810" stroke="#242418" stroke-width="2.5"/>
+  <circle cx="298" cy="368" r="11" fill="#242418"/>
+  <circle cx="298" cy="368" r="5"  fill="#F07800"/>
+
+  <!-- Exhaust pipe -->
+  <path d="M258 368 Q236 372 218 385 Q234 388 260 382 Q266 375 258 368Z"
+        fill="#242418"/>
+  <ellipse cx="217" cy="385" rx="8" ry="5" fill="#181810"/>
+
+  <!-- ═══ SPEED LINES ═══ -->
+  <line x1="8"  y1="295" x2="56" y2="295" stroke="#F07800" stroke-width="3.5" stroke-linecap="round" opacity="0.55"/>
+  <line x1="2"  y1="318" x2="42" y2="318" stroke="#F07800" stroke-width="2.5" stroke-linecap="round" opacity="0.35"/>
+  <line x1="12" y1="342" x2="50" y2="342" stroke="#F07800" stroke-width="2"   stroke-linecap="round" opacity="0.45"/>
+  <line x1="18" y1="362" x2="52" y2="362" stroke="#F07800" stroke-width="1.5" stroke-linecap="round" opacity="0.28"/>
+
+</svg>
