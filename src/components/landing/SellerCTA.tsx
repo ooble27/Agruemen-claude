@@ -127,43 +127,28 @@ const SellerCTA = () => {
           </div>
 
           <div className="relative flex items-center justify-center p-6 lg:justify-start lg:p-10 lg:pl-0">
-            <div className="relative w-full max-w-[520px] lg:max-w-[620px]">
-              <motion.img
-                src={deliveryMoto}
-                alt="Livraison à moto"
-                className="h-auto w-full drop-shadow-2xl"
-                loading="lazy"
-                width={1376}
-                height={768}
-                initial={{ opacity: 0, x: 40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.3 }}
-              />
-              {/* Overlay : couvre "Agrumen" et affiche "Mamakaasa" */}
-              <div
-                className="absolute flex items-center justify-center"
-                style={{
-                  left: '29%',
-                  top: '64%',
-                  width: '22%',
-                  height: '13%',
-                  background: '#2e7a2e',
-                  borderRadius: 4,
-                }}
+            <motion.svg
+              viewBox="0 0 1376 768"
+              className="h-auto w-full max-w-[520px] drop-shadow-2xl lg:max-w-[620px]"
+              initial={{ opacity: 0, x: 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              <image href={deliveryMoto} width="1376" height="768" />
+              {/* Couvre "Agrumen" avec le vert du scooter */}
+              <rect x="432" y="490" width="196" height="74" rx="6" fill="#3d8530"/>
+              <text
+                x="530" y="536"
+                textAnchor="middle"
+                fill="white"
+                fontFamily="Manrope,Inter,sans-serif"
+                fontWeight="700"
+                fontSize="34"
               >
-                <span style={{
-                  color: '#fff',
-                  fontFamily: "'Manrope','Inter',sans-serif",
-                  fontWeight: 700,
-                  fontSize: 'clamp(8px, 1.6vw, 12px)',
-                  letterSpacing: '0.03em',
-                  whiteSpace: 'nowrap',
-                }}>
-                  Mamakaasa
-                </span>
-              </div>
-            </div>
+                Mamakaasa
+              </text>
+            </motion.svg>
           </div>
         </div>
       </motion.div>
