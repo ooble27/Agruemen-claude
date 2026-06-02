@@ -146,7 +146,7 @@ const Marche = () => {
       <Navbar />
 
       <main style={{ paddingTop: "var(--navbar-h)" }}>
-        <div className="max-w-[1400px] mx-auto px-4 md:px-6 pt-2 pb-6 md:py-6">
+        <div className="max-w-[1400px] mx-auto px-4 md:px-6 pb-6 md:py-6">
           <div className="flex gap-6 items-start">
 
             {/* ── Sidebar (desktop only) ── */}
