@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import deliveryMoto from "@/assets/delivery-moto.png";
+import deliveryMoto from "@/assets/delivery-moto.svg";
 
 const features = [
   { n: "01", icon: "smartphone",     title: "Commandez depuis votre téléphone",          sub: "En quelques clics, partout, à tout moment." },
@@ -127,28 +127,16 @@ const SellerCTA = () => {
           </div>
 
           <div className="relative flex items-center justify-center p-6 lg:justify-start lg:p-10 lg:pl-0">
-            <motion.svg
-              viewBox="0 0 1376 768"
+            <motion.img
+              src={deliveryMoto}
+              alt="Livraison à moto Mamakaasa"
               className="h-auto w-full max-w-[520px] drop-shadow-2xl lg:max-w-[620px]"
+              loading="lazy"
               initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.3 }}
-            >
-              <image href={deliveryMoto} width="1376" height="768" />
-              {/* Couvre "Agrumen" avec le vert du scooter */}
-              <rect x="432" y="490" width="196" height="74" rx="6" fill="#3d8530"/>
-              <text
-                x="530" y="536"
-                textAnchor="middle"
-                fill="white"
-                fontFamily="Manrope,Inter,sans-serif"
-                fontWeight="700"
-                fontSize="34"
-              >
-                Mamakaasa
-              </text>
-            </motion.svg>
+            />
           </div>
         </div>
       </motion.div>

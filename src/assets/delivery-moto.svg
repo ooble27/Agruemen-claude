@@ -1,121 +1,179 @@
-<svg viewBox="0 0 780 480" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+<svg viewBox="0 0 820 500" xmlns="http://www.w3.org/2000/svg">
 
-  <!-- Ground shadow -->
-  <ellipse cx="388" cy="448" rx="268" ry="16" fill="rgba(10,10,10,0.09)"/>
+  <!-- Shadow sol -->
+  <ellipse cx="395" cy="458" rx="270" ry="14" fill="rgba(0,0,0,0.08)"/>
 
-  <!-- ═══ REAR WHEEL ═══ -->
-  <circle cx="198" cy="372" r="82" fill="#0A0A0A"/>
-  <circle cx="198" cy="372" r="62" fill="#181810"/>
-  <!-- Spokes -->
-  <line x1="198" y1="310" x2="198" y2="434" stroke="#0A0A0A" stroke-width="5"/>
-  <line x1="136" y1="372" x2="260" y2="372" stroke="#0A0A0A" stroke-width="5"/>
-  <line x1="154" y1="328" x2="242" y2="416" stroke="#0A0A0A" stroke-width="4"/>
-  <line x1="242" y1="328" x2="154" y2="416" stroke="#0A0A0A" stroke-width="4"/>
-  <!-- Orange rim band -->
-  <circle cx="198" cy="372" r="46" fill="none" stroke="#F07800" stroke-width="10"/>
-  <!-- Hub -->
-  <circle cx="198" cy="372" r="18" fill="#0A0A0A"/>
-  <circle cx="198" cy="372" r="9"  fill="#F07800"/>
+  <!-- ═══ ROUE ARRIÈRE ═══ -->
+  <circle cx="205" cy="385" r="74" fill="#1C1C14"/>
+  <circle cx="205" cy="385" r="56" fill="#252518"/>
+  <line x1="205" y1="311" x2="205" y2="459" stroke="#1C1C14" stroke-width="5"/>
+  <line x1="131" y1="385" x2="279" y2="385" stroke="#1C1C14" stroke-width="5"/>
+  <line x1="153" y1="333" x2="257" y2="437" stroke="#1C1C14" stroke-width="4"/>
+  <line x1="257" y1="333" x2="153" y2="437" stroke="#1C1C14" stroke-width="4"/>
+  <circle cx="205" cy="385" r="42" fill="none" stroke="#3A3A28" stroke-width="7"/>
+  <circle cx="205" cy="385" r="16" fill="#1C1C14"/>
+  <circle cx="205" cy="385" r="7" fill="#3A3A28"/>
 
-  <!-- ═══ FRONT WHEEL ═══ -->
-  <circle cx="582" cy="390" r="70" fill="#0A0A0A"/>
-  <circle cx="582" cy="390" r="52" fill="#181810"/>
-  <line x1="582" y1="320" x2="582" y2="460" stroke="#0A0A0A" stroke-width="4.5"/>
-  <line x1="512" y1="390" x2="652" y2="390" stroke="#0A0A0A" stroke-width="4.5"/>
-  <line x1="533" y1="341" x2="631" y2="439" stroke="#0A0A0A" stroke-width="3.5"/>
-  <line x1="631" y1="341" x2="533" y2="439" stroke="#0A0A0A" stroke-width="3.5"/>
-  <circle cx="582" cy="390" r="38" fill="none" stroke="#F07800" stroke-width="8.5"/>
-  <circle cx="582" cy="390" r="14" fill="#0A0A0A"/>
-  <circle cx="582" cy="390" r="7"  fill="#F07800"/>
+  <!-- ═══ ROUE AVANT ═══ -->
+  <circle cx="570" cy="392" r="63" fill="#1C1C14"/>
+  <circle cx="570" cy="392" r="48" fill="#252518"/>
+  <line x1="570" y1="329" x2="570" y2="455" stroke="#1C1C14" stroke-width="4.5"/>
+  <line x1="507" y1="392" x2="633" y2="392" stroke="#1C1C14" stroke-width="4.5"/>
+  <line x1="525" y1="347" x2="615" y2="437" stroke="#1C1C14" stroke-width="3.5"/>
+  <line x1="615" y1="347" x2="525" y2="437" stroke="#1C1C14" stroke-width="3.5"/>
+  <circle cx="570" cy="392" r="35" fill="none" stroke="#3A3A28" stroke-width="6"/>
+  <circle cx="570" cy="392" r="13" fill="#1C1C14"/>
+  <circle cx="570" cy="392" r="6" fill="#3A3A28"/>
 
-  <!-- ═══ DELIVERY BOX (back of scooter) ═══ -->
-  <!-- Box shadow -->
-  <rect x="72" y="206" width="236" height="162" rx="12" fill="rgba(10,10,10,0.08)" transform="translate(4,5)"/>
-  <!-- Box body -->
-  <rect x="72" y="206" width="236" height="162" rx="12" fill="#FAF8F4"/>
-  <rect x="72" y="206" width="236" height="162" rx="12" fill="none" stroke="#E8E4DA" stroke-width="2"/>
-  <!-- Orange top band -->
-  <path d="M72 218 Q72 206 84 206 H296 Q308 206 308 218 V252 H72 Z" fill="#F07800"/>
-  <!-- "Mamakaasa" on band -->
-  <text x="190" y="234" text-anchor="middle" fill="white"
-        font-family="'Manrope','Inter',sans-serif" font-weight="800"
-        font-size="16" letter-spacing="1">Mamakaasa</text>
-  <!-- Handle on top -->
-  <rect x="148" y="193" width="84" height="18" rx="9" fill="#D96A00"/>
-  <rect x="148" y="196" width="84" height="8" rx="4" fill="#E87800" opacity="0.5"/>
-  <!-- Box content area -->
-  <!-- Vertical divider -->
-  <line x1="190" y1="252" x2="190" y2="360" stroke="#EDE9E0" stroke-width="1.5" stroke-dasharray="6,4"/>
-  <!-- Fruits -->
-  <text x="131" y="305" font-size="34" text-anchor="middle">🥭</text>
-  <text x="249" y="305" font-size="34" text-anchor="middle">🍅</text>
-  <text x="131" y="352" font-size="24" text-anchor="middle">🌽</text>
-  <text x="249" y="352" font-size="24" text-anchor="middle">🥬</text>
+  <!-- ═══ CAISSE EN BOIS (arrière) ═══ -->
+  <!-- Ombre caisse -->
+  <rect x="60" y="252" width="163" height="122" rx="5" fill="rgba(0,0,0,0.12)" transform="translate(4,5)"/>
+  <!-- Corps caisse -->
+  <rect x="60" y="252" width="163" height="122" rx="5" fill="#A0682A"/>
+  <!-- Planches horizontales -->
+  <rect x="60" y="274" width="163" height="5" rx="1" fill="#7A4C1C" opacity="0.55"/>
+  <rect x="60" y="306" width="163" height="5" rx="1" fill="#7A4C1C" opacity="0.55"/>
+  <rect x="60" y="338" width="163" height="5" rx="1" fill="#7A4C1C" opacity="0.55"/>
+  <!-- Lattes verticales -->
+  <line x1="112" y1="252" x2="112" y2="374" stroke="#7A4C1C" stroke-width="3" opacity="0.4"/>
+  <line x1="164" y1="252" x2="164" y2="374" stroke="#7A4C1C" stroke-width="3" opacity="0.4"/>
+  <!-- Bord supérieur clair -->
+  <rect x="60" y="252" width="163" height="6" rx="3" fill="#C07A35"/>
+  <!-- Ombrage droite -->
+  <rect x="213" y="252" width="10" height="122" rx="2" fill="#5A3410" opacity="0.35"/>
 
-  <!-- ═══ SCOOTER BODY ═══ -->
-  <!-- Main frame / undercarriage -->
-  <path d="M278 358 Q295 335 320 310 Q348 282 400 265 Q450 250 510 244 L570 240 Q610 238 635 248 Q652 258 656 278 L652 310 Q640 328 618 338 L545 352 Q490 358 430 362 L340 368 Q300 368 280 358Z"
-        fill="#F07800"/>
-  <!-- Body shadow/depth -->
-  <path d="M300 340 Q320 318 370 302 Q420 288 490 280 L570 274 Q610 272 638 284 L645 300 Q620 305 585 305 Q530 303 470 308 L370 322 Q320 335 305 350Z"
-        fill="#D96A00" opacity="0.45"/>
+  <!-- ═══ LÉGUMES SUR LA CAISSE ═══ -->
+  <!-- Feuilles vertes (salade) -->
+  <ellipse cx="92" cy="248" rx="22" ry="14" fill="#4CAF50" transform="rotate(-18,92,248)"/>
+  <ellipse cx="82" cy="244" rx="16" ry="10" fill="#388E3C" transform="rotate(-10,82,244)"/>
+  <ellipse cx="104" cy="244" rx="14" ry="9" fill="#43A047" transform="rotate(10,104,244)"/>
+  <!-- Carotte -->
+  <ellipse cx="138" cy="243" rx="9" ry="18" fill="#FF8F00" transform="rotate(-15,138,243)"/>
+  <line x1="133" y1="228" x2="128" y2="215" stroke="#388E3C" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="138" y1="227" x2="138" y2="212" stroke="#388E3C" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="143" y1="228" x2="148" y2="214" stroke="#388E3C" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Tomate grande -->
+  <circle cx="172" cy="240" r="19" fill="#E53935"/>
+  <path d="M165 225 Q172 219 179 225" fill="none" stroke="#388E3C" stroke-width="2.5"/>
+  <circle cx="172" cy="240" r="19" fill="none" stroke="#C62828" stroke-width="1" opacity="0.4"/>
+  <!-- Petite tomate -->
+  <circle cx="155" cy="248" r="13" fill="#EF5350"/>
+  <!-- Poivron vert -->
+  <ellipse cx="120" cy="252" rx="15" ry="11" fill="#66BB6A" transform="rotate(-20,120,252)"/>
 
-  <!-- Engine / center cover -->
-  <path d="M380 340 Q395 320 430 308 Q468 296 510 292 L548 290 Q570 290 582 300 L580 318 Q565 328 540 334 L470 344 Q418 348 390 348 Q375 348 370 340Z"
-        fill="#E07000"/>
+  <!-- ═══ GARDE-BOUE ARRIÈRE ═══ -->
+  <path d="M132 360 Q140 295 205 268 Q238 255 270 262 L278 298 Q250 305 228 328 Q210 352 208 385 L193 385 Q190 360 172 342 Q155 325 138 338Z"
+        fill="#4A9638"/>
+  <path d="M136 360 Q144 298 205 272 Q236 260 268 266"
+        fill="none" stroke="#2D6620" stroke-width="2" opacity="0.4"/>
 
-  <!-- Seat -->
-  <path d="M366 258 Q395 244 448 238 Q498 233 548 236 L574 240 Q590 244 592 254 Q585 268 562 272 Q528 278 488 282 Q442 287 400 290 Q368 293 352 284 Q339 274 366 258Z"
+  <!-- ═══ PLATEFORME / CORPS PRINCIPAL ═══ -->
+  <path d="M272 338 Q298 318 358 308 Q424 298 498 296 L556 296 Q592 298 610 316 L614 340 Q596 358 558 364 L335 368 Q292 366 274 352Z"
+        fill="#4A9638"/>
+  <!-- Ombrage plateforme -->
+  <path d="M288 344 Q315 326 372 316 Q436 306 510 304 L562 302 Q594 305 610 320 L612 336 Q592 350 556 356 L335 362 Q294 360 278 347Z"
+        fill="#2D6620" opacity="0.30"/>
+  <!-- MAMAKAASA text -->
+  <text x="440" y="340" text-anchor="middle" fill="white"
+        font-family="'Manrope','Inter',Arial,sans-serif"
+        font-weight="800" font-size="22" letter-spacing="0.8">Mamakaasa</text>
+
+  <!-- ═══ CARÉNAGE AVANT ═══ -->
+  <path d="M550 298 Q576 280 604 274 L630 271 Q652 272 664 286 L670 308 Q666 334 648 348 L618 358 Q592 364 572 358 L552 344 Q538 328 550 298Z"
+        fill="#4A9638"/>
+  <!-- Ombrage carénage -->
+  <path d="M558 304 Q580 288 606 282 L628 279 Q646 280 656 293 L660 310 Q656 330 640 342 L616 351"
+        fill="none" stroke="#2D6620" stroke-width="2" opacity="0.4"/>
+  <!-- Décor panneau -->
+  <ellipse cx="624" cy="314" rx="20" ry="27" fill="#3A7A2A" opacity="0.25"/>
+
+  <!-- GARDE-BOUE AVANT -->
+  <path d="M553 346 Q562 324 563 305 L578 302 Q594 308 596 325 L594 350 Q576 360 556 358Z"
+        fill="#4A9638"/>
+
+  <!-- ═══ SELLE ═══ -->
+  <path d="M340 294 Q370 276 428 268 Q486 260 540 262 L564 266 Q580 270 580 280 Q574 294 550 300 Q514 308 468 313 Q418 318 372 320 Q340 322 325 312 Q312 302 340 294Z"
+        fill="#1A1A12"/>
+  <!-- Reflet selle -->
+  <path d="M352 298 Q380 282 432 275 Q484 268 538 270 L558 273 Q546 284 518 290 Q478 298 432 303 Q384 308 352 307 Q333 304 352 298Z"
+        fill="#2C2C1E"/>
+
+  <!-- ═══ LIVREUR ═══ -->
+  <!-- Jambes -->
+  <path d="M476 308 Q484 328 492 343 Q500 358 494 370 L460 372 Q462 360 453 344 Q445 329 454 308Z" fill="#1E5C14"/>
+  <path d="M437 310 Q444 330 450 345 Q456 360 450 372 L418 372 Q419 360 410 344 Q402 328 410 310Z" fill="#1E5C14"/>
+  <!-- Chaussures -->
+  <ellipse cx="477" cy="373" rx="17" ry="7.5" fill="#12120A" transform="rotate(8,477,373)"/>
+  <ellipse cx="434" cy="373" rx="17" ry="7.5" fill="#12120A" transform="rotate(-5,434,373)"/>
+  <!-- Torse -->
+  <path d="M432 248 Q448 232 484 226 Q516 220 540 226 L556 238 Q564 254 555 272 L534 292 Q508 303 478 308 L442 310 Q418 306 414 290 Q408 268 432 248Z"
+        fill="#1E5C14"/>
+  <!-- Col veste -->
+  <path d="M484 226 Q508 222 528 228 L542 238 Q530 248 512 251 Q492 254 480 252 Q467 249 468 239Z"
+        fill="#144210" opacity="0.5"/>
+  <!-- Bras droit -->
+  <path d="M542 250 Q566 252 590 260 L596 280 Q580 287 558 282 L534 268Z" fill="#1E5C14"/>
+  <!-- Main sur guidon -->
+  <path d="M594 267 Q610 262 626 266 L628 282 Q618 288 604 285 L594 280Z" fill="#1E5C14"/>
+
+  <!-- ═══ CASQUE ═══ -->
+  <ellipse cx="472" cy="224" rx="43" ry="40" fill="#4A9638"/>
+  <!-- Visière casque -->
+  <path d="M436 226 Q439 206 454 201 Q472 195 490 200 Q507 206 512 226 Q502 238 472 240 Q448 240 436 226Z"
+        fill="#141410" opacity="0.88"/>
+  <!-- Reflet visière -->
+  <path d="M444 219 Q452 208 466 205 Q478 203 487 208 Q476 211 460 214 Q450 216 444 219Z"
+        fill="white" opacity="0.20"/>
+  <!-- Reflet casque -->
+  <ellipse cx="456" cy="208" rx="16" ry="9" fill="white" opacity="0.11"/>
+  <!-- Sangle casque -->
+  <path d="M436 233 Q434 246 441 253" fill="none" stroke="#2D6620" stroke-width="2.5"/>
+
+  <!-- ═══ FOURCHE AVANT ═══ -->
+  <path d="M575 286 L604 318 Q616 342 612 376 L595 392 Q587 376 590 358 L592 322 L570 296Z"
         fill="#1C1C12"/>
-  <!-- Seat highlight -->
-  <path d="M378 263 Q405 252 450 247 Q495 242 540 245 L564 249 Q552 260 525 265 Q490 270 452 275 Q412 279 382 278 Q363 275 378 263Z"
-        fill="#2C2C1C"/>
+  <path d="M578 292 L606 325 Q617 348 614 374"
+        fill="none" stroke="#3A3A2A" stroke-width="2"/>
 
-  <!-- Front fork + steering column -->
-  <path d="M575 248 L608 285 Q622 308 618 358 L600 385 Q592 368 592 345 L598 308 L578 268Z"
-        fill="#242418"/>
-  <!-- Fork tube -->
-  <path d="M580 254 L612 292 Q624 316 620 356"
-        fill="none" stroke="#3C3C2C" stroke-width="3"/>
-
-  <!-- Handlebar assembly -->
-  <path d="M555 238 Q568 226 582 222 L618 221 Q634 224 638 234 Q630 248 612 250 L572 248 Q556 248 555 238Z"
+  <!-- ═══ GUIDON ═══ -->
+  <path d="M556 266 Q568 253 582 249 L618 247 Q634 250 638 261 Q630 274 612 276 L568 274 Q553 274 556 266Z"
         fill="#1C1C12"/>
-  <!-- Right grip -->
-  <rect x="618" y="218" width="32" height="14" rx="7" fill="#2C2C1C"/>
-  <rect x="620" y="220" width="28" height="5" rx="2" fill="#404030" opacity="0.6"/>
-  <!-- Speedometer -->
-  <circle cx="585" cy="222" r="10" fill="#0A0A0A" stroke="#F07800" stroke-width="2"/>
-  <circle cx="585" cy="222" r="5"  fill="#FAF8F4"/>
+  <!-- Poignée droite -->
+  <rect x="618" y="244" width="30" height="14" rx="7" fill="#24241A"/>
+  <rect x="620" y="246" width="26" height="5" rx="2" fill="#363628" opacity="0.7"/>
+  <!-- Poignée gauche -->
+  <rect x="526" y="264" width="24" height="12" rx="6" fill="#24241A"/>
+  <!-- Compteur -->
+  <circle cx="583" cy="250" r="9" fill="#0A0A08" stroke="#4A9638" stroke-width="2"/>
+  <circle cx="583" cy="250" r="4" fill="#F8F4E8"/>
 
-  <!-- Headlight -->
-  <ellipse cx="638" cy="272" rx="16" ry="11" fill="#FAF8F4" stroke="#E8E4DA" stroke-width="1.5"/>
-  <ellipse cx="638" cy="272" rx="12" ry="8"  fill="#FFF5CC"/>
+  <!-- PHARE -->
+  <ellipse cx="640" cy="278" rx="15" ry="11" fill="#F8F4E8" stroke="#E0DCC8" stroke-width="1.5"/>
+  <ellipse cx="640" cy="278" rx="11" ry="8" fill="#FFF8CC"/>
 
-  <!-- Windshield -->
-  <path d="M566 224 Q582 208 604 208 Q620 208 626 220 Q614 234 596 238 Q578 241 566 232Z"
-        fill="#C8D8E8" opacity="0.55"/>
-  <path d="M568 226 Q582 212 602 212 Q616 212 620 222 Q608 234 592 237 Q578 240 568 230Z"
-        fill="white" opacity="0.25"/>
+  <!-- PARE-BRISE -->
+  <path d="M564 250 Q582 233 604 233 Q620 233 626 245 Q614 259 596 263 Q578 267 564 256Z"
+        fill="#B8D8EC" opacity="0.52"/>
+  <path d="M566 252 Q582 237 602 237 Q616 237 620 246 Q609 259 592 262 Q577 265 566 254Z"
+        fill="white" opacity="0.22"/>
 
-  <!-- Box ↔ body connector rail -->
-  <rect x="282" y="348" width="56" height="14" rx="5" fill="#242418"/>
-  <rect x="270" y="354" width="80" height="7" rx="3" fill="#D96A00"/>
+  <!-- RACK ARRIÈRE (lien caisse-scooter) -->
+  <rect x="220" y="304" width="8" height="56" rx="3" fill="#1C1C12"/>
+  <rect x="192" y="302" width="65" height="10" rx="4" fill="#1C1C12"/>
 
-  <!-- Rear axle/chain area -->
-  <circle cx="298" cy="368" r="20" fill="#181810" stroke="#242418" stroke-width="2.5"/>
-  <circle cx="298" cy="368" r="11" fill="#242418"/>
-  <circle cx="298" cy="368" r="5"  fill="#F07800"/>
+  <!-- POT D'ÉCHAPPEMENT -->
+  <path d="M260 376 Q240 380 220 394 Q236 398 262 391 Q268 384 260 376Z" fill="#1C1C12"/>
+  <ellipse cx="219" cy="394" rx="7" ry="5" fill="#101008"/>
 
-  <!-- Exhaust pipe -->
-  <path d="M258 368 Q236 372 218 385 Q234 388 260 382 Q266 375 258 368Z"
-        fill="#242418"/>
-  <ellipse cx="217" cy="385" rx="8" ry="5" fill="#181810"/>
+  <!-- CHAÎNE/MOTEUR -->
+  <circle cx="302" cy="372" r="17" fill="#1C1C12" stroke="#242420" stroke-width="2"/>
+  <circle cx="302" cy="372" r="9" fill="#242418"/>
+  <circle cx="302" cy="372" r="4" fill="#3A3A28"/>
 
-  <!-- ═══ SPEED LINES ═══ -->
-  <line x1="8"  y1="295" x2="56" y2="295" stroke="#F07800" stroke-width="3.5" stroke-linecap="round" opacity="0.55"/>
-  <line x1="2"  y1="318" x2="42" y2="318" stroke="#F07800" stroke-width="2.5" stroke-linecap="round" opacity="0.35"/>
-  <line x1="12" y1="342" x2="50" y2="342" stroke="#F07800" stroke-width="2"   stroke-linecap="round" opacity="0.45"/>
-  <line x1="18" y1="362" x2="52" y2="362" stroke="#F07800" stroke-width="1.5" stroke-linecap="round" opacity="0.28"/>
+  <!-- ═══ LIGNES DE VITESSE ═══ -->
+  <line x1="6"  y1="302" x2="54" y2="302" stroke="#A8C4A0" stroke-width="3.5" stroke-linecap="round" opacity="0.55"/>
+  <line x1="0"  y1="328" x2="40" y2="328" stroke="#A8C4A0" stroke-width="2.5" stroke-linecap="round" opacity="0.38"/>
+  <line x1="10" y1="350" x2="48" y2="350" stroke="#A8C4A0" stroke-width="2"   stroke-linecap="round" opacity="0.45"/>
+  <line x1="16" y1="370" x2="50" y2="370" stroke="#A8C4A0" stroke-width="1.5" stroke-linecap="round" opacity="0.30"/>
 
 </svg>
