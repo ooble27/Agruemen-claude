@@ -120,23 +120,17 @@ const Auth = () => {
       <div className="flex-1 flex flex-col bg-white">
 
         {/* Mobile hero */}
-        <div className="lg:hidden relative overflow-hidden" style={{ background: '#0A0A0A' }}>
+        <div className="lg:hidden relative overflow-hidden" style={{ background: '#F07800' }}>
           <div className="absolute inset-0"
-            style={{ backgroundImage: "radial-gradient(circle at 20% 80%, rgba(240,120,0,0.20) 0%, transparent 60%)" }} />
-          <img
-            src="https://images.unsplash.com/photo-1582979512210-99b6a53386f9?w=800&h=320&fit=crop&auto=format"
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover opacity-[0.18]"
-          />
+            style={{ backgroundImage: "radial-gradient(circle at 80% 20%, rgba(255,255,255,0.15) 0%, transparent 50%)" }} />
           <div className="relative z-10 px-6 pt-14 pb-8 flex flex-col">
             <div className="flex items-center justify-between">
               <Link to="/">
-                <img src="/logo-mamakaasa.png" alt="Mamakaasa" className="h-10 w-auto"
-                  style={{ filter: "brightness(0) invert(1)" }} />
+                <img src="/logo-mamakaasa.png" alt="Mamakaasa" className="h-10 w-auto" />
               </Link>
               <Link to="/marche"
                 className="flex items-center gap-1.5 font-headline text-[12px] font-semibold"
-                style={{ color: 'rgba(255,255,255,0.5)' }}>
+                style={{ color: 'rgba(255,255,255,0.75)' }}>
                 <span className="material-symbols-outlined text-[14px]">storefront</span>
                 Marché
               </Link>
@@ -146,7 +140,7 @@ const Auth = () => {
                 style={{ fontSize: "1.9rem" }}>
                 {isLogin ? "Bon retour" : "Rejoignez-nous"}
               </h1>
-              <p className="font-body text-[13px] mt-1" style={{ color: 'rgba(255,255,255,0.5)' }}>
+              <p className="font-body text-[13px] mt-1" style={{ color: 'rgba(255,255,255,0.75)' }}>
                 {isLogin ? "Connectez-vous pour commander." : "Créez votre compte gratuitement."}
               </p>
             </div>
