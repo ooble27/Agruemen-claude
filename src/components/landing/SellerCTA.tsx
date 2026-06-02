@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import deliveryMoto from "@/assets/delivery-moto.svg";
+import deliveryMoto from "@/assets/delivery-moto.png";
 
 const features = [
   { n: "01", icon: "smartphone",     title: "Commandez depuis votre téléphone",          sub: "En quelques clics, partout, à tout moment." },
@@ -127,18 +127,43 @@ const SellerCTA = () => {
           </div>
 
           <div className="relative flex items-center justify-center p-6 lg:justify-start lg:p-10 lg:pl-0">
-            <motion.img
-              src={deliveryMoto}
-              alt="Livraison à moto"
-              className="h-auto w-full max-w-[520px] drop-shadow-2xl lg:max-w-[620px]"
-              loading="lazy"
-              width={1376}
-              height={768}
-              initial={{ opacity: 0, x: 40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-            />
+            <div className="relative w-full max-w-[520px] lg:max-w-[620px]">
+              <motion.img
+                src={deliveryMoto}
+                alt="Livraison à moto"
+                className="h-auto w-full drop-shadow-2xl"
+                loading="lazy"
+                width={1376}
+                height={768}
+                initial={{ opacity: 0, x: 40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+              />
+              {/* Overlay : couvre "Agrumen" et affiche "Mamakaasa" */}
+              <div
+                className="absolute flex items-center justify-center"
+                style={{
+                  left: '29%',
+                  top: '64%',
+                  width: '22%',
+                  height: '13%',
+                  background: '#2e7a2e',
+                  borderRadius: 4,
+                }}
+              >
+                <span style={{
+                  color: '#fff',
+                  fontFamily: "'Manrope','Inter',sans-serif",
+                  fontWeight: 700,
+                  fontSize: 'clamp(8px, 1.6vw, 12px)',
+                  letterSpacing: '0.03em',
+                  whiteSpace: 'nowrap',
+                }}>
+                  Mamakaasa
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </motion.div>
