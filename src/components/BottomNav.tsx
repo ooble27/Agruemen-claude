@@ -28,7 +28,6 @@ const BottomNav = () => {
 
   return (
     <>
-      <div className="h-24 md:hidden" />
       <div
         className="fixed z-50 md:hidden"
         style={{

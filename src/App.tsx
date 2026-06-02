@@ -83,8 +83,8 @@ const App = () => (
                 <Toaster />
                 <Sonner position="top-center" offset="72px" />
                 <CartDrawer />
-                <BottomNav />
                 <AnimatedRoutes />
+                <BottomNav />
               </CartProvider>
             </WishlistProvider>
           </NotificationsProvider>
