@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import deliveryMoto from "@/assets/delivery-moto.png";
+import deliveryMoto from "@/assets/5773D658-B734-4A3D-86BD-E0AF66C9F603.png";
 
 const features = [
   { n: "01", icon: "smartphone",     title: "Commandez depuis votre téléphone",          sub: "En quelques clics, partout, à tout moment." },
