@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useCart } from "@/contexts/CartContext";
 import { useAuth } from "@/contexts/AuthContext";
 
-const HIDDEN_PATHS = ["/auth", "/checkout", "/confirmation", "/admin"];
+const HIDDEN_PATHS = ["/auth", "/checkout", "/confirmation", "/admin", "/produit"];
 
 const BottomNav = () => {
   const location = useLocation();

@@ -226,7 +226,7 @@ const ProductDetail = () => {
       <main className="pt-0 md:pt-24">
 
         {/* ═══════ MOBILE ═══════ */}
-        <div className="md:hidden pb-28">
+        <div className="md:hidden pb-36">
 
           {/* Floating top bar */}
           <div className="fixed top-0 left-0 right-0 z-50 flex items-center px-4 py-3" style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 12px)" }}>
@@ -240,8 +240,8 @@ const ProductDetail = () => {
 
           {/* Image carousel — full-bleed, swipeable */}
           <div
-            className="relative w-full overflow-hidden"
-            style={{ aspectRatio: "4/3", background: '#f5f2eb', borderBottomLeftRadius: '24px', borderBottomRightRadius: '24px' }}
+            className="relative w-full bg-surface-container overflow-hidden"
+            style={{ aspectRatio: "4/3", borderBottomLeftRadius: '20px', borderBottomRightRadius: '20px' }}
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
           >
@@ -254,7 +254,7 @@ const ProductDetail = () => {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -30 }}
                 transition={{ duration: 0.22 }}
-                className="absolute inset-0 w-full h-full object-contain"
+                className="absolute inset-0 w-full h-full object-cover"
               />
             </AnimatePresence>
 
@@ -290,7 +290,7 @@ const ProductDetail = () => {
 
             {/* Seller */}
             <div className="flex items-center gap-2 mt-3 mb-3">
-              <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0" style={{ background: '#F07800' }}>
+              <div className="w-7 h-7 rounded-full bg-foreground flex items-center justify-center shrink-0">
                 <span className="material-symbols-outlined text-white text-[13px]" style={{ fontVariationSettings: "'FILL' 1" }}>storefront</span>
               </div>
               <p className="font-headline text-[12px] font-bold text-foreground">Mamakaasa</p>
@@ -367,14 +367,16 @@ const ProductDetail = () => {
 
           {/* Sticky bottom bar */}
           <div
-            className="fixed bottom-0 left-0 right-0 z-50 bg-background/97 backdrop-blur-xl border-t border-border/20 px-5 py-3"
-            style={{ paddingBottom: "calc(0.75rem + env(safe-area-inset-bottom))" }}
+            className="fixed bottom-0 left-0 right-0 z-50 border-t border-border/15 px-5 py-3"
+            style={{
+              background: '#fff',
+              paddingBottom: "calc(0.75rem + env(safe-area-inset-bottom, 0px))",
+            }}
           >
             <button
               onClick={handleAddToCart}
               disabled={product.stock <= 0}
-              className="w-full text-white py-3.5 rounded-xl font-headline font-black text-base flex items-center justify-center gap-2 active:scale-[0.97] transition-transform disabled:opacity-40"
-              style={{ background: '#F07800' }}
+              className="w-full bg-foreground text-white py-3.5 rounded-xl font-headline font-black text-base flex items-center justify-center gap-2 active:scale-[0.97] transition-transform disabled:opacity-40"
             >
               <span className="material-symbols-outlined text-lg">shopping_basket</span>
               Ajouter{quantity > 1 ? ` (${quantity})` : ""} · {formatPrice(totalPrice)}
@@ -411,8 +413,7 @@ const ProductDetail = () => {
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="relative rounded-2xl overflow-hidden aspect-[4/3] mb-3"
-                  style={{ background: '#f5f2eb' }}
+                  className="relative rounded-2xl overflow-hidden bg-surface-container aspect-[4/3] mb-3"
                 >
                   <AnimatePresence mode="wait">
                     <motion.img
@@ -423,7 +424,7 @@ const ProductDetail = () => {
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.28 }}
-                      className="absolute inset-0 w-full h-full object-contain"
+                      className="absolute inset-0 w-full h-full object-cover"
                     />
                   </AnimatePresence>
 
@@ -476,30 +477,30 @@ const ProductDetail = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.15 }}
               >
-                <div className="rounded-2xl border border-border/15 bg-white overflow-hidden shadow-sm">
+                <div className="rounded-2xl border border-border/12 bg-white overflow-hidden">
 
-                  {/* Header */}
-                  <div className="px-6 pt-6 pb-5 border-b border-border/10">
+                  {/* Title + price */}
+                  <div className="px-7 pt-7 pb-6">
                     {product.categories?.name && (
-                      <span className="inline-block font-headline text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant/50 mb-3">
+                      <span className="block font-headline text-[10px] font-bold uppercase tracking-[0.22em] text-on-surface-variant/50 mb-3">
                         {product.categories.name}
                       </span>
                     )}
-                    <h1 className="font-headline font-black text-foreground tracking-tighter leading-tight text-2xl mb-4">
+                    <h1 className="font-headline font-black text-foreground tracking-tighter leading-tight text-[1.6rem] mb-5">
                       {product.name}
                     </h1>
-                    <div className="flex items-end gap-1.5">
-                      <p className="font-headline font-black text-3xl leading-none" style={{ color: '#F07800' }}>
+                    <div className="flex items-baseline gap-1.5">
+                      <span className="font-headline font-black text-4xl text-foreground leading-none">
                         {product.price.toLocaleString("fr-FR")}
-                      </p>
-                      <p className="font-body text-on-surface-variant text-[12px] mb-0.5">FCFA / {product.unit}</p>
+                      </span>
+                      <span className="font-body text-[12px] text-on-surface-variant">FCFA / {product.unit}</span>
                     </div>
                   </div>
 
-                  {/* Body */}
-                  <div className="p-6 space-y-5">
+                  <div className="h-px bg-border/10 mx-7" />
 
-                    {/* Stock + delivery */}
+                  {/* Badges + seller */}
+                  <div className="px-7 py-5 space-y-4">
                     <div className="flex flex-wrap gap-2">
                       {product.stock > 0 ? (
                         <span className="inline-flex items-center gap-1.5 text-[11px] font-bold font-headline text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-full">
@@ -517,19 +518,22 @@ const ProductDetail = () => {
                       </span>
                     </div>
 
-                    {/* Seller */}
-                    <div className="flex items-center gap-2.5 py-3.5 border-t border-b border-border/10">
-                      <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0" style={{ background: '#F07800' }}>
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-8 h-8 rounded-full bg-foreground flex items-center justify-center shrink-0">
                         <span className="material-symbols-outlined text-white text-[15px]" style={{ fontVariationSettings: "'FILL' 1" }}>storefront</span>
                       </div>
-                      <p className="font-headline text-sm font-bold text-foreground">Mamakaasa</p>
+                      <p className="font-headline text-sm font-semibold text-foreground">Mamakaasa</p>
                     </div>
+                  </div>
 
-                    {/* Quantity */}
+                  <div className="h-px bg-border/10 mx-7" />
+
+                  {/* Quantity + add to cart + description */}
+                  <div className="px-7 py-6 space-y-5">
                     <div>
-                      <p className="font-headline text-[10px] font-bold uppercase tracking-[0.15em] text-on-surface-variant/60 mb-3">Quantité</p>
-                      <div className="flex items-center gap-4">
-                        <div className="flex items-center rounded-full border border-border/25 bg-surface-container overflow-hidden">
+                      <p className="font-headline text-[10px] font-bold uppercase tracking-[0.18em] text-on-surface-variant/55 mb-3">Quantité</p>
+                      <div className="flex items-center gap-5">
+                        <div className="flex items-center rounded-xl border border-border/25 bg-surface-container overflow-hidden">
                           <button
                             onClick={() => setQuantity(Math.max(1, quantity - 1))}
                             className="w-10 h-10 flex items-center justify-center hover:bg-surface-container-high transition-colors"
@@ -551,21 +555,18 @@ const ProductDetail = () => {
                       </div>
                     </div>
 
-                    {/* Add to cart */}
                     <button
                       onClick={handleAddToCart}
                       disabled={product.stock <= 0}
-                      className="w-full text-white py-4 rounded-xl font-headline font-black text-base flex items-center justify-center gap-2.5 hover:opacity-90 active:scale-[0.98] transition-all disabled:opacity-40"
-                      style={{ background: '#F07800' }}
+                      className="w-full bg-foreground text-white py-4 rounded-xl font-headline font-black text-base flex items-center justify-center gap-2.5 hover:opacity-88 active:scale-[0.98] transition-all disabled:opacity-40"
                     >
                       <span className="material-symbols-outlined text-lg">shopping_basket</span>
                       Ajouter au panier
                     </button>
 
-                    {/* Description */}
                     {product.description && (
-                      <div className="border-t border-border/10 pt-4">
-                        <h3 className="font-headline font-bold text-sm mb-2">À propos du produit</h3>
+                      <div className="pt-1">
+                        <h3 className="font-headline font-bold text-sm mb-2 text-foreground">À propos du produit</h3>
                         <p className="font-body text-sm text-on-surface-variant/80 leading-relaxed">{product.description}</p>
                       </div>
                     )}
