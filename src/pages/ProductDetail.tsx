@@ -220,13 +220,13 @@ const ProductDetail = () => {
   const totalPrice = product.price * quantity;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen md:bg-background">
       <div className="hidden md:block"><Navbar /></div>
 
       <main className="pt-0 md:pt-24">
 
         {/* ═══════ MOBILE ═══════ */}
-        <div className="md:hidden pb-36">
+        <div className="md:hidden pb-36 bg-black">
 
           {/* Floating top bar */}
           <div className="fixed top-0 left-0 right-0 z-50 flex items-center px-4 py-3" style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 12px)" }}>
@@ -272,7 +272,7 @@ const ProductDetail = () => {
           </div>
 
           {/* Product info */}
-          <div className="px-5 pt-5 pb-3">
+          <div className="bg-background px-5 pt-5 pb-3">
             {product.categories?.name && (
               <p className="font-headline text-[10px] font-bold uppercase tracking-[0.18em] text-on-surface-variant/60 mb-1">
                 {product.categories.name}
@@ -316,7 +316,7 @@ const ProductDetail = () => {
           </div>
 
           {/* Quantity */}
-          <div className="px-5 py-3">
+          <div className="bg-background px-5 py-3">
             <div className="inline-flex items-center bg-surface-container rounded-sm border border-border/20">
               <button
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
@@ -336,17 +336,17 @@ const ProductDetail = () => {
 
           {/* Description */}
           {product.description && (
-            <div className="px-5 py-3">
+            <div className="bg-background px-5 py-3">
               <h3 className="font-headline font-bold text-sm mb-2">À propos du produit</h3>
               <p className="font-body text-sm text-on-surface-variant/80 leading-relaxed">{product.description}</p>
             </div>
           )}
 
-          <div className="h-px bg-border/15 mx-5 my-2" />
+          <div className="h-px bg-border/15 mx-5 my-2 bg-background" />
 
           {/* Related — mobile */}
           {relatedProducts.length > 0 && (
-            <div className="py-4 space-y-5">
+            <div className="bg-background py-4 space-y-5">
               {[
                 { label: "Vous aimerez aussi", items: relatedProducts.slice(0, 10) },
                 ...(relatedProducts.length > 10 ? [{ label: "Souvent achetés ensemble", items: relatedProducts.slice(10, 20) }] : []),
