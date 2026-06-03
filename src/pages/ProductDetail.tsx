@@ -241,7 +241,7 @@ const ProductDetail = () => {
           {/* Image carousel — full-bleed, swipeable */}
           <div
             className="relative w-full bg-surface-container overflow-hidden"
-            style={{ aspectRatio: "4/3", borderBottomLeftRadius: '20px', borderBottomRightRadius: '20px' }}
+            style={{ aspectRatio: "1/1" }}
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
           >
