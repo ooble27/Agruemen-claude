@@ -47,12 +47,6 @@ const CartDrawer = () => {
                 </button>
               </>
             )}
-            <button
-              onClick={() => setIsOpen(false)}
-              className="p-1.5 rounded-sm text-on-surface-variant hover:bg-surface-container transition-colors shrink-0"
-            >
-              <span className="material-symbols-outlined text-[18px]">close</span>
-            </button>
           </div>
         </SheetHeader>
 

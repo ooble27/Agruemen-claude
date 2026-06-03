@@ -4,7 +4,6 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState, useCallback } from "react";
 import Navbar from "@/components/Navbar";
 import { useCart } from "@/contexts/CartContext";
-import { useWishlist } from "@/contexts/WishlistContext";
 import { supabase } from "@/integrations/supabase/client";
 import ProductCard from "@/components/ProductCard";
 import { findMockProduct, getMockRelatedProducts, MOCK_PRODUCTS } from "@/data/marketplaceMocks";
@@ -78,7 +77,6 @@ const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { addItem } = useCart();
-  const { toggleWishlist, isWishlisted } = useWishlist();
   const [product, setProduct] = useState<Product | null>(null);
   const [shop, setShop] = useState<ShopInfo | null>(null);
   const [images, setImages] = useState<string[]>([]);
@@ -219,11 +217,7 @@ const ProductDetail = () => {
     );
   }
 
-  const sellerName = sellerProfile?.full_name || shop?.name || "Producteur";
-  const sellerCity = sellerProfile?.city || shop?.city || "Sénégal";
   const totalPrice = product.price * quantity;
-  const isMock = product.id.startsWith("m");
-  const wishlisted = isWishlisted(product.id);
 
   return (
     <div className="min-h-screen bg-background">
@@ -235,30 +229,19 @@ const ProductDetail = () => {
         <div className="md:hidden pb-28">
 
           {/* Floating top bar */}
-          <div className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3" style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 12px)" }}>
+          <div className="fixed top-0 left-0 right-0 z-50 flex items-center px-4 py-3" style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 12px)" }}>
             <button
               onClick={() => navigate(-1)}
-              className="w-9 h-9 rounded-sm bg-background/90 backdrop-blur-md flex items-center justify-center shadow-sm border border-border/20"
+              className="w-9 h-9 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center shadow-sm border border-border/15"
             >
               <span className="material-symbols-outlined text-foreground text-xl">arrow_back</span>
-            </button>
-            <button
-              onClick={() => toggleWishlist(product.id)}
-              className={`w-9 h-9 rounded-sm backdrop-blur-md flex items-center justify-center shadow-sm border border-border/20 ${wishlisted ? "bg-red-50" : "bg-background/90"}`}
-            >
-              <span
-                className={`material-symbols-outlined text-xl ${wishlisted ? "text-red-500" : "text-foreground"}`}
-                style={{ fontVariationSettings: wishlisted ? "'FILL' 1" : "'FILL' 0" }}
-              >
-                favorite
-              </span>
             </button>
           </div>
 
           {/* Image carousel — full-bleed, swipeable */}
           <div
-            className="relative w-full bg-surface-container overflow-hidden"
-            style={{ aspectRatio: "1/1" }}
+            className="relative w-full overflow-hidden"
+            style={{ aspectRatio: "4/3", background: '#f5f2eb', borderBottomLeftRadius: '24px', borderBottomRightRadius: '24px' }}
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
           >
@@ -271,7 +254,7 @@ const ProductDetail = () => {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -30 }}
                 transition={{ duration: 0.22 }}
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-contain"
               />
             </AnimatePresence>
 
@@ -305,15 +288,12 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            {/* Producer */}
+            {/* Seller */}
             <div className="flex items-center gap-2 mt-3 mb-3">
-              <div className="w-7 h-7 rounded-sm bg-foreground flex items-center justify-center text-white text-xs font-bold font-headline shrink-0">
-                {sellerName.charAt(0)}
+              <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0" style={{ background: '#F07800' }}>
+                <span className="material-symbols-outlined text-white text-[13px]" style={{ fontVariationSettings: "'FILL' 1" }}>storefront</span>
               </div>
-              <div>
-                <p className="font-headline text-[12px] font-bold text-foreground leading-none">{sellerName}</p>
-                <p className="font-body text-[10px] text-on-surface-variant/60">{sellerCity}</p>
-              </div>
+              <p className="font-headline text-[12px] font-bold text-foreground">Mamakaasa</p>
             </div>
 
             {/* Stock + delivery */}
@@ -393,7 +373,8 @@ const ProductDetail = () => {
             <button
               onClick={handleAddToCart}
               disabled={product.stock <= 0}
-              className="w-full bg-foreground text-white py-3.5 rounded-sm font-headline font-black text-base flex items-center justify-center gap-2 active:scale-[0.97] transition-transform disabled:opacity-40"
+              className="w-full text-white py-3.5 rounded-xl font-headline font-black text-base flex items-center justify-center gap-2 active:scale-[0.97] transition-transform disabled:opacity-40"
+              style={{ background: '#F07800' }}
             >
               <span className="material-symbols-outlined text-lg">shopping_basket</span>
               Ajouter{quantity > 1 ? ` (${quantity})` : ""} · {formatPrice(totalPrice)}
@@ -430,7 +411,8 @@ const ProductDetail = () => {
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="relative rounded-sm overflow-hidden bg-surface-container aspect-[4/3] mb-3"
+                  className="relative rounded-2xl overflow-hidden aspect-[4/3] mb-3"
+                  style={{ background: '#f5f2eb' }}
                 >
                   <AnimatePresence mode="wait">
                     <motion.img
@@ -441,7 +423,7 @@ const ProductDetail = () => {
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.28 }}
-                      className="absolute inset-0 w-full h-full object-cover"
+                      className="absolute inset-0 w-full h-full object-contain"
                     />
                   </AnimatePresence>
 
@@ -477,7 +459,7 @@ const ProductDetail = () => {
                       <button
                         key={i}
                         onClick={() => setCurrentImage(i)}
-                        className={`shrink-0 w-20 h-20 rounded-sm overflow-hidden border-2 transition-all duration-200 ${
+                        className={`shrink-0 w-20 h-20 rounded-xl overflow-hidden border-2 transition-all duration-200 ${
                           i === currentImage ? "border-foreground" : "border-transparent opacity-50 hover:opacity-80"
                         }`}
                       >
@@ -493,88 +475,71 @@ const ProductDetail = () => {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.15 }}
-                className="sticky top-28"
               >
-                <div className="rounded-sm border border-border/30 bg-background overflow-hidden shadow-sm">
+                <div className="rounded-2xl border border-border/15 bg-white overflow-hidden shadow-sm">
 
-                  {/* Card header — dark editorial */}
-                  <div className="bg-[#0a0a0a] px-6 py-6">
+                  {/* Header */}
+                  <div className="px-6 pt-6 pb-5 border-b border-border/10">
                     {product.categories?.name && (
-                      <p className="font-headline text-[9px] font-bold uppercase tracking-[0.2em] text-white/40 mb-2">
+                      <span className="inline-block font-headline text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant/50 mb-3">
                         {product.categories.name}
-                      </p>
+                      </span>
                     )}
-                    <h1 className="font-headline font-black text-white tracking-tighter leading-tight text-2xl mb-3">
+                    <h1 className="font-headline font-black text-foreground tracking-tighter leading-tight text-2xl mb-4">
                       {product.name}
                     </h1>
-                    <div className="flex items-end justify-between">
-                      <div>
-                        <p className="font-headline font-black text-white text-3xl leading-none">
-                          {product.price.toLocaleString("fr-FR")}
-                        </p>
-                        <p className="font-body text-white/40 text-[11px] mt-1">FCFA / {product.unit}</p>
-                      </div>
-                      <button
-                        onClick={() => toggleWishlist(product.id)}
-                        className={`w-9 h-9 rounded-sm flex items-center justify-center transition-all ${wishlisted ? "bg-red-500/20" : "bg-white/10"}`}
-                      >
-                        <span
-                          className={`material-symbols-outlined text-xl ${wishlisted ? "text-red-400" : "text-white/50"}`}
-                          style={{ fontVariationSettings: wishlisted ? "'FILL' 1" : "'FILL' 0" }}
-                        >
-                          favorite
-                        </span>
-                      </button>
+                    <div className="flex items-end gap-1.5">
+                      <p className="font-headline font-black text-3xl leading-none" style={{ color: '#F07800' }}>
+                        {product.price.toLocaleString("fr-FR")}
+                      </p>
+                      <p className="font-body text-on-surface-variant text-[12px] mb-0.5">FCFA / {product.unit}</p>
                     </div>
                   </div>
 
-                  {/* Card body */}
+                  {/* Body */}
                   <div className="p-6 space-y-5">
 
                     {/* Stock + delivery */}
                     <div className="flex flex-wrap gap-2">
                       {product.stock > 0 ? (
-                        <span className="inline-flex items-center gap-1.5 text-[11px] font-bold font-headline bg-surface-container px-3 py-1.5 rounded-sm">
-                          <span className="material-symbols-outlined text-[14px] text-emerald-500" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                        <span className="inline-flex items-center gap-1.5 text-[11px] font-bold font-headline text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-full">
+                          <span className="material-symbols-outlined text-[13px] text-emerald-500" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
                           {product.stock > 10 ? "En stock" : `${product.stock} restants`}
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1.5 text-[11px] font-bold font-headline text-destructive bg-destructive/8 px-3 py-1.5 rounded-sm">
+                        <span className="inline-flex items-center gap-1.5 text-[11px] font-bold font-headline text-destructive bg-destructive/8 px-3 py-1.5 rounded-full">
                           Rupture de stock
                         </span>
                       )}
-                      <span className="inline-flex items-center gap-1.5 text-[11px] font-body text-on-surface-variant bg-surface-container px-3 py-1.5 rounded-sm">
-                        <span className="material-symbols-outlined text-[14px]">local_shipping</span>
+                      <span className="inline-flex items-center gap-1.5 text-[11px] font-body text-on-surface-variant bg-surface-container px-3 py-1.5 rounded-full">
+                        <span className="material-symbols-outlined text-[13px]">local_shipping</span>
                         Livraison gratuite
                       </span>
                     </div>
 
-                    {/* Producer */}
-                    <div className="flex items-center gap-3 py-3 border-t border-b border-border/15">
-                      <div className="w-9 h-9 rounded-sm bg-foreground flex items-center justify-center text-white font-headline font-bold text-sm shrink-0">
-                        {sellerName.charAt(0)}
+                    {/* Seller */}
+                    <div className="flex items-center gap-2.5 py-3.5 border-t border-b border-border/10">
+                      <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0" style={{ background: '#F07800' }}>
+                        <span className="material-symbols-outlined text-white text-[15px]" style={{ fontVariationSettings: "'FILL' 1" }}>storefront</span>
                       </div>
-                      <div>
-                        <p className="font-headline text-sm font-bold text-foreground">{sellerName}</p>
-                        <p className="font-body text-[11px] text-on-surface-variant/60">{sellerCity}</p>
-                      </div>
+                      <p className="font-headline text-sm font-bold text-foreground">Mamakaasa</p>
                     </div>
 
                     {/* Quantity */}
                     <div>
-                      <p className="font-headline text-[10px] font-bold uppercase tracking-[0.15em] text-on-surface-variant/60 mb-2">Quantité</p>
+                      <p className="font-headline text-[10px] font-bold uppercase tracking-[0.15em] text-on-surface-variant/60 mb-3">Quantité</p>
                       <div className="flex items-center gap-4">
-                        <div className="flex items-center bg-surface-container rounded-sm border border-border/20">
+                        <div className="flex items-center rounded-full border border-border/25 bg-surface-container overflow-hidden">
                           <button
                             onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                            className="w-10 h-10 flex items-center justify-center hover:bg-surface-container-high transition-colors rounded-sm"
+                            className="w-10 h-10 flex items-center justify-center hover:bg-surface-container-high transition-colors"
                           >
                             <span className="material-symbols-outlined text-lg">remove</span>
                           </button>
                           <span className="w-10 text-center font-headline font-black text-base">{quantity}</span>
                           <button
                             onClick={() => setQuantity(quantity + 1)}
-                            className="w-10 h-10 flex items-center justify-center hover:bg-surface-container-high transition-colors rounded-sm"
+                            className="w-10 h-10 flex items-center justify-center hover:bg-surface-container-high transition-colors"
                           >
                             <span className="material-symbols-outlined text-lg">add</span>
                           </button>
@@ -590,7 +555,8 @@ const ProductDetail = () => {
                     <button
                       onClick={handleAddToCart}
                       disabled={product.stock <= 0}
-                      className="w-full bg-foreground text-white py-4 rounded-sm font-headline font-black text-base flex items-center justify-center gap-2.5 hover:opacity-90 active:scale-[0.98] transition-all disabled:opacity-40"
+                      className="w-full text-white py-4 rounded-xl font-headline font-black text-base flex items-center justify-center gap-2.5 hover:opacity-90 active:scale-[0.98] transition-all disabled:opacity-40"
+                      style={{ background: '#F07800' }}
                     >
                       <span className="material-symbols-outlined text-lg">shopping_basket</span>
                       Ajouter au panier
@@ -598,7 +564,7 @@ const ProductDetail = () => {
 
                     {/* Description */}
                     {product.description && (
-                      <div className="border-t border-border/15 pt-4">
+                      <div className="border-t border-border/10 pt-4">
                         <h3 className="font-headline font-bold text-sm mb-2">À propos du produit</h3>
                         <p className="font-body text-sm text-on-surface-variant/80 leading-relaxed">{product.description}</p>
                       </div>

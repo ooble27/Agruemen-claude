@@ -120,9 +120,9 @@ const Auth = () => {
       <div className="flex-1 flex flex-col bg-white">
 
         {/* Mobile hero */}
-        <div className="lg:hidden relative overflow-hidden" style={{ background: '#F07800' }}>
+        <div className="lg:hidden relative overflow-hidden" style={{ background: '#0F1F15' }}>
           <div className="absolute inset-0"
-            style={{ backgroundImage: "radial-gradient(circle at 80% 20%, rgba(255,255,255,0.15) 0%, transparent 50%)" }} />
+            style={{ backgroundImage: "radial-gradient(circle at 80% 20%, rgba(240,120,0,0.18) 0%, transparent 55%)" }} />
           <div className="relative z-10 px-6 pt-14 pb-8 flex flex-col">
             <div className="flex items-center justify-between">
               <Link to="/">
