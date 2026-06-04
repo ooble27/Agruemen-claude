@@ -13,12 +13,6 @@ const VIDEOS = [
   { id: "Sxo9VsEkzk4", label: "Tomate", emoji: "🍅", desc: "Techniques avancées pour une tomate de qualité et résistante." },
 ];
 
-const STEPS = [
-  { icon: "play_circle", title: "Choisissez votre culture", desc: "Sélectionnez la vidéo correspondant au légume que vous cultivez." },
-  { icon: "smartphone", title: "Regardez sur YouTube", desc: "Les vidéos sont gratuites, en français et accessibles depuis tout téléphone." },
-  { icon: "share", title: "Partagez autour de vous", desc: "Transmettez ces ressources aux producteurs de votre entourage." },
-];
-
 const Ressources = () => {
   return (
     <div className="relative min-h-screen" style={{ background: "#F5F5F2" }}>
@@ -58,47 +52,10 @@ const Ressources = () => {
               Produire mieux,<br />
               <span style={{ color: "#4ade80" }}>local et durable.</span>
             </h1>
-            <p className="font-body text-white/55 text-lg leading-relaxed max-w-lg mb-10">
+            <p className="font-body text-white/55 text-lg leading-relaxed max-w-lg">
               L'ANCAR met à disposition des capsules vidéo gratuites pour accompagner les producteurs maraîchers sénégalais — directement sur votre téléphone.
             </p>
-
-            {/* Stats row */}
-            <div className="flex flex-wrap items-center gap-6">
-              {[
-                { value: "8", label: "vidéos disponibles" },
-                { value: "100%", label: "gratuit" },
-                { value: "7", label: "légumes couverts" },
-              ].map((stat) => (
-                <div key={stat.label} className="flex flex-col">
-                  <span className="font-headline font-black text-white text-2xl leading-none">{stat.value}</span>
-                  <span className="font-body text-white/35 text-xs mt-0.5">{stat.label}</span>
-                </div>
-              ))}
-            </div>
           </motion.div>
-        </div>
-      </section>
-
-      {/* ── Comment ça marche ── */}
-      <section className="mx-auto max-w-[1200px] px-6 md:px-8 py-16 md:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {STEPS.map((step, i) => (
-            <motion.div
-              key={step.title}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.1 + i * 0.08 }}
-              className="flex items-start gap-4 rounded-2xl bg-white border border-black/[0.06] px-6 py-5"
-            >
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 mt-0.5" style={{ background: "#f0fdf4" }}>
-                <span className="material-symbols-outlined text-xl" style={{ color: "#16a34a", fontVariationSettings: "'FILL' 1" }}>{step.icon}</span>
-              </div>
-              <div>
-                <p className="font-headline font-bold text-foreground text-sm mb-1">{step.title}</p>
-                <p className="font-body text-on-surface-variant text-sm leading-relaxed">{step.desc}</p>
-              </div>
-            </motion.div>
-          ))}
         </div>
       </section>
 
@@ -202,7 +159,7 @@ const Ressources = () => {
           </div>
           <div className="relative shrink-0 flex flex-col gap-3">
             <a
-              href="https://www.youtube.com/@ANCAR_Senegal"
+              href="https://youtube.com/@agencenationaleduconseilag8179?feature=shared"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2.5 rounded-xl px-6 py-3.5 font-headline font-black text-sm text-[#0a0a0a] transition-opacity hover:opacity-88"
