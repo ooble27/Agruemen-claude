@@ -27,7 +27,7 @@ const NosEngagements = () => {
       <LandingNavbar />
 
       {/* ── HERO PLEIN ÉCRAN ── */}
-      <section className="relative min-h-screen flex items-end bg-[#0a0a0a] overflow-hidden">
+      <section className="relative min-h-[72vh] flex items-end bg-[#0a0a0a] overflow-hidden">
         <motion.img
           initial={{ scale: 1.06 }}
           animate={{ scale: 1 }}

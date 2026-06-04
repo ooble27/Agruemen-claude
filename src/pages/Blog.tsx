@@ -30,7 +30,7 @@ const Blog = () => {
 
       {/* ── HERO = Article à la une (plein écran) ── */}
       {featured && (
-        <section className="relative min-h-screen flex items-end overflow-hidden bg-[#0a0a0a]">
+        <section className="relative min-h-[72vh] flex items-end overflow-hidden bg-[#0a0a0a]">
           <motion.img
             initial={{ scale: 1.06 }}
             animate={{ scale: 1 }}

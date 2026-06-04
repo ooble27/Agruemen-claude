@@ -73,24 +73,6 @@ const QuiSommesNous = () => {
             </div>
           </motion.div>
 
-          {/* Stats strip en bas */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-            className="mt-16 lg:mt-20 grid grid-cols-3 gap-0 border-t border-white/8 pt-8"
-          >
-            {[
-              { v: "340+", l: "Producteurs" },
-              { v: "14", l: "Régions" },
-              { v: "12K+", l: "Commandes/mois" },
-            ].map((s, i) => (
-              <div key={s.l} className={`${i > 0 ? "border-l border-white/8 pl-6" : ""}`}>
-                <p className="font-headline font-black text-white tracking-tighter text-3xl">{s.v}</p>
-                <p className="font-body text-xs text-white/35 mt-1">{s.l}</p>
-              </div>
-            ))}
-          </motion.div>
         </div>
 
         {/* Panneau droit — image parallaxe */}
@@ -109,16 +91,6 @@ const QuiSommesNous = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-transparent to-transparent lg:from-transparent" />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/40 to-transparent lg:hidden" />
 
-          {/* Badge flottant */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.9, duration: 0.5 }}
-            className="absolute bottom-8 left-8 lg:bottom-12 lg:left-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-5 max-w-[220px]"
-          >
-            <p className="font-headline font-black text-white text-3xl">98%</p>
-            <p className="font-body text-sm text-white/60 mt-1">de clients satisfaits</p>
-          </motion.div>
         </motion.div>
       </section>
 

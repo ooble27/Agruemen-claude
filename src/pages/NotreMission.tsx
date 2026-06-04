@@ -3,12 +3,6 @@ import { motion } from "framer-motion";
 import LandingNavbar from "@/components/landing/LandingNavbar";
 import Footer from "@/components/Footer";
 
-const PHOTOS = [
-  { src: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=360&h=480&fit=crop&auto=format", alt: "Agriculteur sénégalais", rot: -3 },
-  { src: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=360&h=480&fit=crop&auto=format", alt: "Champ de culture", rot: 2 },
-  { src: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=360&h=480&fit=crop&auto=format", alt: "Marché local", rot: -1 },
-];
-
 const VALUES = [
   { icon: "eco", title: "Durabilité", desc: "Nous sélectionnons des produits issus de pratiques agricoles respectueuses de l'environnement et des saisons." },
   { icon: "verified", title: "Qualité", desc: "Chaque produit est contrôlé avant livraison — frais, sain, et sélectionné avec soin." },
@@ -41,7 +35,7 @@ const NotreMission = () => {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="flex-1 min-w-0"
+              className="max-w-2xl"
             >
               <h1
                 className="font-headline font-black text-white tracking-[-0.045em] leading-[0.9] mb-5"
@@ -52,29 +46,6 @@ const NotreMission = () => {
               <p className="font-body text-white/50 text-lg leading-relaxed max-w-sm">
                 Mamakaasa distribue des produits agricoles frais du Sénégal, directement chez vous — qualité garantie, prix justes.
               </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="shrink-0 flex items-end gap-3 lg:gap-4 lg:pr-6"
-            >
-              {PHOTOS.map((img, i) => (
-                <div
-                  key={img.alt}
-                  className="overflow-hidden rounded-xl border border-white/10"
-                  style={{
-                    width: "clamp(90px, 14vw, 155px)",
-                    height: "clamp(120px, 18vw, 205px)",
-                    transform: `rotate(${img.rot}deg)`,
-                    transformOrigin: "bottom center",
-                    flexShrink: 0,
-                  }}
-                >
-                  <img src={img.src} alt={img.alt} className="w-full h-full object-cover" loading="eager" />
-                </div>
-              ))}
             </motion.div>
           </div>
         </section>

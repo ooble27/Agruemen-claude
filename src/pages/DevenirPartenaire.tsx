@@ -5,12 +5,6 @@ import { toast } from "sonner";
 import LandingNavbar from "@/components/landing/LandingNavbar";
 import Footer from "@/components/Footer";
 
-const PHOTOS = [
-  { src: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=360&h=480&fit=crop&auto=format", alt: "Champ agricole", rot: -4 },
-  { src: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=360&h=480&fit=crop&auto=format", alt: "Producteur", rot: 3 },
-  { src: "https://images.unsplash.com/photo-1560493676-04071c5f467b?w=360&h=480&fit=crop&auto=format", alt: "Récolte", rot: -1 },
-];
-
 const BENEFITS = [
   {
     icon: "handshake",
@@ -103,12 +97,12 @@ const DevenirPartenaire = () => {
 
         {/* ── Hero ── */}
         <section className="bg-[#0a0a0a] overflow-hidden">
-          <div className="mx-auto max-w-[1200px] px-6 md:px-8 pt-36 pb-20 flex flex-col lg:flex-row items-center gap-12 lg:gap-0">
+          <div className="mx-auto max-w-[1200px] px-6 md:px-8 pt-36 pb-20">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="flex-1 min-w-0"
+              className="max-w-2xl"
             >
               <h1
                 className="font-headline font-black text-white tracking-[-0.045em] leading-[0.9] mb-5"
@@ -130,28 +124,6 @@ const DevenirPartenaire = () => {
               </div>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="shrink-0 flex items-end gap-3 lg:gap-4 lg:pr-6"
-            >
-              {PHOTOS.map((img) => (
-                <div
-                  key={img.alt}
-                  className="overflow-hidden rounded-xl border border-white/10"
-                  style={{
-                    width: "clamp(90px, 14vw, 155px)",
-                    height: "clamp(120px, 18vw, 205px)",
-                    transform: `rotate(${img.rot}deg)`,
-                    transformOrigin: "bottom center",
-                    flexShrink: 0,
-                  }}
-                >
-                  <img src={img.src} alt={img.alt} className="w-full h-full object-cover" loading="eager" />
-                </div>
-              ))}
-            </motion.div>
           </div>
         </section>
 

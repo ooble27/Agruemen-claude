@@ -13,12 +13,6 @@ const VIDEOS = [
   { id: "Sxo9VsEkzk4", label: "Tomate", emoji: "🍅", desc: "Techniques avancées pour une tomate de qualité : tuteurage, taille, fertilisation et protection." },
 ];
 
-const PHOTOS = [
-  { src: "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=280&h=360&fit=crop&auto=format", alt: "Carottes", rot: -4 },
-  { src: "https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?w=280&h=360&fit=crop&auto=format", alt: "Oignons", rot: 3 },
-  { src: "https://images.unsplash.com/photo-1546094096-0df4bcaaa337?w=280&h=360&fit=crop&auto=format", alt: "Tomates", rot: -1 },
-];
-
 const WHY = [
   { icon: "play_circle",  title: "Vidéos gratuites",   desc: "Toutes les capsules sont en accès libre sur YouTube, accessibles depuis n'importe quel téléphone." },
   { icon: "smartphone",   title: "Pratique & mobile",  desc: "Format court et pédagogique, conçu pour les producteurs sur le terrain." },
@@ -37,24 +31,32 @@ const Ressources = () => {
         <LandingNavbar />
 
         {/* ── Hero ── */}
-        <section className="bg-[#0a0a0a] overflow-hidden">
-          <div className="mx-auto max-w-[1200px] px-6 md:px-8 pt-36 pb-20 flex flex-col lg:flex-row items-center gap-12 lg:gap-0">
-
+        <section className="relative overflow-hidden" style={{ background: "#0a0a0a" }}>
+          <div className="absolute inset-0">
+            <img
+              src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=1600&h=600&fit=crop&auto=format"
+              alt=""
+              className="w-full h-full object-cover opacity-20"
+            />
+            <div className="absolute inset-0" style={{ background: "linear-gradient(105deg, #0a0a0a 45%, transparent 100%)" }} />
+            <div className="absolute inset-0" style={{ background: "linear-gradient(to top, #0a0a0a 0%, transparent 55%)" }} />
+          </div>
+          <div className="relative mx-auto max-w-[1200px] px-6 md:px-8 pt-40 pb-20">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="flex-1 min-w-0"
+              transition={{ duration: 0.55 }}
+              className="max-w-xl"
             >
               <h1
-                className="font-headline font-black text-white tracking-[-0.045em] leading-[0.9] mb-5"
-                style={{ fontSize: "clamp(2.8rem, 6vw, 5.5rem)" }}
+                className="font-headline font-black text-white leading-[0.92] tracking-[-0.04em] mb-5"
+                style={{ fontSize: "clamp(2.6rem, 5.5vw, 4.8rem)" }}
               >
-                Produire mieux,<br />grâce à<br />
-                <span className="text-emerald-400">l'ANCAR.</span>
+                Capsules vidéo<br />
+                <span style={{ color: "#4ade80" }}>pour producteurs.</span>
               </h1>
-              <p className="font-body text-white/50 text-lg leading-relaxed max-w-sm mb-8">
-                Des capsules vidéo gratuites pour accompagner les producteurs maraîchers sénégalais — directement sur votre téléphone.
+              <p className="font-body text-white/50 text-[1.05rem] leading-relaxed mb-8">
+                L'ANCAR propose des vidéos gratuites pour accompagner les maraîchers sénégalais. Conseils simples, pratiques, accessibles depuis tout téléphone.
               </p>
               <div className="flex flex-wrap gap-3">
                 <a
@@ -66,37 +68,10 @@ const Ressources = () => {
                   <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>smart_display</span>
                   Voir la chaîne ANCAR
                 </a>
-                <a
-                  href="#videos"
-                  className="inline-flex items-center gap-2 border border-white/20 text-white/70 font-headline text-sm font-bold rounded-xl px-6 py-3"
-                >
+                <a href="#videos" className="inline-flex items-center gap-2 border border-white/20 text-white/70 font-headline text-sm font-bold rounded-xl px-6 py-3">
                   Voir les vidéos
                 </a>
               </div>
-            </motion.div>
-
-            {/* Photos empilées */}
-            <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="shrink-0 flex items-end gap-3 lg:gap-4 lg:pr-6"
-            >
-              {PHOTOS.map((img) => (
-                <div
-                  key={img.alt}
-                  className="overflow-hidden rounded-xl border border-white/10"
-                  style={{
-                    width: "clamp(90px, 14vw, 150px)",
-                    height: "clamp(120px, 18vw, 200px)",
-                    transform: `rotate(${img.rot}deg)`,
-                    transformOrigin: "bottom center",
-                    flexShrink: 0,
-                  }}
-                >
-                  <img src={img.src} alt={img.alt} className="w-full h-full object-cover" loading="eager" />
-                </div>
-              ))}
             </motion.div>
           </div>
         </section>

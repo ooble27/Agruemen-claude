@@ -5,12 +5,6 @@ import { toast } from "sonner";
 import LandingNavbar from "@/components/landing/LandingNavbar";
 import Footer from "@/components/Footer";
 
-const PHOTOS = [
-  { src: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=360&h=480&fit=crop&auto=format", alt: "Équipe", rot: -4 },
-  { src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=360&h=480&fit=crop&auto=format", alt: "Bureau", rot: 3 },
-  { src: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=360&h=480&fit=crop&auto=format", alt: "Collaboration", rot: -1 },
-];
-
 const PERKS = [
   { icon: "payments", title: "Salaire compétitif", desc: "Rémunération au-dessus du marché sénégalais avec révision annuelle systématique." },
   { icon: "health_and_safety", title: "Couverture santé", desc: "Assurance maladie complète pour vous et votre famille dès le premier jour." },
@@ -120,12 +114,12 @@ const Carrieres = () => {
 
         {/* ── Hero ── */}
         <section className="bg-[#0a0a0a] overflow-hidden">
-          <div className="mx-auto max-w-[1200px] px-6 md:px-8 pt-36 pb-20 flex flex-col lg:flex-row items-center gap-12 lg:gap-0">
+          <div className="mx-auto max-w-[1200px] px-6 md:px-8 pt-36 pb-20">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="flex-1 min-w-0"
+              className="max-w-2xl"
             >
               <h1
                 className="font-headline font-black text-white tracking-[-0.045em] leading-[0.9] mb-5"
@@ -140,29 +134,6 @@ const Carrieres = () => {
                 <span className="material-symbols-outlined text-sm">work</span>
                 Voir les offres
               </a>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="shrink-0 flex items-end gap-3 lg:gap-4 lg:pr-6"
-            >
-              {PHOTOS.map((img) => (
-                <div
-                  key={img.alt}
-                  className="overflow-hidden rounded-xl border border-white/10"
-                  style={{
-                    width: "clamp(90px, 14vw, 155px)",
-                    height: "clamp(120px, 18vw, 205px)",
-                    transform: `rotate(${img.rot}deg)`,
-                    transformOrigin: "bottom center",
-                    flexShrink: 0,
-                  }}
-                >
-                  <img src={img.src} alt={img.alt} className="w-full h-full object-cover" loading="eager" />
-                </div>
-              ))}
             </motion.div>
           </div>
         </section>
