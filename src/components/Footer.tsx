@@ -17,6 +17,7 @@ const links = {
     { label: "Qui sommes-nous", href: "/qui-sommes-nous" },
     { label: "Blog", href: "/blog" },
     { label: "Nos Engagements", href: "/nos-engagements" },
+    { label: "Ressources", href: "/ressources" },
     { label: "Devenir Partenaire", href: "/devenir-partenaire" },
     { label: "Carrières", href: "/carrieres" },
   ],
