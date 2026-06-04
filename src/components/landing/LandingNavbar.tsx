@@ -206,7 +206,7 @@ const LandingNavbar = () => {
                 <Link
                   to="/auth"
                   className="rounded-lg px-5 py-2 font-headline text-[13.5px] font-bold text-white transition-opacity hover:opacity-90"
-                  style={{ background: "#16a34a" }}
+                  style={{ background: "#10b981" }}
                 >
                   Commencer
                 </Link>
@@ -323,7 +323,7 @@ const LandingNavbar = () => {
                   <Link
                     to="/auth"
                     className="flex items-center justify-center gap-2 py-3 rounded-xl font-headline font-bold text-sm text-white"
-                    style={{ background: "#16a34a" }}
+                    style={{ background: "#10b981" }}
                   >
                     Connexion / Commencer
                   </Link>

@@ -106,10 +106,6 @@ const FAQ = () => {
       <section className="px-6 md:px-14 pt-36 pb-20 border-b border-white/8">
         <div className="mx-auto max-w-[1200px]">
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-            <div className="inline-flex items-center gap-2 bg-white/8 border border-white/10 rounded-full px-3.5 py-1.5 mb-8">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-              <span className="font-headline text-[10px] font-bold text-white/50 uppercase tracking-[0.2em]">{totalQ} questions répondues</span>
-            </div>
             <h1
               className="font-headline font-black text-white tracking-[-0.045em] leading-[0.88]"
               style={{ fontSize: "clamp(4rem, 9vw, 9rem)" }}

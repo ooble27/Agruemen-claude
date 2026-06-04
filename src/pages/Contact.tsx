@@ -34,11 +34,6 @@ const Contact = () => {
           className="flex flex-col justify-between w-full lg:w-1/2 px-8 md:px-14 pt-36 pb-14 border-r border-white/6"
         >
           <div>
-            <div className="inline-flex items-center gap-2 bg-white/8 border border-white/10 rounded-full px-3.5 py-1.5 mb-10">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="font-headline text-[10px] font-bold text-white/50 uppercase tracking-[0.2em]">Disponibles Lun–Sam · 7h–20h</span>
-            </div>
-
             <h1
               className="font-headline font-black text-white tracking-[-0.05em] leading-[0.85] mb-10"
               style={{ fontSize: "clamp(4.5rem, 10vw, 10rem)" }}

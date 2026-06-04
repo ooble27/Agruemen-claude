@@ -27,13 +27,13 @@
     --secondary: 60 5% 94%;
     --secondary-foreground: 0 0% 4%;
 
-    --tertiary: 142 70% 45%;        /* #16a34a emerald green */
+    --tertiary: 142 70% 45%;        /* #10b981 emerald green */
     --tertiary-foreground: 0 0% 100%;
 
     --muted: 60 5% 94%;
     --muted-foreground: 60 2% 54%;  /* #8A8A85 */
 
-    --accent: 142 70% 45%;          /* #16a34a emerald green */
+    --accent: 142 70% 45%;          /* #10b981 emerald green */
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 45%;

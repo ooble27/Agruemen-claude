@@ -108,7 +108,7 @@ const ProductCard = ({ product, onAddToCart, formatPrice, index = 0 }: ProductCa
             <span
               className="material-symbols-outlined text-[13px]"
               style={{
-                color: wishlisted ? '#16a34a' : 'hsl(60 2% 54%)',
+                color: wishlisted ? '#10b981' : 'hsl(60 2% 54%)',
                 fontVariationSettings: wishlisted ? "'FILL' 1" : "'FILL' 0",
               }}
             >
@@ -143,7 +143,7 @@ const ProductCard = ({ product, onAddToCart, formatPrice, index = 0 }: ProductCa
                 ) : (
                   <div
                     className="flex items-center rounded-full"
-                    style={{ background: '#16a34a' }}
+                    style={{ background: '#10b981' }}
                   >
                     <button onClick={handleDec} className="w-7 h-7 rounded-full flex items-center justify-center" style={{ color: '#fff' }}>
                       <span className="material-symbols-outlined text-[13px]">{qty === 1 ? 'delete' : 'remove'}</span>

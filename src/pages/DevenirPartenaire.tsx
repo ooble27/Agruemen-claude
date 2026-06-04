@@ -110,10 +110,6 @@ const DevenirPartenaire = () => {
               transition={{ duration: 0.6 }}
               className="flex-1 min-w-0"
             >
-              <div className="inline-flex items-center gap-2 bg-white/8 border border-white/10 rounded-full px-3.5 py-1.5 mb-6">
-                <span className="material-symbols-outlined text-emerald-400 text-sm">fiber_manual_record</span>
-                <span className="font-headline text-[11px] font-bold text-white/70 uppercase tracking-widest">Programme Partenaire</span>
-              </div>
               <h1
                 className="font-headline font-black text-white tracking-[-0.045em] leading-[0.9] mb-5"
                 style={{ fontSize: "clamp(2.8rem, 6vw, 5.5rem)" }}

@@ -68,10 +68,6 @@ const MentionsLegales = () => (
       {/* Hero */}
       <section className="bg-[#0a0a0a] pt-36 pb-16 px-6 md:px-8">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mx-auto max-w-[900px]">
-          <div className="inline-flex items-center gap-2 bg-white/8 border border-white/10 rounded-full px-3.5 py-1.5 mb-6">
-            <span className="material-symbols-outlined text-white/40 text-sm">article</span>
-            <span className="font-headline text-[11px] font-bold text-white/60 uppercase tracking-widest">Légal</span>
-          </div>
           <h1 className="font-headline font-black text-white tracking-[-0.04em] leading-[0.92] mb-4"
             style={{ fontSize: "clamp(2.4rem, 5vw, 4rem)" }}>
             Mentions<br />Légales

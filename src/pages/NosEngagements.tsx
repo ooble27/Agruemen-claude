@@ -41,10 +41,6 @@ const NosEngagements = () => {
         <div className="relative z-10 w-full px-6 md:px-14 pb-16 pt-40">
           <div className="mx-auto max-w-[1200px]">
             <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.8 }}>
-              <div className="inline-flex items-center gap-2 bg-emerald-500/20 border border-emerald-500/30 rounded-full px-3.5 py-1.5 mb-8">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                <span className="font-headline text-[10px] font-bold text-emerald-400 uppercase tracking-[0.2em]">Impact & Durabilité</span>
-              </div>
               <h1
                 className="font-headline font-black text-white tracking-[-0.045em] leading-[0.88] mb-6"
                 style={{ fontSize: "clamp(3rem, 7vw, 7rem)" }}

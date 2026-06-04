@@ -91,7 +91,7 @@ const CartDrawer = () => {
                         <div className="flex items-center justify-between mt-2.5">
                           <div
                             className="flex items-center rounded-full"
-                            style={{ background: '#16a34a' }}
+                            style={{ background: '#10b981' }}
                           >
                             <button
                               onClick={() => updateQuantity(item.id, item.quantity - 1)}

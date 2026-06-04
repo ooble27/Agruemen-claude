@@ -14,7 +14,7 @@ type Product = MarketProduct;
 type SortValue = "default" | "price_asc" | "price_desc" | "new";
 
 const CATEGORY_COLORS: Record<string, string> = {
-  fruits: '#16a34a',
+  fruits: '#10b981',
   legumes: '#16A34A',
   cereales: '#CA8A04',
   tubercules: '#A16207',
@@ -223,7 +223,7 @@ const Marche = () => {
                         fontWeight: sortBy === opt.value ? 600 : 500,
                       }}
                     >
-                      {sortBy === opt.value && <span className="w-1 h-1 rounded-full shrink-0" style={{ background: '#16a34a' }}/>}
+                      {sortBy === opt.value && <span className="w-1 h-1 rounded-full shrink-0" style={{ background: '#10b981' }}/>}
                       {opt.label}
                     </button>
                   ))}

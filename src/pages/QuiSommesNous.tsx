@@ -51,11 +51,6 @@ const QuiSommesNous = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="inline-flex items-center gap-2 bg-white/8 border border-white/10 rounded-full px-3.5 py-1.5 mb-8">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="font-headline text-[10px] font-bold text-white/60 uppercase tracking-[0.2em]">Fondée à Dakar · 2022</span>
-            </div>
-
             <h1 className="font-headline font-black text-white leading-[0.88] tracking-[-0.04em] mb-8"
               style={{ fontSize: "clamp(3.2rem, 6.5vw, 6rem)" }}>
               Nés à<br />Dakar.<br />
