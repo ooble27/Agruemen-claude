@@ -144,12 +144,12 @@ export const MOCK_PRODUCTS: MockProduct[] = [
     description: "Oranges juteuses récoltées à maturité complète. Riches en vitamine C, parfaites pour jus maison, pâtisseries et consommation nature.", stock: 30, sellerIdx: 1,
   }),
   createMockProduct({
-    id: "m7", name: "Citron Vert", price: 300, unit: "le kg", categoryId: "cat-fruits",
+    id: "m7", name: "Citron", price: 350, unit: "le kg", categoryId: "cat-fruits",
     imageUrl: "https://images.unsplash.com/photo-1590502593747-42a996133562?w=600&h=600&fit=crop&auto=format",
     extraImages: [
       "https://images.unsplash.com/photo-1594897030264-ab7d87efc473?w=600&h=600&fit=crop&auto=format",
     ],
-    description: "Citron vert intense et aromatique, indispensable pour marinades, sauces, bissap frais et boissons fraîches. Pressé sur vos plats pour rehausser les saveurs.", stock: 28, sellerIdx: 2,
+    description: "Citron frais et juteux, indispensable pour marinades, sauces, bissap frais et boissons fraîches.", stock: 28, sellerIdx: 2,
   }),
   createMockProduct({
     id: "m9", name: "Banane Douce", price: 350, unit: "le kg", categoryId: "cat-fruits",
@@ -188,12 +188,12 @@ export const MOCK_PRODUCTS: MockProduct[] = [
     description: "Piment rouge vif pour relever sauces, braisés et marinades. Intensité modérée à forte selon la quantité. Séchable pour conservation.", stock: 22, sellerIdx: 2,
   }),
   createMockProduct({
-    id: "m15", name: "Gombo", price: 500, unit: "le kg", categoryId: "cat-legumes",
+    id: "m15", name: "Gombo", price: 450, unit: "le kg", categoryId: "cat-legumes",
     imageUrl: "https://images.unsplash.com/photo-1425543103986-22abb7d7e8d2?w=600&h=600&fit=crop&auto=format",
     description: "Gombo tendre et bien frais pour sauces onctueuses, soupes et plats traditionnels sénégalais. Riche en fibres et vitamines.", stock: 18, sellerIdx: 1,
   }),
   createMockProduct({
-    id: "m16", name: "Carotte", price: 400, unit: "le kg", categoryId: "cat-legumes",
+    id: "m16", name: "Carotte", price: 180, unit: "le kg", categoryId: "cat-legumes",
     imageUrl: "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=600&h=600&fit=crop&auto=format",
     extraImages: [
       "https://images.unsplash.com/photo-1447175008436-054170c2e979?w=600&h=600&fit=crop&auto=format",
@@ -201,7 +201,7 @@ export const MOCK_PRODUCTS: MockProduct[] = [
     description: "Carottes douces et fermes, riches en bêta-carotène. Idéales pour jus, salades râpées, potages et cuissons lentes.", stock: 26, sellerIdx: 1,
   }),
   createMockProduct({
-    id: "m17", name: "Poivron Coloré", price: 550, unit: "le kg", categoryId: "cat-legumes",
+    id: "m17", name: "Poivron / Simbad", price: 175, unit: "le kg", categoryId: "cat-legumes",
     imageUrl: "https://images.unsplash.com/photo-1563565375-f3fdfdbefa83?w=600&h=600&fit=crop&auto=format",
     extraImages: [
       "https://images.unsplash.com/photo-1592441379333-cb8bbce7e2c1?w=600&h=600&fit=crop&auto=format",
@@ -209,7 +209,7 @@ export const MOCK_PRODUCTS: MockProduct[] = [
     description: "Poivrons rouges, jaunes et verts croquants. Parfaits pour sauces colorées, farces, salades et sautés rapides.", stock: 17, sellerIdx: 0,
   }),
   createMockProduct({
-    id: "m18", name: "Concombre", price: 300, unit: "le kg", categoryId: "cat-legumes",
+    id: "m18", name: "Oignons", price: 350, unit: "le kg", categoryId: "cat-legumes",
     imageUrl: "https://images.unsplash.com/photo-1449300079323-02e209d9d3a6?w=600&h=600&fit=crop&auto=format",
     extraImages: [
       "https://images.unsplash.com/photo-1568584711075-3d021a7c3ca3?w=600&h=600&fit=crop&auto=format",
@@ -222,14 +222,69 @@ export const MOCK_PRODUCTS: MockProduct[] = [
     description: "Laitue fraîche et bien pommée, feuilles croquantes. Idéale pour salades composées, wraps et sandwichs.", stock: 22, sellerIdx: 0,
   }),
   createMockProduct({
-    id: "m19d", name: "Persil Frais", price: 150, unit: "la botte", categoryId: "cat-legumes",
+    id: "m19d", name: "Persil / Coriandre", price: 300, unit: "la botte", categoryId: "cat-legumes",
     imageUrl: "https://images.unsplash.com/photo-1506073881649-4e23be3e9ed0?w=600&h=600&fit=crop&auto=format",
     description: "Persil frais et aromatique, récolté le matin même. Indispensable pour garnir, assaisonner et décorer vos plats.", stock: 35, sellerIdx: 1,
   }),
   createMockProduct({
-    id: "m19e", name: "Chou Vert", price: 350, unit: "la pièce", categoryId: "cat-legumes",
+    id: "m19e", name: "Chou Pomme", price: 350, unit: "le kg", categoryId: "cat-legumes",
     imageUrl: "https://images.unsplash.com/photo-1594282486552-05b4d80fbb9f?w=600&h=600&fit=crop&auto=format",
     description: "Chou vert tendre et feuillu pour potages, sautés et accompagnements nutritifs. Riche en vitamines K et C.", stock: 19, sellerIdx: 2,
+  }),
+
+  // ─── Légumes supplémentaires (prix marché 03/06/2026) ───
+  createMockProduct({
+    id: "mv1", name: "Tomate Cobra", price: 260, unit: "le kg", categoryId: "cat-legumes",
+    imageUrl: "https://images.unsplash.com/photo-1546094096-0df4bcaaa337?w=600&h=600&fit=crop&auto=format",
+    extraImages: ["https://images.unsplash.com/photo-1582284540020-8acbe03f4924?w=600&h=600&fit=crop&auto=format"],
+    description: "Tomate Cobra fraîche, sac de 35 kg. Idéale pour sauces, thiéboudiène et plats mijotés.", stock: 30, sellerIdx: 0,
+  }),
+  createMockProduct({
+    id: "mv2", name: "Tomate Ndiambe", price: 200, unit: "le kg", categoryId: "cat-legumes",
+    imageUrl: "https://images.unsplash.com/photo-1592841200221-a6898f307baa?w=600&h=600&fit=crop&auto=format",
+    description: "Tomate Ndiambe locale, ferme et parfumée. Sac de 35 kg, idéale pour jus et cuisine.", stock: 20, sellerIdx: 1,
+  }),
+  createMockProduct({
+    id: "mv3", name: "Aubergine", price: 90, unit: "le kg", categoryId: "cat-legumes",
+    imageUrl: "https://images.unsplash.com/photo-1619472032094-eadb7ec6e4e3?w=600&h=600&fit=crop&auto=format",
+    extraImages: ["https://images.unsplash.com/photo-1473593516076-3cd7527a2e63?w=600&h=600&fit=crop&auto=format"],
+    description: "Aubergine fraîche en sac de 40–50 kg. Parfaite pour les sauces et plats mijotés traditionnels.", stock: 25, sellerIdx: 2,
+  }),
+  createMockProduct({
+    id: "mv4", name: "Navet", price: 115, unit: "le kg", categoryId: "cat-legumes",
+    imageUrl: "https://images.unsplash.com/photo-1659261175192-5867be9c8484?w=600&h=600&fit=crop&auto=format",
+    description: "Navet ordinaire frais, sac de 70 kg. Base du thiéboudiène et des plats en sauce.", stock: 30, sellerIdx: 0,
+  }),
+  createMockProduct({
+    id: "mv5", name: "Pomme de Terre Locale", price: 340, unit: "le kg", categoryId: "cat-legumes",
+    imageUrl: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=600&h=600&fit=crop&auto=format",
+    extraImages: ["https://images.unsplash.com/photo-1508313880080-c4bef0730395?w=600&h=600&fit=crop&auto=format"],
+    description: "Pomme de terre locale, sac de 25 kg. Sortie chambre froide, ferme et savoureuse.", stock: 20, sellerIdx: 1,
+  }),
+  createMockProduct({
+    id: "mv6", name: "Pomme de Terre Rouge", price: 350, unit: "le kg", categoryId: "cat-legumes",
+    imageUrl: "https://images.unsplash.com/photo-1624897082742-c8c12fd5e5b0?w=600&h=600&fit=crop&auto=format",
+    description: "Pomme de terre rouge importée, sac de 25 kg. Chair ferme, sortie chambre froide.", stock: 18, sellerIdx: 0,
+  }),
+  createMockProduct({
+    id: "mv7", name: "Oignon Vert", price: 200, unit: "le kg", categoryId: "cat-legumes",
+    imageUrl: "https://images.unsplash.com/photo-1527324688151-0e627063f2b1?w=600&h=600&fit=crop&auto=format",
+    description: "Oignon vert frais (nottò / fasse), vendu au kg. Parfait pour sauces et garnitures.", stock: 25, sellerIdx: 2,
+  }),
+  createMockProduct({
+    id: "mv8", name: "Thioukly", price: 550, unit: "le kg", categoryId: "cat-legumes",
+    imageUrl: "https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=600&h=600&fit=crop&auto=format",
+    description: "Thioukly frais, légume feuille local très apprécié en cuisine sénégalaise.", stock: 15, sellerIdx: 1,
+  }),
+  createMockProduct({
+    id: "mv9", name: "Patate Wallo", price: 240, unit: "le kg", categoryId: "cat-legumes",
+    imageUrl: "https://images.unsplash.com/photo-1596097559115-1d43a35e5a89?w=600&h=600&fit=crop&auto=format",
+    description: "Patate douce du Walo, sac de 75 kg. Chair fondante, riche et sucrée naturellement.", stock: 20, sellerIdx: 3,
+  }),
+  createMockProduct({
+    id: "mv10", name: "Ñambi Wallo", price: 295, unit: "le kg", categoryId: "cat-legumes",
+    imageUrl: "https://images.unsplash.com/photo-1566842600175-97dca489844f?w=600&h=600&fit=crop&auto=format",
+    description: "Ñambi du Walo, sac de 75 kg. Légume local très nutritif, base de nombreux plats traditionnels.", stock: 15, sellerIdx: 3,
   }),
 
   // ═══════════════ CÉRÉALES ═══════════════
