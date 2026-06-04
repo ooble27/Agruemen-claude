@@ -71,19 +71,30 @@ const Ressources = () => {
                 transition={{ duration: 0.4, delay: i * 0.06 }}
                 className="rounded-2xl overflow-hidden border border-border/12 bg-white shadow-sm"
               >
-                <div className="relative w-full" style={{ aspectRatio: "16/9" }}>
-                  <iframe
-                    src={`https://www.youtube.com/embed/${video.id}`}
-                    title={`${video.label} — ANCAR`}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="absolute inset-0 w-full h-full border-0"
+                <a
+                  href={`https://www.youtube.com/watch?v=${video.id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block relative w-full group"
+                  style={{ aspectRatio: "16/9" }}
+                >
+                  <img
+                    src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`}
+                    alt={video.label}
+                    className="absolute inset-0 w-full h-full object-cover"
                     loading="lazy"
                   />
-                </div>
+                  {/* Play button overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/35 transition-colors">
+                    <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                      <span className="material-symbols-outlined text-[#0a0a0a] text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>play_arrow</span>
+                    </div>
+                  </div>
+                </a>
                 <div className="px-4 py-3 flex items-center gap-2.5">
                   <span className="text-xl leading-none">{video.emoji}</span>
                   <span className="font-headline font-bold text-foreground text-sm">{video.label}</span>
+                  <span className="material-symbols-outlined text-on-surface-variant text-sm ml-auto">open_in_new</span>
                 </div>
               </motion.div>
             ))}
