@@ -3,14 +3,14 @@ import LandingNavbar from "@/components/landing/LandingNavbar";
 import Footer from "@/components/Footer";
 
 const VIDEOS = [
-  { id: "O_MxUNMXgSA", label: "Carotte", emoji: "🥕", desc: "Techniques de culture, arrosage et récolte de la carotte." },
-  { id: "hlmdDVyiMq8", label: "Piment", emoji: "🌶️", desc: "Guide complet pour une production de piment saine et productive." },
-  { id: "GfdXwXbSPMw", label: "Poivron", emoji: "🫑", desc: "Conseils pratiques pour cultiver le poivron en conditions locales." },
-  { id: "UqN0-Il-V84", label: "Pomme de terre", emoji: "🥔", desc: "Plantation, entretien et conservation de la pomme de terre." },
-  { id: "A-LxG_Q0uxE", label: "Chou", emoji: "🥬", desc: "Maîtriser la culture du chou : variétés, sol et traitements." },
-  { id: "HRhVO1lDkRA", label: "Aubergine", emoji: "🍆", desc: "Produire des aubergines saines et abondantes toute la saison." },
-  { id: "10tY_qaCxAM", label: "Oignon", emoji: "🧅", desc: "De la semence à la récolte : toutes les étapes de l'oignon." },
-  { id: "Sxo9VsEkzk4", label: "Tomate", emoji: "🍅", desc: "Techniques avancées pour une tomate de qualité et résistante." },
+  { id: "O_MxUNMXgSA", label: "Carotte", emoji: "🥕", desc: "Techniques de semis, d'arrosage, d'entretien et de récolte de la carotte maraîchère." },
+  { id: "hlmdDVyiMq8", label: "Piment", emoji: "🌶️", desc: "Guide complet pour une production de piment saine, résistante et productive en conditions locales." },
+  { id: "GfdXwXbSPMw", label: "Poivron", emoji: "🫑", desc: "Conseils pratiques pour maîtriser la culture du poivron : variétés, sol, irrigation et récolte." },
+  { id: "UqN0-Il-V84", label: "Pomme de terre", emoji: "🥔", desc: "De la plantation à la conservation : toutes les étapes clés pour réussir la pomme de terre." },
+  { id: "A-LxG_Q0uxE", label: "Chou", emoji: "🥬", desc: "Maîtriser la culture du chou pomme : préparation du sol, transplantation, traitements et coupe." },
+  { id: "HRhVO1lDkRA", label: "Aubergine", emoji: "🍆", desc: "Produire des aubergines saines et abondantes : choix des plants, irrigation et lutte contre les ravageurs." },
+  { id: "10tY_qaCxAM", label: "Oignon", emoji: "🧅", desc: "De la pépinière à la récolte : maîtriser toutes les étapes de la production de l'oignon local." },
+  { id: "Sxo9VsEkzk4", label: "Tomate", emoji: "🍅", desc: "Techniques avancées pour une tomate de qualité : tuteurage, taille, fertilisation et protection." },
 ];
 
 const Ressources = () => {
@@ -20,110 +20,122 @@ const Ressources = () => {
 
       {/* ── Hero ── */}
       <section className="relative overflow-hidden" style={{ background: "#0a0a0a" }}>
-        {/* Background farm photo */}
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=1600&h=700&fit=crop&auto=format"
+            src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=1600&h=600&fit=crop&auto=format"
             alt=""
-            className="w-full h-full object-cover opacity-25"
+            className="w-full h-full object-cover opacity-20"
           />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(to right, #0a0a0a 40%, transparent 100%)" }} />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(to top, #0a0a0a 0%, transparent 60%)" }} />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(105deg, #0a0a0a 45%, transparent 100%)" }} />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(to top, #0a0a0a 0%, transparent 55%)" }} />
         </div>
 
-        <div className="relative mx-auto max-w-[1200px] px-6 md:px-8 pt-40 pb-24">
+        <div className="relative mx-auto max-w-[1200px] px-6 md:px-8 pt-40 pb-20">
           <motion.div
-            initial={{ opacity: 0, y: 28 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="max-w-2xl"
+            transition={{ duration: 0.55 }}
+            className="max-w-xl"
           >
-            {/* Partnership badge */}
-            <div className="inline-flex items-center gap-2.5 border border-white/12 rounded-full px-4 py-2 mb-8" style={{ background: "rgba(255,255,255,0.05)" }}>
-              <span className="font-headline text-[10px] font-bold text-white/40 uppercase tracking-widest">En partenariat avec</span>
-              <span className="w-px h-3 bg-white/15" />
-              <span className="font-headline text-[11px] font-black text-white/80 uppercase tracking-wider">ANCAR</span>
+            <div className="inline-flex items-center gap-2.5 border border-white/10 rounded-lg px-4 py-2 mb-7" style={{ background: "rgba(255,255,255,0.04)" }}>
+              <span className="font-headline text-[9px] font-bold text-white/35 uppercase tracking-[0.22em]">En partenariat avec</span>
+              <span className="w-px h-3 bg-white/12" />
+              <span className="font-headline text-[11px] font-black text-white/75 uppercase tracking-widest">ANCAR</span>
             </div>
 
             <h1
-              className="font-headline font-black text-white leading-[0.92] tracking-[-0.04em] mb-6"
-              style={{ fontSize: "clamp(2.8rem, 6vw, 5.2rem)" }}
+              className="font-headline font-black text-white leading-[0.92] tracking-[-0.04em] mb-5"
+              style={{ fontSize: "clamp(2.6rem, 5.5vw, 4.8rem)" }}
             >
-              Produire mieux,<br />
-              <span style={{ color: "#4ade80" }}>local et durable.</span>
+              Capsules vidéo<br />
+              <span style={{ color: "#4ade80" }}>pour producteurs.</span>
             </h1>
-            <p className="font-body text-white/55 text-lg leading-relaxed max-w-lg">
-              L'ANCAR met à disposition des capsules vidéo gratuites pour accompagner les producteurs maraîchers sénégalais — directement sur votre téléphone.
+            <p className="font-body text-white/50 text-[1.05rem] leading-relaxed">
+              L'ANCAR propose des vidéos gratuites pour accompagner les maraîchers sénégalais. Conseils simples, pratiques, accessibles depuis tout téléphone.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* ── Grille vidéos ── */}
-      <section className="mx-auto max-w-[1200px] px-6 md:px-8 pb-16 md:pb-20">
-        <div className="flex items-end justify-between mb-8">
+      {/* ── Liste vidéos ── */}
+      <section className="mx-auto max-w-[1200px] px-4 md:px-8 py-14 md:py-20">
+
+        {/* Header */}
+        <div className="flex items-center justify-between mb-10">
           <div>
-            <h2 className="font-headline font-black text-foreground text-2xl md:text-[1.75rem] tracking-tight leading-tight">
-              Capsules vidéo
+            <p className="font-headline text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant mb-1.5">ANCAR · 2024</p>
+            <h2 className="font-headline font-black text-foreground text-2xl md:text-3xl tracking-tight">
+              8 cultures couvertes
             </h2>
-            <p className="font-body text-on-surface-variant text-sm mt-1">
-              8 cultures · Cliquez pour regarder sur YouTube
-            </p>
           </div>
-          <div className="hidden sm:flex items-center gap-1.5 text-on-surface-variant">
-            <span className="material-symbols-outlined text-sm">open_in_new</span>
-            <span className="font-body text-xs">Ouvre YouTube</span>
-          </div>
+          <a
+            href="https://youtube.com/@agencenationaleduconseilag8179?feature=shared"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-flex items-center gap-2 rounded-lg px-4 py-2.5 font-headline font-bold text-sm text-white transition-opacity hover:opacity-88"
+            style={{ background: "#16a34a" }}
+          >
+            <span className="material-symbols-outlined text-base" style={{ fontVariationSettings: "'FILL' 1" }}>smart_display</span>
+            Chaîne ANCAR
+          </a>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* 2-col grid desktop / 1-col mobile */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {VIDEOS.map((video, i) => (
             <motion.a
               key={video.id}
               href={`https://www.youtube.com/watch?v=${video.id}`}
               target="_blank"
               rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: i * 0.055 }}
-              className="group rounded-2xl overflow-hidden bg-white border border-black/[0.06] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col"
+              transition={{ duration: 0.38, delay: i * 0.05 }}
+              className="group flex gap-0 rounded-2xl overflow-hidden bg-white border border-black/[0.07] hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
             >
               {/* Thumbnail */}
-              <div className="relative w-full overflow-hidden" style={{ aspectRatio: "16/9" }}>
+              <div className="relative shrink-0 overflow-hidden" style={{ width: 168, aspectRatio: "4/3" }}>
                 <img
                   src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`}
                   alt={video.label}
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   loading="lazy"
                 />
-                {/* Dark overlay */}
-                <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors" />
-                {/* Play button */}
+                <div className="absolute inset-0 bg-black/15 group-hover:bg-black/25 transition-colors" />
+                {/* Play */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div
-                    className="w-11 h-11 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-200"
-                    style={{ background: "rgba(255,255,255,0.92)" }}
+                    className="w-10 h-10 rounded-full flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-200"
+                    style={{ background: "rgba(255,255,255,0.90)" }}
                   >
                     <span
-                      className="material-symbols-outlined text-[22px] leading-none"
+                      className="material-symbols-outlined text-[20px] leading-none"
                       style={{ color: "#0a0a0a", fontVariationSettings: "'FILL' 1", marginLeft: "2px" }}
                     >
                       play_arrow
                     </span>
                   </div>
                 </div>
-                {/* Number badge */}
-                <div className="absolute top-2.5 left-2.5 w-6 h-6 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center">
-                  <span className="font-headline font-black text-white text-[10px]">{i + 1}</span>
+                {/* Number */}
+                <div className="absolute top-2.5 left-2.5 w-6 h-6 rounded-md flex items-center justify-center" style={{ background: "rgba(0,0,0,0.55)", backdropFilter: "blur(4px)" }}>
+                  <span className="font-headline font-black text-white text-[10px]">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
                 </div>
               </div>
 
-              {/* Label */}
-              <div className="px-4 py-3.5 flex items-center gap-2.5">
-                <span className="text-[18px] leading-none">{video.emoji}</span>
-                <div className="flex-1 min-w-0">
-                  <p className="font-headline font-bold text-foreground text-sm">{video.label}</p>
-                  <p className="font-body text-on-surface-variant text-[11px] leading-snug mt-0.5 line-clamp-1">{video.desc}</p>
+              {/* Content */}
+              <div className="flex-1 min-w-0 flex flex-col justify-center px-5 py-4">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="text-lg leading-none">{video.emoji}</span>
+                  <p className="font-headline font-black text-foreground text-base tracking-tight">{video.label}</p>
+                </div>
+                <p className="font-body text-on-surface-variant text-[12px] leading-relaxed line-clamp-2 mb-3">
+                  {video.desc}
+                </p>
+                <div className="flex items-center gap-1 font-headline font-bold text-[11px] transition-colors" style={{ color: "#16a34a" }}>
+                  <span>Regarder sur YouTube</span>
+                  <span className="material-symbols-outlined text-[13px]">arrow_forward</span>
                 </div>
               </div>
             </motion.a>
@@ -131,45 +143,34 @@ const Ressources = () => {
         </div>
       </section>
 
-      {/* ── CTA partage ── */}
-      <section className="mx-auto max-w-[1200px] px-6 md:px-8 pb-24">
+      {/* ── CTA ── */}
+      <section className="mx-auto max-w-[1200px] px-4 md:px-8 pb-20">
         <div
-          className="relative rounded-3xl overflow-hidden px-8 py-12 md:px-14 md:py-16 flex flex-col md:flex-row items-start md:items-center gap-8"
+          className="relative rounded-2xl overflow-hidden px-8 py-10 md:px-12 md:py-14 flex flex-col sm:flex-row items-start sm:items-center gap-8"
           style={{ background: "#0a0a0a" }}
         >
-          {/* Background subtle pattern */}
           <div
-            className="absolute inset-0 opacity-[0.04] pointer-events-none"
-            style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "22px 22px" }}
+            className="absolute inset-0 opacity-[0.035] pointer-events-none"
+            style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "24px 24px" }}
           />
           <div className="relative flex-1 min-w-0">
-            <div className="inline-flex items-center gap-2 bg-emerald-500/15 border border-emerald-500/20 rounded-full px-3 py-1.5 mb-5">
-              <span className="material-symbols-outlined text-emerald-400 text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>campaign</span>
-              <span className="font-headline text-[10px] font-bold text-emerald-400 uppercase tracking-widest">Pour les producteurs</span>
-            </div>
-            <h3
-              className="font-headline font-black text-white tracking-tight leading-tight mb-3"
-              style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)" }}
-            >
-              Partagez ces ressources<br />autour de vous.
-            </h3>
-            <p className="font-body text-white/50 text-base leading-relaxed max-w-md">
-              Ces capsules vidéo sont gratuites et disponibles pour tous les producteurs. Plus on les partage, plus on produit mieux — ensemble.
+            <p className="font-headline font-black text-white text-xl md:text-2xl tracking-tight mb-2">
+              Partagez avec les producteurs de votre entourage.
+            </p>
+            <p className="font-body text-white/45 text-sm leading-relaxed max-w-md">
+              Ces ressources sont gratuites et disponibles pour tous. Plus on partage, plus on produit mieux — ensemble.
             </p>
           </div>
-          <div className="relative shrink-0 flex flex-col gap-3">
-            <a
-              href="https://youtube.com/@agencenationaleduconseilag8179?feature=shared"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 rounded-xl px-6 py-3.5 font-headline font-black text-sm text-[#0a0a0a] transition-opacity hover:opacity-88"
-              style={{ background: "#ffffff" }}
-            >
-              <span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>play_circle</span>
-              Chaîne ANCAR
-            </a>
-            <p className="font-body text-white/25 text-[11px] text-center">Voir toutes les vidéos</p>
-          </div>
+          <a
+            href="https://youtube.com/@agencenationaleduconseilag8179?feature=shared"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative shrink-0 inline-flex items-center gap-2 rounded-lg px-6 py-3 font-headline font-black text-sm text-white transition-opacity hover:opacity-88"
+            style={{ background: "#16a34a" }}
+          >
+            <span className="material-symbols-outlined text-base" style={{ fontVariationSettings: "'FILL' 1" }}>play_circle</span>
+            Voir la chaîne ANCAR
+          </a>
         </div>
       </section>
 

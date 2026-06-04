@@ -67,7 +67,7 @@ const BottomNav = () => {
                   {isCart && totalItems > 0 && (
                     <span
                       className="absolute -top-1 -right-2 min-w-[14px] h-[14px] text-white text-[8px] font-bold rounded-full flex items-center justify-center px-1"
-                      style={{ background: '#F07800' }}
+                      style={{ background: '#16a34a' }}
                     >
                       {totalItems > 9 ? "9+" : totalItems}
                     </span>

@@ -186,7 +186,7 @@ const Navbar = () => {
                 >
                   <span className="material-symbols-outlined text-[18px]">notifications</span>
                   {unreadCount > 0 && (
-                    <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full" style={{ background: '#F07800' }}/>
+                    <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full" style={{ background: '#16a34a' }}/>
                   )}
                 </button>
                 <AnimatePresence>
@@ -310,7 +310,7 @@ const Navbar = () => {
               <span className="material-symbols-outlined text-[16px]">shopping_bag</span>
               <span className="hidden sm:inline">Panier</span>
               {totalItems > 0 && (
-                <span className="text-[11px] font-bold px-1.5 py-0.5 rounded-md min-w-[18px] text-center leading-tight" style={{ background: '#F07800' }}>
+                <span className="text-[11px] font-bold px-1.5 py-0.5 rounded-md min-w-[18px] text-center leading-tight" style={{ background: '#16a34a' }}>
                   {totalItems}
                 </span>
               )}

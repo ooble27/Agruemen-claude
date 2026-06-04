@@ -131,7 +131,7 @@ const LandingNavbar = () => {
                           <div className="flex items-center gap-3">
                             <div className="w-8 h-8 rounded-lg bg-[#f5f2eb] flex items-center justify-center shrink-0">
                               <span
-                                className="material-symbols-outlined text-[15px] text-[#0A0A0A]/50 group-hover:text-[#F07800] transition-colors"
+                                className="material-symbols-outlined text-[15px] text-[#0A0A0A]/50 group-hover:text-emerald-600 transition-colors"
                                 style={{ fontVariationSettings: "'FILL' 1" }}
                               >
                                 {link.icon}
@@ -206,7 +206,7 @@ const LandingNavbar = () => {
                 <Link
                   to="/auth"
                   className="rounded-lg px-5 py-2 font-headline text-[13.5px] font-bold text-white transition-opacity hover:opacity-90"
-                  style={{ background: "#F07800" }}
+                  style={{ background: "#16a34a" }}
                 >
                   Commencer
                 </Link>
@@ -323,7 +323,7 @@ const LandingNavbar = () => {
                   <Link
                     to="/auth"
                     className="flex items-center justify-center gap-2 py-3 rounded-xl font-headline font-bold text-sm text-white"
-                    style={{ background: "#F07800" }}
+                    style={{ background: "#16a34a" }}
                   >
                     Connexion / Commencer
                   </Link>

@@ -62,7 +62,7 @@ const Auth = () => {
         <div className="pointer-events-none absolute inset-0"
           style={{ backgroundImage: "radial-gradient(circle, #dde3ec 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
         <div className="pointer-events-none absolute bottom-0 left-0 w-96 h-96 rounded-full opacity-[0.08]"
-          style={{ background: "radial-gradient(circle, #F07800 0%, transparent 70%)", transform: "translate(-30%, 30%)" }} />
+          style={{ background: "radial-gradient(circle, #16a34a 0%, transparent 70%)", transform: "translate(-30%, 30%)" }} />
 
         <div className="relative z-10 flex flex-col h-full px-12 py-12">
           <Link to="/" className="shrink-0">
@@ -81,7 +81,7 @@ const Auth = () => {
               <h2 className="font-headline font-black text-[#0A0A0A] tracking-[-0.045em] leading-[0.9] mb-5"
                 style={{ fontSize: "clamp(2.6rem, 4vw, 3.8rem)" }}>
                 Du Champ<br />à Votre<br />
-                <span style={{ color: "#F07800" }}>Table.</span>
+                <span style={{ color: "#16a34a" }}>Table.</span>
               </h2>
 
               <p className="font-body text-[#5a5a54] text-[15px] leading-relaxed max-w-xs mb-10">
@@ -93,7 +93,7 @@ const Auth = () => {
                   <div key={t.text} className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-lg bg-[#f5f2eb] flex items-center justify-center shrink-0">
                       <span className="material-symbols-outlined text-[15px]"
-                        style={{ color: "#F07800", fontVariationSettings: "'FILL' 1" }}>{t.icon}</span>
+                        style={{ color: "#16a34a", fontVariationSettings: "'FILL' 1" }}>{t.icon}</span>
                     </div>
                     <span className="font-body text-sm text-[#5a5a54]">{t.text}</span>
                   </div>
@@ -122,7 +122,7 @@ const Auth = () => {
         {/* Mobile hero */}
         <div className="lg:hidden relative overflow-hidden" style={{ background: '#0F1F15' }}>
           <div className="absolute inset-0"
-            style={{ backgroundImage: "radial-gradient(circle at 80% 20%, rgba(240,120,0,0.18) 0%, transparent 55%)" }} />
+            style={{ backgroundImage: "radial-gradient(circle at 80% 20%, rgba(22,163,74,0.18) 0%, transparent 55%)" }} />
           <div className="relative z-10 px-6 pt-14 pb-8 flex flex-col">
             <div className="flex items-center justify-between">
               <Link to="/">
@@ -216,7 +216,7 @@ const Auth = () => {
                         placeholder="Prénom et Nom" required={!isLogin}
                         className="w-full pl-11 pr-4 py-3.5 rounded-xl font-body text-sm text-[#0A0A0A] outline-none transition-all"
                         style={{ background: "#faf8f4", border: "1.5px solid #e8e4da" }}
-                        onFocus={e => { e.currentTarget.style.border = "1.5px solid #F07800"; e.currentTarget.style.background = "#fff"; }}
+                        onFocus={e => { e.currentTarget.style.border = "1.5px solid #16a34a"; e.currentTarget.style.background = "#fff"; }}
                         onBlur={e => { e.currentTarget.style.border = "1.5px solid #e8e4da"; e.currentTarget.style.background = "#faf8f4"; }}
                       />
                     </div>
@@ -234,7 +234,7 @@ const Auth = () => {
                     placeholder="votre@email.com" required autoComplete="email"
                     className="w-full pl-11 pr-4 py-3.5 rounded-xl font-body text-sm text-[#0A0A0A] outline-none transition-all"
                     style={{ background: "#faf8f4", border: "1.5px solid #e8e4da" }}
-                    onFocus={e => { e.currentTarget.style.border = "1.5px solid #F07800"; e.currentTarget.style.background = "#fff"; }}
+                    onFocus={e => { e.currentTarget.style.border = "1.5px solid #16a34a"; e.currentTarget.style.background = "#fff"; }}
                     onBlur={e => { e.currentTarget.style.border = "1.5px solid #e8e4da"; e.currentTarget.style.background = "#faf8f4"; }}
                   />
                 </div>
@@ -258,7 +258,7 @@ const Auth = () => {
                     required minLength={6} autoComplete={isLogin ? "current-password" : "new-password"}
                     className="w-full pl-11 pr-12 py-3.5 rounded-xl font-body text-sm text-[#0A0A0A] outline-none transition-all"
                     style={{ background: "#faf8f4", border: "1.5px solid #e8e4da" }}
-                    onFocus={e => { e.currentTarget.style.border = "1.5px solid #F07800"; e.currentTarget.style.background = "#fff"; }}
+                    onFocus={e => { e.currentTarget.style.border = "1.5px solid #16a34a"; e.currentTarget.style.background = "#fff"; }}
                     onBlur={e => { e.currentTarget.style.border = "1.5px solid #e8e4da"; e.currentTarget.style.background = "#faf8f4"; }}
                   />
                   <button type="button" onClick={() => setShowPassword(!showPassword)}
@@ -271,7 +271,7 @@ const Auth = () => {
 
               <button type="submit" disabled={loading}
                 className="w-full py-4 rounded-xl font-headline font-extrabold text-[15px] text-white mt-2 flex items-center justify-center gap-2 transition-all active:scale-[0.98] disabled:opacity-60"
-                style={{ background: "#F07800", boxShadow: "0 4px 20px rgba(240,120,0,0.30)" }}>
+                style={{ background: "#16a34a", boxShadow: "0 4px 20px rgba(22,163,74,0.28)" }}>
                 {loading ? (
                   <>
                     <span className="material-symbols-outlined animate-spin text-[20px]">progress_activity</span>

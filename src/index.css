@@ -7,7 +7,7 @@
 
 @layer base {
   :root {
-    /* ── Mamakaasa Design System — warm neutral + dark brown + amber-orange accent ── */
+    /* ── Mamakaasa Design System — warm neutral + dark + emerald-green accent ── */
     --background: 60 5% 96%;        /* #F5F5F2 warm off-white */
     --foreground: 0 0% 4%;          /* #0A0A0A near black */
 
@@ -27,13 +27,13 @@
     --secondary: 60 5% 94%;
     --secondary-foreground: 0 0% 4%;
 
-    --tertiary: 30 100% 47%;        /* #F07800 amber-orange logo */
+    --tertiary: 142 70% 45%;        /* #16a34a emerald green */
     --tertiary-foreground: 0 0% 100%;
 
     --muted: 60 5% 94%;
     --muted-foreground: 60 2% 54%;  /* #8A8A85 */
 
-    --accent: 30 100% 47%;          /* #F07800 amber-orange (logo KAASA color) */
+    --accent: 142 70% 45%;          /* #16a34a emerald green */
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 45%;
