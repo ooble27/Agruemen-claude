@@ -105,7 +105,7 @@ const CartDrawer = () => {
                                 {item.quantity === 1 ? 'delete' : 'remove'}
                               </span>
                             </button>
-                            <span className="w-6 text-center font-bold text-sm" style={{ color: '#fff' }}>{item.quantity}</span>
+                            <span className="w-6 text-center font-bold text-sm">{item.quantity}</span>
                             <button
                               onClick={() => updateQuantity(item.id, item.quantity + 1)}
                               className="w-8 h-8 flex items-center justify-center hover:bg-surface-container-high transition-colors rounded-xl"

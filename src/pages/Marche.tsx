@@ -14,7 +14,7 @@ type Product = MarketProduct;
 type SortValue = "default" | "price_asc" | "price_desc" | "new";
 
 const CATEGORY_COLORS: Record<string, string> = {
-  fruits: '#F07800',
+  fruits: '#10b981',
   legumes: '#16A34A',
   cereales: '#CA8A04',
   tubercules: '#A16207',
