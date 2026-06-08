@@ -205,7 +205,7 @@ const LandingNavbar = () => {
                 </Link>
                 <Link
                   to="/auth"
-                  className="rounded-xl px-5 py-2 font-headline text-[13.5px] font-bold text-white transition-opacity hover:opacity-90"
+                  className="rounded-lg px-5 py-2 font-headline text-[13.5px] font-bold text-white transition-opacity hover:opacity-90"
                   style={{ background: "#10b981" }}
                 >
                   Commencer

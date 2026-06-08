@@ -240,19 +240,20 @@ const Marche = () => {
             {/* ── Main content ── */}
             <div className="flex-1 min-w-0">
 
-              {/* Mobile: horizontal category chips */}
+              {/* Mobile: horizontal category chips — style Uber Eats */}
               <div className="md:hidden mb-4 -mx-4 px-4">
                 <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
                   <button
                     onClick={() => handleCategoryChange(null)}
-                    className="shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[13px] font-medium transition-all"
+                    className="shrink-0 flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-semibold transition-all whitespace-nowrap"
                     style={{
-                      background: !selectedCategoryKey ? '#0A0A0A' : 'white',
-                      color: !selectedCategoryKey ? 'white' : '#8A8A85',
-                      border: '1px solid hsl(60 5% 92%)',
+                      background: !selectedCategoryKey ? '#0A0A0A' : '#ffffff',
+                      color: !selectedCategoryKey ? 'white' : '#1a1a1a',
+                      border: !selectedCategoryKey ? '1.5px solid #0A0A0A' : '1.5px solid #e8e8e8',
+                      boxShadow: !selectedCategoryKey ? 'none' : '0 1px 4px rgba(0,0,0,0.07)',
                     }}
                   >
-                    <span className="text-[14px] leading-none">🛒</span>
+                    <span className="text-[15px] leading-none">🛒</span>
                     Tout
                   </button>
                   {categories.map((cat) => {
@@ -261,14 +262,15 @@ const Marche = () => {
                       <button
                         key={cat.id}
                         onClick={() => handleCategoryChange(active ? null : cat.id)}
-                        className="shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[13px] font-medium transition-all"
+                        className="shrink-0 flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-semibold transition-all whitespace-nowrap"
                         style={{
-                          background: active ? '#0A0A0A' : 'white',
-                          color: active ? 'white' : '#8A8A85',
-                          border: '1px solid hsl(60 5% 92%)',
+                          background: active ? '#0A0A0A' : '#ffffff',
+                          color: active ? 'white' : '#1a1a1a',
+                          border: active ? '1.5px solid #0A0A0A' : '1.5px solid #e8e8e8',
+                          boxShadow: active ? 'none' : '0 1px 4px rgba(0,0,0,0.07)',
                         }}
                       >
-                        <span className="text-[14px] leading-none">{getCatEmoji(cat.name)}</span>
+                        <span className="text-[15px] leading-none">{getCatEmoji(cat.name)}</span>
                         {cat.name}
                       </button>
                     );
