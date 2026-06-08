@@ -22,6 +22,20 @@ const CATEGORY_COLORS: Record<string, string> = {
   herbes: '#65A30D',
 };
 
+const CATEGORY_EMOJI: Record<string, string> = {
+  fruits: "🍊",
+  legumes: "🥬",
+  cereales: "🌾",
+  epices: "🌶️",
+  tubercules: "🥔",
+  herbes: "🌿",
+};
+
+const getCatEmoji = (name: string | undefined) => {
+  const key = getCategoryKey(name);
+  return key ? (CATEGORY_EMOJI[key] ?? "🌿") : "🌿";
+};
+
 const Marche = () => {
   const { addItem } = useCart();
   const { profile } = useAuth();
@@ -167,7 +181,7 @@ const Marche = () => {
                       fontWeight: !selectedCategoryKey ? 600 : 500,
                     }}
                   >
-                    <span className="material-symbols-outlined text-[15px] shrink-0" style={{ fontVariationSettings: "'FILL' 1", color: !selectedCategoryKey ? '#0A0A0A' : '#8A8A85' }}>apps</span>
+                    <span className="text-[15px] shrink-0 leading-none">🛒</span>
                     <span className="flex-1 text-[13px]">Tous les produits</span>
                     <span className="text-[11px]" style={{ color: 'hsl(60 2% 54%)' }}>{products.length}</span>
                   </button>
@@ -186,15 +200,7 @@ const Marche = () => {
                           fontWeight: active ? 600 : 500,
                         }}
                       >
-                        <span
-                          className="material-symbols-outlined text-[15px] shrink-0"
-                          style={{
-                            fontVariationSettings: "'FILL' 1",
-                            color: active ? (CATEGORY_COLORS[catKey] || '#0A0A0A') : 'hsl(60 2% 54%)',
-                          }}
-                        >
-                          {cat.icon || "eco"}
-                        </span>
+                        <span className="text-[15px] shrink-0 leading-none">{getCatEmoji(cat.name)}</span>
                         <span className="flex-1 text-[13px] truncate">{cat.name}</span>
                         <span className="text-[11px]" style={{ color: 'hsl(60 2% 54%)' }}>{count}</span>
                       </button>
@@ -223,7 +229,7 @@ const Marche = () => {
                         fontWeight: sortBy === opt.value ? 600 : 500,
                       }}
                     >
-                      {sortBy === opt.value && <span className="w-1 h-1 rounded-full shrink-0" style={{ background: '#F07800' }}/>}
+                      {sortBy === opt.value && <span className="w-1 h-1 rounded-full shrink-0" style={{ background: '#10b981' }}/>}
                       {opt.label}
                     </button>
                   ))}
@@ -246,7 +252,7 @@ const Marche = () => {
                       border: '1px solid hsl(60 5% 92%)',
                     }}
                   >
-                    <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>apps</span>
+                    <span className="text-[14px] leading-none">🛒</span>
                     Tout
                   </button>
                   {categories.map((cat) => {
@@ -262,7 +268,7 @@ const Marche = () => {
                           border: '1px solid hsl(60 5% 92%)',
                         }}
                       >
-                        <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>{cat.icon || "eco"}</span>
+                        <span className="text-[14px] leading-none">{getCatEmoji(cat.name)}</span>
                         {cat.name}
                       </button>
                     );

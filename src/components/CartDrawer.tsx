@@ -36,12 +36,12 @@ const CartDrawer = () => {
             </SheetTitle>
             {totalItems > 0 && (
               <>
-                <span className="text-xs bg-foreground text-white px-2.5 py-1 rounded-sm font-headline font-bold shrink-0">
+                <span className="text-xs bg-foreground text-white px-2.5 py-1 rounded-full font-headline font-bold shrink-0">
                   {totalItems} article{totalItems > 1 ? "s" : ""}
                 </span>
                 <button
                   onClick={clearCart}
-                  className="p-1.5 rounded-sm text-on-surface-variant hover:text-destructive hover:bg-surface-container transition-colors shrink-0"
+                  className="p-1.5 rounded-lg text-on-surface-variant hover:text-destructive hover:bg-surface-container transition-colors shrink-0"
                 >
                   <span className="material-symbols-outlined text-[18px]">delete</span>
                 </button>
@@ -49,7 +49,7 @@ const CartDrawer = () => {
             )}
             <button
               onClick={() => setIsOpen(false)}
-              className="p-1.5 rounded-sm text-on-surface-variant hover:bg-surface-container transition-colors shrink-0"
+              className="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors shrink-0"
             >
               <span className="material-symbols-outlined text-[18px]">close</span>
             </button>
@@ -63,7 +63,7 @@ const CartDrawer = () => {
             <p className="text-on-surface-variant text-sm mb-6">Découvrez nos produits frais du terroir sénégalais.</p>
             <button
               onClick={() => setIsOpen(false)}
-              className="bg-foreground text-white px-6 py-3 rounded-sm font-headline font-bold text-sm hover:opacity-90 transition-opacity"
+              className="bg-foreground text-white px-6 py-3 rounded-xl font-headline font-bold text-sm hover:opacity-90 transition-opacity"
             >
               Explorer le Marché
             </button>
@@ -81,12 +81,12 @@ const CartDrawer = () => {
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -20 }}
-                      className="flex gap-3 bg-surface-container-lowest rounded-sm p-3.5 border border-border/20"
+                      className="flex gap-3 bg-surface-container-lowest rounded-xl p-3.5 border border-border/20"
                     >
                       <img
                         src={item.image}
                         alt={item.name}
-                        className="w-18 h-18 rounded-sm object-cover flex-shrink-0"
+                        className="w-18 h-18 rounded-lg object-cover flex-shrink-0"
                         style={{ width: 72, height: 72 }}
                       />
                       <div className="flex-1 min-w-0">
@@ -96,17 +96,17 @@ const CartDrawer = () => {
 
                         <div className="flex items-center justify-between mt-2.5">
                           {/* Quantity controls */}
-                          <div className="flex items-center gap-0 bg-surface-container rounded-sm border border-border/20">
+                          <div className="flex items-center gap-0 bg-surface-container rounded-xl border border-border/20">
                             <button
                               onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                              className="w-8 h-8 flex items-center justify-center hover:bg-surface-container-high transition-colors rounded-sm"
+                              className="w-8 h-8 flex items-center justify-center hover:bg-surface-container-high transition-colors rounded-xl"
                             >
                               <span className="material-symbols-outlined text-base">remove</span>
                             </button>
                             <span className="w-8 text-center font-headline font-bold text-sm">{item.quantity}</span>
                             <button
                               onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                              className="w-8 h-8 flex items-center justify-center hover:bg-surface-container-high transition-colors rounded-sm"
+                              className="w-8 h-8 flex items-center justify-center hover:bg-surface-container-high transition-colors rounded-xl"
                             >
                               <span className="material-symbols-outlined text-base">add</span>
                             </button>
@@ -146,7 +146,7 @@ const CartDrawer = () => {
             <div className="border-t border-border/20 px-4 py-4">
               <button
                 onClick={handleCheckout}
-                className="w-full bg-foreground text-white py-3.5 rounded-sm font-headline font-extrabold text-base flex items-center justify-center gap-2.5 hover:opacity-90 transition-opacity"
+                className="w-full bg-foreground text-white py-3.5 rounded-xl font-headline font-extrabold text-base flex items-center justify-center gap-2.5 hover:opacity-90 transition-opacity"
               >
                 <span className="material-symbols-outlined text-lg">shopping_cart_checkout</span>
                 Commander

@@ -278,7 +278,7 @@ const Auth = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-foreground text-white py-4 rounded-md font-headline font-extrabold text-base active:scale-[0.98] transition-all disabled:opacity-50 mt-2 flex items-center justify-center gap-2"
+                className="w-full bg-foreground text-white py-4 rounded-xl font-headline font-extrabold text-base active:scale-[0.98] transition-all disabled:opacity-50 mt-2 flex items-center justify-center gap-2"
               >
                 {loading ? (
                   <>
