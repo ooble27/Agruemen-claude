@@ -76,14 +76,14 @@ const HeroSection = () => {
         >
           <Link
             to="/marche"
-            className="flex items-center gap-2 rounded-md bg-foreground px-8 py-4 font-headline text-base font-bold text-white shadow-md transition-opacity hover:opacity-85"
+            className="flex items-center gap-2 rounded-xl bg-foreground px-8 py-4 font-headline text-base font-bold text-white shadow-md transition-opacity hover:opacity-85"
           >
             Explorer le Marché
             <span className="material-symbols-outlined text-lg">arrow_forward</span>
           </Link>
           <a
             href="#comment"
-            className="flex items-center gap-2 rounded-md border border-black/15 bg-white/80 px-8 py-4 font-headline text-base font-bold text-foreground backdrop-blur-sm transition-colors hover:border-black/30"
+            className="flex items-center gap-2 rounded-xl border border-black/15 bg-white/80 px-8 py-4 font-headline text-base font-bold text-foreground backdrop-blur-sm transition-colors hover:border-black/30"
           >
             Comment ça marche
           </a>

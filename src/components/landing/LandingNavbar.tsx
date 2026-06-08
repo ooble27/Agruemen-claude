@@ -51,49 +51,40 @@ const LandingNavbar = () => {
           boxShadow: scrolled ? "0 2px 16px rgba(0,0,0,0.07)" : "none",
         }}
       >
-        <div
-          className="mx-auto flex max-w-[1200px] items-center justify-between px-5 md:px-8"
-          style={{ height: 66 }}
-        >
-
-          {/* Logo */}
-          <Link to="/" className="shrink-0 flex items-center">
-            <img
-              src="/logo-mamakaasa.png"
-              alt="Mamakaasa"
-              className="h-10 w-auto"
-            />
-          </Link>
-
-          {/* Desktop nav */}
-          <div className="hidden items-center gap-0.5 md:flex">
-
-            <Link
-              to="/marche"
-              className={`px-4 py-2 rounded-lg font-headline text-[13.5px] font-semibold transition-colors ${
-                isActive("/marche")
-                  ? "bg-[#0A0A0A] text-white"
-                  : "text-[#5a5a54] hover:bg-[#f5f2eb] hover:text-[#0A0A0A]"
-              }`}
-            >
-              Marché
+        <div className="mx-4 mt-4 md:mx-8">
+          <div
+            className={`mx-auto flex max-w-[1200px] items-center justify-between rounded-2xl border px-4 py-2.5 transition-all duration-300 md:px-6 ${
+              scrolled
+                ? "border-border/60 bg-background/96 shadow-lg backdrop-blur-2xl"
+                : "border-border/35 bg-background/85 shadow-sm backdrop-blur-lg"
+            }`}
+          >
+            <Link to="/" className="font-headline text-lg font-black tracking-tighter text-foreground">
+              Agrumen
             </Link>
 
-            {/* Dropdown À propos */}
-            <div ref={aboutRef} className="relative">
-              <button
-                onClick={() => setAboutOpen(o => !o)}
-                className={`flex items-center gap-1 px-4 py-2 rounded-lg font-headline text-[13.5px] font-semibold transition-colors ${
-                  aboutOpen || ABOUT_LINKS.some(l => isActive(l.href))
-                    ? "bg-[#0A0A0A] text-white"
-                    : "text-[#5a5a54] hover:bg-[#f5f2eb] hover:text-[#0A0A0A]"
+            {/* Desktop nav */}
+            <div className="hidden items-center gap-1 md:flex">
+              <Link
+                to="/marche"
+                className={`px-4 py-2 rounded-lg font-headline text-[13px] font-semibold transition-colors ${
+                  isActive("/marche")
+                    ? "bg-foreground text-white"
+                    : "text-on-surface-variant hover:bg-surface-container hover:text-foreground"
                 }`}
               >
-                À propos
-                <motion.span
-                  animate={{ rotate: aboutOpen ? 180 : 0 }}
-                  transition={{ duration: 0.18 }}
-                  className="material-symbols-outlined text-[14px] leading-none"
+                Marché
+              </Link>
+
+              {/* Dropdown À propos */}
+              <div ref={aboutRef} className="relative">
+                <button
+                  onClick={() => setAboutOpen(o => !o)}
+                  className={`px-4 py-2 rounded-lg font-headline text-[13px] font-semibold transition-colors flex items-center gap-1 ${
+                    aboutOpen || ABOUT_LINKS.some(l => isActive(l.href))
+                      ? "bg-foreground text-white"
+                      : "text-on-surface-variant hover:bg-surface-container hover:text-foreground"
+                  }`}
                 >
                   expand_more
                 </motion.span>
@@ -112,24 +103,39 @@ const LandingNavbar = () => {
                       boxShadow: "0 16px 48px rgba(0,0,0,0.10)",
                     }}
                   >
-                    <div className="px-4 pt-3.5 pb-2.5 border-b border-[#f0ede6]">
-                      <p className="font-headline text-[9px] font-bold uppercase tracking-[0.2em] text-[#9a9a92]">
-                        Découvrir Mamakaasa
-                      </p>
-                    </div>
-                    <div className="p-2">
-                      {ABOUT_LINKS.map(link => (
-                        <Link
-                          key={link.href}
-                          to={link.href}
-                          className={`flex items-center justify-between px-3 py-2.5 rounded-lg transition-colors group ${
-                            isActive(link.href)
-                              ? "bg-[#f5f2eb] text-[#0A0A0A]"
-                              : "text-[#5a5a54] hover:bg-[#f5f2eb] hover:text-[#0A0A0A]"
-                          }`}
-                        >
-                          <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-lg bg-[#f5f2eb] flex items-center justify-center shrink-0">
+                    expand_more
+                  </motion.span>
+                </button>
+
+                <AnimatePresence>
+                  {aboutOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 6 }}
+                      transition={{ duration: 0.14, ease: "easeOut" }}
+                      className="absolute left-0 top-full mt-2.5 w-72 bg-background rounded-xl border border-border/50 shadow-[0_16px_40px_rgba(0,0,0,0.12)] overflow-hidden z-50"
+                    >
+                      {/* Dropdown header */}
+                      <div className="px-4 pt-4 pb-2.5 border-b border-border/20">
+                        <p className="font-headline text-[9px] font-bold uppercase tracking-[0.2em] text-on-surface-variant/60">
+                          Découvrir Agrumen
+                        </p>
+                      </div>
+
+                      {/* Links */}
+                      <div className="p-2">
+                        {ABOUT_LINKS.map(link => (
+                          <Link
+                            key={link.href}
+                            to={link.href}
+                            className={`flex items-center justify-between px-3 py-2.5 rounded-lg transition-colors group ${
+                              isActive(link.href)
+                                ? "bg-foreground/8 text-foreground"
+                                : "text-on-surface-variant hover:bg-surface-container hover:text-foreground"
+                            }`}
+                          >
+                            <div className="flex items-center gap-3">
                               <span
                                 className="material-symbols-outlined text-[15px] text-[#0A0A0A]/50 group-hover:text-emerald-600 transition-colors"
                                 style={{ fontVariationSettings: "'FILL' 1" }}
@@ -146,20 +152,33 @@ const LandingNavbar = () => {
                             chevron_right
                           </span>
                         </Link>
-                      ))}
-                    </div>
-                    <div className="px-3 py-2.5 border-t border-[#f0ede6] bg-[#faf8f4]">
-                      <Link
-                        to="/devenir-partenaire"
-                        className="flex items-center gap-2 text-emerald-700 hover:text-emerald-800 transition-colors"
-                      >
-                        <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>agriculture</span>
-                        <span className="font-headline text-[12px] font-bold">Devenir partenaire producteur →</span>
-                      </Link>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              <Link
+                to="/devenir-partenaire"
+                className={`px-4 py-2 rounded-lg font-headline text-[13px] font-semibold transition-colors ${
+                  isActive("/devenir-partenaire")
+                    ? "bg-foreground text-white"
+                    : "text-on-surface-variant hover:bg-surface-container hover:text-foreground"
+                }`}
+              >
+                Devenir partenaire
+              </Link>
+
+              <Link
+                to="/faq"
+                className={`px-4 py-2 rounded-lg font-headline text-[13px] font-semibold transition-colors ${
+                  isActive("/faq")
+                    ? "bg-foreground text-white"
+                    : "text-on-surface-variant hover:bg-surface-container hover:text-foreground"
+                }`}
+              >
+                FAQ
+              </Link>
             </div>
 
             <Link
@@ -198,28 +217,36 @@ const LandingNavbar = () => {
             ) : (
               <>
                 <Link
-                  to="/auth"
-                  className="hidden px-4 py-2 font-headline text-[13.5px] font-semibold text-[#5a5a54] transition-colors hover:text-[#0A0A0A] sm:block"
+                  to={isAdmin ? "/admin" : "/mon-compte"}
+                  className="rounded-xl bg-foreground px-4 py-2 font-headline text-[13px] font-bold text-white transition-all hover:opacity-85"
                 >
                   Connexion
                 </Link>
-                <Link
-                  to="/auth"
-                  className="rounded-lg px-5 py-2 font-headline text-[13.5px] font-bold text-white transition-opacity hover:opacity-90"
-                  style={{ background: "#10b981" }}
-                >
-                  Commencer
-                </Link>
-              </>
-            )}
+              ) : (
+                <>
+                  <Link
+                    to="/auth"
+                    className="hidden px-4 py-2 font-headline text-[13px] font-semibold text-on-surface-variant transition-colors hover:text-foreground sm:block"
+                  >
+                    Connexion
+                  </Link>
+                  <Link
+                    to="/auth"
+                    className="rounded-xl bg-foreground px-4 py-2 font-headline text-[13px] font-bold text-white transition-all hover:opacity-85"
+                  >
+                    Commencer
+                  </Link>
+                </>
+              )}
 
-            {/* Mobile burger */}
-            <button
-              onClick={() => setMobileOpen(o => !o)}
-              className="md:hidden flex h-9 w-9 items-center justify-center rounded-lg text-[#5a5a54] hover:bg-[#f5f2eb] transition-colors"
-            >
-              <span className="material-symbols-outlined text-xl">{mobileOpen ? "close" : "menu"}</span>
-            </button>
+              {/* Mobile burger */}
+              <button
+                onClick={() => setMobileOpen(o => !o)}
+                className="md:hidden w-9 h-9 flex items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors"
+              >
+                <span className="material-symbols-outlined text-xl">{mobileOpen ? "close" : "menu"}</span>
+              </button>
+            </div>
           </div>
         </div>
       </nav>
@@ -241,12 +268,8 @@ const LandingNavbar = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed left-4 right-4 z-[58] md:hidden bg-white rounded-2xl overflow-hidden"
-              style={{
-                top: "calc(env(safe-area-inset-top, 0px) + 74px)",
-                border: "1px solid #f0ede6",
-                boxShadow: "0 20px 60px rgba(0,0,0,0.14)",
-              }}
+              className="fixed left-4 right-4 z-[58] md:hidden bg-background border border-border/50 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.18)] overflow-hidden"
+              style={{ top: "calc(env(safe-area-inset-top, 0px) + 78px)" }}
             >
               <div className="p-3">
                 <p className="font-headline text-[9px] font-bold uppercase tracking-[0.2em] text-[#9a9a92] px-2 pb-2">Navigation</p>
@@ -261,7 +284,7 @@ const LandingNavbar = () => {
                     <Link
                       key={item.href}
                       to={item.href}
-                      className={`flex items-center gap-2.5 px-3 py-3 rounded-xl transition-colors ${
+                      className={`flex items-center gap-2.5 px-3 py-3 rounded-lg transition-colors ${
                         isActive(item.href)
                           ? "bg-[#0A0A0A] text-white"
                           : "text-[#5a5a54] hover:bg-[#f5f2eb] hover:text-[#0A0A0A]"
@@ -290,7 +313,7 @@ const LandingNavbar = () => {
                       <Link
                         key={item.href}
                         to={item.href}
-                        className={`flex items-center gap-2.5 px-3 py-3 rounded-xl transition-colors ${
+                        className={`flex items-center gap-2.5 px-3 py-3 rounded-lg transition-colors ${
                           isActive(item.href)
                             ? "bg-[#0A0A0A] text-white"
                             : "text-[#5a5a54] hover:bg-[#f5f2eb] hover:text-[#0A0A0A]"
@@ -313,8 +336,7 @@ const LandingNavbar = () => {
                 {user ? (
                   <Link
                     to={isAdmin ? "/admin" : "/mon-compte"}
-                    className="flex items-center justify-center gap-2 py-3 rounded-xl font-headline font-bold text-sm text-white"
-                    style={{ background: "#0A0A0A" }}
+                    className="flex items-center justify-center gap-2 py-3 rounded-xl bg-foreground text-white font-headline font-bold text-sm"
                   >
                     <span className="material-symbols-outlined text-base" style={{ fontVariationSettings: "'FILL' 1" }}>person</span>
                     Mon Compte
@@ -322,8 +344,7 @@ const LandingNavbar = () => {
                 ) : (
                   <Link
                     to="/auth"
-                    className="flex items-center justify-center gap-2 py-3 rounded-xl font-headline font-bold text-sm text-white"
-                    style={{ background: "#10b981" }}
+                    className="flex items-center justify-center gap-2 py-3 rounded-xl bg-foreground text-white font-headline font-bold text-sm"
                   >
                     Connexion / Commencer
                   </Link>

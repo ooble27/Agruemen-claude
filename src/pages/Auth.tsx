@@ -262,9 +262,11 @@ const Auth = () => {
                 {!isLogin && <p className="font-body text-[11px] text-[#9a9a92] mt-1.5">Minimum 6 caractères</p>}
               </div>
 
-              <button type="submit" disabled={loading}
-                className="w-full py-4 rounded-xl font-headline font-extrabold text-[15px] text-white mt-2 flex items-center justify-center gap-2 transition-all active:scale-[0.98] disabled:opacity-60"
-                style={{ background: "#10b981", boxShadow: "0 4px 20px rgba(16,185,129,0.28)" }}>
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-foreground text-white py-4 rounded-xl font-headline font-extrabold text-base active:scale-[0.98] transition-all disabled:opacity-50 mt-2 flex items-center justify-center gap-2"
+              >
                 {loading ? (
                   <>
                     <span className="material-symbols-outlined animate-spin text-[20px]">progress_activity</span>
