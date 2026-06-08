@@ -9,6 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { buildMarketCategories, getCategoryKey, MOCK_PRODUCTS, type MarketProduct } from "@/data/marketplaceMocks";
 import type { Category } from "@/types/database";
 import ProductCard from "@/components/ProductCard";
+import { IconTous, getCategoryIcon } from "@/components/icons/CategoryIcons";
 
 type Product = MarketProduct;
 type SortValue = "default" | "price_asc" | "price_desc" | "new";
@@ -20,20 +21,6 @@ const CATEGORY_COLORS: Record<string, string> = {
   tubercules: '#A16207',
   epices: '#DC2626',
   herbes: '#65A30D',
-};
-
-const CATEGORY_EMOJI: Record<string, string> = {
-  fruits: "🍊",
-  legumes: "🥬",
-  cereales: "🌾",
-  epices: "🌶️",
-  tubercules: "🥔",
-  herbes: "🌿",
-};
-
-const getCatEmoji = (name: string | undefined) => {
-  const key = getCategoryKey(name);
-  return key ? (CATEGORY_EMOJI[key] ?? "🌿") : "🌿";
 };
 
 const Marche = () => {
@@ -181,7 +168,7 @@ const Marche = () => {
                       fontWeight: !selectedCategoryKey ? 600 : 500,
                     }}
                   >
-                    <span className="text-[15px] shrink-0 leading-none">🛒</span>
+                    <IconTous size={16} className="shrink-0 opacity-70" />
                     <span className="flex-1 text-[13px]">Tous les produits</span>
                     <span className="text-[11px]" style={{ color: 'hsl(60 2% 54%)' }}>{products.length}</span>
                   </button>
@@ -200,7 +187,7 @@ const Marche = () => {
                           fontWeight: active ? 600 : 500,
                         }}
                       >
-                        <span className="text-[15px] shrink-0 leading-none">{getCatEmoji(cat.name)}</span>
+                        <span className="shrink-0 opacity-70">{getCategoryIcon(getCategoryKey(cat.name), { size: 16 })}</span>
                         <span className="flex-1 text-[13px] truncate">{cat.name}</span>
                         <span className="text-[11px]" style={{ color: 'hsl(60 2% 54%)' }}>{count}</span>
                       </button>
@@ -253,7 +240,7 @@ const Marche = () => {
                       boxShadow: !selectedCategoryKey ? 'none' : '0 1px 4px rgba(0,0,0,0.07)',
                     }}
                   >
-                    <span className="text-[15px] leading-none">🛒</span>
+                    <IconTous size={16} />
                     Tout
                   </button>
                   {categories.map((cat) => {
@@ -270,7 +257,7 @@ const Marche = () => {
                           boxShadow: active ? 'none' : '0 1px 4px rgba(0,0,0,0.07)',
                         }}
                       >
-                        <span className="text-[15px] leading-none">{getCatEmoji(cat.name)}</span>
+                        {getCategoryIcon(getCategoryKey(cat.name), { size: 16 })}
                         {cat.name}
                       </button>
                     );
