@@ -6,6 +6,10 @@ import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, AreaChart, Area, CartesianGrid } from "recharts";
 import { MOCK_PRODUCTS } from "@/data/marketplaceMocks";
+import PageComptabilite from "./admin/PageComptabilite";
+import PageVentes       from "./admin/PageVentes";
+import PageDepenses     from "./admin/PageDepenses";
+import PageStock        from "./admin/PageStock";
 
 const ADMIN_EMAIL = "Mohalaval4@gmail.com";
 
@@ -19,7 +23,8 @@ type OrderItem = { id: string; quantity: number; unit_price: number; products: {
 type Product = { id: string; name: string; price: number; unit: string; stock: number; description: string | null; image_url: string | null; category_id: string | null; is_active: boolean; created_at: string; categories: { name: string } | null };
 type Category = { id: string; name: string; icon: string | null; created_at: string };
 type Profile = { user_id: string; full_name: string | null; city: string | null; phone: string | null; created_at: string; role: string | null };
-type Page = "overview" | "orders" | "products" | "categories" | "users" | "analytics";
+type Page = "overview" | "orders" | "products" | "categories" | "users" | "analytics"
+          | "comptabilite" | "ventes" | "depenses" | "stock";
 
 const STATUS = {
   pending:   { label: "En attente",   icon: "schedule",        color: "text-amber-600",   bg: "bg-amber-50",   border: "border-amber-200",   dot: "bg-amber-400",   bar: "bg-amber-400" },
@@ -42,6 +47,12 @@ const NAV_SECTIONS = [
   { label: "Gestion", items: [
     { page: "orders" as Page,     icon: "receipt_long",    label: "Commandes" },
     { page: "users" as Page,      icon: "group",           label: "Acheteurs" },
+  ]},
+  { label: "Finance & Stocks", items: [
+    { page: "comptabilite" as Page, icon: "account_balance", label: "Comptabilité" },
+    { page: "ventes" as Page,       icon: "trending_up",     label: "Ventes" },
+    { page: "depenses" as Page,     icon: "trending_down",   label: "Achats & Dépenses" },
+    { page: "stock" as Page,        icon: "inventory_2",     label: "Stocks" },
   ]},
 ];
 
@@ -199,12 +210,16 @@ export default function AdminDashboard() {
         <main className="flex-1 pb-6">
           <AnimatePresence mode="wait">
             <motion.div key={page} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.12 }}>
-              {page === "overview"   && <OverviewPage stats={stats} orders={orders} loadingOrders={loadingOrders} setPage={setPage} />}
-              {page === "orders"     && <OrdersPage orders={orders} setOrders={setOrders} loadingOrders={loadingOrders} />}
-              {page === "products"   && <ProductsPage />}
-              {page === "categories" && <CategoriesPage />}
-              {page === "users"      && <UsersPage />}
-              {page === "analytics"  && <AnalyticsPage orders={orders} />}
+              {page === "overview"      && <OverviewPage stats={stats} orders={orders} loadingOrders={loadingOrders} setPage={setPage} />}
+              {page === "orders"        && <OrdersPage orders={orders} setOrders={setOrders} loadingOrders={loadingOrders} />}
+              {page === "products"      && <ProductsPage />}
+              {page === "categories"    && <CategoriesPage />}
+              {page === "users"         && <UsersPage />}
+              {page === "analytics"     && <AnalyticsPage orders={orders} />}
+              {page === "comptabilite"  && <PageComptabilite orders={orders} />}
+              {page === "ventes"        && <PageVentes orders={orders} />}
+              {page === "depenses"      && <PageDepenses />}
+              {page === "stock"         && <PageStock />}
             </motion.div>
           </AnimatePresence>
         </main>
