@@ -28,6 +28,7 @@ import Carrieres from "./pages/Carrieres";
 import BlogArticle from "./pages/BlogArticle";
 import NosEngagements from "./pages/NosEngagements";
 import Ressources from "./pages/Ressources";
+import Gestion from "./pages/Gestion";
 import ScrollToTop from "./components/ScrollToTop";
 import { CartProvider } from "./contexts/CartContext";
 import { AuthProvider } from "./contexts/AuthContext";
@@ -67,6 +68,7 @@ const AnimatedRoutes = () => {
         <Route path="/blog/:slug" element={<PageTransition><BlogArticle /></PageTransition>} />
         <Route path="/nos-engagements" element={<PageTransition><NosEngagements /></PageTransition>} />
         <Route path="/ressources" element={<PageTransition><Ressources /></PageTransition>} />
+        <Route path="/gestion" element={<Gestion />} />
         <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
       </Routes>
     </AnimatePresence>

@@ -143,8 +143,9 @@ export default function AdminDashboard() {
             <p className="px-3 mb-1.5 font-body text-[9px] font-semibold text-gray-400 uppercase tracking-[0.15em]">Plateforme</p>
             <div className="space-y-0.5">
               {[
-                { to: "/marche", icon: "storefront", label: "Voir le Marché" },
-                { to: "/", icon: "home", label: "Accueil" },
+                { to: "/gestion", icon: "trending_up", label: "Gestion Opérations" },
+                { to: "/marche",  icon: "storefront",  label: "Voir le Marché" },
+                { to: "/",        icon: "home",         label: "Accueil" },
               ].map(l => (
                 <Link key={l.to} to={l.to}
                   className="flex items-center gap-3 px-3 py-2.5 rounded-lg font-headline text-[12.5px] font-semibold text-gray-400 transition-all">
