@@ -75,20 +75,30 @@ const AnimatedRoutes = () => {
   );
 };
 
+const AppShell = () => {
+  const location = useLocation();
+  const isGestion = location.pathname === "/gestion";
+  return (
+    <>
+      <ScrollToTop />
+      <Toaster />
+      <Sonner position="top-center" offset="72px" />
+      {!isGestion && <CartDrawer />}
+      <AnimatedRoutes />
+      {!isGestion && <BottomNav />}
+    </>
+  );
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <BrowserRouter>
-        <ScrollToTop />
         <AuthProvider>
           <NotificationsProvider>
             <WishlistProvider>
               <CartProvider>
-                <Toaster />
-                <Sonner position="top-center" offset="72px" />
-                <CartDrawer />
-                <AnimatedRoutes />
-                <BottomNav />
+                <AppShell />
               </CartProvider>
             </WishlistProvider>
           </NotificationsProvider>
