@@ -163,24 +163,20 @@ function GestionApp() {
     return s ? parseInt(s) : DEFAULT_CAPITAL;
   });
 
-  /* Background Supabase sync */
+  /* Background Supabase sync — localStorage is always source of truth */
   useEffect(() => {
     (async () => {
-      const { data, error } = await supabase
-        .from("operations").select("*")
-        .order("operation_number", { ascending: true, nullsFirst: false });
+      const { error } = await supabase.from("operations").select("id").limit(1);
       if (error) { setSynced(false); return; }
       setSynced(true);
-      if (data && data.length > 0) {
-        const fetched = data as Op[];
-        setOps(fetched); persistOps(fetched);
-      } else {
-        const payload = SEED.map(({ id: _i, created_at: _c, ...r }) => r);
+      /* If table is empty, seed it with local data so Supabase stays in sync */
+      const { data: existing } = await supabase.from("operations").select("id");
+      if (!existing || existing.length === 0) {
+        const localOps = loadOps();
+        const payload = localOps.map(({ id: _i, created_at: _c, ...r }) => r);
         await supabase.from("operations").insert(payload);
-        const { data: d2 } = await supabase.from("operations").select("*")
-          .order("operation_number", { ascending: true, nullsFirst: false });
-        if (d2?.length) { setOps(d2 as Op[]); persistOps(d2 as Op[]); }
       }
+      /* Never overwrite local ops with Supabase — local is always fresh */
     })();
   }, []);
 
@@ -189,17 +185,44 @@ function GestionApp() {
     localStorage.setItem(CAPITAL_KEY, v.toString());
   };
 
-  const totals = useMemo(() => ({
-    benefice:   ops.reduce((s, o) => s + o.net_profit,          0),
-    aEncaisser: ops.reduce((s, o) => s + o.to_collect_amount,   0),
-    couts:      ops.reduce((s, o) => s + o.purchase_amount + o.transport_amount, 0),
-    ventes:     ops.reduce((s, o) => s + o.total_sale,          0),
-    encaisse:   ops.reduce((s, o) => s + o.collected_amount,    0),
-  }), [ops]);
+  const totals = useMemo(() => {
+    const beneficeTotal   = ops.reduce((s, o) => s + o.net_profit, 0);
+    const aEncaisser      = ops.reduce((s, o) => s + o.to_collect_amount, 0);
+    const encaisse        = ops.reduce((s, o) => s + o.collected_amount, 0);
+    const ventes          = ops.reduce((s, o) => s + o.total_sale, 0);
+    const couts           = ops.reduce((s, o) => s + o.purchase_amount + o.transport_amount, 0);
+    /* Bénéfice au prorata de ce qui est réellement encaissé
+       Quand collected_amount = total_sale → bénéfice plein comptabilisé */
+    const beneficeEncaisse = ops.reduce((s, o) => {
+      if (o.total_sale === 0) return s + o.net_profit;
+      return s + Math.round((o.collected_amount / o.total_sale) * o.net_profit);
+    }, 0);
+    return { beneficeTotal, beneficeEncaisse, aEncaisser, encaisse, ventes, couts };
+  }, [ops]);
 
-  const addOp    = (op: Op)             => { const next = [...ops, op].sort((a,b)=>(a.operation_number??999)-(b.operation_number??999)); setOps(next); persistOps(next); };
-  const updateOp = (op: Op)             => { const next = ops.map(o => o.id === op.id ? op : o); setOps(next); persistOps(next); };
-  const deleteOp = async (id: string)   => { const next = ops.filter(o => o.id !== id); setOps(next); persistOps(next); if (synced) await supabase.from("operations").delete().eq("id", id); };
+  /* Functional updates — évite les bugs de fermeture (stale closure) */
+  const addOp = (op: Op) => {
+    setOps(prev => {
+      const next = [...prev, op].sort((a,b)=>(a.operation_number??999)-(b.operation_number??999));
+      persistOps(next);
+      return next;
+    });
+  };
+  const updateOp = (op: Op) => {
+    setOps(prev => {
+      const next = prev.map(o => o.id === op.id ? op : o);
+      persistOps(next);
+      return next;
+    });
+  };
+  const deleteOp = async (id: string) => {
+    setOps(prev => {
+      const next = prev.filter(o => o.id !== id);
+      persistOps(next);
+      return next;
+    });
+    if (synced) await supabase.from("operations").delete().eq("id", id);
+  };
 
   const NAV: { id: View; icon: string; label: string }[] = [
     { id: "dashboard",  icon: "home",      label: "Tableau de bord" },
@@ -350,10 +373,28 @@ function DashboardView({ ops, totals, capital, onGoToOps }: {
 
       {/* Metrics */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <MetricCard label="Bénéfice net" value={fF(totals.benefice)} green />
-        <MetricCard label="Capital actuel" value={fF(capital + totals.benefice)} />
-        <MetricCard label="À encaisser" value={fF(totals.aEncaisser)} amber={totals.aEncaisser > 0} />
-        <MetricCard label="Opérations" value={String(ops.length)} />
+        <MetricCard
+          label="Bénéfice encaissé"
+          value={fF(totals.beneficeEncaisse)}
+          sub="sur montants reçus"
+          green
+        />
+        <MetricCard
+          label="Capital disponible"
+          value={fF(capital + totals.beneficeEncaisse)}
+          sub={`départ : ${fF(capital)}`}
+        />
+        <MetricCard
+          label="À encaisser"
+          value={fF(totals.aEncaisser)}
+          sub={totals.aEncaisser > 0 ? "montants en attente" : "tout encaissé ✓"}
+          amber={totals.aEncaisser > 0}
+        />
+        <MetricCard
+          label="Bénéfice total projeté"
+          value={fF(totals.beneficeTotal)}
+          sub={`${ops.length} opération${ops.length !== 1 ? "s" : ""}`}
+        />
       </div>
 
       {/* Recent activity */}
@@ -399,11 +440,12 @@ function DashboardView({ ops, totals, capital, onGoToOps }: {
       {/* Summary strip */}
       <div className="bg-gray-950 rounded-xl p-5">
         <p className="text-[10px] font-semibold text-gray-600 uppercase tracking-widest mb-3">Résumé financier</p>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {[
-            { label: "Coûts totaux",   value: fF(totals.couts),    dim: true },
-            { label: "Total ventes",   value: fF(totals.ventes),   dim: false },
-            { label: "Bénéfice net",   value: fF(totals.benefice), green: true },
+            { label: "Coûts totaux",         value: fF(totals.couts),           dim: true },
+            { label: "Total ventes",          value: fF(totals.ventes),          dim: false },
+            { label: "Bénéfice encaissé",     value: fF(totals.beneficeEncaisse), green: true },
+            { label: "Bénéfice total projeté",value: fF(totals.beneficeTotal),   dim: false },
           ].map(k => (
             <div key={k.label}>
               <p className="text-[10px] text-gray-600 mb-0.5">{k.label}</p>
@@ -868,7 +910,7 @@ function OpRow({ op, onEdit, onDelete, deleting }: {
 ═══════════════════════════════════════════ */
 function FinancesView({ ops, totals, capital, onSaveCapital }: {
   ops: Op[];
-  totals: { benefice: number; aEncaisser: number; couts: number; ventes: number; encaisse: number };
+  totals: { beneficeTotal: number; beneficeEncaisse: number; aEncaisser: number; couts: number; ventes: number; encaisse: number };
   capital: number;
   onSaveCapital: (v: number) => void;
 }) {
@@ -915,8 +957,9 @@ function FinancesView({ ops, totals, capital, onSaveCapital }: {
             )}
           </div>
           <div className="text-right">
-            <p className="text-[11px] text-gray-400 mb-1">Capital + Bénéfices</p>
-            <p className="text-[22px] font-headline font-black text-emerald-600">{fF(capital + totals.benefice)}</p>
+            <p className="text-[11px] text-gray-400 mb-1">Capital disponible</p>
+            <p className="text-[22px] font-headline font-black text-emerald-600">{fF(capital + totals.beneficeEncaisse)}</p>
+            <p className="text-[10px] text-gray-400 mt-0.5">projeté : {fF(capital + totals.beneficeTotal)}</p>
           </div>
         </div>
       </div>
@@ -928,13 +971,14 @@ function FinancesView({ ops, totals, capital, onSaveCapital }: {
         </div>
         <div className="divide-y divide-gray-100">
           {[
-            { label: "Total achats",      value: totals.couts - ops.reduce((s,o)=>s+o.transport_amount,0), neutral: true },
-            { label: "Total transport",   value: ops.reduce((s,o)=>s+o.transport_amount,0),               neutral: true },
-            { label: "Total coûts",       value: totals.couts,                                            neutral: true, bold: true },
-            { label: "Total ventes",      value: totals.ventes,                                           neutral: false },
-            { label: "Total encaissé",    value: totals.encaisse,                                         neutral: false },
-            { label: "Reste à encaisser", value: totals.aEncaisser,                                       amber: true },
-            { label: "Bénéfice net total",value: totals.benefice,                                         green: true, bold: true },
+            { label: "Total achats",           value: totals.couts - ops.reduce((s,o)=>s+o.transport_amount,0), neutral: true },
+            { label: "Total transport",        value: ops.reduce((s,o)=>s+o.transport_amount,0),               neutral: true },
+            { label: "Total coûts",            value: totals.couts,                                            neutral: true, bold: true },
+            { label: "Total ventes",           value: totals.ventes,                                           neutral: false },
+            { label: "Total encaissé",         value: totals.encaisse,                                         neutral: false },
+            { label: "Reste à encaisser",      value: totals.aEncaisser,                                       amber: true },
+            { label: "Bénéfice encaissé",      value: totals.beneficeEncaisse,                                 green: true, bold: true },
+            { label: "Bénéfice total projeté", value: totals.beneficeTotal,                                    neutral: false },
           ].map(k => (
             <div key={k.label} className="flex items-center justify-between px-5 py-3">
               <p className={`text-[13px] ${k.bold ? "font-semibold text-gray-900" : "text-gray-600"}`}>{k.label}</p>
@@ -995,9 +1039,10 @@ function FinancesView({ ops, totals, capital, onSaveCapital }: {
 /* ─────────────────────────────────────────
    Shared: Metric card
 ───────────────────────────────────────── */
-function MetricCard({ label, value, green, amber }: {
+function MetricCard({ label, value, sub, green, amber }: {
   label: string;
   value: string;
+  sub?: string;
   green?: boolean;
   amber?: boolean;
 }) {
@@ -1009,6 +1054,7 @@ function MetricCard({ label, value, green, amber }: {
       }`}>
         {value}
       </p>
+      {sub && <p className="text-[10px] text-gray-400 mt-1">{sub}</p>}
     </div>
   );
 }
