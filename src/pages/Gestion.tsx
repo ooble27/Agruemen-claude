@@ -10,7 +10,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const ACCESS_CODE     = "MAMAKAASA2026";
 const SESSION_KEY     = "mgmt_auth_v1";
 const CAPITAL_KEY     = "mgmt_capital_v1";
-const OPS_KEY         = "mgmt_ops_v1";
+const OPS_KEY         = "mgmt_ops_v2"; /* v2 — force fresh seed, clear old cache */
 const DEFAULT_CAPITAL = 900_000;
 
 /* ─────────────────────────────────────────
@@ -44,7 +44,7 @@ type Op = {
 const SEED: Op[] = [
   { id: "op-001", operation_number: 1, product_name: "Mangue", product_emoji: "🥭", location: "DIOUROU (Tabaski)", operation_date: null, quantity: 300, quantity_unit: "KG", purchase_amount: 48000, transport_amount: 22000, total_sale: 90000, collected_amount: 90000, to_collect_amount: 0, net_profit: 30000, status: "completed", notes: "12 bassines × 4 000 FCFA = 48 000 FCFA achat • 300 FCFA/KG × 300 KG = 90 000 FCFA vente", created_at: "2026-06-01T00:00:00Z" },
   { id: "op-002", operation_number: 2, product_name: "Mangue", product_emoji: "🥭", location: "DIOUROU", operation_date: null, quantity: 315, quantity_unit: "KG", purchase_amount: 22000, transport_amount: 18000, total_sale: 55900, collected_amount: 30000, to_collect_amount: 25900, net_profit: 15900, status: "partial", notes: "9 sacs de mangue = 22 000 FCFA achat • Vente : 270 FCFA/KG → 38 800 FCFA + 100 FCFA/KG → 17 100 FCFA", created_at: "2026-06-05T00:00:00Z" },
-  { id: "op-003", operation_number: 3, product_name: "Oignons verts", product_emoji: "🧅", location: null, operation_date: null, quantity: null, quantity_unit: "KG", purchase_amount: 75000, transport_amount: 40000, total_sale: 130000, collected_amount: 91500, to_collect_amount: 38500, net_profit: 15000, status: "partial", notes: "10 balles = 75 000 FCFA achat • Transport : 16 000 + 21 000 + 3 000 = 40 000 FCFA • Encaissé : 91 500 FCFA • Reste : 16 500 + 10 000 + 12 000 = 38 500 FCFA", created_at: "2026-06-10T00:00:00Z" },
+  { id: "op-003", operation_number: 3, product_name: "Oignons verts", product_emoji: "🧅", location: null, operation_date: null, quantity: null, quantity_unit: "KG", purchase_amount: 75000, transport_amount: 40000, total_sale: 130000, collected_amount: 130000, to_collect_amount: 0, net_profit: 15000, status: "completed", notes: "10 balles = 75 000 FCFA achat • Transport : 16 000 + 21 000 + 3 000 = 40 000 FCFA • Tout encaissé : 130 000 FCFA", created_at: "2026-06-10T00:00:00Z" },
   { id: "op-004", operation_number: 4, product_name: "Madd", product_emoji: "🍈", location: null, operation_date: "2026-06-14", quantity: null, quantity_unit: "KG", purchase_amount: 32000, transport_amount: 0, total_sale: 56000, collected_amount: 56000, to_collect_amount: 0, net_profit: 24000, status: "completed", notes: "4 sacs × 8 000 FCFA = 32 000 FCFA achat • 4 sacs × 14 000 FCFA = 56 000 FCFA vente", created_at: "2026-06-14T00:00:00Z" },
 ];
 
@@ -163,21 +163,24 @@ function GestionApp() {
     return s ? parseInt(s) : DEFAULT_CAPITAL;
   });
 
-  /* Background Supabase sync — localStorage is always source of truth */
+  /* Persist ops to localStorage whenever state changes — source of truth */
+  useEffect(() => {
+    persistOps(ops);
+  }, [ops]);
+
+  /* Supabase sync — only pushes, never overwrites local */
   useEffect(() => {
     (async () => {
       const { error } = await supabase.from("operations").select("id").limit(1);
       if (error) { setSynced(false); return; }
       setSynced(true);
-      /* If table is empty, seed it with local data so Supabase stays in sync */
       const { data: existing } = await supabase.from("operations").select("id");
       if (!existing || existing.length === 0) {
-        const localOps = loadOps();
-        const payload = localOps.map(({ id: _i, created_at: _c, ...r }) => r);
+        const payload = ops.map(({ id: _i, created_at: _c, ...r }) => r);
         await supabase.from("operations").insert(payload);
       }
-      /* Never overwrite local ops with Supabase — local is always fresh */
     })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const saveCapital = (v: number) => {
@@ -186,13 +189,11 @@ function GestionApp() {
   };
 
   const totals = useMemo(() => {
-    const beneficeTotal   = ops.reduce((s, o) => s + o.net_profit, 0);
-    const aEncaisser      = ops.reduce((s, o) => s + o.to_collect_amount, 0);
-    const encaisse        = ops.reduce((s, o) => s + o.collected_amount, 0);
-    const ventes          = ops.reduce((s, o) => s + o.total_sale, 0);
-    const couts           = ops.reduce((s, o) => s + o.purchase_amount + o.transport_amount, 0);
-    /* Bénéfice au prorata de ce qui est réellement encaissé
-       Quand collected_amount = total_sale → bénéfice plein comptabilisé */
+    const beneficeTotal    = ops.reduce((s, o) => s + o.net_profit, 0);
+    const aEncaisser       = ops.reduce((s, o) => s + o.to_collect_amount, 0);
+    const encaisse         = ops.reduce((s, o) => s + o.collected_amount, 0);
+    const ventes           = ops.reduce((s, o) => s + o.total_sale, 0);
+    const couts            = ops.reduce((s, o) => s + o.purchase_amount + o.transport_amount, 0);
     const beneficeEncaisse = ops.reduce((s, o) => {
       if (o.total_sale === 0) return s + o.net_profit;
       return s + Math.round((o.collected_amount / o.total_sale) * o.net_profit);
@@ -200,27 +201,15 @@ function GestionApp() {
     return { beneficeTotal, beneficeEncaisse, aEncaisser, encaisse, ventes, couts };
   }, [ops]);
 
-  /* Functional updates — évite les bugs de fermeture (stale closure) */
+  /* Pure state updaters — persistence handled by useEffect above */
   const addOp = (op: Op) => {
-    setOps(prev => {
-      const next = [...prev, op].sort((a,b)=>(a.operation_number??999)-(b.operation_number??999));
-      persistOps(next);
-      return next;
-    });
+    setOps(prev => [...prev, op].sort((a,b)=>(a.operation_number??999)-(b.operation_number??999)));
   };
   const updateOp = (op: Op) => {
-    setOps(prev => {
-      const next = prev.map(o => o.id === op.id ? op : o);
-      persistOps(next);
-      return next;
-    });
+    setOps(prev => prev.map(o => o.id === op.id ? op : o));
   };
   const deleteOp = async (id: string) => {
-    setOps(prev => {
-      const next = prev.filter(o => o.id !== id);
-      persistOps(next);
-      return next;
-    });
+    setOps(prev => prev.filter(o => o.id !== id));
     if (synced) await supabase.from("operations").delete().eq("id", id);
   };
 
@@ -923,12 +912,24 @@ function FinancesView({ ops, totals, capital, onSaveCapital }: {
     setEditCap(false);
   };
 
+  const resetData = () => {
+    if (!confirm("Réinitialiser les données initiales ? Vos modifications seront perdues.")) return;
+    localStorage.removeItem(OPS_KEY);
+    window.location.reload();
+  };
+
   return (
     <div className="p-5 md:p-7 max-w-3xl space-y-6">
 
-      <div>
-        <h1 className="text-[20px] font-headline font-black text-gray-900">Finances</h1>
-        <p className="text-[12px] text-gray-400 mt-0.5">Récapitulatif financier des opérations</p>
+      <div className="flex items-start justify-between">
+        <div>
+          <h1 className="text-[20px] font-headline font-black text-gray-900">Finances</h1>
+          <p className="text-[12px] text-gray-400 mt-0.5">Récapitulatif financier des opérations</p>
+        </div>
+        <button onClick={resetData}
+          className="text-[11px] text-gray-400 hover:text-red-500 transition-colors underline underline-offset-2">
+          Réinitialiser les données
+        </button>
       </div>
 
       {/* Capital */}
