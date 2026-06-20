@@ -123,39 +123,56 @@ export default function Gestion() {
   };
 
   if (!authed) return (
-    <div className="min-h-screen bg-gray-950 flex flex-col items-center justify-center px-4">
+    <div className="min-h-screen bg-[#0a0a0a] flex flex-col items-center justify-center px-6 relative overflow-hidden">
+
+      {/* Subtle background glow */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-white/[0.025] blur-[80px]" />
+      </div>
+
       <motion.div
-        initial={{ opacity: 0, y: 16 }}
+        initial={{ opacity: 0, y: 28 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.28 }}
-        className="w-full max-w-[340px]"
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        className="relative w-full max-w-[300px] flex flex-col items-center"
       >
-        <div className="bg-white rounded-2xl overflow-hidden shadow-2xl shadow-black/50">
-          <div className="bg-gray-950 flex items-center justify-center py-7 border-b border-white/5">
-            <img src="/logo-mamakaasa.png" alt="Mamakaasa" className="h-9 object-contain" />
-          </div>
-          <div className="px-7 py-7">
-            <p className="text-[12px] text-gray-400 text-center mb-5">Espace de gestion interne</p>
-            <motion.input
-              animate={shake ? { x: [0,-10,10,-7,7,-3,3,0] } : {}}
-              transition={{ duration: 0.4 }}
-              type="password"
-              value={code}
-              onChange={e => setCode(e.target.value)}
-              onKeyDown={e => e.key === "Enter" && tryLogin()}
-              placeholder="Code d'accès"
-              autoFocus
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-center font-mono text-[15px] tracking-[0.25em] text-gray-900 outline-none focus:border-gray-400 focus:bg-white transition-all mb-3"
-            />
-            <button onClick={tryLogin}
-              className="w-full py-3 rounded-xl bg-gray-900 text-white text-[13px] font-semibold hover:bg-gray-800 transition-colors">
-              Accéder
-            </button>
-            <Link to="/" className="block mt-4 text-[11px] text-gray-400 hover:text-gray-500 text-center transition-colors">
-              ← Retour à l'accueil
-            </Link>
-          </div>
-        </div>
+        {/* Logo */}
+        <img src="/logo-mamakaasa.png" alt="Mamakaasa" className="h-11 object-contain mb-10 opacity-95" />
+
+        {/* Label */}
+        <p className="text-[10px] font-semibold text-white/30 tracking-[0.18em] uppercase mb-6">
+          Espace de gestion
+        </p>
+
+        {/* Input */}
+        <motion.div
+          animate={shake ? { x: [0, -10, 10, -7, 7, -3, 3, 0] } : {}}
+          transition={{ duration: 0.4 }}
+          className="w-full mb-3"
+        >
+          <input
+            type="password"
+            value={code}
+            onChange={e => setCode(e.target.value)}
+            onKeyDown={e => e.key === "Enter" && tryLogin()}
+            placeholder="Code d'accès"
+            autoFocus
+            className="w-full px-5 py-4 bg-white/[0.05] border border-white/[0.09] rounded-2xl text-white text-center text-[15px] tracking-[0.28em] outline-none focus:border-white/25 focus:bg-white/[0.08] transition-all duration-200 placeholder:text-white/18 placeholder:tracking-normal font-mono"
+          />
+        </motion.div>
+
+        {/* Button */}
+        <button
+          onClick={tryLogin}
+          className="w-full py-4 rounded-2xl bg-white text-[#0a0a0a] text-[13px] font-bold tracking-[0.04em] hover:bg-white/92 active:scale-[0.98] transition-all duration-150"
+        >
+          Accéder
+        </button>
+
+        {/* Back */}
+        <Link to="/" className="mt-10 text-[11px] text-white/20 hover:text-white/45 transition-colors duration-200">
+          ← Retour à l'accueil
+        </Link>
       </motion.div>
     </div>
   );
