@@ -11,39 +11,8 @@ const CAPITAL_KEY   = "mgmt_capital_v1";
 const OPS_CACHE_KEY = "mgmt_ops_cache_v1";
 const DEFAULT_CAPITAL = 900_000;
 
-/* ─── SQL for first-time setup ─── */
-const SQL_SETUP = `CREATE TABLE IF NOT EXISTS public.operations (
-  id                UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  operation_number  INTEGER,
-  product_name      TEXT NOT NULL,
-  product_emoji     TEXT NOT NULL DEFAULT '📦',
-  location          TEXT,
-  operation_date    DATE,
-  quantity          DECIMAL,
-  quantity_unit     TEXT NOT NULL DEFAULT 'KG',
-  purchase_amount   INTEGER NOT NULL DEFAULT 0,
-  transport_amount  INTEGER NOT NULL DEFAULT 0,
-  total_sale        INTEGER NOT NULL DEFAULT 0,
-  collected_amount  INTEGER NOT NULL DEFAULT 0,
-  to_collect_amount INTEGER NOT NULL DEFAULT 0,
-  net_profit        INTEGER NOT NULL DEFAULT 0,
-  notes             TEXT,
-  status            TEXT NOT NULL DEFAULT 'completed',
-  created_at        TIMESTAMPTZ NOT NULL DEFAULT now(),
-  updated_at        TIMESTAMPTZ NOT NULL DEFAULT now()
-);
-
-ALTER TABLE public.operations ENABLE ROW LEVEL SECURITY;
-
-CREATE POLICY "Public full access operations"
-  ON public.operations FOR ALL USING (true) WITH CHECK (true);
-
-CREATE INDEX IF NOT EXISTS idx_ops_number
-  ON public.operations (operation_number ASC NULLS LAST);`;
-
 /* ─── Types ─── */
-type View     = "dashboard" | "operations" | "finances";
-type DbStatus = "loading" | "ready" | "setup_needed";
+type View = "dashboard" | "operations" | "finances";
 
 type Op = {
   id: string;
@@ -184,9 +153,10 @@ export default function Gestion() {
    MAIN APP
 ═══════════════════════════════════════ */
 function GestionApp() {
-  const [view,     setView]     = useState<View>("dashboard");
-  const [dbStatus, setDbStatus] = useState<DbStatus>("loading");
-  const [ops,      setOps]      = useState<Op[]>(() => {
+  const [view,    setView]    = useState<View>("dashboard");
+  const [dbReady, setDbReady] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [ops,     setOps]     = useState<Op[]>(() => {
     try {
       const raw = localStorage.getItem(OPS_CACHE_KEY);
       if (raw) return sortOps(JSON.parse(raw) as Op[]);
@@ -207,7 +177,13 @@ function GestionApp() {
       .order("operation_number", { ascending: true });
 
     if (error) {
-      setDbStatus("setup_needed");
+      // Supabase not available — fall back to localStorage/seed silently
+      if (ops.length === 0) {
+        const seed = SEED.map((s, i) => ({ ...s, id: `local-${i + 1}`, created_at: new Date().toISOString() }));
+        setOps(seed);
+        localStorage.setItem(OPS_CACHE_KEY, JSON.stringify(seed));
+      }
+      setLoading(false);
       return;
     }
 
@@ -225,7 +201,8 @@ function GestionApp() {
     const sorted = sortOps(rows);
     setOps(sorted);
     localStorage.setItem(OPS_CACHE_KEY, JSON.stringify(sorted));
-    setDbStatus("ready");
+    setDbReady(true);
+    setLoading(false);
   }
 
   const saveCapital = (v: number) => {
@@ -247,53 +224,49 @@ function GestionApp() {
   }, [ops]);
 
   const addOp = async (op: Op): Promise<boolean> => {
-    const { id: _id, created_at: _c, ...payload } = op;
-    const { data, error } = await supabase.from("operations").insert(payload).select().single();
-    if (error) return false;
-    setOps(prev => {
-      const next = sortOps([...prev, data as Op]);
-      localStorage.setItem(OPS_CACHE_KEY, JSON.stringify(next));
-      return next;
-    });
+    if (dbReady) {
+      const { id: _id, created_at: _c, ...payload } = op;
+      const { data, error } = await supabase.from("operations").insert(payload).select().single();
+      if (!error && data) {
+        setOps(prev => { const next = sortOps([...prev, data as Op]); localStorage.setItem(OPS_CACHE_KEY, JSON.stringify(next)); return next; });
+        return true;
+      }
+    }
+    setOps(prev => { const next = sortOps([...prev, op]); localStorage.setItem(OPS_CACHE_KEY, JSON.stringify(next)); return next; });
     return true;
   };
 
   const updateOp = async (op: Op): Promise<boolean> => {
-    const { id, created_at: _c, ...payload } = op;
-    const { error } = await supabase
-      .from("operations")
-      .update({ ...payload, updated_at: new Date().toISOString() })
-      .eq("id", id);
-    if (error) return false;
-    setOps(prev => {
-      const next = prev.map(o => o.id === id ? op : o);
-      localStorage.setItem(OPS_CACHE_KEY, JSON.stringify(next));
-      return next;
-    });
+    if (dbReady) {
+      const { id, created_at: _c, ...payload } = op;
+      const { error } = await supabase.from("operations").update({ ...payload, updated_at: new Date().toISOString() }).eq("id", id);
+      if (!error) {
+        setOps(prev => { const next = prev.map(o => o.id === id ? op : o); localStorage.setItem(OPS_CACHE_KEY, JSON.stringify(next)); return next; });
+        return true;
+      }
+    }
+    setOps(prev => { const next = prev.map(o => o.id === op.id ? op : o); localStorage.setItem(OPS_CACHE_KEY, JSON.stringify(next)); return next; });
     return true;
   };
 
   const deleteOp = async (id: string): Promise<boolean> => {
-    const { error } = await supabase.from("operations").delete().eq("id", id);
-    if (error) return false;
-    setOps(prev => {
-      const next = prev.filter(o => o.id !== id);
-      localStorage.setItem(OPS_CACHE_KEY, JSON.stringify(next));
-      return next;
-    });
+    if (dbReady) await supabase.from("operations").delete().eq("id", id);
+    setOps(prev => { const next = prev.filter(o => o.id !== id); localStorage.setItem(OPS_CACHE_KEY, JSON.stringify(next)); return next; });
     return true;
   };
 
   const resetOps = async () => {
     if (!confirm("Réinitialiser avec les données initiales ? Toutes vos modifications seront perdues.")) return;
-    const ids = ops.map(o => o.id);
-    if (ids.length > 0) await supabase.from("operations").delete().in("id", ids);
-    await supabase.from("operations").insert(SEED);
-    const { data: fresh } = await supabase.from("operations").select("*").order("operation_number", { ascending: true });
-    if (fresh) {
-      const sorted = sortOps(fresh as Op[]);
-      setOps(sorted);
-      localStorage.setItem(OPS_CACHE_KEY, JSON.stringify(sorted));
+    if (dbReady) {
+      const ids = ops.map(o => o.id);
+      if (ids.length > 0) await supabase.from("operations").delete().in("id", ids);
+      await supabase.from("operations").insert(SEED);
+      const { data: fresh } = await supabase.from("operations").select("*").order("operation_number", { ascending: true });
+      if (fresh) { const sorted = sortOps(fresh as Op[]); setOps(sorted); localStorage.setItem(OPS_CACHE_KEY, JSON.stringify(sorted)); }
+    } else {
+      const seed = SEED.map((s, i) => ({ ...s, id: `local-${i + 1}`, created_at: new Date().toISOString() }));
+      setOps(seed);
+      localStorage.setItem(OPS_CACHE_KEY, JSON.stringify(seed));
     }
     toast.success("Données réinitialisées");
   };
@@ -312,9 +285,7 @@ function GestionApp() {
         <span className="text-[12px] text-gray-400 hidden sm:block">
           {NAV.find(n => n.id === view)?.label}
         </span>
-        {dbStatus === "ready"        && <span className="ml-1 text-[10px] text-emerald-500 hidden sm:block">· Synchronisé</span>}
-        {dbStatus === "setup_needed" && <span className="ml-1 text-[10px] text-amber-500 hidden sm:block">· Configuration requise</span>}
-        {dbStatus === "loading"      && <span className="ml-1 text-[10px] text-gray-400 hidden sm:block">· Connexion…</span>}
+        {dbReady && <span className="ml-1 text-[10px] text-emerald-500 hidden sm:block">· Synchronisé</span>}
         <div className="ml-auto flex items-center gap-1">
           <Link to="/" className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-100 transition-colors">
             <span className="material-symbols-outlined text-[17px]">home</span>
@@ -364,14 +335,9 @@ function GestionApp() {
           </div>
 
           <div className="flex-1 overflow-y-auto">
-            {dbStatus === "setup_needed" ? (
-              <SetupScreen />
-            ) : dbStatus === "loading" && ops.length === 0 ? (
+            {loading && ops.length === 0 ? (
               <div className="flex items-center justify-center h-full">
-                <div className="text-center">
-                  <div className="w-5 h-5 border-2 border-gray-200 border-t-gray-800 rounded-full animate-spin mx-auto mb-3" />
-                  <p className="text-[12px] text-gray-400">Chargement des données…</p>
-                </div>
+                <div className="w-5 h-5 border-2 border-gray-200 border-t-gray-800 rounded-full animate-spin mx-auto" />
               </div>
             ) : (
               <AnimatePresence mode="wait">
@@ -400,41 +366,6 @@ function GestionApp() {
   );
 }
 
-/* ─── Setup screen ─── */
-function SetupScreen() {
-  const copy = () => { navigator.clipboard?.writeText(SQL_SETUP); toast.success("SQL copié !"); };
-  return (
-    <div className="p-5 md:p-7 max-w-2xl">
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-        <div className="bg-gray-950 px-5 py-4">
-          <h2 className="text-white font-semibold text-[14px]">Configuration base de données requise</h2>
-          <p className="text-gray-400 text-[12px] mt-1">
-            La table <code className="text-gray-300 bg-white/10 px-1 rounded">operations</code> n'existe pas encore dans Supabase.
-          </p>
-        </div>
-        <div className="p-5 space-y-4">
-          <p className="text-[13px] text-gray-600">
-            Exécutez ce SQL dans <strong>Supabase Dashboard → SQL Editor</strong>, puis rechargez la page :
-          </p>
-          <div className="bg-gray-50 rounded-lg border border-gray-200 p-4 overflow-x-auto">
-            <pre className="text-[11px] text-gray-700 whitespace-pre font-mono leading-relaxed">{SQL_SETUP}</pre>
-          </div>
-          <div className="flex gap-2">
-            <button onClick={() => window.location.reload()}
-              className="flex-1 py-2.5 rounded-lg bg-gray-900 text-white text-[13px] font-semibold hover:bg-gray-800 transition-colors">
-              Recharger la page
-            </button>
-            <button onClick={copy}
-              className="px-4 py-2.5 rounded-lg border border-gray-200 text-[13px] font-semibold text-gray-600 hover:bg-gray-50 transition-colors flex items-center gap-1.5">
-              <span className="material-symbols-outlined text-[14px]">content_copy</span>
-              Copier le SQL
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 /* ═══════════════════════════════════════
    SECTION 1 — TABLEAU DE BORD
