@@ -467,6 +467,20 @@ function OperationsView({ ops, onAdd, onUpdate, onDelete }: {
   const [form,     setForm]     = useState({ ...BLANK });
   const [saving,   setSaving]   = useState(false);
   const [deleting, setDeleting] = useState<string | null>(null);
+  const [search,   setSearch]   = useState("");
+  const [filter,   setFilter]   = useState<"all" | "completed" | "partial">("all");
+  const [page,     setPage]     = useState(1);
+
+  const PER_PAGE = 8;
+
+  const filtered = ops
+    .filter(op => filter === "all" || op.status === filter)
+    .filter(op => !search.trim() || op.product_name.toLowerCase().includes(search.toLowerCase()) || (op.location ?? "").toLowerCase().includes(search.toLowerCase()));
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
+  const paginated  = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+
+  useEffect(() => { setPage(1); }, [filter, search]);
 
   useEffect(() => {
     if (!form.manual_profit) {
@@ -549,10 +563,14 @@ function OperationsView({ ops, onAdd, onUpdate, onDelete }: {
 
   return (
     <div className="p-5 md:p-7 max-w-3xl space-y-4">
+      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-[20px] font-headline font-black text-gray-900">Opérations</h1>
-          <p className="text-[12px] text-gray-400 mt-0.5">{ops.length} opération{ops.length !== 1 ? "s" : ""} enregistrée{ops.length !== 1 ? "s" : ""}</p>
+          <p className="text-[12px] text-gray-400 mt-0.5">
+            {filtered.length} / {ops.length} opération{ops.length !== 1 ? "s" : ""}
+            {filter !== "all" || search ? " · filtrées" : " au total"}
+          </p>
         </div>
         {!showForm && (
           <button onClick={openNew}
@@ -561,6 +579,34 @@ function OperationsView({ ops, onAdd, onUpdate, onDelete }: {
             <span className="hidden sm:inline">Nouvelle</span>
           </button>
         )}
+      </div>
+
+      {/* Search + Filter */}
+      <div className="flex flex-col sm:flex-row gap-2">
+        <div className="relative flex-1">
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-[16px] text-gray-400 pointer-events-none">search</span>
+          <input
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            placeholder="Rechercher par produit ou lieu…"
+            className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-gray-200 bg-white text-[13px] text-gray-900 outline-none focus:border-gray-400 placeholder:text-gray-300 transition-colors"
+          />
+          {search && (
+            <button onClick={() => setSearch("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+              <span className="material-symbols-outlined text-[15px]">close</span>
+            </button>
+          )}
+        </div>
+        <div className="flex rounded-lg border border-gray-200 overflow-hidden shrink-0 bg-white">
+          {(["all", "completed", "partial"] as const).map(f => (
+            <button key={f} onClick={() => setFilter(f)}
+              className={`px-3.5 py-2.5 text-[11.5px] font-semibold transition-colors ${
+                filter === f ? "bg-gray-900 text-white" : "text-gray-500 hover:bg-gray-50"
+              }`}>
+              {f === "all" ? "Tous" : f === "completed" ? "Soldés" : "En cours"}
+            </button>
+          ))}
+        </div>
       </div>
 
       <AnimatePresence>
@@ -719,7 +765,7 @@ function OperationsView({ ops, onAdd, onUpdate, onDelete }: {
         )}
       </AnimatePresence>
 
-      <div className="bg-white rounded-xl border border-gray-200 divide-y divide-gray-100 overflow-hidden">
+      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
         {ops.length === 0 ? (
           <div className="px-5 py-12 text-center">
             <span className="material-symbols-outlined text-4xl text-gray-200 block mb-2">inventory_2</span>
@@ -728,9 +774,47 @@ function OperationsView({ ops, onAdd, onUpdate, onDelete }: {
               Créer la première
             </button>
           </div>
-        ) : ops.map(op => (
-          <OpRow key={op.id} op={op} onEdit={openEdit} onDelete={handleDelete} deleting={deleting} />
-        ))}
+        ) : paginated.length === 0 ? (
+          <div className="px-5 py-10 text-center">
+            <p className="text-[13px] text-gray-400 mb-2">Aucun résultat</p>
+            <button onClick={() => { setSearch(""); setFilter("all"); }}
+              className="text-[12px] text-gray-500 underline underline-offset-2">
+              Effacer les filtres
+            </button>
+          </div>
+        ) : (
+          <div className="divide-y divide-gray-100">
+            {paginated.map(op => (
+              <OpRow key={op.id} op={op} onEdit={openEdit} onDelete={handleDelete} deleting={deleting} />
+            ))}
+          </div>
+        )}
+
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="flex items-center justify-between px-4 py-3 border-t border-gray-100 bg-gray-50/50">
+            <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}
+              className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-[12px] font-medium text-gray-600 hover:bg-white hover:border hover:border-gray-200 disabled:opacity-30 disabled:cursor-default transition-all">
+              <span className="material-symbols-outlined text-[15px]">chevron_left</span>
+              Précédent
+            </button>
+            <div className="flex items-center gap-1">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
+                <button key={p} onClick={() => setPage(p)}
+                  className={`w-7 h-7 rounded-md text-[12px] font-semibold transition-colors ${
+                    p === page ? "bg-gray-900 text-white" : "text-gray-400 hover:bg-gray-100"
+                  }`}>
+                  {p}
+                </button>
+              ))}
+            </div>
+            <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages}
+              className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-[12px] font-medium text-gray-600 hover:bg-white hover:border hover:border-gray-200 disabled:opacity-30 disabled:cursor-default transition-all">
+              Suivant
+              <span className="material-symbols-outlined text-[15px]">chevron_right</span>
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -840,8 +924,11 @@ function FinancesView({ ops, totals, capital, onSaveCapital, onReset }: {
   onSaveCapital: (v: number) => void;
   onReset: () => Promise<void>;
 }) {
-  const [editCap, setEditCap] = useState(false);
-  const [tempCap, setTempCap] = useState("");
+  const [editCap,     setEditCap]     = useState(false);
+  const [tempCap,     setTempCap]     = useState("");
+  const [showDetail,  setShowDetail]  = useState(false);
+  const [detailPage,  setDetailPage]  = useState(1);
+  const DETAIL_PER_PAGE = 10;
 
   const saveCap = () => {
     const v = parseInt(tempCap) || DEFAULT_CAPITAL;
@@ -851,6 +938,8 @@ function FinancesView({ ops, totals, capital, onSaveCapital, onReset }: {
 
   const totalAchats    = ops.reduce((s,o) => s + o.purchase_amount, 0);
   const totalTransport = ops.reduce((s,o) => s + o.transport_amount, 0);
+  const detailPages    = Math.max(1, Math.ceil(ops.length / DETAIL_PER_PAGE));
+  const detailRows     = ops.slice((detailPage - 1) * DETAIL_PER_PAGE, detailPage * DETAIL_PER_PAGE);
 
   return (
     <div className="p-5 md:p-7 max-w-3xl space-y-6">
@@ -927,38 +1016,76 @@ function FinancesView({ ops, totals, capital, onSaveCapital, onReset }: {
       </div>
 
       <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-        <div className="px-5 py-3.5 border-b border-gray-100">
-          <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-[0.07em]">Détail par opération</p>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full text-[12px]">
-            <thead>
-              <tr className="border-b border-gray-100">
-                {["#","Produit","Achat","Transport","Vente","Encaissé","Reste","Bénéfice"].map(h => (
-                  <th key={h} className="px-4 py-2.5 text-left font-semibold text-gray-400 whitespace-nowrap">{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-50">
-              {ops.map(op => (
-                <tr key={op.id} className="hover:bg-gray-50 transition-colors">
-                  <td className="px-4 py-2.5 text-gray-400">{op.operation_number ?? "—"}</td>
-                  <td className="px-4 py-2.5 font-medium text-gray-900 whitespace-nowrap">{op.product_emoji} {op.product_name}</td>
-                  <td className="px-4 py-2.5 text-gray-600 whitespace-nowrap">{op.purchase_amount.toLocaleString("fr-FR")} F</td>
-                  <td className="px-4 py-2.5 text-gray-600 whitespace-nowrap">{op.transport_amount.toLocaleString("fr-FR")} F</td>
-                  <td className="px-4 py-2.5 text-gray-600 whitespace-nowrap">{op.total_sale.toLocaleString("fr-FR")} F</td>
-                  <td className="px-4 py-2.5 text-gray-600 whitespace-nowrap">{op.collected_amount.toLocaleString("fr-FR")} F</td>
-                  <td className={`px-4 py-2.5 whitespace-nowrap ${op.to_collect_amount > 0 ? "text-amber-600 font-medium" : "text-gray-400"}`}>
-                    {op.to_collect_amount > 0 ? `${op.to_collect_amount.toLocaleString("fr-FR")} F` : "—"}
-                  </td>
-                  <td className={`px-4 py-2.5 font-bold whitespace-nowrap ${op.net_profit >= 0 ? "text-emerald-600" : "text-red-500"}`}>
-                    {op.net_profit >= 0 ? "+" : ""}{op.net_profit.toLocaleString("fr-FR")} F
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <button
+          onClick={() => { setShowDetail(v => !v); setDetailPage(1); }}
+          className="w-full flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 transition-colors"
+        >
+          <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-[0.07em]">
+            Détail par opération
+            <span className="ml-2 font-normal normal-case text-gray-300">({ops.length})</span>
+          </p>
+          <span className={`material-symbols-outlined text-gray-300 text-[18px] transition-transform duration-200 ${showDetail ? "rotate-180" : ""}`}>
+            expand_more
+          </span>
+        </button>
+
+        <AnimatePresence initial={false}>
+          {showDetail && (
+            <motion.div
+              initial={{ height: 0 }}
+              animate={{ height: "auto" }}
+              exit={{ height: 0 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="overflow-hidden"
+            >
+              <div className="border-t border-gray-100 overflow-x-auto">
+                <table className="w-full text-[12px]">
+                  <thead>
+                    <tr className="border-b border-gray-100 bg-gray-50/60">
+                      {["#","Produit","Achat","Transport","Vente","Encaissé","Reste","Bénéfice"].map(h => (
+                        <th key={h} className="px-4 py-2.5 text-left font-semibold text-gray-400 whitespace-nowrap">{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-50">
+                    {detailRows.map(op => (
+                      <tr key={op.id} className="hover:bg-gray-50 transition-colors">
+                        <td className="px-4 py-2.5 text-gray-400">{op.operation_number ?? "—"}</td>
+                        <td className="px-4 py-2.5 font-medium text-gray-900 whitespace-nowrap">{op.product_emoji} {op.product_name}</td>
+                        <td className="px-4 py-2.5 text-gray-600 whitespace-nowrap">{op.purchase_amount.toLocaleString("fr-FR")} F</td>
+                        <td className="px-4 py-2.5 text-gray-600 whitespace-nowrap">{op.transport_amount.toLocaleString("fr-FR")} F</td>
+                        <td className="px-4 py-2.5 text-gray-600 whitespace-nowrap">{op.total_sale.toLocaleString("fr-FR")} F</td>
+                        <td className="px-4 py-2.5 text-gray-600 whitespace-nowrap">{op.collected_amount.toLocaleString("fr-FR")} F</td>
+                        <td className={`px-4 py-2.5 whitespace-nowrap ${op.to_collect_amount > 0 ? "text-amber-600 font-medium" : "text-gray-400"}`}>
+                          {op.to_collect_amount > 0 ? `${op.to_collect_amount.toLocaleString("fr-FR")} F` : "—"}
+                        </td>
+                        <td className={`px-4 py-2.5 font-bold whitespace-nowrap ${op.net_profit >= 0 ? "text-emerald-600" : "text-red-500"}`}>
+                          {op.net_profit >= 0 ? "+" : ""}{op.net_profit.toLocaleString("fr-FR")} F
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {detailPages > 1 && (
+                <div className="flex items-center justify-between px-4 py-3 border-t border-gray-100 bg-gray-50/50">
+                  <button onClick={() => setDetailPage(p => Math.max(1, p - 1))} disabled={detailPage === 1}
+                    className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-[12px] font-medium text-gray-600 hover:bg-white hover:border hover:border-gray-200 disabled:opacity-30 transition-all">
+                    <span className="material-symbols-outlined text-[15px]">chevron_left</span>
+                    Précédent
+                  </button>
+                  <span className="text-[11px] text-gray-400">{detailPage} / {detailPages}</span>
+                  <button onClick={() => setDetailPage(p => Math.min(detailPages, p + 1))} disabled={detailPage === detailPages}
+                    className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-[12px] font-medium text-gray-600 hover:bg-white hover:border hover:border-gray-200 disabled:opacity-30 transition-all">
+                    Suivant
+                    <span className="material-symbols-outlined text-[15px]">chevron_right</span>
+                  </button>
+                </div>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
