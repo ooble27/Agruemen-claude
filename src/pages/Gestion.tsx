@@ -508,7 +508,6 @@ function OperationsView({ ops, onAdd, onUpdate, onDelete }: {
     });
     setEditOp(op);
     setShowForm(true);
-    window.scrollTo({ top: 0, behavior: "smooth" });
   };
   const cancel = () => { setShowForm(false); setEditOp(null); setForm({ ...BLANK }); };
 
@@ -558,265 +557,266 @@ function OperationsView({ ops, onAdd, onUpdate, onDelete }: {
     setDeleting(null);
   };
 
-  const inp = "w-full px-3 py-2.5 rounded-lg border border-gray-200 bg-white text-[13px] text-gray-900 outline-none focus:border-gray-400 placeholder:text-gray-300 transition-colors";
+  const inp = "w-full px-3 py-2.5 rounded-xl border border-gray-200 bg-white text-[13px] text-gray-900 outline-none focus:border-gray-400 placeholder:text-gray-300 transition-colors";
   const lbl = "block text-[11px] font-semibold text-gray-400 uppercase tracking-[0.06em] mb-1.5";
 
-  return (
-    <div className="p-5 md:p-7 max-w-3xl space-y-4">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-[20px] font-headline font-black text-gray-900">Opérations</h1>
-          <p className="text-[12px] text-gray-400 mt-0.5">
-            {filtered.length} / {ops.length} opération{ops.length !== 1 ? "s" : ""}
-            {filter !== "all" || search ? " · filtrées" : " au total"}
-          </p>
+  const FormBody = (
+    <div className="p-5 space-y-5">
+      <div>
+        <p className={lbl}>Identification</p>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3">
+          <div>
+            <label className="block text-[11px] text-gray-400 mb-1">N° opération</label>
+            <input type="number" value={form.operation_number} placeholder="5" min="1"
+              onChange={e => setForm(f=>({...f,operation_number:e.target.value}))} className={inp} />
+          </div>
+          <div className="sm:col-span-2">
+            <label className="block text-[11px] text-gray-400 mb-1">Produit *</label>
+            <input value={form.product_name} placeholder="Mangue, Oignons, Madd…"
+              onChange={e => setForm(f=>({...f,product_name:e.target.value}))} className={inp} />
+          </div>
+          <div>
+            <label className="block text-[11px] text-gray-400 mb-1">Date</label>
+            <input type="date" value={form.operation_date}
+              onChange={e => setForm(f=>({...f,operation_date:e.target.value}))} className={inp} />
+          </div>
         </div>
-        {!showForm && (
-          <button onClick={openNew}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-gray-900 text-white text-[12.5px] font-semibold hover:bg-gray-800 transition-colors">
-            <span className="material-symbols-outlined text-[14px]">add</span>
-            <span className="hidden sm:inline">Nouvelle</span>
-          </button>
-        )}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label className="block text-[11px] text-gray-400 mb-1">Icône</label>
+            <div className="flex gap-1.5 flex-wrap">
+              {EMOJIS.map(e => (
+                <button key={e} type="button" onClick={() => setForm(f=>({...f,product_emoji:e}))}
+                  className={`w-8 h-8 rounded-xl text-base flex items-center justify-center transition-all ${form.product_emoji===e?"bg-gray-900":"bg-gray-100 hover:bg-gray-200"}`}>
+                  {e}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div>
+            <label className="block text-[11px] text-gray-400 mb-1">Lieu</label>
+            <input value={form.location} placeholder="DIOUROU, Thiès…"
+              onChange={e => setForm(f=>({...f,location:e.target.value}))} className={inp} />
+          </div>
+          <div>
+            <label className="block text-[11px] text-gray-400 mb-1">Quantité</label>
+            <div className="flex">
+              <input type="number" value={form.quantity} placeholder="300" min="0"
+                onChange={e => setForm(f=>({...f,quantity:e.target.value}))}
+                className="flex-1 w-0 px-3 py-2.5 rounded-l-xl border border-r-0 border-gray-200 bg-white text-[13px] text-gray-900 outline-none focus:border-gray-400 placeholder:text-gray-300 transition-colors" />
+              <select value={form.quantity_unit} onChange={e => setForm(f=>({...f,quantity_unit:e.target.value}))}
+                className="px-2 py-2.5 rounded-r-xl border border-gray-200 bg-white text-[12px] text-gray-600 outline-none focus:border-gray-400 transition-colors shrink-0">
+                {UNITS.map(u=><option key={u}>{u}</option>)}
+              </select>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Search + Filter */}
-      <div className="flex flex-col sm:flex-row gap-2">
-        <div className="relative flex-1">
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-[16px] text-gray-400 pointer-events-none">search</span>
-          <input
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            placeholder="Rechercher par produit ou lieu…"
-            className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-gray-200 bg-white text-[13px] text-gray-900 outline-none focus:border-gray-400 placeholder:text-gray-300 transition-colors"
-          />
-          {search && (
-            <button onClick={() => setSearch("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
-              <span className="material-symbols-outlined text-[15px]">close</span>
-            </button>
-          )}
+      <div>
+        <p className={lbl}>Coûts</p>
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label className="block text-[11px] text-gray-400 mb-1">Montant achat (FCFA) *</label>
+            <input type="number" value={form.purchase_amount} placeholder="48 000" min="0"
+              onChange={e => setForm(f=>({...f,purchase_amount:e.target.value}))} className={inp} />
+          </div>
+          <div>
+            <label className="block text-[11px] text-gray-400 mb-1">Transport (FCFA)</label>
+            <input type="number" value={form.transport_amount} placeholder="22 000" min="0"
+              onChange={e => setForm(f=>({...f,transport_amount:e.target.value}))} className={inp} />
+          </div>
         </div>
-        <div className="flex rounded-lg border border-gray-200 overflow-hidden shrink-0 bg-white">
-          {(["all", "completed", "partial"] as const).map(f => (
-            <button key={f} onClick={() => setFilter(f)}
-              className={`px-3.5 py-2.5 text-[11.5px] font-semibold transition-colors ${
-                filter === f ? "bg-gray-900 text-white" : "text-gray-500 hover:bg-gray-50"
-              }`}>
-              {f === "all" ? "Tous" : f === "completed" ? "Soldés" : "En cours"}
-            </button>
-          ))}
+      </div>
+
+      <div>
+        <p className={lbl}>Vente & Encaissement</p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label className="block text-[11px] text-gray-400 mb-1">Total vente (FCFA)</label>
+            <input type="number" value={form.total_sale} placeholder="90 000" min="0"
+              onChange={e => setForm(f=>({...f,total_sale:e.target.value}))} className={inp} />
+          </div>
+          <div>
+            <label className="block text-[11px] text-gray-400 mb-1">Encaissé (FCFA)</label>
+            <input type="number" value={form.collected_amount} placeholder="90 000" min="0"
+              onChange={e => setForm(f=>({...f,collected_amount:e.target.value}))} className={inp} />
+          </div>
+          <div>
+            <label className="block text-[11px] text-gray-400 mb-1">Reste à encaisser</label>
+            <input type="number" value={form.to_collect_amount} readOnly
+              className="w-full px-3 py-2.5 rounded-xl border border-gray-100 bg-gray-50 text-[13px] text-gray-400 outline-none cursor-default" />
+          </div>
+        </div>
+      </div>
+
+      {(parseInt(form.purchase_amount)>0 || parseInt(form.total_sale)>0) && (() => {
+        const cost   = (parseInt(form.purchase_amount)||0) + (parseInt(form.transport_amount)||0);
+        const profit = (parseInt(form.total_sale)||0) - cost;
+        return (
+          <div className="flex items-center justify-between gap-3 px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 flex-wrap">
+            <p className="text-[11.5px] text-gray-500">
+              {(parseInt(form.total_sale)||0).toLocaleString("fr-FR")} F − {cost.toLocaleString("fr-FR")} F (coûts)
+            </p>
+            {form.manual_profit ? (
+              <div className="flex items-center gap-2">
+                <input type="number" value={form.net_profit}
+                  onChange={e => setForm(f=>({...f,net_profit:e.target.value}))}
+                  className="w-32 px-3 py-1.5 rounded-xl border border-gray-200 bg-white text-[13px] font-semibold text-gray-900 outline-none focus:border-gray-400 transition-colors" />
+                <button type="button" onClick={() => setForm(f=>({...f,manual_profit:false}))}
+                  className="text-[11px] text-gray-400 hover:text-gray-600 transition-colors">Auto</button>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2">
+                <span className={`text-[15px] font-bold ${profit>=0?"text-emerald-600":"text-red-500"}`}>
+                  = {profit>=0?"+":""}{profit.toLocaleString("fr-FR")} F
+                </span>
+                <button type="button" onClick={() => setForm(f=>({...f,manual_profit:true}))}
+                  className="text-[11px] text-gray-400 hover:text-gray-600 transition-colors">Modifier</button>
+              </div>
+            )}
+          </div>
+        );
+      })()}
+
+      <div>
+        <label className="block text-[11px] text-gray-400 mb-1">Notes / Détails</label>
+        <textarea value={form.notes} rows={3} maxLength={600}
+          placeholder="Détails de l'opération…"
+          onChange={e => setForm(f=>({...f,notes:e.target.value}))}
+          className="w-full px-3 py-2.5 rounded-xl border border-gray-200 bg-white text-[13px] text-gray-900 outline-none focus:border-gray-400 placeholder:text-gray-300 transition-colors resize-none" />
+      </div>
+
+      <div className="flex gap-2 pb-1">
+        <button type="button" onClick={handleSave} disabled={saving}
+          className="flex-1 py-3 rounded-xl bg-gray-900 text-white text-[13px] font-semibold hover:bg-gray-800 transition-colors disabled:opacity-50">
+          {saving ? "Enregistrement…" : editOp ? "Enregistrer les modifications" : "Ajouter l'opération"}
+        </button>
+        <button type="button" onClick={cancel}
+          className="px-5 py-3 rounded-xl border border-gray-200 text-[13px] font-semibold text-gray-600 hover:bg-gray-50 transition-colors">
+          Annuler
+        </button>
+      </div>
+    </div>
+  );
+
+  return (
+    <>
+      <div className="p-5 md:p-7 max-w-3xl space-y-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-[20px] font-headline font-black text-gray-900">Opérations</h1>
+            <p className="text-[12px] text-gray-400 mt-0.5">{ops.length} opération{ops.length !== 1 ? "s" : ""}</p>
+          </div>
+          <button onClick={openNew}
+            className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-gray-900 text-white text-[12px] font-semibold hover:bg-gray-800 transition-colors">
+            <span className="material-symbols-outlined text-[15px]">add</span>
+            Nouvelle
+          </button>
+        </div>
+
+        <div className="space-y-2">
+          <div className="relative">
+            <span className="material-symbols-outlined text-gray-300 text-[17px] absolute left-3.5 top-1/2 -translate-y-1/2">search</span>
+            <input value={search} onChange={e => setSearch(e.target.value)}
+              placeholder="Rechercher un produit ou lieu…"
+              className="w-full pl-9 pr-4 py-2.5 rounded-full border border-gray-200 bg-white text-[13px] text-gray-900 outline-none focus:border-gray-400 placeholder:text-gray-300 transition-colors" />
+          </div>
+          <div className="flex gap-2">
+            {(["all", "completed", "partial"] as const).map(f => (
+              <button key={f} onClick={() => setFilter(f)}
+                className={`px-4 py-1.5 rounded-full text-[12px] font-semibold transition-colors ${
+                  filter === f ? "bg-gray-900 text-white" : "bg-white border border-gray-200 text-gray-500 hover:border-gray-400 hover:text-gray-700"
+                }`}>
+                {f === "all" ? "Toutes" : f === "completed" ? "Soldées" : "En attente"}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+          {ops.length === 0 ? (
+            <div className="px-5 py-12 text-center">
+              <span className="material-symbols-outlined text-4xl text-gray-200 block mb-2">inventory_2</span>
+              <p className="text-[13px] text-gray-400 mb-3">Aucune opération</p>
+              <button onClick={openNew} className="text-[12px] font-semibold text-gray-900 underline underline-offset-2">
+                Créer la première
+              </button>
+            </div>
+          ) : paginated.length === 0 ? (
+            <div className="px-5 py-10 text-center">
+              <p className="text-[13px] text-gray-400 mb-2">Aucun résultat</p>
+              <button onClick={() => { setSearch(""); setFilter("all"); }}
+                className="text-[12px] text-gray-500 underline underline-offset-2">
+                Effacer les filtres
+              </button>
+            </div>
+          ) : (
+            <div className="divide-y divide-gray-100">
+              {paginated.map(op => (
+                <OpRow key={op.id} op={op} onEdit={openEdit} onDelete={handleDelete} deleting={deleting} />
+              ))}
+            </div>
+          )}
+
+          {totalPages > 1 && (
+            <div className="flex items-center justify-between px-4 py-3 border-t border-gray-100 bg-gray-50/50">
+              <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}
+                className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-[12px] font-medium text-gray-600 hover:bg-white hover:border hover:border-gray-200 disabled:opacity-30 disabled:cursor-default transition-all">
+                <span className="material-symbols-outlined text-[15px]">chevron_left</span>
+                Précédent
+              </button>
+              <div className="flex items-center gap-1">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
+                  <button key={p} onClick={() => setPage(p)}
+                    className={`w-7 h-7 rounded-md text-[12px] font-semibold transition-colors ${
+                      p === page ? "bg-gray-900 text-white" : "text-gray-400 hover:bg-gray-100"
+                    }`}>
+                    {p}
+                  </button>
+                ))}
+              </div>
+              <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages}
+                className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-[12px] font-medium text-gray-600 hover:bg-white hover:border hover:border-gray-200 disabled:opacity-30 disabled:cursor-default transition-all">
+                Suivant
+                <span className="material-symbols-outlined text-[15px]">chevron_right</span>
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
       <AnimatePresence>
         {showForm && (
-          <motion.div key="form"
-            initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.15 }}
-            className="bg-white rounded-xl border border-gray-200">
-            <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
-              <p className="text-[14px] font-semibold text-gray-900">
-                {editOp ? `Modifier · Opération #${editOp.operation_number ?? "?"}` : "Nouvelle opération"}
-              </p>
-              <button onClick={cancel} className="w-7 h-7 flex items-center justify-center text-gray-400 hover:bg-gray-100 rounded-lg transition-colors">
-                <span className="material-symbols-outlined text-[16px]">close</span>
-              </button>
+          <>
+            <motion.div
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/50 backdrop-blur-[2px] z-40"
+              onClick={cancel}
+            />
+            <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }}
+                transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                className="w-full sm:max-w-lg max-h-[92vh] sm:max-h-[85vh] bg-white sm:rounded-2xl rounded-t-2xl overflow-hidden flex flex-col shadow-2xl">
+                <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 shrink-0">
+                  <p className="text-[14px] font-semibold text-gray-900">
+                    {editOp ? `Modifier · Opération #${editOp.operation_number ?? "?"}` : "Nouvelle opération"}
+                  </p>
+                  <button onClick={cancel}
+                    className="w-7 h-7 flex items-center justify-center text-gray-400 hover:bg-gray-100 rounded-lg transition-colors">
+                    <span className="material-symbols-outlined text-[16px]">close</span>
+                  </button>
+                </div>
+                <div className="overflow-y-auto flex-1">
+                  {FormBody}
+                </div>
+              </motion.div>
             </div>
-
-            <div className="p-5 space-y-5">
-              <div>
-                <p className={lbl}>Identification</p>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3">
-                  <div>
-                    <label className="block text-[11px] text-gray-400 mb-1">N° opération</label>
-                    <input type="number" value={form.operation_number} placeholder="5" min="1"
-                      onChange={e => setForm(f=>({...f,operation_number:e.target.value}))} className={inp} />
-                  </div>
-                  <div className="sm:col-span-2">
-                    <label className="block text-[11px] text-gray-400 mb-1">Produit *</label>
-                    <input value={form.product_name} placeholder="Mangue, Oignons, Madd…"
-                      onChange={e => setForm(f=>({...f,product_name:e.target.value}))} className={inp} />
-                  </div>
-                  <div>
-                    <label className="block text-[11px] text-gray-400 mb-1">Date</label>
-                    <input type="date" value={form.operation_date}
-                      onChange={e => setForm(f=>({...f,operation_date:e.target.value}))} className={inp} />
-                  </div>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  <div>
-                    <label className="block text-[11px] text-gray-400 mb-1">Icône</label>
-                    <div className="flex gap-1.5 flex-wrap">
-                      {EMOJIS.map(e => (
-                        <button key={e} type="button" onClick={() => setForm(f=>({...f,product_emoji:e}))}
-                          className={`w-8 h-8 rounded-lg text-base flex items-center justify-center transition-all ${form.product_emoji===e?"bg-gray-900":"bg-gray-100 hover:bg-gray-200"}`}>
-                          {e}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-[11px] text-gray-400 mb-1">Lieu</label>
-                    <input value={form.location} placeholder="DIOUROU, Thiès…"
-                      onChange={e => setForm(f=>({...f,location:e.target.value}))} className={inp} />
-                  </div>
-                  <div>
-                    <label className="block text-[11px] text-gray-400 mb-1">Quantité</label>
-                    <div className="flex">
-                      <input type="number" value={form.quantity} placeholder="300" min="0"
-                        onChange={e => setForm(f=>({...f,quantity:e.target.value}))}
-                        className="flex-1 w-0 px-3 py-2.5 rounded-l-lg border border-r-0 border-gray-200 bg-white text-[13px] text-gray-900 outline-none focus:border-gray-400 placeholder:text-gray-300 transition-colors" />
-                      <select value={form.quantity_unit} onChange={e => setForm(f=>({...f,quantity_unit:e.target.value}))}
-                        className="px-2 py-2.5 rounded-r-lg border border-gray-200 bg-white text-[12px] text-gray-600 outline-none focus:border-gray-400 transition-colors shrink-0">
-                        {UNITS.map(u=><option key={u}>{u}</option>)}
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <p className={lbl}>Coûts</p>
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-[11px] text-gray-400 mb-1">Montant achat (FCFA) *</label>
-                    <input type="number" value={form.purchase_amount} placeholder="48 000" min="0"
-                      onChange={e => setForm(f=>({...f,purchase_amount:e.target.value}))} className={inp} />
-                  </div>
-                  <div>
-                    <label className="block text-[11px] text-gray-400 mb-1">Transport (FCFA)</label>
-                    <input type="number" value={form.transport_amount} placeholder="22 000" min="0"
-                      onChange={e => setForm(f=>({...f,transport_amount:e.target.value}))} className={inp} />
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <p className={lbl}>Vente & Encaissement</p>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  <div>
-                    <label className="block text-[11px] text-gray-400 mb-1">Total vente (FCFA)</label>
-                    <input type="number" value={form.total_sale} placeholder="90 000" min="0"
-                      onChange={e => setForm(f=>({...f,total_sale:e.target.value}))} className={inp} />
-                  </div>
-                  <div>
-                    <label className="block text-[11px] text-gray-400 mb-1">Encaissé (FCFA)</label>
-                    <input type="number" value={form.collected_amount} placeholder="90 000" min="0"
-                      onChange={e => setForm(f=>({...f,collected_amount:e.target.value}))} className={inp} />
-                  </div>
-                  <div>
-                    <label className="block text-[11px] text-gray-400 mb-1">Reste à encaisser</label>
-                    <input type="number" value={form.to_collect_amount} readOnly
-                      className="w-full px-3 py-2.5 rounded-lg border border-gray-100 bg-gray-50 text-[13px] text-gray-400 outline-none cursor-default" />
-                  </div>
-                </div>
-              </div>
-
-              {(parseInt(form.purchase_amount)>0 || parseInt(form.total_sale)>0) && (() => {
-                const cost   = (parseInt(form.purchase_amount)||0) + (parseInt(form.transport_amount)||0);
-                const profit = (parseInt(form.total_sale)||0) - cost;
-                return (
-                  <div className="flex items-center justify-between gap-3 px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 flex-wrap">
-                    <p className="text-[11.5px] text-gray-500">
-                      {(parseInt(form.total_sale)||0).toLocaleString("fr-FR")} F − {cost.toLocaleString("fr-FR")} F (coûts)
-                    </p>
-                    {form.manual_profit ? (
-                      <div className="flex items-center gap-2">
-                        <input type="number" value={form.net_profit}
-                          onChange={e => setForm(f=>({...f,net_profit:e.target.value}))}
-                          className="w-32 px-3 py-1.5 rounded-lg border border-gray-200 bg-white text-[13px] font-semibold text-gray-900 outline-none focus:border-gray-400 transition-colors" />
-                        <button type="button" onClick={() => setForm(f=>({...f,manual_profit:false}))}
-                          className="text-[11px] text-gray-400 hover:text-gray-600 transition-colors">Auto</button>
-                      </div>
-                    ) : (
-                      <div className="flex items-center gap-2">
-                        <span className={`text-[15px] font-bold ${profit>=0?"text-emerald-600":"text-red-500"}`}>
-                          = {profit>=0?"+":""}{profit.toLocaleString("fr-FR")} F
-                        </span>
-                        <button type="button" onClick={() => setForm(f=>({...f,manual_profit:true}))}
-                          className="text-[11px] text-gray-400 hover:text-gray-600 transition-colors">Modifier</button>
-                      </div>
-                    )}
-                  </div>
-                );
-              })()}
-
-              <div>
-                <label className="block text-[11px] text-gray-400 mb-1">Notes / Détails</label>
-                <textarea value={form.notes} rows={2} maxLength={600}
-                  placeholder="Détails de l'opération…"
-                  onChange={e => setForm(f=>({...f,notes:e.target.value}))}
-                  className="w-full px-3 py-2.5 rounded-lg border border-gray-200 bg-white text-[13px] text-gray-900 outline-none focus:border-gray-400 placeholder:text-gray-300 transition-colors resize-none" />
-              </div>
-
-              <div className="flex gap-2">
-                <button type="button" onClick={handleSave} disabled={saving}
-                  className="px-5 py-2.5 rounded-lg bg-gray-900 text-white text-[13px] font-semibold hover:bg-gray-800 transition-colors disabled:opacity-50">
-                  {saving ? "Enregistrement…" : editOp ? "Enregistrer" : "Ajouter l'opération"}
-                </button>
-                <button type="button" onClick={cancel}
-                  className="px-4 py-2.5 rounded-lg border border-gray-200 text-[13px] font-semibold text-gray-600 hover:bg-gray-50 transition-colors">
-                  Annuler
-                </button>
-              </div>
-            </div>
-          </motion.div>
+          </>
         )}
       </AnimatePresence>
-
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-        {ops.length === 0 ? (
-          <div className="px-5 py-12 text-center">
-            <span className="material-symbols-outlined text-4xl text-gray-200 block mb-2">inventory_2</span>
-            <p className="text-[13px] text-gray-400 mb-3">Aucune opération</p>
-            <button onClick={openNew} className="text-[12px] font-semibold text-gray-900 underline underline-offset-2">
-              Créer la première
-            </button>
-          </div>
-        ) : paginated.length === 0 ? (
-          <div className="px-5 py-10 text-center">
-            <p className="text-[13px] text-gray-400 mb-2">Aucun résultat</p>
-            <button onClick={() => { setSearch(""); setFilter("all"); }}
-              className="text-[12px] text-gray-500 underline underline-offset-2">
-              Effacer les filtres
-            </button>
-          </div>
-        ) : (
-          <div className="divide-y divide-gray-100">
-            {paginated.map(op => (
-              <OpRow key={op.id} op={op} onEdit={openEdit} onDelete={handleDelete} deleting={deleting} />
-            ))}
-          </div>
-        )}
-
-        {/* Pagination */}
-        {totalPages > 1 && (
-          <div className="flex items-center justify-between px-4 py-3 border-t border-gray-100 bg-gray-50/50">
-            <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}
-              className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-[12px] font-medium text-gray-600 hover:bg-white hover:border hover:border-gray-200 disabled:opacity-30 disabled:cursor-default transition-all">
-              <span className="material-symbols-outlined text-[15px]">chevron_left</span>
-              Précédent
-            </button>
-            <div className="flex items-center gap-1">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
-                <button key={p} onClick={() => setPage(p)}
-                  className={`w-7 h-7 rounded-md text-[12px] font-semibold transition-colors ${
-                    p === page ? "bg-gray-900 text-white" : "text-gray-400 hover:bg-gray-100"
-                  }`}>
-                  {p}
-                </button>
-              ))}
-            </div>
-            <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages}
-              className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-[12px] font-medium text-gray-600 hover:bg-white hover:border hover:border-gray-200 disabled:opacity-30 disabled:cursor-default transition-all">
-              Suivant
-              <span className="material-symbols-outlined text-[15px]">chevron_right</span>
-            </button>
-          </div>
-        )}
-      </div>
-    </div>
+    </>
   );
 }
 
